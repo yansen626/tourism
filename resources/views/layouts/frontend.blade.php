@@ -9,9 +9,9 @@
     <!-- fonts -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,500' rel='stylesheet' type='text/css'>
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}" />
     <!-- fontawesome css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/frontend/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('css/font-awesome.min.css') }}" />
     <!-- revolution banner css settings -->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('lib/rs-plugin/css/settings.css') }}" media="screen" />
     <!-- style css -->
@@ -227,7 +227,7 @@
 <!-- jquery-1.11.3 -->
 <script src="{{ URL::asset('js/frontend/jquery-1.11.3.min.js') }}"></script>
 <!-- bootstrap js -->
-<script src="{{ URL::asset('js/frontend/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
 <!-- revolution js -->
 <script type="text/javascript" src="{{ URL::asset('lib/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('lib/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
