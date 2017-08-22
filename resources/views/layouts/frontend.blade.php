@@ -11,7 +11,7 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}" />
     <!-- fontawesome css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('css/font-awesome/font-awesome.min.css') }}" />
     <!-- revolution banner css settings -->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('lib/rs-plugin/css/settings.css') }}" media="screen" />
     <!-- style css -->
@@ -29,200 +29,18 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
-<!-- Header-Section-Strat  -->
-<header>
-    <div class="container">
-        <div class="header_top">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="header_top_left float-left">
-                        <ul class="social_icon">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        </ul>
-                        <ul class="social_others">
-                            <li><a><i class="fa fa-phone"></i>+8801711223344</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>support@domain.com</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="header_top_right text-right">
-                        <ul>
-                            <li><a href="#">Account</a></li>
-                            <li><a href="#">Wishlist</a></li>
-                            <li><a href="#">Register / Login</a></li>
-                            <li class="searchbox">
-                                <input type="search" placeholder="Search......" name="search" class="searchbox-input" onkeyup="buttonUp();" required>
-                                <input type="submit" class="searchbox-submit" value="">
-                                <span class="searchbox-icon"><i class="fa fa-search"></i></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row mega_relative">
-            <div class="col-xs-12 col-sm-2">
-                <div class="logo head_lo">
-                    <a href="index.html"><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="Logo" /></a>
-                </div>
-            </div>
-            <div class="col-sm-10">
-                <div class="mainmenu float-right">
-                    <nav>
-                        <ul>
-                            <li><a href="index.html">HOME</a></li>
-                            <li><a href="#"><i>NEW</i></a></li>
-                            <li><a href="#">FEATURED</a></li>
-                            <li><a href="#">BLOG</a></li>
-                            <li><a href="#">BRAND</a></li>
-                            <li><a href="#">OFFERS</a></li>
-                            <li><a href="contact.html">CONTACT</a></li>
-                            <li class="shop_icon">
-                                <a href="checkout.html"><img src="{{ URL::asset('frontend_images/menu_icon_img.png') }}" alt="" /></a>
-                                <span>10</span>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 
-<!-- mobile-menu-area start -->
-<div class="mobile-menu-area">
-    <div class="container">
-        <div class="mobile-menu">
-            <nav id="dropdown">
-                <ul>
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="#">NEW</a></li>
-                    <li><a href="#">FEATURED</a></li>
-                    <li><a href="#">BLOG</a></li>
-                    <li><a href="#">BRAND</a></li>
-                    <li><a href="#">OFFERS</a></li>
-                    <li><a href="#">CONTACT</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
-<!-- mobile-menu-area end -->
-<!-- Header-Section-End  -->
-
+@include('frontend.partials._header')
 
 <!-- Body Here -->
 <body>
 @yield('body')
 </body>
+
 <!-- Footer-Section-Start -->
-<footer>
-    <div class="footer_top footer-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-sm-6">
-                    <div class="newsletter">
-                        <h4>Sign up for newSletter</h4>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-sm-6">
-                    <div class="newsletter text-right">
-                        <input class="news_input" type="text" value="" placeholder="Email Address"/>
-                        <input class="subscribe_btn" type="button" value="subscribe"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer_middel footer-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-3">
-                    <div class="footer_link address">
-                        <p>Elixir fashion</p>
-                        <ul>
-                            <li><span>Addresss: </span>ipsum 125 Pall Mall, London, England</li>
-                            <li><span>Phone: </span>(0123) 345 6789</li>
-                            <li><span>Email: </span>info@domain.com</li>
-                        </ul>
-                    </div>
-                    <div class="footer_icon">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="footer_link">
-                        <p>My account</p>
-                        <ul>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="cart.html">Shopping Cart</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="#">My Credit Slip</a></li>
-                            <li><a href="#">Account Information</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="footer_link res_mar">
-                        <p>customer support</p>
-                        <ul>
-                            <li><a href="#">7/24 Hour Support</a></li>
-                            <li><a href="#">Refound Policy</a></li>
-                            <li><a href="#">Shipping Guide</a></li>
-                            <li><a href="#">International Shipping</a></li>
-                            <li><a href="#">Career</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="footer_link res_mar">
-                        <p>information</p>
-                        <ul>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery Information</a></li>
-                            <li><a href="#">Company Site Map</a></li>
-                            <li><a href="#">Privecy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer_bottom footer-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="copyright">
-                        <p>Copyright 2015 <a href="http://designscrazed.org/">Allie</a> All rights reserved</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="copyright_icon text-right">
-                        <a href="#"><img src="{{ URL::asset('frontend_images/footer/paypal-1.png') }}" alt="" /></a>
-                        <a href="#"><img src="{{ URL::asset('frontend_images/footer/paypal-2.png') }}" alt="" /></a>
-                        <a href="#"><img src="{{ URL::asset('frontend_images/footer/paypal-3.png') }}" alt="" /></a>
-                        <a href="#"><img src="{{ URL::asset('frontend_images/footer/paypal-4.png') }}" alt="" /></a>
-                        <a href="#"><img src="{{ URL::asset('frontend_images/footer/paypal-5.png') }}" alt="" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+@include('frontend.partials._footer')
 <!-- Footer-Section-End -->
+
 <!-- All js Files Here -->
 <!-- jquery-1.11.3 -->
 <script src="{{ URL::asset('js/frontend/jquery-1.11.3.min.js') }}"></script>
