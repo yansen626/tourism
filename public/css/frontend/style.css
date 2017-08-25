@@ -52,7 +52,7 @@ Version: 1.0
 /*============ ../fonts ==========*/
 @font-face {
     font-family: 'nexa_bookregular';
-    src: url('./fonts/nexa-book.eot');
+    src: url('../fonts/nexa-book.eot');
     src: url('../fonts/nexa-book.eot?#iefix') format('embedded-opentype'),
          url('../fonts/nexa-book.woff2') format('woff2'),
          url('../fonts/nexa-book.woff') format('woff'),
