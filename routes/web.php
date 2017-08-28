@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('frontend/home');
-});
+// Frontend Routing
+Route::get('/', 'Frontend\HomeController@home');
 
+// End Frontend Routing
+
+
+
+
+// Backend Routing
 Route::get('/admin', function () {
     return view('admin/dashboard');
 });
@@ -26,3 +31,5 @@ Route::get('/admin/login', function (){
 Route::get('/admin/user', function (){
     return view('admin/user');
 });
+
+// End Backend Routing
