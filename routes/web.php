@@ -22,12 +22,14 @@ Route::get('/', 'Frontend\HomeController@home');
 // Backend Routing
 Route::get('/admin', function () {
     return view('admin/dashboard');
-});
+})->name('admin-dashboard');
 
-Route::get('/admin/login', function (){
+Route::get('/lowids/login', function (){
     return view('admin/login');
-});
+})->name('login-admin');
 
 Route::get('/admin/user', 'Admin\UserManagementController@index');
+
+Route::post('/admin/login-on-process', 'Auth\LoginAdminController@login');
 
 // End Backend Routing

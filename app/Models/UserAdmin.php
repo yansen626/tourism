@@ -18,7 +18,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $first_name
  * @property string $last_name
  * @property int $status_id
- * @property string $api_token
  * @property \Carbon\Carbon $created_on
  * @property string $created_by
  * @property \Carbon\Carbon $modified_on
@@ -43,8 +42,7 @@ class UserAdmin extends Eloquent
 	];
 
 	protected $hidden = [
-		'password',
-		'api_token'
+		'password'
 	];
 
 	protected $fillable = [
@@ -53,7 +51,6 @@ class UserAdmin extends Eloquent
 		'first_name',
 		'last_name',
 		'status_id',
-		'api_token',
 		'created_on',
 		'created_by',
 		'modified_on',

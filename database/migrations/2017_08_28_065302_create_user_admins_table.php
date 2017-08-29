@@ -20,7 +20,6 @@ class CreateUserAdminsTable extends Migration {
 			$table->string('first_name', 100)->nullable();
 			$table->string('last_name', 100)->nullable();
 			$table->integer('status_id')->index('FK_user_admins_status_id_statuses_idx');
-			$table->string('api_token', 191)->nullable();
 			$table->dateTime('created_on')->nullable();
 			$table->string('created_by', 36)->nullable();
 			$table->dateTime('modified_on')->nullable();
