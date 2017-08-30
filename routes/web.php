@@ -43,4 +43,12 @@ Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard')
 
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout');
 
+//Paymentmethods
+Route::get('/admin/paymentmethods', 'Admin\PaymentMethodController@index');
+Route::get('/admin/paymentmethods/create', 'Admin\PaymentMethodController@create');
+Route::post('/admin/paymentmethods', 'Admin\PaymentMethodController@store');
+Route::get('/admin/paymentmethods/edit/{id}', 'Admin\PaymentMethodController@edit');
+Route::post('/admin/paymentmethods/{id}', 'Admin\PaymentMethodController@update');
+Route::get('/admin/paymentmethods/delete/{id}', 'Admin\PaymentMethodController@destroy');
+
 // End Backend Routing
