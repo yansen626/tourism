@@ -65,6 +65,7 @@ class Transaction extends Eloquent
 	protected $fillable = [
 		'user_id',
 		'payment_method_id',
+        'invoice',
 		'payment_code',
 		'total_payment',
 		'total_price',

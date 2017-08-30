@@ -59,50 +59,31 @@
                                 <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
-                                    <th>Weight</th>
-                                    <th>Normal Price</th>
-                                    <th>Discount</th>
-                                    <th>Flat Discount</th>
-                                    <th>Final Price</th>
-                                    <th>Created Date</th>
+                                    <th>Invoice</th>
+                                    <th>Customer Name</th>
+                                    <th>Payment Method</th>
+                                    <th>Delivery</th>
+                                    <th>Total Price</th>
+                                    <th>Delivery Fee</th>
+                                    <th>Total Payment</th>
+                                    <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{$idx = 1}}
-                                @foreach($products as $product)
+                                {{ $idx = 1 }}
+                                @foreach($transactions as $trx)
                                     <tr>
-                                        <td>{{$idx}}</td>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->weight}} gr</td>
-                                        <td>Rp {{$product->price}}</td>
-                                        <td>
-                                            @if(!empty($product->discount))
-                                                {{$product->discount}}
-                                            @else
-                                                -
-                                            @endif
-
-                                        </td>
-                                        <td>
-                                            @if(!empty($product->discount_flat))
-                                                {{$product->discount_flat}}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if(!empty($product->price_discounted))
-                                                {{$product->price_discounted}}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
-                                        </td>
+                                        <td>{{ $idx }}</td>
+                                        <td>{{ $trx->invoice }}</td>
+                                        <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
+                                        <td>{{ $trx->payment_method->description }}</td>
+                                        <td>{{ $trx->courier->description }}&nbsp;{{ $trx->delivery_type->description }}</td>
+                                        <td>{{ $trx->total_price }}</td>
+                                        <td>{{ $trx->delivery_fee }}</td>
+                                        <td>{{ $trx->total_payment }}</td>
+                                        <td>{{ $trx->status->description }}</td>
                                     </tr>
-                                    {{$idx++}}
+                                    {{ $idx++ }}
                                 @endforeach
                                 </tbody>
                             </table>

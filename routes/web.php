@@ -35,6 +35,12 @@ Route::get('/admin/user', 'Admin\UserManagementController@index');
 
 Route::get('/admin/product', 'Admin\ProductController@index');
 
-Route::post('/admin', 'Auth\LoginAdminController@login');
+Route::get('/admin/transaction', 'Admin\TransactionController@index');
+
+Route::post('/admin/login-success', 'Auth\LoginAdminController@login');
+
+Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
+
+Route::get('/admin/logout', 'Auth\LoginAdminController@logout');
 
 // End Backend Routing

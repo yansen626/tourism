@@ -14,6 +14,7 @@ use App\Models\UserAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginAdminController extends Controller
 {
@@ -65,5 +66,13 @@ class LoginAdminController extends Controller
 //        }else{
 //            return redirect()->route('admin-dashboard');
 //        }
+    }
+
+    public function logout(){
+        Session::forget('admin_id');
+        Session::forget('admin_lname');
+        Session::forget('admin_id');
+        Session::forget('admin_email');
+        return redirect()->route('login-admin');
     }
 }

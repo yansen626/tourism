@@ -13,11 +13,7 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function dashboardShow($test){
-        if(isset($test)){
-            return view('admin.dashboard')->with('test', $test);
-        }else{
-            echo "failed";
-        }
+    public function index(){
+        return view('admin.dashboard');
     }
 }
