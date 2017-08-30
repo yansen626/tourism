@@ -98,7 +98,9 @@
                                                 -
                                             @endif
                                         </td>
-                                        <td>{{$product->created_on}}</td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($product->created_on)->format('j F Y')}}
+                                        </td>
                                     </tr>
                                     {{$idx++}}
                                 @endforeach

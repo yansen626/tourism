@@ -38,15 +38,16 @@ class LoginAdminController extends Controller
 
         $userAdmin = UserAdmin::where('email', '=', $email)->first();
 
-        $msg = "Not Found!";
+        $failed = "failed";
         if(!isset($userAdmin)){
             //return redirect()->route('login-admin', compact('msg'));
-            return view('admin.login')->with('msg', $msg);
+            //return view('admin.login')->with('msg', $msg);
+            return redirect()->route('login-admin-failed', $failed);
         }
 
         if (!Hash::check($pass, $userAdmin->password)) {
             //return redirect()->route('login-admin', compact('msg'));
-            return view('admin.login')->with('msg', $msg);
+            return redirect()->route('login-admin-failed', $failed);
         }
         else
         {

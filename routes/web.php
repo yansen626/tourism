@@ -26,6 +26,11 @@ Route::get('/lowids/login', function (){
     return view('admin/login');
 })->name('login-admin');
 
+Route::get('/lowids/login/{failed}', function ($failed){
+    $msg = "Not Found!";
+    return view('admin/login')->with('msg', $msg);
+})->name('login-admin-failed');
+
 Route::get('/admin/user', 'Admin\UserManagementController@index');
 
 Route::get('/admin/product', 'Admin\ProductController@index');

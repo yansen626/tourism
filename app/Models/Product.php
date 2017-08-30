@@ -99,8 +99,4 @@ class Product extends Eloquent
             return number_format($this->attributes['price_discounted'], 0, ",", ".");
         }
     }
-
-    public function getCreatedOnAttribute(){
-
-    }
 }
