@@ -1,62 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home || Elixir Fashion</title>
-    <!-- All css Files Here -->
-    <!-- fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,500' rel='stylesheet' type='text/css'>
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}" />
-    <!-- fontawesome css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/font-awesome/font-awesome.min.css') }}" />
-    <!-- revolution banner css settings -->
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('lib/rs-plugin/css/settings.css') }}" media="screen" />
-    <!-- style css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/frontend/style.css') }}">
-    <!-- mobilemenu css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/frontend/meanmenu.min.css') }}"/>
-    <!-- responsive css -->
-    <link rel="stylesheet" href="{{ URL::asset('css/frontend/responsive.css') }}"/>
-    <!-- favicon -->
-    <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.png') }}" />
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <title>Glammy | Modern eCommerce html Template </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- CSS -->
+    <link href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/frontend/flexslider.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/frontend/fancySelect.css') }}" rel="stylesheet" media="screen, projection" >
+    <link href="{{ URL::asset('css/frontend/animate.css') }}" rel="stylesheet" media="all">
+    <link href="{{ URL::asset('css/frontend/style.css') }}" rel="stylesheet">
+
+    <!-- FONTS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
 </head>
 
-@include('frontend.partials._header')
-
-<!-- Body Here -->
 <body>
-@yield('body')
-</body>
 
-<!-- Footer-Section-Start -->
-@include('frontend.partials._footer')
-<!-- Footer-Section-End -->
+<!-- PRELOADER -->
+<div id="preloader"><img src="{{ URL::asset('frontend_images/preloader.gif') }}" alt="" /></div>
+<!-- //PRELOADER -->
+<div class="preloader_hide">
 
-<!-- All js Files Here -->
-<!-- jquery-1.11.3 -->
-<script src="{{ URL::asset('js/frontend/jquery-1.11.3.min.js') }}"></script>
-<!-- bootstrap js -->
-<script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-<!-- revolution js -->
-<script type="text/javascript" src="{{ URL::asset('lib/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('lib/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
-<script src="{{ URL::asset('lib/rs-plugin/rs.home.js') }}"></script>
-<!-- search-box js -->
-<script src="{{ URL::asset('js/frontend/search-box.js') }}"></script>
-<!-- scrollUp js -->
-<script src="{{ URL::asset('js/frontend/jquery.scrollUp.js') }}"></script>
-<!-- mobilemenu js -->
-<script src="{{ URL::asset('js/frontend/jquery.meanmenu.js') }}"></script>
-<!-- main js -->
-<script src="{{ URL::asset('js/frontend/main.js') }}"></script>
+    <!-- PAGE -->
+    <div id="page">
+
+        <!-- HEADER -->
+        @include('frontend.partials._header')
+        <!-- //HEADER -->
+
+        @yield('body-content')
+
+        <!-- FOOTER -->
+        @include('frontend.partials._footer')
+        <!-- //FOOTER -->
+    </div>
+    <!-- //PAGE -->
+</div>
+
+<!-- TOVAR MODAL CONTENT -->
+<div id="modal-body" class="clearfix">
+    <div id="tovar_content"></div>
+    <div class="close_block"></div>
+</div><!-- TOVAR MODAL CONTENT -->
+
+<!-- SCRIPTS -->
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if IE]><html class="ie" lang="en"> <![endif]-->
+
+<script src="{{ URL::asset('js/frontend/jquery.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.sticky.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/parallax.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.flexslider-min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.jcarousel.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/fancySelect.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/animate.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/myscript.js') }}"></script>
+<script>
+    if (top != self) top.location.replace(self.location.href);
+</script>
+
 </body>
 </html>
