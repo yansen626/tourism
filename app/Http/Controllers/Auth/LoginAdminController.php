@@ -47,9 +47,17 @@ class LoginAdminController extends Controller
         if (!Hash::check($pass, $userAdmin->password)) {
             //return redirect()->route('login-admin', compact('msg'));
             return view('admin.login')->with('msg', $msg);
-        }else{
-            return redirect()->route('admin-dashboard');
         }
+        else
+        {
+            session(['admin_fname' => $userAdmin->first_name]);
+            session(['admin_lname' => $userAdmin->last_name]);
+            session(['admin_id' => $userAdmin->id]);
+            session(['admin_email' => $userAdmin->email]);
+            //return redirect()->route('admin-dashboard', "test");
+            return view('admin.dashboard')->with('test', 'testing');
+        }
+
 
 //        if(!$userAdmin->count()){
 //            return redirect()->route('login-admin', compact('msg'));

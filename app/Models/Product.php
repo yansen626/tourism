@@ -37,6 +37,8 @@ class Product extends Eloquent
 	public $incrementing = false;
 	public $timestamps = false;
 
+	//protected $dateFormat = "U";
+
 	protected $casts = [
 		'price' => 'float',
 		'discount' => 'int',
@@ -81,4 +83,24 @@ class Product extends Eloquent
 	{
 		return $this->hasMany(\App\Models\TransactionDetail::class);
 	}
+
+	public function getPriceAttribute(){
+        return number_format($this->attributes['price'], 0, ",", ".");
+    }
+
+    public function getDiscountFlatAttribute(){
+	    if(!empty($this->attributes['discount_flat'])){
+            return number_format($this->attributes['discount_flat'], 0, ",", ".");
+        }
+    }
+
+    public function getPriceDiscountedAttribute(){
+        if(!empty($this->attributes['price_discounted'])){
+            return number_format($this->attributes['price_discounted'], 0, ",", ".");
+        }
+    }
+
+    public function getCreatedOnAttribute(){
+
+    }
 }

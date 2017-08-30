@@ -20,9 +20,7 @@ Route::get('/', 'Frontend\HomeController@home');
 
 
 // Backend Routing
-Route::get('/admin', function () {
-    return view('admin/dashboard');
-})->name('admin-dashboard');
+Route::get('/admin', 'Admin\DashboardController@dashboardShow')->name('admin-dashboard');
 
 Route::get('/lowids/login', function (){
     return view('admin/login');
@@ -30,6 +28,8 @@ Route::get('/lowids/login', function (){
 
 Route::get('/admin/user', 'Admin\UserManagementController@index');
 
-Route::post('/admin/login-on-process', 'Auth\LoginAdminController@login');
+Route::get('/admin/product', 'Admin\ProductController@index');
+
+Route::post('/admin', 'Auth\LoginAdminController@login');
 
 // End Backend Routing

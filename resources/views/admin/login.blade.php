@@ -71,7 +71,7 @@
                         {{--<br />--}}
 
                         <div>
-                            <h1><i class="fa fa-paw"></i> Lowids</h1>
+                            {{--<h1><i class="fa fa-paw"></i> Lowids</h1>--}}
                             <p>©2017 All Rights Reserved. Lowids by PT Generasi Muda Gigih</p>
                         </div>
                     </div>

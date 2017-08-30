@@ -1,6 +1,15 @@
 @extends('layouts.admin')
 
 @section('dashboard')
+
+    <!-- sidebar -->
+    @include('admin.partials._sidebar')
+    <!-- sidebar -->
+
+    <!-- top navigation -->
+    @include('admin.partials._navigation')
+    <!-- /top navigation -->
+
     <!-- page content -->
     <div class="right_col" role="main">
         <div class="">
@@ -51,9 +60,12 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
-                                    <th>Price</th>
+                                    <th>Weight</th>
+                                    <th>Normal Price</th>
                                     <th>Discount</th>
                                     <th>Flat Discount</th>
+                                    <th>Final Price</th>
+                                    <th>Created Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -62,9 +74,31 @@
                                     <tr>
                                         <td>{{$idx}}</td>
                                         <td>{{$product->name}}</td>
-                                        <td>{{$product->price}}</td>
-                                        <td>{{$product->discount}}t</td>
-                                        <td>{{$product->discount_flat}}</td>
+                                        <td>{{$product->weight}} gr</td>
+                                        <td>Rp {{$product->price}}</td>
+                                        <td>
+                                            @if(!empty($product->discount))
+                                                {{$product->discount}}
+                                            @else
+                                                -
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            @if(!empty($product->discount_flat))
+                                                {{$product->discount_flat}}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($product->price_discounted))
+                                                {{$product->price_discounted}}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>{{$product->created_on}}</td>
                                     </tr>
                                     {{$idx++}}
                                 @endforeach
