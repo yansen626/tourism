@@ -25,22 +25,22 @@ Route::get('/product-list', function (){
 })->name('product-list');
 Route::get('/product-detail', function (){
     return view('frontend/show-product');
-});
+})->name('single-product');
 Route::get('/cart', function (){
     return view('frontend/carts');
-});
+})->name('cart');
 Route::get('/checkout-1', function (){
     return view('frontend/checkout-step1');
 })->name('checkout');
 Route::get('/checkout-2', function (){
     return view('frontend/checkout-step2');
-});
+})->name('checkout2');
 Route::get('/checkout-3', function (){
     return view('frontend/checkout-step3');
-});
+})->name('checkout3');
 Route::get('/checkout-4', function (){
     return view('frontend/checkout-step4');
-});
+})->name('checkout4');
 // End Frontend Routing
 
 

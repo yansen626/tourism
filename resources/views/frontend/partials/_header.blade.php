@@ -58,7 +58,7 @@
                     </ul>
                     <div class="cart_total">
                         <div class="clearfix"><span class="cart_subtotal">bag subtotal: <b>$414</b></span></div>
-                        <a class="btn active" href="{{ route('checkout') }}">Checkout</a>
+                        <a class="btn active" href="{{ route('cart') }}">View Cart</a>
                     </div>
                 </div>
             </div><!-- //SHOPPING BAG -->
