@@ -8,8 +8,24 @@
         <!-- CONTAINER -->
         <div class="container clearfix">
             <ul class="secondary_menu">
-                <li><a href="my-account.html" >my account</a></li>
-                <li><a href="my-account.html" >Register</a></li>
+                <li><a href="{{ route('login') }}" >Login</a></li>
+                <li><a href="{{ route('register') }}" >Register</a></li>
+                @if(auth()->check())
+                    <li>
+                        <span>{{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}</span>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                @endif
             </ul>
 
             <div class="live_chat"><a href="javascript:void(0);" ><i class="fa fa-comment-o"></i> Live chat</a></div>

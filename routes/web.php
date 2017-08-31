@@ -11,15 +11,21 @@
 |
 */
 
+//Build in Routes for Auth
+Auth::routes();
+
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
-Route::get('/login', function (){
+/*Route::get('/login', function (){
     return view('frontend/login');
 });
+
 Route::get('/register', function (){
     return view('frontend/register');
 });
+Route::post('/register', 'Auth\RegisterController@create');*/
+
 Route::get('/product-list', function (){
     return view('frontend/show-products');
 })->name('product-list');
@@ -87,6 +93,6 @@ Route::prefix('admin/paymentmethods')->group(function(){
 });
 
 // End Backend Routing
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
