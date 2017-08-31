@@ -10,11 +10,9 @@ namespace App\Http\Controllers\Auth;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\UserAdmin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 
 class LoginAdminController extends Controller
 {
@@ -35,9 +33,15 @@ class LoginAdminController extends Controller
         $email = $request->input('email');
         $pass = $request->input('password');
 
+        if(Auth::guard('user_admins')->attempt(['email' => $email, 'password' => $pass])){
+            return view('admin.dashboard')->with('test', 'testing');
+        }
+        else{
+            return redirect()->back()->withInput($request->only('email'));
+        }
         //error_log($passEncrypted);
 
-        $userAdmin = UserAdmin::where('email', '=', $email)->first();
+        /*$userAdmin = UserAdmin::where('email', '=', $email)->first();
 
         $failed = "failed";
         if(!isset($userAdmin)){
@@ -58,7 +62,7 @@ class LoginAdminController extends Controller
             session(['admin_email' => $userAdmin->email]);
             //return redirect()->route('admin-dashboard', "test");
             return view('admin.dashboard')->with('test', 'testing');
-        }
+        }*/
 
 
 //        if(!$userAdmin->count()){
@@ -69,10 +73,7 @@ class LoginAdminController extends Controller
     }
 
     public function logout(){
-        Session::forget('admin_id');
-        Session::forget('admin_lname');
-        Session::forget('admin_id');
-        Session::forget('admin_email');
+        Auth::guard('user_admins')->logout();
         return redirect()->route('login-admin');
     }
 }

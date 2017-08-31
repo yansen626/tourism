@@ -12,7 +12,7 @@
 */
 
 // Frontend Routing
-Route::get('/', 'Frontend\HomeController@home');
+Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
 // End Frontend Routing
 
@@ -41,14 +41,19 @@ Route::post('/admin/login-success', 'Auth\LoginAdminController@login');
 
 Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
 
-Route::get('/admin/logout', 'Auth\LoginAdminController@logout');
+Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
 
 //Paymentmethods
-Route::get('/admin/paymentmethods', 'Admin\PaymentMethodController@index');
-Route::get('/admin/paymentmethods/create', 'Admin\PaymentMethodController@create');
-Route::post('/admin/paymentmethods', 'Admin\PaymentMethodController@store');
-Route::get('/admin/paymentmethods/edit/{id}', 'Admin\PaymentMethodController@edit');
-Route::post('/admin/paymentmethods/{id}', 'Admin\PaymentMethodController@update');
-Route::get('/admin/paymentmethods/delete/{id}', 'Admin\PaymentMethodController@destroy');
+Route::prefix('admin/paymentmethods')->group(function(){
+    Route::get('/', 'Admin\PaymentMethodController@index');
+    Route::post('/', 'Admin\PaymentMethodController@store');
+    Route::get('/create', 'Admin\PaymentMethodController@create');
+    Route::get('/edit/{id}', 'Admin\PaymentMethodController@edit');
+    Route::post('/{id}', 'Admin\PaymentMethodController@update');
+    Route::get('/delete/{id}', 'Admin\PaymentMethodController@destroy');
+});
 
 // End Backend Routing
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

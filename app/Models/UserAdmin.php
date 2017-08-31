@@ -7,8 +7,8 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Class UserAdmin
  * 
@@ -27,38 +27,33 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class UserAdmin extends Eloquent
+class UserAdmin extends Authenticatable
 {
-	public $incrementing = false;
-	public $timestamps = false;
+    use Notifiable;
 
-	protected $casts = [
-		'status_id' => 'int'
-	];
+    protected $guard = 'user_admins';
 
-	protected $dates = [
-		'created_on',
-		'modified_on'
-	];
+    protected $table = 'user_admins';
 
-	protected $hidden = [
-		'password'
-	];
+    protected $fillable = [
+        'email',
+        'password',
+        'first_name',
+        'last_name',
+        'phone',
+        'status_id',
+        'created_on',
+        'created_by',
+        'modified_on',
+        'modified_by'
+    ];
 
-	protected $fillable = [
-		'email',
-		'password',
-		'first_name',
-		'last_name',
-		'status_id',
-		'created_on',
-		'created_by',
-		'modified_on',
-		'modified_by'
-	];
-
-	public function status()
-	{
-		return $this->belongsTo(\App\Models\Status::class);
-	}
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password'
+    ];
 }
