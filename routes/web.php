@@ -14,6 +14,33 @@
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
+Route::get('/login', function (){
+    return view('frontend/login');
+});
+Route::get('/register', function (){
+    return view('frontend/register');
+});
+Route::get('/product-list', function (){
+    return view('frontend/show-products');
+})->name('product-list');
+Route::get('/product-detail', function (){
+    return view('frontend/show-product');
+});
+Route::get('/cart', function (){
+    return view('frontend/carts');
+});
+Route::get('/checkout-1', function (){
+    return view('frontend/checkout-step1');
+})->name('checkout');
+Route::get('/checkout-2', function (){
+    return view('frontend/checkout-step2');
+});
+Route::get('/checkout-3', function (){
+    return view('frontend/checkout-step3');
+});
+Route::get('/checkout-4', function (){
+    return view('frontend/checkout-step4');
+});
 // End Frontend Routing
 
 
