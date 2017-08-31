@@ -17,13 +17,22 @@
     <link href="{{ URL::asset('css/admin/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{ URL::asset('css/admin/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-
+    <!-- bootstrap-wysiwyg -->
+    <link href="{{ URL::asset('css/admin/google-code-prettify/prettify.min.css') }}" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="{{ URL::asset('css/admin/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
     <!-- JQVMap -->
     <link href="{{ URL::asset('css/admin/jqvmap/jqvmap.min.css') }}" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="{{ URL::asset('css/admin/select2/select2.min.css') }}" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="{{ URL::asset('css/admin/switchery/switchery.min.css') }}" rel="stylesheet">
+    <!-- starrr -->
+    <link href="{{ URL::asset('css/admin/starrr/starrr.css') }}" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="{{ URL::asset('css/admin/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    <!-- bootstrap-file-input -->
+    <link href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}" rel="stylesheet">
 
     <!-- Datatables -->
     <link href="{{ URL::asset('css/admin/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
@@ -40,17 +49,10 @@
 <div class="container body">
     <div class="main_container">
 
-
-
-
-
         <!-- page content -->
         @yield('dashboard')
         <!-- /page content -->
 
-        <!-- footer content -->
-        @include('admin.partials._footer')
-        <!-- /footer content -->
     </div>
 </div>
 
@@ -92,6 +94,28 @@
 <!-- bootstrap-daterangepicker -->
 <script src="{{ URL::asset('js/admin/moment/moment.min.js') }}"></script>
 <script src="{{ URL::asset('js/admin/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<!-- bootstrap-file-input -->
+<link href="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}" rel="stylesheet">
+<!-- bootstrap-wysiwyg -->
+<script src="{{ URL::asset('js/admin/bootstrap-wysiwyg/bootstrap-wysiwyg.min.js') }}"></script>
+<script src="{{ URL::asset('js/admin/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
+<script src="{{ URL::asset('js/admin/google-code-prettify/prettify.js') }}"></script>
+<!-- jQuery Tags Input -->
+<script src="{{ URL::asset('js/admin/jquery.tagsinput/jquery.tagsinput.js') }}"></script>
+<!-- Switchery -->
+<script src="{{ URL::asset('js/admin/switchery/switchery.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ URL::asset('js/admin/select2/select2.full.min.js') }}"></script>
+<!-- Parsley -->
+<script src="{{ URL::asset('js/admin/parsleyjs/parsley.min.js') }}"></script>
+<!-- Autosize -->
+<script src="{{ URL::asset('js/admin/autosize/autosize.min.js') }}"></script>
+<!-- jQuery autocomplete -->
+<script src="{{ URL::asset('js/admin/devbridge-autocomplete/jquery.autocomplete.min.js') }}"></script>
+<!-- starrr -->
+<script src="{{ URL::asset('js/admin/starrr/starrr.min.js') }}"></script>
+<!-- validator -->
+<script src="{{ URL::asset('js/admin/validator/validator.js') }}"></script>
 
 <!-- Datatables -->
 <script src="{{ URL::asset('css/admin/datatables.net/js/jquery.dataTables.min.js') }}"></script>
@@ -110,8 +134,12 @@
 <script src="{{ URL::asset('css/admin/pdfmake/build/pdfmake.min.js') }}"></script>
 <script src="{{ URL::asset('css/admin/pdfmake/build/vfs_fonts.js') }}"></script>
 
+{{--Custom Lowids JS--}}
+<script src="{{ URL::asset('js/admin/custom-lowids.js') }}"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('js/admin/custom.min.js') }}"></script>
+
 
 </body>
 </html>

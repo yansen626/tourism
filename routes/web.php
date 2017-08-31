@@ -70,6 +70,12 @@ Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard')
 
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
 
+// Product
+Route::get('/admin/product', 'Admin\ProductController@index');
+Route::get('/admin/product/create', function (){
+    return view('admin/create-product');
+})->name('product-create');
+
 //Paymentmethods
 Route::prefix('admin/paymentmethods')->group(function(){
     Route::get('/', 'Admin\PaymentMethodController@index');
