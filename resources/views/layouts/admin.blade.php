@@ -11,6 +11,8 @@
 
     <!-- Bootstrap -->
     <link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
+    <!-- bootstrap-file-input -->
+    <link href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{ URL::asset('css/font-awesome/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
@@ -31,8 +33,6 @@
     <link href="{{ URL::asset('css/admin/starrr/starrr.css') }}" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="{{ URL::asset('css/admin/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-    <!-- bootstrap-file-input -->
-    <link href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}" rel="stylesheet">
 
     <!-- Datatables -->
     <link href="{{ URL::asset('css/admin/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
@@ -50,8 +50,8 @@
     <div class="main_container">
 
         <!-- page content -->
-        @yield('dashboard')
-        <!-- /page content -->
+    @yield('dashboard')
+    <!-- /page content -->
 
     </div>
 </div>
@@ -60,6 +60,15 @@
 <script src="{{ URL::asset('js/admin/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+<!-- bootstrap-file-input -->
+<script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
+
+<!-- autoNumeric -->
+<script src="{{ URL::asset('js/autoNumeric/autoNumeric.min.js') }}"></script>
+
+<!-- Custom Lowids Scripts -->
+<script src="{{ URL::asset('js/admin/custom-lowids.js') }}"></script>
+
 <!-- FastClick -->
 <script src="{{ URL::asset('js/admin/fastclick/fastclick.js') }}"></script>
 <!-- NProgress -->
@@ -94,12 +103,10 @@
 <!-- bootstrap-daterangepicker -->
 <script src="{{ URL::asset('js/admin/moment/moment.min.js') }}"></script>
 <script src="{{ URL::asset('js/admin/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<!-- bootstrap-file-input -->
-<link href="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}" rel="stylesheet">
 <!-- bootstrap-wysiwyg -->
 <script src="{{ URL::asset('js/admin/bootstrap-wysiwyg/bootstrap-wysiwyg.min.js') }}"></script>
 <script src="{{ URL::asset('js/admin/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
-<script src="{{ URL::asset('js/admin/google-code-prettify/prettify.js') }}"></script>
+<script src="{{ URL::asset('js/admin/google-code-prettify/prettify.min.js') }}"></script>
 <!-- jQuery Tags Input -->
 <script src="{{ URL::asset('js/admin/jquery.tagsinput/jquery.tagsinput.js') }}"></script>
 <!-- Switchery -->
@@ -113,7 +120,7 @@
 <!-- jQuery autocomplete -->
 <script src="{{ URL::asset('js/admin/devbridge-autocomplete/jquery.autocomplete.min.js') }}"></script>
 <!-- starrr -->
-<script src="{{ URL::asset('js/admin/starrr/starrr.min.js') }}"></script>
+<script src="{{ URL::asset('js/admin/starrr/starrr.js') }}"></script>
 <!-- validator -->
 <script src="{{ URL::asset('js/admin/validator/validator.js') }}"></script>
 
@@ -133,9 +140,6 @@
 <script src="{{ URL::asset('css/admin/jszip/dist/jszip.min.js') }}"></script>
 <script src="{{ URL::asset('css/admin/pdfmake/build/pdfmake.min.js') }}"></script>
 <script src="{{ URL::asset('css/admin/pdfmake/build/vfs_fonts.js') }}"></script>
-
-{{--Custom Lowids JS--}}
-<script src="{{ URL::asset('js/admin/custom-lowids.js') }}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('js/admin/custom.min.js') }}"></script>

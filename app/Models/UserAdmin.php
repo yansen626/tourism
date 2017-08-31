@@ -42,10 +42,10 @@ class UserAdmin extends Authenticatable
         'last_name',
         'phone',
         'status_id',
-        'created_on',
+        'created_at',
         'created_by',
-        'modified_on',
-        'modified_by'
+        'updated_at',
+        'updated_by'
     ];
 
     /**

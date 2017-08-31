@@ -24,10 +24,10 @@ class User extends Authenticatable
         'phone',
         'status_id',
         'email_token',
-        'created_on',
+        'created_at',
         'created_by',
-        'modified_on',
-        'modified_by'
+        'updated_at',
+        'updated_by'
     ];
 
     /**

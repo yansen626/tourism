@@ -22,10 +22,10 @@ class CreateUsersTable extends Migration {
 			$table->string('phone', 20)->nullable();
 			$table->integer('status_id')->index('FK_users_status_id_statuses_idx');
 			$table->string('email_token', 191)->nullable();
-			$table->dateTime('created_on')->nullable();
+			$table->timestamps('created_at')->nullable();
 			$table->string('created_by', 36)->nullable();
-			$table->dateTime('modified_on')->nullable();
-			$table->string('modified_by', 36)->nullable();
+			$table->timestamps('updated_at')->nullable();
+			$table->string('updated_by', 36)->nullable();
 		});
 	}
 
