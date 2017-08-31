@@ -49,66 +49,56 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" >Price <span class="required">*</span>
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="product-price" name="product-price" required class="form-control col-md-7 col-xs-12 price-format">
+                                <div class="col-md-6 col-sm-6 col-xs-12 price-format">
+                                    <input id="product-price" name="product-price" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+                            {{--<div class="item form-group">--}}
+                                {{--<label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 4px;">Set Discount--}}
+                                {{--</label>--}}
+                                {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
+                                    {{--<input id="form-discount-toggler" type="checkbox" class="js-switch form-control col-md-7 col-xs-12" />--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 4px;">Set Discount
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Discount
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="form-discount-toggler" type="checkbox" class="js-switch form-control col-md-7 col-xs-12" />
-                                </div>
-                            </div>
-                            <div id="form-discount-toggle" style="display: none;">
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Discount Percentage
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="form-discount-percent" name="discount-percent" class="form-control col-md-7 col-xs-12">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default active">
+                                            <input type="radio" name="options" id="disc-none-opt" checked> No Discount
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="options" id="disc-percent-opt"> Percentage
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="options" id="disc-flat-opt"> Flat Amount
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Discount Flat Amount
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="discount-flat" name="discount-flat" class="form-control col-md-7 col-xs-12 price-format">
-                                    </div>
-                                </div>
                             </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">Website URL <span class="required">*</span>
+                            <div id="disc-percent" class="item form-group" style="display: none;">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Discount Percentage
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="url" id="website" name="website" required="required" placeholder="www.website.com" class="form-control col-md-7 col-xs-12">
+                                    <input id="discount-percent" name="discount-percent" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Occupation <span class="required">*</span>
+                            <div id="disc-flat" class="item form-group" style="display: none;">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Discount Flat Amount
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
+                                <div class="price-format col-md-6 col-sm-6 col-xs-12">
+                                    <input id="discount-flat" name="discount-flat" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label for="password" class="control-label col-md-3">Password</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat Password</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram <span class="required">*</span>
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12 price-format">
+                                    <input id="weight" name="weight" required class="form-control col-md-7 col-xs-12">
                                 </div>
-                            </div><div class="item form-group">
+                            </div>
+                            <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Product Featured Image <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">

@@ -12,20 +12,30 @@ $("#product-featured").fileinput({
 });
 
 // autoNumeric
-numberFormat = new AutoNumeric('.price-format', {
-    commaDecimalCharDotSeparator: true
+numberFormat = AutoNumeric.multiple('.price-format > input', {
+    decimalCharacter: ',',
+    digitGroupSeparator: '.',
+    decimalPlaces: 0
 });
 
-numberFormat2 = new AutoNumeric('#form-discount-percent', {
+numberFormat2 = new AutoNumeric('#discount-percent', {
     maximumValue: 100,
-    minimumValue: 0
+    minimumValue: 0,
+    decimalPlaces: 0
 });
 
 // Others
-$("#form-discount-toggler").change(function(){
-    if(this.checked){
-        $("#form-discount-toggle").show(300);
-    }else{
-        $("#form-discount-toggle").hide(300);
-    }
-})
+$("#disc-none-opt").change(function(){
+    $("#disc-percent").hide(300);
+    $("#disc-flat").hide(300);
+});
+
+$("#disc-percent-opt").change(function(){
+    $("#disc-percent").show(300);
+    $("#disc-flat").hide(300);
+});
+
+$("#disc-flat-opt").change(function(){
+    $("#disc-flat").show(300);
+    $("#disc-percent").hide(300);
+});
