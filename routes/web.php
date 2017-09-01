@@ -80,7 +80,8 @@ Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-log
 Route::get('/admin/product', 'Admin\ProductController@index');
 Route::get('/admin/product/create', function (){
     return view('admin/create-product');
-})->name('product-create');
+})->name('product-create-view');
+Route::post('/admin/product/creating', 'Admin\ProductController@create');
 
 //Paymentmethods
 Route::prefix('admin/paymentmethods')->group(function(){

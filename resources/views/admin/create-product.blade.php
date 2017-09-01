@@ -38,12 +38,14 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <form class="form-horizontal form-label-left" novalidate>
+
+                        {!! Form::open(array('action' => 'Admin\ProductController@create', 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Name <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                    <input id="name" class="form-control col-md-7 col-xs-12"  name="name" required="required" type="text">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -53,13 +55,6 @@
                                     <input id="product-price" name="product-price" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-                            {{--<div class="item form-group">--}}
-                                {{--<label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 4px;">Set Discount--}}
-                                {{--</label>--}}
-                                {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
-                                    {{--<input id="form-discount-toggler" type="checkbox" class="js-switch form-control col-md-7 col-xs-12" />--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Discount
                                 </label>
@@ -102,7 +97,8 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Product Featured Image <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="product-featured" name="product-featured" type="file" class="file-loading">
+
+                                    {!! Form::file('product-featured', array('id' => 'product-featured', 'class' => 'file-loading')) !!}
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -113,10 +109,10 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Textarea <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
+                                    <textarea id="description" name="description" class="form-control col-md-7 col-xs-12"></textarea>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -126,7 +122,8 @@
                                     <button id="send" type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
-                        </form>
+
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

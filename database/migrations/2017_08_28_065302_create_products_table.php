@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration {
 			$table->float('price_discounted', 10, 0)->nullable();
 			$table->integer('quantity')->nullable();
 			$table->integer('weight')->nullable();
+            $table->string('description')->nullable();
 			$table->integer('status_id')->index('FK_products_status_id_statuses_idx');
 			$table->string('created_by', 36)->nullable();
 			$table->dateTime('created_on')->nullable();

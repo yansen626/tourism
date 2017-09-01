@@ -62,6 +62,7 @@ class Product extends Eloquent
 		'price_discounted',
 		'quantity',
 		'weight',
+        'description',
 		'status_id',
 		'created_by',
 		'created_on',

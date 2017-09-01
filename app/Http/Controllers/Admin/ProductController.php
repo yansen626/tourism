@@ -11,19 +11,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
     public function index(){
-        if(Session::has('admin_id')){
-            $products = Product::all();
+        $products = Product::all();
 
-            return View('admin.show-products', compact('products'));
-        }
-        else{
-            return redirect()->route('login-admin');
-        }
+        return View('admin.show-products', compact('products'));
     }
 
+    public function create(Request $request){
+        if(!empty($request->file('product-featured'))){
+            $img = Image::make($request->file('product-featured'));
+            $img->save(public_path('storage\product\test.png'));
+
+
+            echo "success";
+        }else{
+            echo "failed";
+        }
+    }
 }
