@@ -19,6 +19,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
+                        <img src="{{ asset('storage\product\test.png') }}">
                         <h2>Create New Product</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -61,13 +62,13 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="btn-group" data-toggle="buttons">
                                         <label class="btn btn-default active">
-                                            <input type="radio" name="options" id="disc-none-opt" checked> No Discount
+                                            <input type="radio" name="options" value="none" id="disc-none-opt" checked> No Discount
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="radio" name="options" id="disc-percent-opt"> Percentage
+                                            <input type="radio" name="options" value="percent" id="disc-percent-opt"> Percentage
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="radio" name="options" id="disc-flat-opt"> Flat Amount
+                                            <input type="radio" name="options" value="flat" id="disc-flat-opt"> Flat Amount
                                         </label>
                                     </div>
                                 </div>
