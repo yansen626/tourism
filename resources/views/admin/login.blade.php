@@ -43,17 +43,17 @@
                 <form>
                     <h1>Login Form</h1>
                     <div>
+                        @foreach($errors->all() as $error)
+                            <span class="help-block">
+                                <strong> {{ $error }} </strong>
+                            </span>
+                        @endforeach
+
                         {{--{!! Form::text('email', NULL, array('id' => 'email', 'class' => 'form-control', 'placeholder' => 'Input your email!')) !!}--}}
                         <input type="text" class="form-control" name="email" placeholder="Email" required="" />
-                        @if ($errors->has('email'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
                     </div>
                     <div>
                         <input type="password" class="form-control" name="password" placeholder="Password" required="" />
-                        <strong>{{ $errors->first('password') }}</strong>
                     </div>
                     <div>
                         <input type="submit" class="btn btn-default submit" value="Log in">

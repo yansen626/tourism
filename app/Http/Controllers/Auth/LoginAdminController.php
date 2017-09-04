@@ -37,7 +37,7 @@ class LoginAdminController extends Controller
             return view('admin.dashboard')->with('test', 'testing');
         }
         else{
-            return redirect()->back()->withInput($request->only('email'));
+            return redirect()->back()->withErrors('Wrong Email or Password!!', 'default')->withInput($request->only('email'));
         }
         //error_log($passEncrypted);
 
