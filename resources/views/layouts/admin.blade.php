@@ -43,6 +43,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('css/admin/custom.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/admin/custom-admin-lowids.css') }}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -142,7 +143,7 @@
 <script src="{{ URL::asset('css/admin/pdfmake/build/vfs_fonts.js') }}"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="{{ URL::asset('js/admin/custom.min.js') }}"></script>
+<script src="{{ URL::asset('js/admin/custom.js') }}"></script>
 
 
 </body>

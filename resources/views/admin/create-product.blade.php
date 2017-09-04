@@ -40,7 +40,7 @@
                     </div>
                     <div class="x_content">
 
-                        {!! Form::open(array('action' => 'Admin\ProductController@create', 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
+                        {!! Form::open(array('action' => 'Admin\ProductController@createSubmit', 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Name <span class="required">*</span>
@@ -49,6 +49,39 @@
                                     <input id="name" class="form-control col-md-7 col-xs-12"  name="name" required="required" type="text">
                                 </div>
                             </div>
+                            @if ($errors->has('name'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('name') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Category <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select id="category" name="category" class="form-control col-md-7 col-xs-1">
+                                        <option value="-1">Select category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            @if ($errors->has('category'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('category') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" >Price <span class="required">*</span>
                                 </label>
@@ -56,6 +89,16 @@
                                     <input id="product-price" name="product-price" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+                            @if ($errors->has('product_price'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('product_price') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Discount
                                 </label>
@@ -87,6 +130,26 @@
                                     <input id="discount-flat" name="discount-flat" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+                            @if ($errors->has('discount-percent'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('discount-percent') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($errors->has('discount-flat'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('discount-flat') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram <span class="required">*</span>
                                 </label>
@@ -94,26 +157,51 @@
                                     <input id="weight" name="weight" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+                            @if ($errors->has('weight'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('weight') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Product Featured Image <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Featured Image <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
                                     {!! Form::file('product-featured', array('id' => 'product-featured', 'class' => 'file-loading')) !!}
                                 </div>
-                                @if ($errors->has('product-featured'))
-                                    <span>
-                                        Invalid Image
-                                    </span>
-                                @endif
                             </div>
+                            @if ($errors->has('product-featured'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('product-featured') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Product Images <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Images <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input id="product-photos" name="product-photos[]" type="file" multiple class="file-loading">
                                 </div>
                             </div>
+                            @if ($errors->has('product-photos'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('product-photos') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description <span class="required">*</span>
                                 </label>
