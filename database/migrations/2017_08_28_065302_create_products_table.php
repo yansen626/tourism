@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration {
 		Schema::create('products', function(Blueprint $table)
 		{
 			$table->string('id', 36)->primary();
+			$table->integer('category_id')->index('FK_products_category_id_categories_idx');
 			$table->string('name', 100);
 			$table->float('price', 10, 0);
 			$table->integer('discount')->nullable();
@@ -28,6 +29,7 @@ class CreateProductsTable extends Migration {
 			$table->dateTime('created_on')->nullable();
 			$table->string('modified_by', 36)->nullable();
 			$table->dateTime('modified_on')->nullable();
+			$table->foreign('category_id', 'FK_products_category_id_categories')->references('id')->on('categories')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 
