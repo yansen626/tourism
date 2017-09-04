@@ -15,6 +15,7 @@ use App\Models\ProductImage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -27,6 +28,16 @@ class ProductController extends Controller
 
     public function create(Request $request){
 
+        $validator = Validator::make($request->all(),[
+            'product-featured'      => 'required|image|mimes:jpeg,jpg,png'
+        ]);
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
         $price = $request->input('price');
         $priceDouble = (double) str_replace('.','', $price);
 
@@ -36,7 +47,8 @@ class ProductController extends Controller
             'name'          => $request->input('name'),
             'price'         => $priceDouble,
             'weight'        => $request->input('weight'),
-            'created_on'    => $dateTimeNow->toDateTimeString()
+            'created_on'    => $dateTimeNow->toDateTimeString(),
+            'status_id'     => 1
         ]);
 
         if(Input::get('options') == 'percent'){
@@ -46,7 +58,7 @@ class ProductController extends Controller
             $discountAmount = $price / 100 * $discountPercent;
             $product->price_discounted = $priceDouble - $discountAmount;
         }
-        else if(Input::get('options') == flat){
+        else if(Input::get('options') == 'flat'){
             $discountFlat = (double) str_replace('.','', Input::get('discount-flat'));
             $product->discount_flat = $discountFlat;
 
@@ -63,13 +75,14 @@ class ProductController extends Controller
         if(!empty($request->file('product-featured'))){
             $img = Image::make($request->file('product-featured'));
 
-            $filename = $savedId.'_'. Carbon::now()->format('Ymdhms'). '_0';
+            $ext = $img->mime();
+            $filename = $savedId.'_'. Carbon::now()->format('Ymdhms'). '.'. $ext;
 
-            $img->save(public_path('storage\product\'' . $filename));
+            $img->save(public_path('storage\product' . '\\'. $filename));
 
             $productImgFeatured = ProductImage::create([
                 'product_id'    => $savedId,
-                'path'          => $$filename,
+                'path'          => $filename,
                 'featured'      => 1
             ]);
 
@@ -78,11 +91,12 @@ class ProductController extends Controller
 
         if(!empty($request->file('product-photos'))){
             $images = Input::get('product-photos');
-            $idx = 1;
             foreach( $images as $img){
                 $photo = Image::make($img);
 
-                $filename = $savedId.'_'. Carbon::now()->format('Ymdhms'). '_'. $idx;
+                $ext = $photo->mime();
+                $filename = $savedId.'_'. Carbon::now()->format('Ymdhms'). '.'. $ext;
+
 
                 $img->save(public_path('storage\product\'' . $filename));
 
@@ -95,5 +109,7 @@ class ProductController extends Controller
                 $productPhoto->save();
             }
         }
+
+        echo "success";
     }
 }

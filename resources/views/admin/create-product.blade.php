@@ -101,6 +101,11 @@
 
                                     {!! Form::file('product-featured', array('id' => 'product-featured', 'class' => 'file-loading')) !!}
                                 </div>
+                                @if ($errors->has('product-featured'))
+                                    <span>
+                                        Invalid Image
+                                    </span>
+                                @endif
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Product Images <span class="required">*</span>
