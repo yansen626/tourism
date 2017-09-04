@@ -19,7 +19,7 @@ class LoginAdminController extends Controller
     public function login(Request $request){
         $validator = Validator::make($request->all(),
             [
-                'email'           => 'required|email|max:100|unique:users',
+                'email'           => 'required|email|max:100',
                 'password'        => 'required|min:6|max:20'
             ]
         );
