@@ -83,12 +83,22 @@ Route::post('/admin/product/creating', 'Admin\ProductController@createSubmit');
 
 //Paymentmethods
 Route::prefix('admin/paymentmethods')->group(function(){
-    Route::get('/', 'Admin\PaymentMethodController@index');
+    Route::get('/', 'Admin\PaymentMethodController@index')->name('payment-method-show');
     Route::post('/', 'Admin\PaymentMethodController@store');
-    Route::get('/create', 'Admin\PaymentMethodController@create');
+    Route::get('/create', 'Admin\PaymentMethodController@create')->name('payment-method-create');
     Route::get('/edit/{id}', 'Admin\PaymentMethodController@edit');
     Route::post('/{id}', 'Admin\PaymentMethodController@update');
     Route::get('/delete/{id}', 'Admin\PaymentMethodController@destroy');
+});
+
+//Courier
+Route::prefix('admin/courier')->group(function(){
+    Route::get('/', 'Admin\CourierController@index')->name('courier-show');
+    Route::post('/', 'Admin\CourierController@store');
+    Route::get('/create', 'Admin\CourierController@create')->name('courier-create');
+    Route::get('/edit/{id}', 'Admin\CourierController@edit');
+    Route::post('/{id}', 'Admin\CourierController@update');
+    Route::get('/delete/{id}', 'Admin\CourierController@destroy');
 });
 
 // End Backend Routing
