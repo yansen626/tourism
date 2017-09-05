@@ -60,6 +60,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+                                    <th>Category</th>
                                     <th>Weight</th>
                                     <th>Normal Price</th>
                                     <th>Discount</th>
@@ -69,24 +70,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{$idx = 1}}
+                                @php ($idx = 1)
                                 @foreach($products as $product)
                                     <tr>
-                                        <td>{{$idx}}</td>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->weight}} gr</td>
-                                        <td>Rp {{$product->price}}</td>
+                                        <td>{{ $idx}}</td>
+                                        <td>{{ $product->name}}</td>
+                                        <td>{{ $product->category->name }}</td>
+                                        <td>{{ $product->weight }} gr</td>
+                                        <td>Rp {{ $product->price}}</td>
                                         <td>
                                             @if(!empty($product->discount))
-                                                {{$product->discount}}
+                                                {{ $product->discount}}
                                             @else
                                                 -
                                             @endif
 
                                         </td>
                                         <td>
-                                            @if(!empty($product->discount_flat))
-                                                {{$product->discount_flat}}
+                                            @if(!empty( $product->discount_flat))
+                                                {{ $product->discount_flat}}
                                             @else
                                                 -
                                             @endif
@@ -102,7 +104,7 @@
                                             {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
                                         </td>
                                     </tr>
-                                    {{$idx++}}
+                                    @php ($idx++)
                                 @endforeach
                                 </tbody>
                             </table>

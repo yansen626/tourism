@@ -57,6 +57,7 @@ class Product extends Eloquent
 	protected $fillable = [
 	    'id',
 		'name',
+        'category_id',
 		'price',
 		'discount',
 		'discount_flat',
@@ -85,6 +86,10 @@ class Product extends Eloquent
 	{
 		return $this->hasMany(\App\Models\TransactionDetail::class);
 	}
+
+	public function category(){
+	    return $this->belongsTo(\App\Models\Category::class);
+    }
 
 	public function getPriceAttribute(){
         return number_format($this->attributes['price'], 0, ",", ".");
