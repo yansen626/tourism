@@ -14,7 +14,7 @@
             <h3 class="pull-left"><b>Shopping bag</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('product-list') }}" >Back to shop<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('product-list', ['categoryId' => 0]) }}" >Back to shop<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -44,22 +44,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @for ($i = 0; $i < 2; $i++)
+                        @foreach ($carts as $cart)
                             <tr class="cart_item">
                                 <td class="product-thumbnail"><a href="product-page.html" ><img src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" width="100px" alt="" /></a></td>
                                 <td class="product-name">
-                                    <a href="product-page.html">Embroidered bib peasant top {{ $i + 1 }}</a>
+                                    <a href="{{ route('product-detail', ['id' => $cart->Product->id]) }}"> {{ $cart->Product->name }}</a>
                                     <ul class="variation">
-                                        <li class="variation-Color">Color: <span>Brown</span></li>
-                                        <li class="variation-Size">Size: <span>XS</span></li>
+                                        <li class="variation-Color">Category: <span>{{$cart->Product->Category->name}}</span></li>
                                     </ul>
                                 </td>
 
-                                <td class="product-price">$88.00</td>
+                                <td class="product-price">Rp. {{$cart->Product->price}}</td>
 
                                 <td class="product-quantity">
                                     <select class="basic">
-                                        <option value="">2</option>
+                                        <option value="">{{$cart->quantity}}</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -68,11 +67,11 @@
                                     </select>
                                 </td>
 
-                                <td class="product-subtotal">$176.00</td>
+                                <td class="product-subtotal">Rp. {{$cart->total_price}}</td>
 
                                 <td class="product-remove"><a href="javascript:void(0);" ><span>Delete</span> <i>X</i></a></td>
                             </tr>
-                        @endfor
+                        @endforeach
 
 
                         </tbody>
@@ -89,23 +88,19 @@
                         <table class="bag_total">
                             <tr class="cart-subtotal clearfix">
                                 <th>Sub total</th>
-                                <td>$258.00</td>
+                                <td>Rp. {{$totalPrice}}</td>
                             </tr>
                             <tr class="shipping clearfix">
                                 <th>SHIPPING</th>
-                                <td>Free</td>
+                                <td>-</td>
                             </tr>
                             <tr class="total clearfix">
                                 <th>Total</th>
-                                <td>$528.00</td>
+                                <td>Rp. {{$totalPrice}}</td>
                             </tr>
                         </table>
-                        <form class="coupon_form" action="javascript:void(0);" method="get">
-                            <input type="text" name="coupon" value="Have a coupon?" onFocus="if (this.value == 'Have a coupon?') this.value = '';" onBlur="if (this.value == '') this.value = 'Have a coupon?';" />
-                            <input type="submit" value="Apply">
-                        </form>
                         <a class="btn active" href="{{ route('checkout') }}" >Check out</a>
-                        <a class="btn inactive" href="{{ route('product-list') }}" >Continue shopping</a>
+                        <a class="btn inactive" href="{{ route('product-list', ['categoryId' => 0]) }}" >Continue shopping</a>
                     </div><!-- //REGISTRATION FORM -->
                 </div><!-- //SIDEBAR -->
             </div><!-- //ROW -->

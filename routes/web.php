@@ -24,12 +24,15 @@ Route::get('/', 'Frontend\HomeController@home')->name('landing');
 Route::get('/register', function (){
     return view('frontend/register');
 });
-Route::post('/register', 'Auth\RegisterController@create');*/
+Route::post('/register', 'Auth\RegisterController@create');
+
+Route::get('/', 'Frontend\HomeController@Home')->name('home');*/
+
 
 Route::get('product-list/{categoryId}', 'Frontend\ProductsController@ProductsShowAll')->name('product-list');
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
 Route::get('cart-list', 'Frontend\CartController@CartShowAll')->name('cart-list');
-Route::get('/', 'Frontend\CartController@AddtoCart')->name('add-cart');
+Route::get('/add-cart', 'Frontend\CartController@AddToCart')->name('add-cart');
 
 Route::get('/checkout-1', function (){
     return view('frontend/checkout-step1');

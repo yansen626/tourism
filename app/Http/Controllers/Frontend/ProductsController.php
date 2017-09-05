@@ -17,14 +17,21 @@ class ProductsController extends Controller
     //
     public function ProductsShowAll($categoryId){
         //$products = Product::all();
-
-        $products = Product::where('category_id', '=', $categoryId)->paginate(9);
-        $productCount = Product::where('category_id', '=', $categoryId)->count();
-        $categories = Category::all();
-        $selectedCategory = Category::find($categoryId);
-
-
-
+        if($categoryId > 0){
+            $products = Product::where([['category_id', '=', $categoryId], ['status_id', '=', 1]])->paginate(9);
+            $productCount = Product::where([['category_id', '=', $categoryId], ['status_id', '=', 1]])->count();
+            $categories = Category::all();
+            $selectedCategory = Category::find($categoryId);
+        }
+        else{
+            $products = Product::where('status_id', '=', 1)->paginate(9);
+            $productCount = Product::where('status_id', '=', 1)->count();
+            $categories = Category::all();
+            $selectedCategory = new Category([
+                'id' => 0,
+                'name' => 'All Category'
+            ]);
+        }
         return View('frontend.show-products', compact('products', 'selectedCategory', 'categories', 'productCount'));
     }
 

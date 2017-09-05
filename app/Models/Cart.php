@@ -48,4 +48,8 @@ class Cart extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\User::class);
 	}
+
+    public function getTotalPriceAttribute(){
+        return number_format($this->attributes['total_price'], 0, ",", ".");
+    }
 }

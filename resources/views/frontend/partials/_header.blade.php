@@ -43,7 +43,7 @@
 
             <!-- LOGO -->
             <div class="logo">
-                <a href="index.html" ><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="" /></a>
+                <a href="product-page.html" ><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="" /></a>
             </div><!-- //LOGO -->
 
 
@@ -97,14 +97,14 @@
 
             <!-- MENU -->
             <ul class="navmenu center">
-                <li class="sub-menu"><a href="javascript:void(0);" >Products</a>
+                <li class="sub-menu"><a href="{{ route('product-list', ['categoryId' => 0]) }}" >Products</a>
                     <!-- MEGA MENU -->
                     <ul class="mega_menu megamenu_col1 clearfix">
                         <li class="col">
                             <ol>
-                                <li><a href="{{ route('product-list', ['category_id' => 1]) }}" >Tofieco Essense & Pasta</a></li>
-                                <li><a href="{{ route('product-list', ['category_id' => 2]) }}" >Rum,Pasta,Essence</a></li>
-                                <li><a href="{{ route('product-list', ['category_id' => 3]) }}" >Pewarna</a></li>
+                                <li><a href="{{ route('product-list', ['categoryId' => 1]) }}" >Tofieco Essense & Pasta</a></li>
+                                <li><a href="{{ route('product-list', ['categoryId' => 2]) }}" >Rum,Pasta,Essence</a></li>
+                                <li><a href="{{ route('product-list', ['categoryId' => 3]) }}" >Pewarna</a></li>
                             </ol>
                         </li>
                     </ul><!-- //MEGA MENU -->

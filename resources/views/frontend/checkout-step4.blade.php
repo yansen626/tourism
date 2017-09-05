@@ -118,7 +118,6 @@
                             </tr>
                         </table>
                         <a class="btn active" href="javascript:void(0);" >Place Order</a>
-                        <a class="btn inactive" href="{{ route('checkout3') }}" >Go to previous step</a>
                     </div><!-- //REGISTRATION FORM -->
                 </div><!-- //SIDEBAR -->
             </div><!-- //ROW -->

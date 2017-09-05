@@ -29,8 +29,9 @@
                     <div class="sidepanel widget_categories">
                         <h3>Product Categories</h3>
                         <ul>
+                            <li><a href="{{ route('product-list', ['categoryId' => 0]) }}" >All Category</a></li>
                             @foreach($categories as $category)
-                                <li><a href="{{ route('product-list', ['category_id' => $category->id]) }}" >{{$category->name}}</a></li>
+                                <li><a href="{{ route('product-list', ['categoryId' => $category->id]) }}" >{{$category->name}}</a></li>
                             @endforeach
                         </ul>
                     </div><!-- //CATEGORIES -->
@@ -69,7 +70,12 @@
 
                         <!-- COUNT TOVAR ITEMS -->
                         <div class="count_tovar_items">
-                            <p>{{$selectedCategory->name}}</p>
+                            <p>@if($selectedCategory->count() > 0)
+                                    {{$selectedCategory->name}}
+                                   @else
+                                   All Category
+                                @endif
+                            </p>
                             <span>{{$productCount}} Items</span>
                         </div><!-- //COUNT TOVAR ITEMS -->
 
