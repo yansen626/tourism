@@ -101,6 +101,16 @@ Route::prefix('admin/courier')->group(function(){
     Route::get('/delete/{id}', 'Admin\CourierController@destroy');
 });
 
+//Delivery Type
+Route::prefix('admin/delivery-type')->group(function(){
+    Route::get('/', 'Admin\DeliveryTypeController@index')->name('delivery-type-show');
+    Route::post('/', 'Admin\DeliveryTypeController@store');
+    Route::get('/create', 'Admin\DeliveryTypeController@create')->name('delivery-type-create');
+    Route::get('/edit/{id}', 'Admin\DeliveryTypeController@edit');
+    Route::post('/{id}', 'Admin\DeliveryTypeController@update');
+    Route::get('/delete/{id}', 'Admin\DeliveryTypeController@destroy');
+});
+
 // End Backend Routing
 
 

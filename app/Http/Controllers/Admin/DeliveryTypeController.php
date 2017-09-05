@@ -25,7 +25,8 @@ class DeliveryTypeController extends Controller
         //
         $deliveryTypes = DeliveryType::all();
 
-        return View('admin.deliveryType', compact('deliveryTypes'));
+        //dd($deliveryTypes);
+        return View('admin.delivery-type', compact('deliveryTypes'));
     }
 
     /**
@@ -42,7 +43,9 @@ class DeliveryTypeController extends Controller
             Session::flash('Error', 'Create Couriers First!!');
             return redirect('admin.deliveryType');
         }
-        return View('admin.create-deliveryType');
+
+        dd($couriers);
+        //return View('admin.create-deliveryType');
     }
 
     /**
