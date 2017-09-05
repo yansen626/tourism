@@ -86,15 +86,15 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" >Price <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 price-format">
-                                    <input id="product-price" name="product-price" required class="form-control col-md-7 col-xs-12">
+                                    <input id="price" name="price" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-                            @if ($errors->has('product_price'))
+                            @if ($errors->has('price'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="alert alert-danger">
-                                            {{ $errors->first('product_price') }}
+                                            {{ $errors->first('price') }}
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Images <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="product-photos" name="product-photos[]" type="file" multiple class="file-loading">
+                                    {!! Form::file('product-photos[]', array('id' => 'product-photos', 'class' => 'file-loading', 'multiple' )) !!}
                                 </div>
                             </div>
                             @if ($errors->has('product-photos'))

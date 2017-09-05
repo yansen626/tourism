@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
-use Ramsey\Uuid\Uuid;
+use Webpatser\Uuid\Uuid;
 
 class ProductController extends Controller
 {
@@ -42,8 +42,7 @@ class ProductController extends Controller
             'name'                  => 'required',
             'price'                 => 'required',
             'weight'                => 'required',
-            'product-featured'      => 'image|mimes:jpeg,jpg,png',
-            'product-photos'        => 'image|mimes:jpeg,jpg,png'
+            'product-featured'      => 'image|mimes:jpeg,jpg,png'
         ],[
             'option_not_default'    => 'Select a category'
         ]);
@@ -56,14 +55,16 @@ class ProductController extends Controller
         else{
             $price = $request->input('price');
             $priceDouble = (double) str_replace('.','', $price);
+            $weight = (double) str_replace('.','', Input::get('weight'));
 
-            $dateTimeNow = Carbon::now();
+            $dateTimeNow = Carbon::now('Asia/Jakarta');
 
             $product = Product::create([
-                'id'            => Uuid::generate()->string,
-                'name'          => $request->input('name'),
+                'id'            => Uuid::generate(),
+                'category_id'   => Input::get('category'),
+                'name'          => Input::get('name'),
                 'price'         => $priceDouble,
-                'weight'        => $request->input('weight'),
+                'weight'        => $weight,
                 'created_on'    => $dateTimeNow->toDateTimeString(),
                 'status_id'     => 1
             ]);
@@ -72,7 +73,7 @@ class ProductController extends Controller
                 $discountPercent = (double) Input::get('discount-percent');
                 $product->discount = $discountPercent;
 
-                $discountAmount = $price / 100 * $discountPercent;
+                $discountAmount = $priceDouble / 100 * $discountPercent;
                 $product->price_discounted = $priceDouble - $discountAmount;
             }
             else if(Input::get('options') == 'flat'){
@@ -92,8 +93,11 @@ class ProductController extends Controller
             if(!empty($request->file('product-featured'))){
                 $img = Image::make($request->file('product-featured'));
 
-                $ext = $img->mime();
-                $filename = $savedId.'_'. Carbon::now()->format('Ymdhms'). '.'. $ext;
+                // Get image extension
+                $extStr = $img->mime();
+                $ext = explode('/', $extStr, 2);
+
+                $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
                 $img->save(public_path('storage\product' . '\\'. $filename));
 
@@ -107,23 +111,28 @@ class ProductController extends Controller
             }
 
             if(!empty($request->file('product-photos'))){
-                $images = Input::get('product-photos');
-                foreach( $images as $img){
+                $idx = 1;
+                foreach($request->file('product-photos') as $img){
+                    error_log('index: '. $idx);
                     $photo = Image::make($img);
 
-                    $ext = $photo->mime();
-                    $filename = $savedId.'_'. Carbon::now()->format('Ymdhms'). '.'. $ext;
+                    // Get image extension
+                    $extStr = $photo->mime();
+                    $ext = explode('/', $extStr, 2);
+
+                    $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
 
 
-                    $img->save(public_path('storage\product\'' . $filename));
+                    $photo->save(public_path('storage\product'. '\\'. $filename));
 
                     $productPhoto = ProductImage::create([
                         'product_id'    => $savedId,
-                        'path'          => $$filename,
+                        'path'          => $filename,
                         'featured'      => 0
                     ]);
 
                     $productPhoto->save();
+                    $idx++;
                 }
             }
             return redirect::route('product-list-view');

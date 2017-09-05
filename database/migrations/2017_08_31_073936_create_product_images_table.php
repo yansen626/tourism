@@ -16,7 +16,7 @@ class CreateProductImagesTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('product_id', 36)->index('FK_product_images_product_id_products_idx');
-			$table->string('path', 50);
+			$table->string('path', 191);
 			$table->integer('featured')->nullable();
 		});
 	}

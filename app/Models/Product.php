@@ -55,6 +55,7 @@ class Product extends Eloquent
 	];
 
 	protected $fillable = [
+	    'id',
 		'name',
 		'price',
 		'discount',
