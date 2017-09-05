@@ -74,7 +74,7 @@
                     </ul>
                     <div class="cart_total">
                         <div class="clearfix"><span class="cart_subtotal">bag subtotal: <b>$414</b></span></div>
-                        <a class="btn active" href="{{ route('cart') }}">View Cart</a>
+                        <a class="btn active" href="{{ route('cart-list') }}">View Cart</a>
                     </div>
                 </div>
             </div><!-- //SHOPPING BAG -->
@@ -102,9 +102,9 @@
                     <ul class="mega_menu megamenu_col1 clearfix">
                         <li class="col">
                             <ol>
-                                <li><a href="{{ route('product-list') }}" >Tofieco Essense & Pasta</a></li>
-                                <li><a href="{{ route('product-list') }}" >Rum,Pasta,Essence</a></li>
-                                <li><a href="{{ route('product-list') }}" >Pewarna</a></li>
+                                <li><a href="{{ route('product-list', ['category_id' => 1]) }}" >Tofieco Essense & Pasta</a></li>
+                                <li><a href="{{ route('product-list', ['category_id' => 2]) }}" >Rum,Pasta,Essence</a></li>
+                                <li><a href="{{ route('product-list', ['category_id' => 3]) }}" >Pewarna</a></li>
                             </ol>
                         </li>
                     </ul><!-- //MEGA MENU -->

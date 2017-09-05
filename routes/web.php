@@ -26,15 +26,11 @@ Route::get('/register', function (){
 });
 Route::post('/register', 'Auth\RegisterController@create');*/
 
-Route::get('/product-list', function (){
-    return view('frontend/show-products');
-})->name('product-list');
-Route::get('/product-detail', function (){
-    return view('frontend/show-product');
-})->name('single-product');
-Route::get('/cart', function (){
-    return view('frontend/carts');
-})->name('cart');
+Route::get('product-list/{categoryId}', 'Frontend\ProductsController@ProductsShowAll')->name('product-list');
+Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
+Route::get('cart-list', 'Frontend\CartController@CartShowAll')->name('cart-list');
+Route::get('/', 'Frontend\CartController@AddtoCart')->name('add-cart');
+
 Route::get('/checkout-1', function (){
     return view('frontend/checkout-step1');
 })->name('checkout');

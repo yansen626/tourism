@@ -13,11 +13,6 @@ use App\Http\Controllers\Controller;
 class TransactionController extends Controller
 {
     //
-    public function CartsShowAll(){
-        return view('frontend.carts');
-    }
-
-    //
     public function CheckoutProcess1(){
         return view('frontend.checkout-step1');
     }
