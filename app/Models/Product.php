@@ -91,6 +91,10 @@ class Product extends Eloquent
 	    return $this->belongsTo(\App\Models\Category::class);
     }
 
+    public function product_image(){
+	    return $this->hasMany(\App\Models\ProductImage::class);
+    }
+
 	public function getPriceAttribute(){
         return number_format($this->attributes['price'], 0, ",", ".");
     }

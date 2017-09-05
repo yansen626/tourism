@@ -67,6 +67,7 @@
                                     <th>Flat Discount</th>
                                     <th>Final Price</th>
                                     <th>Created Date</th>
+                                    <th>Featured Image</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -102,6 +103,9 @@
                                         </td>
                                         <td>
                                             {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
+                                        </td>
+                                        <td width="15%">
+                                            <img width="100%" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}">
                                         </td>
                                     </tr>
                                     @php ($idx++)

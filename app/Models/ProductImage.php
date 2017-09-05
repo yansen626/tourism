@@ -30,6 +30,7 @@ class ProductImage extends Eloquent
 	];
 
 	protected $fillable = [
+	    'id',
 		'product_id',
 		'path',
 		'featured'

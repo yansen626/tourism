@@ -138,4 +138,21 @@ class ProductController extends Controller
             return redirect::route('product-list-view');
         }
     }
+
+    public function editShow($id){
+        $product = Product::findorFail($id);
+
+        $imgFeatured = $product->product_image()->where('featured', 1)->first()->path;
+        $imgPhotos = $product->product_image()->where('featured', 0)->get();
+        $categories = Category::all();
+
+        $data = [
+            'product'       => $product,
+            'imgFeatured'   => $imgFeatured,
+            'imgPhotos'     => $imgPhotos,
+            'categories'    => $categories
+        ];
+
+        return view('admin.edit-product')->with($data);
+    }
 }
