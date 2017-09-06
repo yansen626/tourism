@@ -27,7 +27,7 @@
                         {{ csrf_field() }}
 
                         <input type="text" name="email" placeholder="Email" />
-                        <input class="form-control" type="password" name="password" placeholder="Password"/>
+                        <input type="password" name="password" placeholder="Password"/>
                         <div class="clearfix">
                             <div class="pull-left"><input type="checkbox" id="categorymanufacturer1" name="remember"/><label for="categorymanufacturer1">Keep me signed</label></div>
                             <div class="pull-right"><a class="forgot_pass" href="/password/reset" >Forgot password?</a></div>
