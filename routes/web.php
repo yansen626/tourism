@@ -112,6 +112,16 @@ Route::prefix('admin/delivery-type')->group(function(){
     Route::get('/delete/{id}', 'Admin\DeliveryTypeController@destroy');
 });
 
+//Status
+Route::prefix('admin/status')->group(function(){
+    Route::get('/', 'Admin\StatusController@index')->name('status-show');
+    Route::post('/', 'Admin\StatusController@store');
+    Route::get('/create', 'Admin\StatusController@create')->name('status-create');
+    Route::get('/edit/{id}', 'Admin\StatusController@edit');
+    Route::post('/{id}', 'Admin\StatusController@update');
+    Route::get('/delete/{id}', 'Admin\StatusController@destroy');
+});
+
 // End Backend Routing
 
 

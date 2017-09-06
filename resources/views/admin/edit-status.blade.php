@@ -16,7 +16,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Create Courier</h2>
+                        <h2>Create Status</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -34,16 +34,17 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
                     <div class="x_content">
                         <br />
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/courier/{{ $courier->id }}">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/status/{{ $status->id }}">
                             {{ csrf_field() }}
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $courier->description }}">
+                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $status->description }}">
                                 </div>
                             </div>
 
