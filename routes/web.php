@@ -67,7 +67,6 @@ Route::get('/admin/user', 'Admin\UserManagementController@index');
 
 Route::get('/admin/product', 'Admin\ProductController@index');
 
-Route::get('/admin/transaction', 'Admin\TransactionController@index');
 
 Route::post('/admin/login-success', 'Auth\LoginAdminController@login');
 
@@ -81,6 +80,10 @@ Route::get('/admin/product/create', 'Admin\ProductController@createShow')->name(
 Route::get('/admin/product/edit/{id}', 'Admin\ProductController@editShow')->name('product-edit-view');
 Route::post('/admin/product/editing/{id}', 'Admin\ProductController@editSubmit');
 Route::post('/admin/product/creating', 'Admin\ProductController@createSubmit');
+
+// Transaction
+Route::get('/admin/transaction', 'Admin\TransactionController@index')->name('transaction-list');
+Route::get('/admin/transaction/detail/{id}', 'Admin\TransactionController@detail')->name('transaction-detail');
 
 //Paymentmethods
 Route::prefix('admin/paymentmethods')->group(function(){
