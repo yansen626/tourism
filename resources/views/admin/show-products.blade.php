@@ -36,7 +36,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Customer List</h2>
+                            <h2>Product List</h2>
                             {{--<ul class="nav navbar-right panel_toolbox">--}}
                             {{--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--}}
                             {{--</li>--}}
@@ -67,7 +67,9 @@
                                     <th>Flat Discount</th>
                                     <th>Final Price</th>
                                     <th>Created Date</th>
-                                    <th>Featured Image</th>
+                                    <th>Featured Photo</th>
+                                    <th>Status</th>
+                                    <th>Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -81,7 +83,7 @@
                                         <td>Rp {{ $product->price}}</td>
                                         <td>
                                             @if(!empty($product->discount))
-                                                {{ $product->discount}}
+                                                {{ $product->discount}}%
                                             @else
                                                 -
                                             @endif
@@ -89,14 +91,14 @@
                                         </td>
                                         <td>
                                             @if(!empty( $product->discount_flat))
-                                                {{ $product->discount_flat}}
+                                                Rp {{ $product->discount_flat}}
                                             @else
                                                 -
                                             @endif
                                         </td>
                                         <td>
                                             @if(!empty($product->price_discounted))
-                                                {{$product->price_discounted}}
+                                                Rp {{$product->price_discounted}}
                                             @else
                                                 -
                                             @endif
@@ -106,6 +108,16 @@
                                         </td>
                                         <td width="15%">
                                             <img width="100%" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}">
+                                        </td>
+                                        <td>
+                                            @if($product->status_id == 1)
+                                                Active
+                                            @else
+                                                Unactive
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-danger submit">Edit</a>
                                         </td>
                                     </tr>
                                     @php ($idx++)

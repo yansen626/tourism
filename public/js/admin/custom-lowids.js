@@ -5,10 +5,27 @@ $("#product-photos").fileinput({
     allowedFileExtensions: ["jpg", "jpeg", "png"]
 });
 
-$("#product-featured").fileinput({
-    maxFilePreviewSize: 10240,
-    showUpload: false,
-    allowedFileExtensions: ["jpg", "jpeg", "png"]
+var imgFeaturedPath = $("#product-featured").attr('data-image-featured-path');
+if(imgFeaturedPath != ''){
+    $("#product-featured").fileinput({
+        initialPreview:[imgFeaturedPath],
+        overwriteInitial: true,
+        maxFilePreviewSize: 10240,
+        showUpload: false,
+        initialPreviewAsData: true,
+        allowedFileExtensions: ["jpg", "jpeg", "png"]
+    });
+}
+else{
+    $("#product-featured").fileinput({
+        maxFilePreviewSize: 10240,
+        showUpload: false,
+        allowedFileExtensions: ["jpg", "jpeg", "png"]
+    });
+}
+
+$("#product-featured").on('fileloaded', function(event, file, previewId, index, reader){
+    $("#img_featured_changed").val("new");
 });
 
 // autoNumeric
@@ -68,6 +85,11 @@ function makeFeatured(id){
                 var deleteBtnId = tmpId[0] + "_btn_delete";
                 $("#" + deleteBtnId).removeAttr('disabled');
                 document.getElementById(deleteBtnId).dataset.disabled = "false"
+
+                // Delete hidden input value
+                if($("#img_featured_changed").val() == tmpId[0]){
+                    $("#img_featured_changed").val('');
+                }
             }
             element.innerHTML = "Make Featured"
         }
@@ -81,6 +103,9 @@ function makeFeatured(id){
         $("#" + id + "_btn_delete").attr('disabled','disabled');
 
         document.getElementById(id + "_btn_delete").dataset.disabled = "true"
+
+        // Change hidden input value
+        $("#img_featured_changed").val(id)
     }
     else{
         selectedEl.style.borderColor = "#73879C";

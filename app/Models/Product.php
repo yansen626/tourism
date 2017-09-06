@@ -13,6 +13,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class Product
  * 
  * @property string $id
+ * @property int $category_id
  * @property string $name
  * @property float $price
  * @property int $discount
@@ -20,6 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $price_discounted
  * @property int $quantity
  * @property int $weight
+ * @property string description
  * @property int $status_id
  * @property string $created_by
  * @property \Carbon\Carbon $created_on
