@@ -6,10 +6,12 @@
 
         <!-- CONTAINER -->
         <div class="container">
-
             <div class="my_account_block clearfix">
                 <div class="login">
                     <h2>Create New User</h2>
+                    @foreach($errors->all() as $error)
+                        <h5 style="color: red;"> {{ $error }} </h5>
+                    @endforeach
                     <form class="form-horizontal" role="form" method="POST" action="/register">
                         {{ csrf_field() }}
 
@@ -27,8 +29,6 @@
                     </form>
                 </div>
             </div>
-
-            <div class="my_account_note center">HAVE A QUESTION? <b>1 800 888 02828</b></div>
         </div><!-- //CONTAINER -->
     </section><!-- //MY ACCOUNT PAGE -->
 @endsection

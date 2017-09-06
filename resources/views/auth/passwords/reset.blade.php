@@ -1,18 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+@section('body-content')
+    <!-- MY ACCOUNT PAGE -->
+    <section class="my_account parallax">
+        <!-- CONTAINER -->
+        <div class="container">
 
-                <div class="panel-body">
+            <div class="my_account_block clearfix">
+                <div class="login">
+                    <h2>Reset Password</h2>
+
                     @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
+                        <h5 style="color: lawngreen;"> {{ session('status') }} </h5>
                     @endif
+
+                    @foreach($errors->all() as $error)
+                        <h5 style="color: red;"> {{ $error }} </h5>
+                    @endforeach
 
                     <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
                         {{ csrf_field() }}
@@ -27,8 +31,8 @@
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
                                 @endif
                             </div>
                         </div>
@@ -41,8 +45,8 @@
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
                                 @endif
                             </div>
                         </div>
@@ -54,8 +58,8 @@
 
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        </span>
                                 @endif
                             </div>
                         </div>
@@ -71,6 +75,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection

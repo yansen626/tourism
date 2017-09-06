@@ -9,15 +9,28 @@
 
             <div class="my_account_block clearfix">
                 <div class="login">
-                    <h2>I'M ALREADY REGISTERED</h2>
+                    <h2>Login</h2>
+
+                    @foreach($errors->all() as $error)
+                        <h5 style="color: red;"> {{ $error }} </h5>
+                    @endforeach
+
+                    @if(\Illuminate\Support\Facades\Session::has('message'))
+                        <div class="alert alert-success alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
+                            <strong>{{ \Illuminate\Support\Facades\Session::get('message') }}</strong>
+                        </div>
+                    @endif
+
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
-                        <input type="text" name="email" onFocus="if (this.value == 'Username or email') this.value = '';" onBlur="if (this.value == '') this.value = 'Username or email';" />
-                        <input class="last" type="text" name="password" value="Password" onFocus="if (this.value == 'Password') this.value = '';" onBlur="if (this.value == '') this.value = 'Password';" />
+                        <input type="text" name="email" placeholder="Email" />
+                        <input class="form-control" type="password" name="password" placeholder="Password"/>
                         <div class="clearfix">
                             <div class="pull-left"><input type="checkbox" id="categorymanufacturer1" name="remember"/><label for="categorymanufacturer1">Keep me signed</label></div>
-                            <div class="pull-right"><a class="forgot_pass" href="javascript:void(0);" >Forgot password?</a></div>
+                            <div class="pull-right"><a class="forgot_pass" href="/password/reset" >Forgot password?</a></div>
                         </div>
                         <div class="center"><input type="submit" value="Login"></div>
                     </form>

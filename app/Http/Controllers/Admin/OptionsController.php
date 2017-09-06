@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\City;
+use App\Models\Province;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\StoreDatum;
@@ -25,7 +27,10 @@ class OptionsController extends Controller
         $storeData = StoreDatum::all();
         $data = $storeData->first();
 
-        return View('admin.options', compact('data'));
+        $cities = City::all();
+        $provinces = Province::all();
+
+        return View('admin.options', compact('data', 'cities','provinces'));
     }
 
     /**
