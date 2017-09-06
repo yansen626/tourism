@@ -122,6 +122,10 @@ Route::prefix('admin/status')->group(function(){
     Route::get('/delete/{id}', 'Admin\StatusController@destroy');
 });
 
+//Admin Options
+Route::get('/admin/options', 'Admin\OptionsController@index');
+Route::post('/admin/options', 'Admin\OptionsController@update');
+
 // End Backend Routing
 
 
