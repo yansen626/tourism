@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -35,5 +37,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+     */
+    public function authenticate(Request $request)
+    {
+        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status_id' => 1])) {
+            // Authentication passed...
+            return redirect()->action('Frontend\HomeController@home');
+        }
+        else{
+            return redirect()->route('login')->withErrors('Verify Your Email First!!');
+        }
     }
 }

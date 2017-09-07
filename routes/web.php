@@ -14,6 +14,8 @@
 //Build in Routes for Auth
 Auth::routes();
 
+Route::post('/login', 'Auth\LoginController@authenticate')->name('login');
+
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
@@ -48,6 +50,10 @@ Route::get('/checkout-4', function (){
 })->name('checkout4');
 
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+
+Route::get('user', 'Frontend\UserController@index');
+Route::get('user/edit-show', 'Frontend\UserController@edit')->name('user-edit-show');
+Route::post('user/edit-show', 'Frontend\UserController@update');
 // End Frontend Routing
 
 
