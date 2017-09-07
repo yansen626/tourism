@@ -7,6 +7,10 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Webpatser\Uuid\Uuid;
+use App\Mail\EmailVerification;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -67,10 +71,47 @@ class RegisterController extends Controller
         Session::flash('message', 'Your Id is Registered!! Please Login!!');
 
         return User::create([
+            'id' =>Uuid::generate(),
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'email_token' => base64_encode($data['email']),
+            'status_id' => 2
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        //event(new Registered($user = $this->create($request->all())));
+        //dispatch(new SendVerificationEmail($user));
+
+        $user = $this->create($request->all());
+        $email = new EmailVerification($user);
+        Mail::to($user->email)->send($email);
+
+        return view('auth.verification');
+    }
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param $token
+     * @return \Illuminate\Http\Response
+     */
+    public function verify($token)
+    {
+        $user = User::where('email_token',$token)->first();
+        $user->status_id = 1;
+
+        if($user->save()){
+            return view('auth.emailconfirm',['user'=>$user]);
+        }
     }
 }

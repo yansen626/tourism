@@ -21,10 +21,6 @@
 
                         <input class="last" type="password" name="password" placeholder="Password"/>
                         <input class="last" type="password" name="password_confirmation" placeholder="Re-type Password" />
-                        <div class="clearfix">
-                            <div class="pull-left"><input type="checkbox" id="categorymanufacturer1" /><label for="categorymanufacturer1">Keep me signed</label></div>
-                            <div class="pull-right"><a class="forgot_pass" href="javascript:void(0);" >Forgot password?</a></div>
-                        </div>
                         <div class="center"><input type="submit" value="Register"></div>
                     </form>
                 </div>
