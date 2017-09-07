@@ -20,7 +20,13 @@ class CreateTransactionsTable extends Migration {
 			$table->integer('payment_code')->nullable();
 			$table->float('total_payment', 10, 0)->nullable();
 			$table->float('total_price', 10, 0)->nullable();
-			$table->integer('address_id')->nullable()->index('FK_transactions_address_id_addresses_idx');
+            $table->integer('province_id')->nullable()->index('FK_transactions_province_id_provinces');
+            $table->string('province_name')->nullable();
+            $table->integer('city_id')->nullable()->index('FK_transactions_city_id_cities');
+            $table->string('city_name')->nullable();
+            $table->integer('subdisctrict_id')->nullable();
+            $table->string('subdisctrict_name')->nullable();
+            $table->string('delivery_type')->nullable();
             $table->string('tracking_code')->nullable();
 			$table->string('courier')->nullable();
 			$table->string('delivery_type')->nullable();

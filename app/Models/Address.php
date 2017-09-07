@@ -20,6 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $city_name
  * @property int $subdistrict_id
  * @property string $subdistrict_name
+ * @property string $detail
  * @property int $status_id
  * 
  * @property \App\Models\Status $status
@@ -47,6 +48,7 @@ class Address extends Eloquent
 		'city_name',
 		'subdistrict_id',
 		'subdistrict_name',
+        'detail',
 		'status_id'
 	];
 

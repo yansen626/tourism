@@ -18,6 +18,8 @@ class AddForeignKeysToTransactionsTable extends Migration {
 			$table->foreign('payment_method_id', 'FK_transactions_payment_method_id_payment_methods')->references('id')->on('payment_methods')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('status_id', 'FK_transactions_status_id_statuses')->references('id')->on('statuses')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('user_id', 'FK_transactions_user_id_users')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('province_id', 'FK_transactions_province_id_provinces')->references('id')->on('provinces')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('city_id', 'FK_transactions_city_id_cities')->references('id')->on('cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 
