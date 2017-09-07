@@ -118,6 +118,8 @@ Route::get('/admin/neworder/accept/{id}', 'Admin\TransactionController@acceptOrd
 Route::post('/admin/neworder/reject', 'Admin\TransactionController@rejectOrder')->name('new-order-accept');
 Route::get('/admin/transaction', 'Admin\TransactionController@index')->name('transaction-list');
 Route::get('/admin/transaction/detail/{id}', 'Admin\TransactionController@detail')->name('transaction-detail');
+Route::get('/admin/transfer', 'Admin\TransactionController@userTransfer')->name('transfer-list');
+Route::get('/admin/transfer/confirm/{id}', 'Admin\TransactionController@confirmTransfer')->name('transfer-confirm');
 
 //Paymentmethods
 Route::prefix('admin/paymentmethods')->group(function(){

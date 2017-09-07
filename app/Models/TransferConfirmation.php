@@ -76,4 +76,8 @@ class TransferConfirmation extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\User::class);
 	}
+
+	public function getTransferAmountAttribute(){
+        return number_format($this->attributes['transfer_amount'],0, ",", ".");
+    }
 }

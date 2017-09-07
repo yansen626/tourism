@@ -33,6 +33,11 @@
                             <i class="fa fa-exclamation-triangle"></i> New Order
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('transfer-list') }}">
+                            <i class="fa fa-money"></i> New User Transfer
+                        </a>
+                    </li>
                     <li><a><i class="fa fa-edit"></i> Payment Methods <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('payment-method-show') }}">Show</a></li>

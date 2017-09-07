@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use App\Models\TransferConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -54,5 +55,24 @@ class TransactionController extends Controller
         $trx->save();
 
         return redirect::route('new-order-list');
+    }
+
+    public function userTransfer(){
+        $transfers = TransferConfirmation::where('status_id', 3)->get();
+
+        return View('admin.show-user-transfers', compact('transfers'));
+    }
+
+    public function confirmTransfer($id){
+        $trans = TransferConfirmation::find($id);
+
+        $trans->status_id = 5;
+        $trans->save();
+
+        $trx = Transaction::find($trans->trx_id);
+        $trx->status_id = 5;
+        $trx->save();
+
+        return redirect::route('transfer-list');
     }
 }

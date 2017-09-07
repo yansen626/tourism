@@ -139,11 +139,22 @@ function deleteImageEdit(id){
 }
 
 // New Order
-function modalPop(id, isAccept, url){
-    if(isAccept === "true"){
+function modalPop(id, mode, url){
+    if(mode === "accept"){
         var title = "Warning";
         var content = "Are you sure you want to accept?"
         var yes = "Accept"
+
+        $("#small-modal-title").html(title);
+        $("#small-modal-body").html(content);
+        $("#small-modal-yes").html(yes);
+        $("#small-modal-yes").attr('href', url + id);
+        $("#small-modal").modal();
+    }
+    else if(mode === "transfer"){
+        var title = "Warning";
+        var content = "Are you sure you want to confirm?"
+        var yes = "Confirm"
 
         $("#small-modal-title").html(title);
         $("#small-modal-body").html(content);

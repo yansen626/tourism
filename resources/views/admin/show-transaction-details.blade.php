@@ -68,6 +68,26 @@
                                     <li>
                                         <b>Transaction Date:</b><br/>{{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s')}}
                                     </li>
+                                    <li><b>Status:<br/>
+                                        @if($transaction->status_id == 4)
+                                            Need to confirm payment
+                                        @elseif($transaction->status_id == 5)
+                                            New Order
+                                        @elseif($transaction->status_id == 6)
+                                            In Process
+                                        @elseif($transaction->status_id == 7)
+                                            Rejected
+                                        @elseif($transaction->status_id == 8)
+                                            In Delivery
+                                        @elseif($transaction->status_id == 9)
+                                            {{ \Carbon\Carbon::parse($transaction->finish_date)->format('j M Y G:i:s')}} -
+                                            <span style="color: #42b549;">Success</span>
+                                        @elseif($transaction->status_id == 10)
+                                            {{ \Carbon\Carbon::parse($transaction->finish_date)->format('j M Y G:i:s')}} -
+                                            <span style="color: red;">Failed</span>
+                                        @endif
+                                        </b>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="col-md-9 col-sm-9 col-xs-12">

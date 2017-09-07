@@ -36,6 +36,7 @@
                                     <th>Delivery Fee</th>
                                     <th>Payment Code</th>
                                     <th>Total Payment</th>
+                                    <th>Order Date</th>
                                     <th>Option</th>
                                 </tr>
                                 </thead>
@@ -59,7 +60,7 @@
                                         </td>
                                         <td>Rp {{ $trx->total_payment }}</td>
                                         <td>
-                                            <a onclick="modalPop('{{ $trx->id }}', 'true', '/admin/neworder/accept/')" class="btn btn-success">Accept</a>
+                                            <a onclick="modalPop('{{ $trx->id }}', 'accept', '/admin/neworder/accept/')" class="btn btn-success">Accept</a>
                                             <a onclick="rejectModalPop('{{ $trx->id }}')" class="btn btn-danger">Reject</a>
                                             <a href="/admin/transaction/detail/{{ $trx->id }}" class="btn btn-primary">Detail</a>
                                         </td>
@@ -101,8 +102,8 @@
         </div>
     </div>
 
-    <!-- top navigation -->
+    <!-- small modal -->
     @include('admin.partials._small_modal')
-    <!-- /top navigation -->
+    <!-- small modal -->
 
 @endsection
