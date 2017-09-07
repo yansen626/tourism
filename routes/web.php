@@ -33,8 +33,20 @@ Route::get('/', 'Frontend\HomeController@Home')->name('home');*/
 
 Route::get('product-list/{categoryId}', 'Frontend\ProductsController@ProductsShowAll')->name('product-list');
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
+
 Route::get('cart-list', 'Frontend\CartController@CartShowAll')->name('cart-list');
-Route::get('/add-cart', 'Frontend\CartController@AddToCart')->name('add-cart');
+Route::post('/add-cart', [
+    'uses' => 'Frontend\CartController@AddToCart',
+    'as' => 'addCart'
+]);
+Route::post('/delete-cart', [
+    'uses' => 'Frontend\CartController@DeleteCart',
+    'as' => 'deleteCart'
+]);
+Route::post('/edit-cart', [
+    'uses' => 'Frontend\CartController@EditQuantityCart',
+    'as' => 'editCart'
+]);
 
 Route::get('/checkout-1', function (){
     return view('frontend/checkout-step1');
@@ -48,6 +60,7 @@ Route::get('/checkout-3', function (){
 Route::get('/checkout-4', function (){
     return view('frontend/checkout-step4');
 })->name('checkout4');
+// End Frontend Routing
 
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 

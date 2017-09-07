@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}">
+
 
     <!-- CSS -->
     <link href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" rel="stylesheet">
@@ -65,6 +66,7 @@
 <script src="{{ URL::asset('js/frontend/fancySelect.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/animate.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/myscript.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/custom.js') }}"></script>
 <script>
     if (top != self) top.location.replace(self.location.href);
 </script>

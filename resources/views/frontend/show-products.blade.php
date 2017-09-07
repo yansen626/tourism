@@ -111,7 +111,7 @@
                                             <img class="img_h" src="{{ URL::asset('frontend_images/tovar/women/1_2.jpg') }}" alt="" />
                                         </div>
                                         <div class="tovar_item_btns">
-                                            <a class="add_bag" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i></a>
+                                            <a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i></a>
                                             <a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>
                                         </div>
                                     </div>
@@ -132,9 +132,14 @@
                         <!-- //PAGINATION -->
 
                     </div>
-
                 </div><!-- //SHOP PRODUCTS -->
             </div><!-- //ROW -->
         </div><!-- //CONTAINER -->
     </section><!-- //SHOP -->
+
+    <script>
+        var urlLink = '{{route('addCart')}}';
+    </script>
 @endsection
+
+@include('frontend.partials._modal')

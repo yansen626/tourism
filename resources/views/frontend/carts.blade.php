@@ -45,7 +45,9 @@
                         </thead>
                         <tbody>
                         @foreach ($carts as $cart)
-                            <tr class="cart_item">
+                            @php ( $trId = "cart_item_".$cart->id )
+                            @php ( $qtyId = "cart_quantity_".$cart->id )
+                            <tr class="cart_item" id="{{ $trId }}">
                                 <td class="product-thumbnail"><a href="product-page.html" ><img src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" width="100px" alt="" /></a></td>
                                 <td class="product-name">
                                     <a href="{{ route('product-detail', ['id' => $cart->Product->id]) }}"> {{ $cart->Product->name }}</a>
@@ -57,19 +59,12 @@
                                 <td class="product-price">Rp. {{$cart->Product->price}}</td>
 
                                 <td class="product-quantity">
-                                    <select class="basic">
-                                        <option value="">{{$cart->quantity}}</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
+                                    <input type="text" id="{{$qtyId}}" value="{{$cart->quantity}}" style="width:50%" onkeyup="editCartQuantity('{{ $cart->id }}')"/>
                                 </td>
 
                                 <td class="product-subtotal">Rp. {{$cart->total_price}}</td>
 
-                                <td class="product-remove"><a href="javascript:void(0);" ><span>Delete</span> <i>X</i></a></td>
+                                <td class="product-remove"><a href="javascript:void(0);" onclick="deleteCart('{{ $cart->id }}')"><i>X</i></a></td>
                             </tr>
                         @endforeach
 
@@ -106,5 +101,11 @@
             </div><!-- //ROW -->
         </div><!-- //CONTAINER -->
     </section><!-- //SHOPPING BAG BLOCK -->
+
+    <script>
+        var urlLinkDelete = '{{route('deleteCart')}}';
+        var urlLinkEdit = '{{route('editCart')}}';
+    </script>
 @endsection
-		
+
+@include('frontend.partials._modal')
