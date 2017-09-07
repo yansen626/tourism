@@ -103,6 +103,9 @@ Route::post('/admin/product/editing/{id}', 'Admin\ProductController@editSubmit')
 Route::post('/admin/product/creating', 'Admin\ProductController@createSubmit');
 
 // Transaction
+Route::get('/admin/neworder', 'Admin\TransactionController@newOrder')->name('new-order-list');
+Route::get('/admin/neworder/accept/{id}', 'Admin\TransactionController@acceptOrder')->name('new-order-accept');
+Route::post('/admin/neworder/reject', 'Admin\TransactionController@rejectOrder')->name('new-order-accept');
 Route::get('/admin/transaction', 'Admin\TransactionController@index')->name('transaction-list');
 Route::get('/admin/transaction/detail/{id}', 'Admin\TransactionController@detail')->name('transaction-detail');
 

@@ -137,3 +137,23 @@ function deleteImageEdit(id){
         $("#" + id + "_img").remove();
     }
 }
+
+// New Order
+function modalPop(id, isAccept, url){
+    if(isAccept === "true"){
+        var title = "Warning";
+        var content = "Are you sure you want to accept?"
+        var yes = "Accept"
+
+        $("#small-modal-title").html(title);
+        $("#small-modal-body").html(content);
+        $("#small-modal-yes").html(yes);
+        $("#small-modal-yes").attr('href', url + id);
+        $("#small-modal").modal();
+    }
+}
+
+function rejectModalPop(id){
+    $("#reject_trx_id").val(id);
+    $("#modal-reject").modal();
+}

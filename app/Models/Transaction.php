@@ -132,4 +132,16 @@ class Transaction extends Eloquent
 	{
 		return $this->hasMany(\App\Models\TransactionDetail::class);
 	}
+
+	public function getTotalPriceAttribute(){
+	    return number_format($this->attributes['total_price'],0, ",", ".");
+    }
+
+    public function getTotalPaymentAttribute(){
+        return number_format($this->attributes['total_payment'],0, ",", ".");
+    }
+
+    public function getDeliveryFeeAttribute(){
+        return number_format($this->attributes['delivery_fee'],0, ",", ".");
+    }
 }

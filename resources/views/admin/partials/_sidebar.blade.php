@@ -29,7 +29,7 @@
                         <a href="{{ route('admin-dashboard') }}"><i class="fa fa-home"></i> Dashboard </a>
                     </li>
                     <li>
-                        <a href="{{ route('transaction-list') }}">
+                        <a href="{{ route('new-order-list') }}">
                             <i class="fa fa-exclamation-triangle"></i> New Order
                         </a>
                     </li>

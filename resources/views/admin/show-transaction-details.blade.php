@@ -25,9 +25,36 @@
                         </div>
                         <div class="x_content">
                             <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
-                                <h4>{{ $transaction->user->first_name }}&nbsp;{{ $transaction->user->last_name }}</h4>
+                                <table width="100%">
+                                    <tbody>
+                                    <tr>
+                                        <td width="45%"><b>Total Price</b></td>
+                                        <td width="10%"><b>:</b></td>
+                                        <td width="45%">Rp {{ $transaction->total_price }}</td>
+                                    </tr>
 
+                                    @if(!empty($transaction->payment_code))
+                                        <tr>
+                                            <td><b>Payment Code</b></td>
+                                            <td><b>:</b></td>
+                                            <td>{{ $transaction->payment_code }}</td>
+                                        </tr>
+                                    @endif
+
+                                    <tr>
+                                        <td><b>Delivery Fee</b></td>
+                                        <td><b>:</b></td>
+                                        <td>Rp {{ $transaction->delivery_fee }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Total Payment</b></td>
+                                        <td><b>:</b></td>
+                                        <td>Rp {{ $transaction->total_payment }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                                 <ul class="list-unstyled user_data">
+                                    <li><h4>{{ $transaction->user->first_name }}&nbsp;{{ $transaction->user->last_name }}</h4></li>
                                     <li>
                                         {{ $transaction->address_detail }}<br/>
                                         {{ $transaction->subdistrict_name }}, {{ $transaction->city_name }}, {{ $transaction->province_name }}, {{ $transaction->postal_code }}
@@ -39,28 +66,7 @@
                                         <i class="fa fa-truck user-profile-icon"></i>&nbsp;{{ strtoupper($transaction->courier) }} {{ $transaction->delivery_type }}
                                     </li>
                                     <li>
-                                        <b>Tanggal Transaksi:</b><br/>{{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s')}}
-                                    </li>
-                                    <li>
-                                        <b>Status:</b><br/>
-                                        {{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s')}}&nbsp;-&nbsp;
-                                        <b>
-                                        @if($transaction->status_id == 4)
-                                            Need to confirm payment
-                                        @elseif($transaction->status_id == 5)
-                                            New Order
-                                        @elseif($transaction->status_id == 6)
-                                            In Process
-                                        @elseif($transaction->status_id == 7)
-                                            Rejected
-                                        @elseif($transaction->status_id == 8)
-                                            In Delivery
-                                        @elseif($transaction->status_id == 9)
-                                            <span style="color: #42b549;">Success</span>
-                                        @elseif($transaction->status_id == 10)
-                                            <span style="color: red;">Failed</span>
-                                        @endif
-                                        </b>
+                                        <b>Transaction Date:</b><br/>{{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s')}}
                                     </li>
                                 </ul>
                             </div>
