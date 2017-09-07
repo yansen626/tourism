@@ -46,6 +46,8 @@ Route::get('/checkout-3', function (){
 Route::get('/checkout-4', function (){
     return view('frontend/checkout-step4');
 })->name('checkout4');
+
+Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 // End Frontend Routing
 
 

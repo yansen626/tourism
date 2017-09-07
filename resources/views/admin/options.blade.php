@@ -54,7 +54,11 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control">
                                         @foreach($provinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                            @if($province->id == $data->province_id)
+                                                <option value="{{ $province->id }}" selected>{{ $province->name }}</option>
+                                            @else
+                                                <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -66,7 +70,11 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control">
                                         @foreach($cities as $city)
-                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            @if($city->id == $data->city_id)
+                                                <option value="{{ $city->id }}" selected>{{ $city->name }}</option>
+                                            @else
+                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
