@@ -68,7 +68,7 @@
                                 <div class="pull-right tovar_view_price">Rp {{$singleProduct->price}}</div>
                             </div>
                             <div class="tovar_view_btn">
-                                <a class="add_bag" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i>Add to bag</a>
+                                <a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $singleProduct->id }}')"><i class="fa fa-shopping-cart"></i><span>Add to bag</span></a>
                                 <a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>
                             </div>
                         </div>
@@ -198,4 +198,10 @@
         </div><!-- //CONTAINER -->
     </section><!-- //NEW ARRIVALS -->
 
+
+    <script>
+        var urlLink = '{{route('addCart')}}';
+    </script>
 @endsection
+
+@include('frontend.partials._modal')

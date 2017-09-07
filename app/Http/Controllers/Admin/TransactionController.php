@@ -11,8 +11,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
-use App\Models\TransactionDetail;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class TransactionController extends Controller
 {
@@ -26,5 +27,32 @@ class TransactionController extends Controller
         $transaction = Transaction::find($id);
 
         return View('admin.show-transaction-details', compact('transaction'));
+    }
+
+    public function newOrder(){
+        $transactions = Transaction::where('status_id', 5)->orderByDesc('created_on')->get();
+
+        return View('admin.show-new-orders', compact('transactions'));
+    }
+
+    public function acceptOrder($id){
+        $trx = Transaction::find($id);
+
+        $trx->status_id = 6;
+        $trx->save();
+
+        return redirect::route('new-order-list');
+    }
+
+    public function rejectOrder(Request $request){
+        $trx = Transaction::find(Input::get('reject-trx-id'));
+
+        $trx->status_id = 7;
+        if(!empty(Input::get('reject-reason'))){
+            $trx->reject_note = Input::get('reject-reason');
+        }
+        $trx->save();
+
+        return redirect::route('new-order-list');
     }
 }

@@ -79,9 +79,9 @@
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
                                         <td>{{ $trx->payment_method->description }}</td>
                                         <td>{{ strtoupper($trx->courier) }} {{ $trx->delivery_type }}</td>
-                                        <td>{{ $trx->total_price }}</td>
-                                        <td>{{ $trx->delivery_fee }}</td>
-                                        <td>{{ $trx->total_payment }}</td>
+                                        <td>Rp {{ $trx->total_price }}</td>
+                                        <td>Rp {{ $trx->delivery_fee }}</td>
+                                        <td>Rp {{ $trx->total_payment }}</td>
                                         <td>
                                             @if($trx->status_id == 4)
                                                 Need to confirm payment
