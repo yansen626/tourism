@@ -26,6 +26,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $city_name
  * @property int $subdistrict_id
  * @property string $subdistrict_name
+ * @property string $postal_code
  * @property string $address_detail
  * @property string $tracking_code
  * @property string $courier
@@ -75,6 +76,7 @@ class Transaction extends Eloquent
 	];
 
 	protected $fillable = [
+	    'id',
 		'user_id',
 		'payment_method_id',
         'invoice',
@@ -89,6 +91,7 @@ class Transaction extends Eloquent
         'city_name',
         'subdistrict_id',
         'subdistrict_name',
+        'postal_code',
         'address_detail',
         'tracking_code',
 		'courier',

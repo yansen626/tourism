@@ -23,6 +23,7 @@ class CreateAddressesTable extends Migration {
 			$table->string('city_name', 50)->nullable();
 			$table->integer('subdistrict_id')->nullable();
 			$table->string('subdistrict_name', 50)->nullable();
+            $table->string('postal_code', 10)->nullable();
 			$table->text('detail')->nullable();
 			$table->integer('status_id')->index('FK_addresses_status_id_statuses_idx');
 		});

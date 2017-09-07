@@ -41,6 +41,12 @@ numberFormat2 = new AutoNumeric('#discount-percent', {
     decimalPlaces: 0
 });
 
+numberFormat2 = new AutoNumeric('#qty', {
+    maximumValue: 9999,
+    minimumValue: 0,
+    decimalPlaces: 0
+});
+
 // Others
 $("#disc-none-opt").change(function(){
     $("#disc-percent").hide(300);

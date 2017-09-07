@@ -36,7 +36,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Customer List</h2>
+                            <h2>Transaction History</h2>
                             {{--<ul class="nav navbar-right panel_toolbox">--}}
                             {{--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--}}
                             {{--</li>--}}
@@ -67,23 +67,43 @@
                                     <th>Delivery Fee</th>
                                     <th>Total Payment</th>
                                     <th>Status</th>
+                                    <th>Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{ $idx = 1 }}
+                                @php( $idx = 1 )
                                 @foreach($transactions as $trx)
                                     <tr>
                                         <td>{{ $idx }}</td>
                                         <td>{{ $trx->invoice }}</td>
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
                                         <td>{{ $trx->payment_method->description }}</td>
-                                        <td>{{ $trx->courier->description }}&nbsp;{{ $trx->delivery_type->description }}</td>
+                                        <td>{{ strtoupper($trx->courier) }} {{ $trx->delivery_type }}</td>
                                         <td>{{ $trx->total_price }}</td>
                                         <td>{{ $trx->delivery_fee }}</td>
                                         <td>{{ $trx->total_payment }}</td>
-                                        <td>{{ $trx->status->description }}</td>
+                                        <td>
+                                            @if($trx->status_id == 4)
+                                                Need to confirm payment
+                                            @elseif($trx->status_id == 5)
+                                                New Order
+                                            @elseif($trx->status_id == 6)
+                                                In Process
+                                            @elseif($trx->status_id == 7)
+                                                Rejected
+                                            @elseif($trx->status_id == 8)
+                                                In Delivery
+                                            @elseif($trx->status_id == 9)
+                                                <span style="color: #42b549;">Success</span>
+                                            @elseif($trx->status_id == 10)
+                                                <span style="color: red;">Failed</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="/admin/transaction/detail/{{ $trx->id }}" class="btn btn-success submit">Detail</a>
+                                        </td>
                                     </tr>
-                                    {{ $idx++ }}
+                                    @php( $idx++ )
                                 @endforeach
                                 </tbody>
                             </table>

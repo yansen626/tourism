@@ -29,6 +29,7 @@ class CreateTransactionsTable extends Migration {
 			$table->string('city_name', 30)->nullable();
 			$table->integer('subdistrict_id')->nullable();
 			$table->string('subdistrict_name', 30)->nullable();
+            $table->string('postal_code', 10)->nullable();
 			$table->text('address_detail')->nullable();
 			$table->string('tracking_code', 45)->nullable();
 			$table->string('courier', 50)->nullable();
