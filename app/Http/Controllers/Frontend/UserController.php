@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Address;
+use App\Models\City;
+use App\Models\Province;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $address = null;
+        $address = Address::where('user_id', Auth::id())->first();
 
         return view('frontend.user', compact('address'));
     }
@@ -46,5 +49,28 @@ class UserController extends Controller
         Session::flash('message', 'Success Updating Account!!!');
 
         return redirect('user');
+    }
+
+    public function addressShow()
+    {
+
+    }
+
+    public function addressEdit()
+    {
+
+    }
+
+    public function addressCreate()
+    {
+        $provinces = Province::all();
+        $cities = City::all();
+
+        return view('', compact('provinces', 'cities'));
+    }
+
+    public function addressStore()
+    {
+
     }
 }

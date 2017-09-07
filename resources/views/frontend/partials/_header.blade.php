@@ -12,7 +12,7 @@
                 <li><a href="{{ route('register') }}" >Register</a></li>
                 @if(auth()->check())
                     <li>
-                        <span>{{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}</span>
+                        <span>{{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->id }}</span>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"

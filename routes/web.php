@@ -51,9 +51,19 @@ Route::get('/checkout-4', function (){
 
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 
+//User Data
 Route::get('user', 'Frontend\UserController@index');
 Route::get('user/edit-show', 'Frontend\UserController@edit')->name('user-edit-show');
 Route::post('user/edit-show', 'Frontend\UserController@update');
+
+//User Address
+Route::prefix('user/address')->group(function(){
+    Route::get('/create', 'Frontend\UserAddressController@create')->name('user-address-create');
+    Route::post('/create', 'Frontend\UserAddressController@store')->name('user-address-store');
+    Route::get('/edit', 'Frontend\UserAddressController@edit')->name('user-address-edit');
+    Route::post('/edit', 'Frontend\UserAddressController@update')->name('user-address-update');
+});
+
 // End Frontend Routing
 
 

@@ -16,6 +16,10 @@ class User extends Authenticatable
      */
     protected $table = 'users';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     protected $fillable = [
         'id',
         'email',
