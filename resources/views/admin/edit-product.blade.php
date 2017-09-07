@@ -228,6 +228,7 @@
                                     <input id="weight" name="weight" required class="form-control col-md-7 col-xs-12" value="{{ $product->getOriginal('weight') }}">
                                 </div>
                             </div>
+
                             @if ($errors->has('weight'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -238,6 +239,26 @@
                                     </div>
                                 </div>
                             @endif
+
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="qty" name="qty" class="form-control col-md-7 col-xs-12" value="{{ $product->quantity }}">
+                                </div>
+                            </div>
+
+                            @if ($errors->has('qty'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('qty') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Featured Photo <span class="required">*</span>
                                 </label>
@@ -246,6 +267,7 @@
                                     {!! Form::file('product-featured', array('id' => 'product-featured', 'class' => 'file-loading', 'data-image-featured-path' => asset('storage/product/'. $imgFeatured))) !!}
                                 </div>
                             </div>
+
                             @if ($errors->has('product-featured'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -256,12 +278,14 @@
                                     </div>
                                 </div>
                             @endif
+
                             @if(!$imgPhotos->isEmpty())
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Current Photos <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="cover-container">
+
                                             @foreach($imgPhotos as $photo)
                                                 <div class="cover-item" id="{{ $photo->id. '_img' }}">
                                                     <div class="cover-image" style="background-image: url('{{ asset('storage/product/'. $photo->path) }}')">
@@ -272,12 +296,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             @endforeach
+
                                         </div>
                                     </div>
                                 </div>
                             @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Add New Photos
                                 </label>
@@ -285,6 +310,7 @@
                                     {!! Form::file('product-photos[]', array('id' => 'product-photos', 'class' => 'file-loading', 'multiple' )) !!}
                                 </div>
                             </div>
+
                             @if ($errors->has('product-photos'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -295,6 +321,7 @@
                                     </div>
                                 </div>
                             @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description
                                 </label>
@@ -307,6 +334,7 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="status" name="status" class="form-control col-md-7 col-xs-1">
+
                                         @if($product->status_id == 1)
                                             <option value="1" selected>Publish</option>
                                             <option value="0">Unpublish</option>
@@ -314,6 +342,7 @@
                                             <option value="1">Publish</option>
                                             <option value="0" selected>Unpublish</option>
                                         @endif
+
                                     </select>
                                 </div>
                             </div>

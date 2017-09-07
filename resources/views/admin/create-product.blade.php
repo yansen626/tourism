@@ -49,6 +49,7 @@
                                     <input id="name" class="form-control col-md-7 col-xs-12"  name="name" required="required" type="text">
                                 </div>
                             </div>
+
                             @if ($errors->has('name'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -59,18 +60,22 @@
                                     </div>
                                 </div>
                             @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Category <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="category" name="category" class="form-control col-md-7 col-xs-1">
                                         <option value="-1">Select category</option>
+
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
+
                                     </select>
                                 </div>
                             </div>
+
                             @if ($errors->has('category'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -89,6 +94,7 @@
                                     <input id="price" name="price" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+
                             @if ($errors->has('price'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -99,6 +105,7 @@
                                     </div>
                                 </div>
                             @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Discount
                                 </label>
@@ -130,6 +137,7 @@
                                     <input id="discount-flat" name="discount-flat" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+
                             @if ($errors->has('discount-percent'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -140,6 +148,7 @@
                                     </div>
                                 </div>
                             @endif
+
                             @if ($errors->has('discount-flat'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -150,6 +159,7 @@
                                     </div>
                                 </div>
                             @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram <span class="required">*</span>
                                 </label>
@@ -157,6 +167,7 @@
                                     <input id="weight" name="weight" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
+
                             @if ($errors->has('weight'))
                                 <div class="form-group">
                                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
@@ -167,6 +178,26 @@
                                     </div>
                                 </div>
                             @endif
+
+                            <div class="item form-group" >
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="qty" name="qty" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+
+                            @if ($errors->has('qty'))
+                                <div class="form-group">
+                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('qty') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Featured Photo <span class="required">*</span>
                                 </label>

@@ -66,6 +66,7 @@
                                     <th>Discount</th>
                                     <th>Flat Discount</th>
                                     <th>Final Price</th>
+                                    <th>Stock</th>
                                     <th>Created Date</th>
                                     <th>Featured Photo</th>
                                     <th>Status</th>
@@ -104,6 +105,9 @@
                                             @endif
                                         </td>
                                         <td>
+                                            {{ $product->quantity }}
+                                        </td>
+                                        <td>
                                             {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
                                         </td>
                                         <td width="15%">
@@ -113,7 +117,7 @@
                                             @if($product->status_id == 1)
                                                 Active
                                             @else
-                                                Unactive
+                                                Inactive
                                             @endif
                                         </td>
                                         <td>

@@ -13,6 +13,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class Address
  * 
  * @property int $id
+ * @property string $name
  * @property string $user_id
  * @property int $province_id
  * @property string $province_name
@@ -42,6 +43,7 @@ class Address extends Eloquent
 
 	protected $fillable = [
 		'user_id',
+        'name',
 		'province_id',
 		'province_name',
 		'city_id',

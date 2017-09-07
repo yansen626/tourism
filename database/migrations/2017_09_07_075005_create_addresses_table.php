@@ -16,6 +16,7 @@ class CreateAddressesTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('user_id', 36)->index('FK_addresses_user_id_users_idx');
+            $table->string('name', 45)->nullable();
 			$table->integer('province_id')->nullable();
 			$table->string('province_name', 50)->nullable();
 			$table->integer('city_id')->nullable();

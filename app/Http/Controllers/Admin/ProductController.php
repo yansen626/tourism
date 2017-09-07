@@ -44,6 +44,7 @@ class ProductController extends Controller
             'name'                  => 'required',
             'price'                 => 'required',
             'weight'                => 'required',
+            'qty'                   => 'required',
             'product-featured'      => 'required|image|mimes:jpeg,jpg,png'
         ],[
             'option_not_default'    => 'Select a category'
@@ -67,6 +68,7 @@ class ProductController extends Controller
                 'name'          => Input::get('name'),
                 'price'         => $priceDouble,
                 'weight'        => $weight,
+                'quantity'      => Input::get('qty'),
                 'created_on'    => $dateTimeNow->toDateTimeString(),
                 'status_id'     => 1
             ]);
@@ -164,7 +166,8 @@ class ProductController extends Controller
             'category'              => 'required|option_not_default',
             'name'                  => 'required',
             'price'                 => 'required',
-            'weight'                => 'required'
+            'weight'                => 'required',
+            'qty'                   => 'required'
         ],[
             'option_not_default'    => 'Select a category'
         ]);
@@ -188,6 +191,7 @@ class ProductController extends Controller
 
             $product->price = $priceDouble;
             $product->weight = $weight;
+            $product->quantity = Input::get('qty');
 
             if(Input::get('options') == 'percent'){
                 $discountPercent = (double) Input::get('discount-percent');
