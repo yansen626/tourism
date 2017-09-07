@@ -19,10 +19,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $total_payment
  * @property float $total_price
  * @property int $address_id
- * @property int $courier_id
- * @property int $delivery_type_id
+ * @property string $tracking_code
+ * @property string $courier
+ * @property string $delivery_type
  * @property float $delivery_fee
  * @property float $admin_fee
+ * @property \Carbon\Carbon $delivery_date
+ * @property \Carbon\Carbon $finish_date
+ * @property string $reject_note
  * @property int $status_id
  * @property string $created_by
  * @property \Carbon\Carbon $created_on
@@ -30,8 +34,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $modified_on
  * 
  * @property \App\Models\Address $address
- * @property \App\Models\Courier $courier
- * @property \App\Models\DeliveryType $delivery_type
  * @property \App\Models\PaymentMethod $payment_method
  * @property \App\Models\Status $status
  * @property \App\Models\User $user
@@ -50,14 +52,14 @@ class Transaction extends Eloquent
 		'total_payment' => 'float',
 		'total_price' => 'float',
 		'address_id' => 'int',
-		'courier_id' => 'int',
-		'delivery_type_id' => 'int',
 		'delivery_fee' => 'float',
 		'admin_fee' => 'float',
 		'status_id' => 'int'
 	];
 
 	protected $dates = [
+        'delivery_date',
+        'finish_date',
 		'created_on',
 		'modified_on'
 	];
@@ -70,10 +72,14 @@ class Transaction extends Eloquent
 		'total_payment',
 		'total_price',
 		'address_id',
-		'courier_id',
-		'delivery_type_id',
+        'tracking_code',
+		'courier',
+		'delivery_type',
 		'delivery_fee',
 		'admin_fee',
+        'delivery_fee',
+        'finish_date',
+        'reject_note',
 		'status_id',
 		'created_by',
 		'created_on',
@@ -84,16 +90,6 @@ class Transaction extends Eloquent
 	public function address()
 	{
 		return $this->belongsTo(\App\Models\Address::class);
-	}
-
-	public function courier()
-	{
-		return $this->belongsTo(\App\Models\Courier::class);
-	}
-
-	public function delivery_type()
-	{
-		return $this->belongsTo(\App\Models\DeliveryType::class);
 	}
 
 	public function payment_method()

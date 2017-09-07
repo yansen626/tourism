@@ -21,10 +21,14 @@ class CreateTransactionsTable extends Migration {
 			$table->float('total_payment', 10, 0)->nullable();
 			$table->float('total_price', 10, 0)->nullable();
 			$table->integer('address_id')->nullable()->index('FK_transactions_address_id_addresses_idx');
-			$table->integer('courier_id')->nullable()->index('FK_transactions_courier_id_couriers_idx');
-			$table->integer('delivery_type_id')->nullable()->index('FK_transactions_delivery_type_id_delivery_types_idx');
+            $table->string('tracking_code')->nullable();
+			$table->string('courier')->nullable();
+			$table->string('delivery_type')->nullable();
 			$table->float('delivery_fee', 10, 0)->nullable();
 			$table->float('admin_fee', 10, 0)->nullable();
+            $table->dateTime('delivery_date')->nullable();
+            $table->dateTime('finish_date')->nullable();
+            $table->string('reject_note')->nullable();
 			$table->integer('status_id')->nullable()->index('FK_transactions_status_id_statuses_idx');
 			$table->string('created_by', 36)->nullable();
 			$table->dateTime('created_on')->nullable();
