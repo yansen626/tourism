@@ -119,8 +119,19 @@ Route::get('/admin/transaction', 'Admin\TransactionController@index')->name('tra
 Route::get('/admin/transaction/detail/{id}', 'Admin\TransactionController@detail')->name('transaction-detail');
 Route::get('/admin/transfer', 'Admin\TransactionController@userTransfer')->name('transfer-list');
 Route::get('/admin/transfer/confirm/{id}', 'Admin\TransactionController@confirmTransfer')->name('transfer-confirm');
+Route::get('/admin/delivery', 'Admin\TransactionController@deliveryRequest')->name('delivery-list');
+Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDelivery')->name('delivery-confirm');
 
-//Paymentmethods
+// Category
+Route::prefix('admin/category')->group(function(){
+    Route::get('/', 'Admin\CategoryController@index')->name('category-list');
+    Route::post('/', 'Admin\CategoryController@store');
+    Route::get('/create', 'Admin\CategoryController@create')->name('category-create');
+    Route::get('/edit/{id}', 'Admin\CategoryController@edit');
+    Route::post('/{id}', 'Admin\CategoryController@update');
+});
+
+// Paymentmethods
 Route::prefix('admin/paymentmethods')->group(function(){
     Route::get('/', 'Admin\PaymentMethodController@index')->name('payment-method-show');
     Route::post('/', 'Admin\PaymentMethodController@store');
@@ -130,7 +141,7 @@ Route::prefix('admin/paymentmethods')->group(function(){
     Route::get('/delete/{id}', 'Admin\PaymentMethodController@destroy');
 });
 
-//Courier
+// Courier
 Route::prefix('admin/courier')->group(function(){
     Route::get('/', 'Admin\CourierController@index')->name('courier-show');
     Route::post('/', 'Admin\CourierController@store');
@@ -140,7 +151,7 @@ Route::prefix('admin/courier')->group(function(){
     Route::get('/delete/{id}', 'Admin\CourierController@destroy');
 });
 
-//Delivery Type
+// Delivery Type
 Route::prefix('admin/delivery-type')->group(function(){
     Route::get('/', 'Admin\DeliveryTypeController@index')->name('delivery-type-show');
     Route::post('/', 'Admin\DeliveryTypeController@store');
@@ -150,7 +161,7 @@ Route::prefix('admin/delivery-type')->group(function(){
     Route::get('/delete/{id}', 'Admin\DeliveryTypeController@destroy');
 });
 
-//Status
+// Status
 Route::prefix('admin/status')->group(function(){
     Route::get('/', 'Admin\StatusController@index')->name('status-show');
     Route::post('/', 'Admin\StatusController@store');
@@ -160,7 +171,7 @@ Route::prefix('admin/status')->group(function(){
     Route::get('/delete/{id}', 'Admin\StatusController@destroy');
 });
 
-//Admin Options
+// Admin Options
 Route::get('/admin/options', 'Admin\OptionsController@index');
 Route::post('/admin/options', 'Admin\OptionsController@update');
 
