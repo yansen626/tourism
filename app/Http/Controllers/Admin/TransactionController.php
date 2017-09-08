@@ -86,7 +86,7 @@ class TransactionController extends Controller
         $trx = Transaction::find(Input::get('delivery-trx-id'));
 
         $trx->tracking_code = Input::get('tracking-code');
-        $trx->status_id = 8;
+        $trx->status_id = 9;
         $trx->save();
 
         return redirect::route('delivery-list');
