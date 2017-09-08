@@ -102,9 +102,9 @@ Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard')
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
 
 // Product
-Route::get('/admin/product', 'Admin\ProductController@index')->name('product-list-view');
-Route::get('/admin/product/create', 'Admin\ProductController@createShow')->name('product-create-view');
-Route::get('/admin/product/edit/{id}', 'Admin\ProductController@editShow')->name('product-edit-view');
+Route::get('/admin/product', 'Admin\ProductController@index')->name('product-list');
+Route::get('/admin/product/create', 'Admin\ProductController@createShow')->name('product-create');
+Route::get('/admin/product/edit/{id}', 'Admin\ProductController@editShow')->name('product-edit');
 Route::post('/admin/product/editing/{id}', 'Admin\ProductController@editSubmit');
 Route::post('/admin/product/creating', 'Admin\ProductController@createSubmit');
 

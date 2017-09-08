@@ -24,7 +24,7 @@ class StatusController extends Controller
         //
         $statuses = Status::all();
 
-        return View('admin.status', compact('statuses'));
+        return View('admin.show-statuses', compact('statuses'));
     }
 
     /**
@@ -53,7 +53,7 @@ class StatusController extends Controller
 
         Status::create(request(['description']));
 
-        Session::flash('message', 'Success Creating Status!!!');
+        Session::flash('message', 'Create Success!');
 
         return redirect('/admin/status');
     }
@@ -96,12 +96,11 @@ class StatusController extends Controller
             'description' => 'required'
         ]);
 
-
         Status::where('id', $id)->update([
             'description' => $request->description
         ]);
 
-        Session::flash('message', 'Success Updating Status!!!');
+        Session::flash('message', 'Update Success!');
 
         return redirect('admin/status');
     }

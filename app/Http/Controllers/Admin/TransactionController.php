@@ -75,4 +75,20 @@ class TransactionController extends Controller
 
         return redirect::route('transfer-list');
     }
+
+    public function deliveryRequest(){
+        $transactions = Transaction::where('status_id', 6)->get();
+
+        return View('admin.show-delivery-requests', compact('transactions'));
+    }
+
+    public function confirmDelivery(Request $request){
+        $trx = Transaction::find(Input::get('delivery-trx-id'));
+
+        $trx->tracking_code = Input::get('tracking-code');
+        $trx->status_id = 8;
+        $trx->save();
+
+        return redirect::route('delivery-list');
+    }
 }

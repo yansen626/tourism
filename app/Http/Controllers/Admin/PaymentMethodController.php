@@ -12,7 +12,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rules\In;
 
 class PaymentMethodController extends Controller
 {
@@ -20,7 +22,7 @@ class PaymentMethodController extends Controller
     {
         $paymentMethods = PaymentMethod::all();
 
-        return View('admin.payment-method', compact('paymentMethods'));
+        return View('admin.show-payment-methods', compact('paymentMethods'));
     }
 
     public function create()
@@ -31,37 +33,45 @@ class PaymentMethodController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'description' => 'required',
-            'fee' => 'required'
+            'description' => 'required'
         ]);
 
-        PaymentMethod::create(request(['description', 'fee']));
+        PaymentMethod::create([
+            'description'       => Input::get('description'),
+            'type'              => Input::get('type'),
+            'status_id'         => 1
+        ]);
 
-        Session::flash('message', 'Success Creating Payment Method!!!');
+        Session::flash('message', 'Create Success!');
 
         return redirect('/admin/paymentmethods');
     }
 
     public function edit($id)
     {
-        $paymentMethod = PaymentMethod::find($id);
-        return View('admin.edit-payment-method', compact('paymentMethod'));
+        $payment = PaymentMethod::find($id);
+        return View('admin.edit-payment-method', compact('payment'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate(request(), [
-            'description' => 'required',
-            'fee' => 'required'
+            'description' => 'required'
         ]);
 
+        $payment = PaymentMethod::find($id);
 
-        PaymentMethod::where('id', $id)->update([
-            'description' => $request->description,
-            'fee' => $request->fee
-        ]);
+        $payment->description = Input::get('description');
+        $payment->type = Input::get('type');
 
-        Session::flash('message', 'Success Updating Payment Method!!!');
+        if(!empty(Input::get('fee'))){
+            $payment->fee = str_replace('.','', Input::get('fee'));
+        }
+
+        $payment->status_id = Input::get('status');
+        $payment->save();
+
+        Session::flash('message', 'Update Success!');
 
         return redirect('admin/paymentmethods');
     }

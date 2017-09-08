@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCouriersTable extends Migration {
+class CreateDeliveryTypesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,12 @@ class CreateCouriersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('couriers', function(Blueprint $table)
+		Schema::create('delivery_types', function(Blueprint $table)
 		{
 			$table->integer('id', true);
+			$table->integer('courier_id')->index('FK_delivery_types_courier_id_couriers_idx');
 			$table->string('description', 50);
+			$table->integer('status_id');
 		});
 	}
 
@@ -27,7 +29,7 @@ class CreateCouriersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('couriers');
+		Schema::drop('delivery_types');
 	}
 
 }

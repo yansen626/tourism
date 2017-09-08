@@ -20,22 +20,12 @@
                     <div class="x_panel">
                         <div class="x_title">
                             @include('admin.partials._success')
-                            <h2>Courier</h2>
-                            {{--<ul class="nav navbar-right panel_toolbox">--}}
-                            {{--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--}}
-                            {{--</li>--}}
-                            {{--<li class="dropdown">--}}
-                            {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>--}}
-                            {{--<ul class="dropdown-menu" role="menu">--}}
-                            {{--<li><a href="#">Settings 1</a>--}}
-                            {{--</li>--}}
-                            {{--<li><a href="#">Settings 2</a>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
-                            {{--</li>--}}
-                            {{--<li><a class="close-link"><i class="fa fa-close"></i></a>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
+                            <h2>Courier Master Data</h2>
+                            <div class="nav navbar-right">
+                                <a href="{{ route('courier-create') }}" class="btn btn-app">
+                                    <i class="fa fa-plus"></i> Add
+                                </a>
+                            </div>
                             <div class="clearfix"></div>
 
                         </div>
@@ -45,25 +35,29 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+                                    <th>Status</th>
                                     <th>Options</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php
-                                    $idx = 1;
-                                ?>
+                                @php( $idx = 1 )
                                 @foreach($couriers as $courier)
                                     <tr>
                                         <td>{{$idx}}</td>
                                         <td>{{$courier->description}}</td>
                                         <td>
+                                            @if($courier->status_id == 1)
+                                                Active
+                                            @else
+                                                Inactive
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a href="/admin/courier/edit/{{ $courier->id }}" class="btn btn-default submit">Edit</a>
-                                            <a href="/admin/courier/delete/{{ $courier->id }}" class="btn btn-danger submit">Delete</a>
+                                            {{--<a href="/admin/courier/delete/{{ $courier->id }}" class="btn btn-danger submit">Delete</a>--}}
                                         </td>
                                     </tr>
-                                    <?php
-                                        $idx++;
-                                    ?>
+                                    @php( $idx++ )
                                 @endforeach
                                 </tbody>
                             </table>

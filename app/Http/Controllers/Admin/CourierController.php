@@ -24,7 +24,7 @@ class CourierController extends Controller
         //
         $couriers = Courier::all();
 
-        return View('admin.courier', compact('couriers'));
+        return View('admin.show-couriers', compact('couriers'));
     }
 
     /**

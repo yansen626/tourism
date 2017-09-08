@@ -168,3 +168,9 @@ function rejectModalPop(id){
     $("#reject_trx_id").val(id);
     $("#modal-reject").modal();
 }
+
+function confirmDeliveryModalPop(id, courier){
+    $("#delivery-trx-id").val(id);
+    $("#courier-name").html(courier);
+    $("#modal-tracking-code").modal();
+}

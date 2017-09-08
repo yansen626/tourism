@@ -15,6 +15,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property int $courier_id
  * @property string $description
+ * @property int $status_id
  * 
  * @property \App\Models\Courier $courier
  * @property \Illuminate\Database\Eloquent\Collection $transactions
@@ -31,7 +32,8 @@ class DeliveryType extends Eloquent
 
 	protected $fillable = [
 		'courier_id',
-		'description'
+		'description',
+        'status_id'
 	];
 
 	public function courier()
@@ -43,4 +45,9 @@ class DeliveryType extends Eloquent
 	{
 		return $this->hasMany(\App\Models\Transaction::class);
 	}
+
+    public function status()
+    {
+        return $this->belongsTo(\App\Models\Status::class);
+    }
 }

@@ -68,25 +68,25 @@
                                     <li>
                                         <b>Transaction Date:</b><br/>{{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s')}}
                                     </li>
-                                    <li><b>Status:<br/>
+                                    <li><b>Status:</b><br/>
                                         @if($transaction->status_id == 4)
-                                            Need to confirm payment
+                                            <b>Need to confirm payment</b>
                                         @elseif($transaction->status_id == 5)
-                                            New Order
+                                            <b>New Order</b>
                                         @elseif($transaction->status_id == 6)
-                                            In Process
+                                            <b>In Process</b>
                                         @elseif($transaction->status_id == 7)
-                                            Rejected
+                                            <b>Rejected</b>
                                         @elseif($transaction->status_id == 8)
-                                            In Delivery
+                                            <b>In Delivery</b>
                                         @elseif($transaction->status_id == 9)
                                             {{ \Carbon\Carbon::parse($transaction->finish_date)->format('j M Y G:i:s')}} -
-                                            <span style="color: #42b549;">Success</span>
+                                            <b><span style="color: #42b549;">Success</span></b>
                                         @elseif($transaction->status_id == 10)
                                             {{ \Carbon\Carbon::parse($transaction->finish_date)->format('j M Y G:i:s')}} -
-                                            <span style="color: red;">Failed</span>
+                                            <b><span style="color: red;">Failed</span></b>
                                         @endif
-                                        </b>
+
                                     </li>
                                 </ul>
                             </div>

@@ -6,7 +6,9 @@ use App\Models\Courier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryType;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class DeliveryTypeController extends Controller
 {
@@ -26,7 +28,7 @@ class DeliveryTypeController extends Controller
         $deliveryTypes = DeliveryType::all();
 
         //dd($deliveryTypes);
-        return View('admin.delivery-type', compact('deliveryTypes'));
+        return View('admin.show-delivery-types', compact('deliveryTypes'));
     }
 
     /**
@@ -39,13 +41,7 @@ class DeliveryTypeController extends Controller
         //
         $couriers = Courier::all();
 
-        if($couriers == null){
-            Session::flash('Error', 'Create Couriers First!!');
-            return redirect('admin.deliveryType');
-        }
-
-        dd($couriers);
-        //return View('admin.create-deliveryType');
+        return View('admin.create-delivery-type', compact('couriers'));
     }
 
     /**
@@ -57,16 +53,28 @@ class DeliveryTypeController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
-            'courier_id' => 'required',
+        $validator = Validator::make($request->all(), [
+            'courier' => 'required|option_not_default',
             'description' => 'required',
+        ],[
+            'option_not_default'    => 'Select a courier'
         ]);
 
-        Courier::create(request(['description']));
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
 
-        Session::flash('message', 'Success Creating Courier!!!');
+        DeliveryType::create([
+            'description'   => Input::get('description'),
+            'courier_id'    => Input::get('courier'),
+            'status_id'     => 1
+        ]);
 
-        return redirect('/admin/courier');
+        Session::flash('message', 'Create Success!');
+
+        return redirect('/admin/delivery-type');
     }
 
     /**
@@ -88,7 +96,15 @@ class DeliveryTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $delivery = DeliveryType::find($id);
+        $couriers = Courier::all();
+
+        $data = [
+            'delivery'  => $delivery,
+            'couriers'  => $couriers
+        ];
+
+        return View('admin.edit-delivery-type')->with($data);
     }
 
     /**
@@ -100,7 +116,27 @@ class DeliveryTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'courier_id' => 'required|option_not_default',
+            'description' => 'required',
+        ],[
+            'option_not_default'    => 'Select a courier'
+        ]);
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $delivery = DeliveryType::find($id);
+        $delivery->description = Input::get('description');
+        $delivery->courier_id = Input::get('courier');
+        $delivery->status_id = Input::get('status');
+
+        $delivery->save();
+
+        return redirect('/admin/delivery-type');
     }
 
     /**

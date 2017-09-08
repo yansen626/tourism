@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePaymentMethodsTable extends Migration {
+class CreateCouriersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreatePaymentMethodsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('payment_methods', function(Blueprint $table)
+		Schema::create('couriers', function(Blueprint $table)
 		{
 			$table->integer('id', true);
 			$table->string('description', 50);
-			$table->float('fee', 10, 0)->nullable();
+			$table->integer('status_id');
 		});
 	}
 
@@ -28,7 +28,7 @@ class CreatePaymentMethodsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('payment_methods');
+		Schema::drop('couriers');
 	}
 
 }

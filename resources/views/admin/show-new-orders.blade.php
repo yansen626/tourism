@@ -101,9 +101,10 @@
             </div>
         </div>
     </div>
+    <!-- /reject modal -->
 
     <!-- small modal -->
     @include('admin.partials._small_modal')
-    <!-- small modal -->
+    <!--/small modal -->
 
 @endsection

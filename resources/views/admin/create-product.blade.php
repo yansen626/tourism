@@ -243,8 +243,8 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary">Cancel</button>
-                                    <button id="send" type="submit" class="btn btn-success">Submit</button>
+                                    <a href="{{ route('product-list') }}" class="btn btn-primary">Cancel</a>
+                                    <button id="send" type="submit" class="btn btn-success">Create</button>
                                 </div>
                             </div>
 

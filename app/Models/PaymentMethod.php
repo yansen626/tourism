@@ -15,6 +15,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $description
  * @property float $fee
+ * @property string $type
+ * @property int $status_id
  * 
  * @property \Illuminate\Database\Eloquent\Collection $transactions
  *
@@ -25,16 +27,24 @@ class PaymentMethod extends Eloquent
 	public $timestamps = false;
 
 	protected $casts = [
-		'fee' => 'float'
+		'fee' => 'float',
+        'status_id' => 'int'
 	];
 
 	protected $fillable = [
 		'description',
-		'fee'
+		'fee',
+        'type',
+        'status_id'
 	];
 
 	public function transactions()
 	{
 		return $this->hasMany(\App\Models\Transaction::class);
 	}
+
+    public function status()
+    {
+        return $this->belongsTo(\App\Models\Status::class);
+    }
 }

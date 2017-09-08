@@ -15,10 +15,8 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Webpatser\Uuid\Uuid;
@@ -139,7 +137,7 @@ class ProductController extends Controller
                     $idx++;
                 }
             }
-            return redirect::route('product-list-view');
+            return redirect::route('product-list');
         }
     }
 
@@ -315,7 +313,7 @@ class ProductController extends Controller
                 }
             }
 
-            return redirect::route('product-list-view');
+            return redirect::route('product-list');
         }
     }
 }

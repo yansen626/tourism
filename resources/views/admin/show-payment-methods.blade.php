@@ -38,21 +38,11 @@
                         <div class="x_title">
                             @include('admin.partials._success')
                             <h2>Payment Methods</h2>
-                            {{--<ul class="nav navbar-right panel_toolbox">--}}
-                            {{--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--}}
-                            {{--</li>--}}
-                            {{--<li class="dropdown">--}}
-                            {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>--}}
-                            {{--<ul class="dropdown-menu" role="menu">--}}
-                            {{--<li><a href="#">Settings 1</a>--}}
-                            {{--</li>--}}
-                            {{--<li><a href="#">Settings 2</a>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
-                            {{--</li>--}}
-                            {{--<li><a class="close-link"><i class="fa fa-close"></i></a>--}}
-                            {{--</li>--}}
-                            {{--</ul>--}}
+                            <div class="nav navbar-right">
+                                <a href="{{ route('payment-method-create') }}" class="btn btn-app">
+                                    <i class="fa fa-plus"></i> Add
+                                </a>
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -62,7 +52,9 @@
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>Fee</th>
-                                    <th>Options</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -73,13 +65,26 @@
 
                                 @foreach($paymentMethods as $payment)
                                     <tr>
-                                        <td>{{$idx}}</td>
-                                        <td>{{$payment->description}}</td>
-                                        <td>Rp {{$payment->fee}}</td>
+                                        <td>{{ $idx }}</td>
+                                        <td>{{ $payment->description }}</td>
+                                        <td>
+                                            @if(!empty($payment->fee))
+                                                Rp {{ $payment->fee }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>{{ $payment->type }}</td>
+                                        <td>
+                                            @if($payment->status_id == 1)
+                                                Active
+                                            @else
+                                                Inactive
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="/admin/paymentmethods/edit/{{ $payment->id }}" class="btn btn-default submit">Edit</a>
-                                            <a href="/admin/paymentmethods/delete/{{ $payment->id }}" class="btn btn-danger submit">Delete</a>
-
+                                            {{--<a href="/admin/paymentmethods/delete/{{ $payment->id }}" class="btn btn-danger submit">Delete</a>--}}
                                         </td>
                                     </tr>
                                     <?php

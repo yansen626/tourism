@@ -100,7 +100,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/admin/transaction/detail/{{ $trx->id }}" class="btn btn-success submit">Detail</a>
+                                            <a href="/admin/transaction/detail/{{ $trx->id }}" class="btn btn-primary">Detail</a>
                                         </td>
                                     </tr>
                                     @php( $idx++ )
@@ -116,5 +116,9 @@
         </div>
     </div>
     <!-- /page content -->
+
+    <!-- footer -->
+    @include('admin.partials._footer')
+    <!-- /footer -->
 
 @endsection
