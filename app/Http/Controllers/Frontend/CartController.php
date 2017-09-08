@@ -20,16 +20,23 @@ class CartController
 {
     //
     public function CartShowAll(){
-        //userId sesuai dengan session
-        $user = Auth::user();
-        $userId = $user->id;
 
-        $carts = Cart::where('user_id', 'like', $userId)->get();
+        if (Auth::check())
+        {
+            //userId sesuai dengan session
+            $userId = Auth::user()->id;
 
-        $totalPriceTem = Cart::where('user_id', 'like', $userId)->sum('total_price');
-        $totalPrice = number_format($totalPriceTem, 0, ",", ".");
+            $carts = Cart::where('user_id', 'like', $userId)->get();
 
-        return view('frontend.carts', compact('carts','totalPrice', 'totalPriceTem'));
+            $totalPriceTem = Cart::where('user_id', 'like', $userId)->sum('total_price');
+            $totalPrice = number_format($totalPriceTem, 0, ",", ".");
+
+            return view('frontend.carts', compact('carts','totalPrice', 'totalPriceTem'));
+        }
+        else
+        {
+            return redirect()->route('landing');
+        }
     }
 
     //

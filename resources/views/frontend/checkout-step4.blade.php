@@ -15,7 +15,7 @@
             <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart') }}" >Back shopping bag<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('cart-list') }}" >Back shopping bag<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->

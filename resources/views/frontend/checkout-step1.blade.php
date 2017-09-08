@@ -36,67 +36,27 @@
                 </ul>
 
                 <form class="checkout_form clearfix" action="javascript:void(0);" method="get">
-                    <div class="checkout_form_input country">
-                        <label>Country <span class="color_red">*</span></label>
-                        <select class="basic">
-                            <option value="">New ZEALaND</option>
-                            <option>Australia</option>
-                            <option>Hungary</option>
-                        </select>
-                    </div>
+                    @if($data != null)
 
-                    <div class="checkout_form_input sity">
-                        <label>Sity <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
+                        <div class="checkout_form_input country">
+                            <label>Country <span class="color_red">*</span></label>
+                            <select class="basic">
+                                <option value="">New ZEALaND</option>
+                                <option>Australia</option>
+                                <option>Hungary</option>
+                            </select>
+                        </div>
 
-                    <div class="checkout_form_input territory">
-                        <label>Province / Territory <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
+                        <div class="clear"></div>
 
-                    <div class="checkout_form_input last postcode">
-                        <label>Postcode <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
-
-                    <div class="checkout_form_input2 adress">
-                        <label>Street Adress 1 <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
-
-                    <div class="checkout_form_input2 last adress">
-                        <label>Street Adress 2</label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
-
-                    <hr class="clear">
-
-                    <div class="checkout_form_input first_name">
-                        <label>First Name <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
-
-                    <div class="checkout_form_input last_name">
-                        <label>Last name <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
-
-                    <div class="checkout_form_input phone">
-                        <label>Phone <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
-
-                    <div class="checkout_form_input last E-mail">
-                        <label>e-mail <span class="color_red">*</span></label>
-                        <input type="text" name="name" value="" placeholder="" />
-                    </div>
-
-                    <div class="clear"></div>
-
-                    <div class="checkout_form_note">All fields marked with (<span class="color_red">*</span>) are required</div>
-
-                    <a class="btn active pull-right" href="checkout2.html" >Continue</a>
+                        <a class="btn active pull-right" href="{{route ('checkout2')}}" >Continue</a>
+                    @else
+                        <div style="text-align: center;">
+                            <h3><b>Add address</b></h3>
+                            <br >
+                            <a class="btn active" href="{{route ('checkout2')}}" >Add Address</a>
+                        </div>
+                    @endif
                 </form>
             </div><!-- //CHECKOUT BLOCK -->
         </div><!-- //CONTAINER -->

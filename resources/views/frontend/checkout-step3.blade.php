@@ -14,7 +14,7 @@
             <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart') }}" >Back shopping bag<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('cart-list') }}" >Back shopping bag<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -93,7 +93,7 @@
 
                     <div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>
 
-                    <a class="btn active pull-right checkout_block_btn" href="checkout4.html" >Continue</a>
+                    <a class="btn active pull-right checkout_block_btn" href="{{route ('checkout4')}}" >Continue</a>
                 </div>
             </div><!-- //CHECKOUT BLOCK -->
         </div><!-- //CONTAINER -->
