@@ -30,24 +30,21 @@ Route::post('/register', 'Auth\RegisterController@create');
 
 Route::get('/', 'Frontend\HomeController@Home')->name('home');*/
 
-
+//product
 Route::get('product-list/{categoryId}', 'Frontend\ProductsController@ProductsShowAll')->name('product-list');
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
-
+//cart process
 Route::get('cart-list', 'Frontend\CartController@CartShowAll')->name('cart-list');
 Route::post('/add-cart', [
     'uses' => 'Frontend\CartController@AddToCart',
     'as' => 'addCart'
 ]);
-Route::post('/delete-cart', [
-    'uses' => 'Frontend\CartController@DeleteCart',
-    'as' => 'deleteCart'
-]);
+Route::get('delete-cart/{cartId}', 'Frontend\CartController@DeleteCart')->name('delete-cart');
 Route::post('/edit-cart', [
     'uses' => 'Frontend\CartController@EditQuantityCart',
     'as' => 'editCart'
 ]);
-
+//transaction
 Route::get('checkout-1', 'Frontend\TransactionController@CheckoutProcess1')->name('checkout');
 
 Route::get('/checkout-2', function (){

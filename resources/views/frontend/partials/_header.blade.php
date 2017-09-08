@@ -8,8 +8,6 @@
         <!-- CONTAINER -->
         <div class="container clearfix">
             <ul class="secondary_menu">
-                <li><a href="{{ route('login') }}" >Login</a></li>
-                <li><a href="{{ route('register') }}" >Register</a></li>
                 @if(auth()->check())
                     <li>
                         <span>{{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->id }}</span>
@@ -25,10 +23,11 @@
                             {{ csrf_field() }}
                         </form>
                     </li>
+                    @else
+                    <li><a href="{{ route('login') }}" >Login</a></li>
+                    <li><a href="{{ route('register') }}" >Register</a></li>
                 @endif
             </ul>
-
-            <div class="live_chat"><a href="javascript:void(0);" ><i class="fa fa-comment-o"></i> Live chat</a></div>
 
             <div class="phone_top">have a question? <a href="tel:1 800 888 2828" >1 800 888 2828</a></div>
         </div><!-- //CONTAINER -->
@@ -43,40 +42,47 @@
 
             <!-- LOGO -->
             <div class="logo">
-                <a href="product-page.html" ><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="" /></a>
+                <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="" /></a>
             </div><!-- //LOGO -->
-
-
-            <!-- SEARCH FORM -->
-            <div class="top_search_form">
-                <a class="top_search_btn" href="javascript:void(0);" ><i class="fa fa-search"></i></a>
-                <form method="get" action="#">
-                    <input type="text" name="search" value="Search" onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
-                </form>
-            </div><!-- SEARCH FORM -->
 
 
             <!-- SHOPPING BAG -->
             <div class="shopping_bag">
-                <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p><span>2</span></a>
-                <div class="cart">
-                    <ul class="cart-items">
-                        <li class="clearfix">
-                            <img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
-                            <a href="product-page.html" class="cart_item_title">popover sweatshirt in floral jacquard</a>
-                            <span class="cart_item_price">1 × $98.00</span>
-                        </li>
-                        <li class="clearfix">
-                            <img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/3.jpg') }}" alt="" />
-                            <a href="product-page.html" class="cart_item_title">japanese indigo denim jacket</a>
-                            <span class="cart_item_price">2 × $158.00</span>
-                        </li>
-                    </ul>
-                    <div class="cart_total">
-                        <div class="clearfix"><span class="cart_subtotal">bag subtotal: <b>$414</b></span></div>
-                        <a class="btn active" href="{{ route('cart-list') }}">View Cart</a>
+                @if(Session::has('cartList') && Session::has('cartTotal'))
+                    @php ( $cartTotal = Session::get('cartTotal')  )
+                    @php ( $cartList = Session::get('cartList')  )
+
+                    <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping cart</p><span>{{$cartTotal}}</span></a>
+                    <div class="cart">
+                        <ul class="cart-items">
+                            @if($cartTotal > 1)
+                                @for($i=0; $i < 2; $i++)
+                                    <li class="clearfix">
+                                        <img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
+                                        <a href="product-page.html" class="cart_item_title">{{$cartList[$i]->Product->name}}</a>
+                                        <span class="cart_item_price">{{$cartList[$i]->quantity}} x Rp {{$cartList[$i]->Product->price}}</span>
+                                    </li>
+                                @endfor
+                            @else
+                                @foreach($cartList as $cart)
+                                    <li class="clearfix">
+                                        <img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
+                                        <a href="product-page.html" class="cart_item_title">{{$cart->Product->name}}</a>
+                                        <span class="cart_item_price">{{$cart->quantity}} x Rp {{$cart->Product->price}}</span>
+                                    </li>
+                                @endforeach
+                            @endif
+
+                        </ul>
+                        <div class="cart_total">
+                            <a class="btn active" href="{{ route('cart-list') }}">View Cart</a>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p></a>
+                @endif
+
+
             </div><!-- //SHOPPING BAG -->
 
 

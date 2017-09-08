@@ -13,13 +13,16 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class CartController
 {
     //
     public function CartShowAll(){
         //userId sesuai dengan session
-        $userId = "8c4d3607-8d60-11e7-afa8-7085c23fc9a7";
+        $user = Auth::user();
+        $userId = $user->id;
 
         $carts = Cart::where('user_id', 'like', $userId)->get();
 
@@ -32,7 +35,8 @@ class CartController
     //
     public function AddToCart(Request $request){
         //userId sesuai dengan session
-        $userId = "8c4d3607-8d60-11e7-afa8-7085c23fc9a7";
+        $user = Auth::user();
+        $userId = $user->id;
 
         $productId   = $request['product_id'];
         $alreadyInCart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
@@ -56,6 +60,14 @@ class CartController
             ]);
 
         }
+
+        //edit session data
+        $userId = Auth::user()->id;
+        $carts = Cart::where('user_id', 'like', $userId)->get();
+        $cartTotal = $carts->count();
+        Session::put('cartList', $carts);
+        Session::put('cartTotal', $cartTotal);
+
         return null;
     }
 
@@ -68,13 +80,21 @@ class CartController
 
         Cart::where('id', '=', $cartId)->delete();
 
+        //edit session data
+        $userId = Auth::user()->id;
+        $carts = Cart::where('user_id', 'like', $userId)->get();
+        $cartTotal = $carts->count();
+        Session::put('cartList', $carts);
+        Session::put('cartTotal', $cartTotal);
+
         return redirect()->route('cart-list');
     }
 
     //
     public function EditQuantityCart(Request $request){
         //userId sesuai dengan session
-        $userId = "8c4d3607-8d60-11e7-afa8-7085c23fc9a7";
+        $user = Auth::user();
+        $userId = $user->id;
 
         $cartId   = $request['cart_id'];
         $quantity   = $request['quantity'];
@@ -91,6 +111,12 @@ class CartController
 
         $totalPriceTem = Cart::where('user_id', 'like', $userId)->sum('total_price');
         $newTotalPriceFormated = number_format($totalPriceTem, 0, ",", ".");
+
+        //edit session data
+        $carts = Cart::where('user_id', 'like', $userId)->get();
+        $cartTotal = $carts->count();
+        Session::put('cartList', $carts);
+        Session::put('cartTotal', $cartTotal);
 
         return response()->json([
             'totalPrice' => $newTotalPriceFormated,

@@ -38,8 +38,8 @@ class ProductsController extends Controller
     //
     public function ProductShow($id){
         $singleProduct = Product::find($id);
-        $recentProducts = Product::orderby('created_on', 'desc0')->take(10)->get();
-        $recommendedProducts = Product::where('category_id', '=', $singleProduct->category_id)->inRandomOrder()->take(5)->get();
+        $recentProducts = Product::orderby('created_on', 'desc')->take(10)->get();
+        $recommendedProducts = Product::where('category_id', '=', $singleProduct->category_id)->inRandomOrder()->take(6)->get();
 
         return view('frontend.show-product', compact('singleProduct', 'recentProducts', 'recommendedProducts') );
     }
