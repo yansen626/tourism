@@ -26,7 +26,7 @@ class CartController
         $totalPriceTem = Cart::where('user_id', 'like', $userId)->sum('total_price');
         $totalPrice = number_format($totalPriceTem, 0, ",", ".");
 
-        return view('frontend.carts', compact('carts','totalPrice'));
+        return view('frontend.carts', compact('carts','totalPrice', 'totalPriceTem'));
     }
 
     //
@@ -38,7 +38,10 @@ class CartController
         $alreadyInCart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
         if($alreadyInCart){
             $CartDB = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
-            $CartDB->quantity = $CartDB->quantity + 1;
+            $price = $CartDB->getOriginal('total_price') / $CartDB->quantity;
+            $newQuantity = $CartDB->quantity + 1;
+            $CartDB->quantity = $newQuantity;
+            $CartDB->total_price = $newQuantity * $price;
 
             $CartDB->save();
         }
@@ -57,12 +60,15 @@ class CartController
     }
 
     //
-    public function DeleteCart(Request $request){
-        $cartId   = $request['cart_id'];
+    public function DeleteCart($cartId){
+//        $cartDB = Cart::find($cartId);
+//
+//        $totalPriceTem = Cart::where('user_id', 'like', $cartDB->user_id)->sum('total_price');
+//        $totalPrice = number_format($totalPriceTem, 0, ",", ".");
 
         Cart::where('id', '=', $cartId)->delete();
 
-        return null;
+        return redirect()->route('cart-list');
     }
 
     //
@@ -74,10 +80,22 @@ class CartController
         $quantity   = $request['quantity'];
 
         $CartDB = Cart::find($cartId);
-        $CartDB->quantity = $quantity;
 
+        $price = $CartDB->getOriginal('total_price') / $CartDB->quantity;
+        $newSinglePrice = $quantity * $price;
+        $newSinglePriceFormated = number_format($newSinglePrice, 0, ",", ".");
+
+        $CartDB->quantity = $quantity;
+        $CartDB->total_price = $newSinglePrice;
         $CartDB->save();
 
-        return null;
+        $totalPriceTem = Cart::where('user_id', 'like', $userId)->sum('total_price');
+        $newTotalPriceFormated = number_format($totalPriceTem, 0, ",", ".");
+
+        return response()->json([
+            'totalPrice' => $newTotalPriceFormated,
+            'singlePrice' => $newSinglePriceFormated
+        ]);
+//        return ['totalPrice' => $newTotalPriceFormated,'singlePrice' => $newSinglePriceFormated];
     }
 }

@@ -47,6 +47,7 @@
                         @foreach ($carts as $cart)
                             @php ( $trId = "cart_item_".$cart->id )
                             @php ( $qtyId = "cart_quantity_".$cart->id )
+                            @php ( $productTotalId = "product-subtotal-".$cart->id )
                             <tr class="cart_item" id="{{ $trId }}">
                                 <td class="product-thumbnail"><a href="product-page.html" ><img src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" width="100px" alt="" /></a></td>
                                 <td class="product-name">
@@ -62,9 +63,10 @@
                                     <input type="text" id="{{$qtyId}}" value="{{$cart->quantity}}" style="width:50%" onkeyup="editCartQuantity('{{ $cart->id }}')"/>
                                 </td>
 
-                                <td class="product-subtotal">Rp. {{$cart->total_price}}</td>
+                                <td class="product-subtotal" id="{{$productTotalId}}">Rp. {{$cart->total_price}}</td>
 
-                                <td class="product-remove"><a href="javascript:void(0);" onclick="deleteCart('{{ $cart->id }}')"><i>X</i></a></td>
+                                {{--<td class="product-remove"><a href="javascript:void(0);" onclick="deleteCart('{{ $cart->id }}')"><i>X</i></a></td>--}}
+                                <td class="product-remove"><a href="{{ route('delete-cart', ['cartId' => $cart->id]) }}"><i>X</i></a></td>
                             </tr>
                         @endforeach
 
@@ -83,7 +85,7 @@
                         <table class="bag_total">
                             <tr class="cart-subtotal clearfix">
                                 <th>Sub total</th>
-                                <td>Rp. {{$totalPrice}}</td>
+                                <td id="sub-total-price">Rp. {{$totalPrice}}</td>
                             </tr>
                             <tr class="shipping clearfix">
                                 <th>SHIPPING</th>
@@ -91,9 +93,11 @@
                             </tr>
                             <tr class="total clearfix">
                                 <th>Total</th>
-                                <td>Rp. {{$totalPrice}}</td>
+                                <td id="total-price">Rp. {{$totalPrice}}</td>
                             </tr>
                         </table>
+
+                        
                         <a class="btn active" href="{{ route('checkout') }}" >Check out</a>
                         <a class="btn inactive" href="{{ route('product-list', ['categoryId' => 0]) }}" >Continue shopping</a>
                     </div><!-- //REGISTRATION FORM -->
@@ -103,7 +107,7 @@
     </section><!-- //SHOPPING BAG BLOCK -->
 
     <script>
-        var urlLinkDelete = '{{route('deleteCart')}}';
+        {{--var urlLinkDelete = '{{route('deleteCart')}}';--}}
         var urlLinkEdit = '{{route('editCart')}}';
     </script>
 @endsection

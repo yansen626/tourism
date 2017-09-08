@@ -35,6 +35,12 @@ function deleteCart(cartId){
             $("#cart_item_" + cartId).fadeOut("normal", function() {
                 $(this).remove();
             });
+
+            $priceTemp = $("total-price-value").val();
+            $newPrice = $priceTemp - response;
+            $("total-price-value").val($newPrice);
+
+
         },
         error:function(){
             alert("error!!!!");
@@ -44,27 +50,31 @@ function deleteCart(cartId){
 
 function editCartQuantity(cartId){
 var quantity = $('#cart_quantity_'+cartId).val();
+var productSubtotal = '#product-subtotal-' + cartId;
 if(quantity){
-    alert(quantity);
+    $.ajax({
+        url     : urlLinkEdit,
+        method  : 'POST',
+        dataType: 'JSON',
+        data    : {
+            cart_id  : cartId,
+            quantity: quantity
+        },
+        headers:
+        {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(response){
+            var newSinglePrice = "Rp. " + response.singlePrice;
+            $(productSubtotal).html(newSinglePrice);
+
+            var newtotalPrice = "Rp. " + response.totalPrice;
+            $('#sub-total-price').html(newtotalPrice);
+            $('#total-price').html(newtotalPrice);
+        },
+        error:function(){
+
+        }
+    });
 }
-    // $.ajax({
-    //     url     : urlLinkEdit,
-    //     method  : 'POST',
-    //     data    : {
-    //         cart_id  : cartId,
-    //         quantity: quantity
-    //     },
-    //     headers:
-    //         {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //     success : function(response){
-    //         $("#cart_item_" + cartId).fadeOut("normal", function() {
-    //             $(this).remove();
-    //         });
-    //     },
-    //     error:function(){
-    //         alert("error!!!!");
-    //     }
-    // });
 }

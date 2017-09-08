@@ -48,9 +48,8 @@ Route::post('/edit-cart', [
     'as' => 'editCart'
 ]);
 
-Route::get('/checkout-1', function (){
-    return view('frontend/checkout-step1');
-})->name('checkout');
+Route::get('checkout-1', 'Frontend\TransactionController@CheckoutProcess1')->name('checkout');
+
 Route::get('/checkout-2', function (){
     return view('frontend/checkout-step2');
 })->name('checkout2');
