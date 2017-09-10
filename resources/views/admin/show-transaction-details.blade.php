@@ -66,7 +66,7 @@
                                         <i class="fa fa-truck user-profile-icon"></i>&nbsp;{{ strtoupper($transaction->courier) }} {{ $transaction->delivery_type }}
                                     </li>
                                     <li>
-                                        <b>Transaction Date:</b><br/>{{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s')}}
+                                        <b>Transaction Date:</b><br/>{{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s') }}
                                     </li>
                                     <li><b>Status:</b><br/>
                                         @if($transaction->status_id == 4)

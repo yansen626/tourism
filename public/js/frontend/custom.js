@@ -1,3 +1,4 @@
+$('#example').DataTable();
 
 function addToCart(productId){
     $.ajax({

@@ -14,14 +14,19 @@
 
     <!-- CSS -->
     <link href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" rel="stylesheet">
+
+
     <link href="{{ URL::asset('css/frontend/flexslider.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/frontend/fancySelect.css') }}" rel="stylesheet" media="screen, projection" >
     <link href="{{ URL::asset('css/frontend/animate.css') }}" rel="stylesheet" media="all">
     <link href="{{ URL::asset('css/frontend/style.css') }}" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{{ URL::asset('css/frontend/datatable/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- FONTS -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
 
 </head>
 
@@ -60,6 +65,11 @@
 
 <script src="{{ URL::asset('js/frontend/jquery.min.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/bootstrap.min.js') }}"></script>
+
+<!-- Datatables -->
+<script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/datatable/dataTables.bootstrap.min.js') }}"></script>
+
 <script src="{{ URL::asset('js/frontend/jquery.sticky.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/parallax.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/jquery.flexslider-min.js') }}"></script>
@@ -67,6 +77,8 @@
 <script src="{{ URL::asset('js/frontend/fancySelect.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/animate.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/myscript.js') }}"></script>
+
+
 <script src="{{ URL::asset('js/frontend/custom.js') }}"></script>
 <script>
     if (top != self) top.location.replace(self.location.href);

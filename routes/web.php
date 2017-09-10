@@ -73,6 +73,12 @@ Route::prefix('user/address')->group(function(){
     Route::post('/edit', 'Frontend\UserAddressController@update')->name('user-address-update');
 });
 
+// Purchasing
+Route::prefix('purchase')->group(function(){
+   Route::get('/transfer', 'Frontend\PurchaseController@showTransferConfirm')->name('user-transfer-list');
+});
+Route::get('invoice','Frontend\PurchaseController@invoice')->name('invoice-view');
+
 // End Frontend Routing
 
 
@@ -102,11 +108,13 @@ Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard')
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
 
 // Product
-Route::get('/admin/product', 'Admin\ProductController@index')->name('product-list');
-Route::get('/admin/product/create', 'Admin\ProductController@createShow')->name('product-create');
-Route::get('/admin/product/edit/{id}', 'Admin\ProductController@editShow')->name('product-edit');
-Route::post('/admin/product/editing/{id}', 'Admin\ProductController@editSubmit');
-Route::post('/admin/product/creating', 'Admin\ProductController@createSubmit');
+Route::prefix('/admin/product')->group(function (){
+    Route::get('/', 'Admin\ProductController@index')->name('product-list');
+    Route::post('/', 'Admin\ProductController@store');
+    Route::get('/create', 'Admin\ProductController@create')->name('product-create');
+    Route::get('/edit/{id}', 'Admin\ProductController@edit')->name('product-edit');
+    Route::post('/{id}', 'Admin\ProductController@update');
+});
 
 // Transaction
 Route::get('/admin/neworder', 'Admin\TransactionController@newOrder')->name('new-order-list');
@@ -140,7 +148,7 @@ Route::prefix('admin/paymentmethods')->group(function(){
 
 // Courier
 Route::prefix('admin/courier')->group(function(){
-    Route::get('/', 'Admin\CourierController@index')->name('courier-show');
+    Route::get('/', 'Admin\CourierController@index')->name('courier-list');
     Route::post('/', 'Admin\CourierController@store');
     Route::get('/create', 'Admin\CourierController@create')->name('courier-create');
     Route::get('/edit/{id}', 'Admin\CourierController@edit');
@@ -150,7 +158,7 @@ Route::prefix('admin/courier')->group(function(){
 
 // Delivery Type
 Route::prefix('admin/delivery-type')->group(function(){
-    Route::get('/', 'Admin\DeliveryTypeController@index')->name('delivery-type-show');
+    Route::get('/', 'Admin\DeliveryTypeController@index')->name('delivery-type-list');
     Route::post('/', 'Admin\DeliveryTypeController@store');
     Route::get('/create', 'Admin\DeliveryTypeController@create')->name('delivery-type-create');
     Route::get('/edit/{id}', 'Admin\DeliveryTypeController@edit');
@@ -160,7 +168,7 @@ Route::prefix('admin/delivery-type')->group(function(){
 
 // Status
 Route::prefix('admin/status')->group(function(){
-    Route::get('/', 'Admin\StatusController@index')->name('status-show');
+    Route::get('/', 'Admin\StatusController@index')->name('status-list');
     Route::post('/', 'Admin\StatusController@store');
     Route::get('/create', 'Admin\StatusController@create')->name('status-create');
     Route::get('/edit/{id}', 'Admin\StatusController@edit');

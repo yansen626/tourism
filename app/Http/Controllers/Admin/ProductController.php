@@ -23,19 +23,24 @@ use Webpatser\Uuid\Uuid;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:user_admins');
+    }
+
     public function index(){
         $products = Product::all()->sortByDesc('created_on');
 
         return View('admin.show-products', compact('products'));
     }
 
-    public function createShow(){
+    public function create(){
         $categories = Category::all();
 
         return View('admin.create-product', compact('categories'));
     }
 
-    public function createSubmit(Request $request){
+    public function store(Request $request){
 
         $validator = Validator::make($request->all(),[
             'category'              => 'required|option_not_default',
@@ -141,7 +146,7 @@ class ProductController extends Controller
         }
     }
 
-    public function editShow($id){
+    public function edit($id){
         $product = Product::findorFail($id);
 
         $imgFeatured = $product->product_image()->where('featured', 1)->first()->path;
@@ -158,7 +163,7 @@ class ProductController extends Controller
         return view('admin.edit-product')->with($data);
     }
 
-    public function editSubmit(Request $request, $id){
+    public function update(Request $request, $id){
 
         $validator = Validator::make($request->all(),[
             'category'              => 'required|option_not_default',
