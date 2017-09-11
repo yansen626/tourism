@@ -2,7 +2,12 @@
 
 @section('body-content')
     <!-- BREADCRUMBS -->
-    <section class="breadcrumb parallax margbot30"></section>
+    <section class="breadcrumb parallax margbot30">
+        <!-- CONTAINER -->
+        <div class="container">
+            <h2></h2>
+        </div><!-- //CONTAINER -->
+    </section>
     <!-- //BREADCRUMBS -->
 
     <section class="shop">
@@ -51,7 +56,7 @@
                                         <div class="panel-group">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading" data-toggle="collapse" href="#order-{{ $idx }}">
-                                                    <b>{{ $trx->invoice }}</b><br/>
+                                                    <a class="invoice-link" href="{{ route('invoice-view', ['id' => $trx->id]) }}"><b>{{ $trx->invoice }}</b></a><br/>
                                                     Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}
                                                     <div class="arrow-show">
                                                         <i class="fa fa-arrow-circle-o-down">&nbsp;<b>Show</b></i>
