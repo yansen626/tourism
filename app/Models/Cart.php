@@ -17,7 +17,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $user_id
  * @property int $quantity
  * @property float $total_price
- * 
+ * @property int $courier_id
+ * @property int $delivery_type_id
+ *
  * @property \App\Models\Product $product
  * @property \App\Models\User $user
  *
@@ -36,7 +38,9 @@ class Cart extends Eloquent
 		'product_id',
 		'user_id',
 		'quantity',
-		'total_price'
+		'total_price',
+        'courier_id',
+        'delivery_type_id'
 	];
 
 	public function product()
@@ -51,5 +55,14 @@ class Cart extends Eloquent
 
     public function getTotalPriceAttribute(){
         return number_format($this->attributes['total_price'], 0, ",", ".");
+    }
+
+    public function courier()
+    {
+        return $this->belongsTo(\App\Models\Courier::class);
+    }
+    public function delivery_type()
+    {
+        return $this->belongsTo(\App\Models\DeliveryType::class);
     }
 }
