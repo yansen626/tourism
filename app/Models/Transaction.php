@@ -30,7 +30,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $address_detail
  * @property string $tracking_code
  * @property string $courier
+ * @property string $courier_code
  * @property string $delivery_type
+ * @property string $delivery_type_code
  * @property float $delivery_fee
  * @property float $admin_fee
  * @property \Carbon\Carbon $delivery_date
@@ -95,7 +97,9 @@ class Transaction extends Eloquent
         'address_detail',
         'tracking_code',
 		'courier',
+        'courier_code',
 		'delivery_type',
+        'delivery_type_code',
 		'delivery_fee',
 		'admin_fee',
         'delivery_fee',

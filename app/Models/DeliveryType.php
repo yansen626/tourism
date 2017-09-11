@@ -14,6 +14,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property int $courier_id
+ * @property string $code
  * @property string $description
  * @property int $status_id
  * 
@@ -32,6 +33,7 @@ class DeliveryType extends Eloquent
 
 	protected $fillable = [
 		'courier_id',
+        'code',
 		'description',
         'status_id'
 	];
