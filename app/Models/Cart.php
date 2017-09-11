@@ -19,6 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $total_price
  * @property int $courier_id
  * @property int $delivery_type_id
+ * @property float $delivery_fee
  *
  * @property \App\Models\Product $product
  * @property \App\Models\User $user
@@ -31,7 +32,8 @@ class Cart extends Eloquent
 
 	protected $casts = [
 		'quantity' => 'int',
-		'total_price' => 'float'
+		'total_price' => 'float',
+        'delivery_fee' => 'float'
 	];
 
 	protected $fillable = [
@@ -40,7 +42,8 @@ class Cart extends Eloquent
 		'quantity',
 		'total_price',
         'courier_id',
-        'delivery_type_id'
+        'delivery_type_id',
+        'delivery_fee'
 	];
 
 	public function product()
@@ -65,4 +68,9 @@ class Cart extends Eloquent
     {
         return $this->belongsTo(\App\Models\DeliveryType::class);
     }
+
+    public function getDeliveryFeeAttribute(){
+        return number_format($this->attributes['delivery_fee'], 0, ",", ".");
+    }
+
 }
