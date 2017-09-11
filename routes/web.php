@@ -44,6 +44,8 @@ Route::post('/edit-cart', [
     'uses' => 'Frontend\CartController@EditQuantityCart',
     'as' => 'editCart'
 ]);
+Route::get('search/{key}', 'Frontend\ProductsController@search');
+
 //transaction
 Route::get('checkout-1', 'Frontend\TransactionController@CheckoutProcess1')->name('checkout');
 

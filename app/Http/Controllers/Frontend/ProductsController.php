@@ -43,4 +43,25 @@ class ProductsController extends Controller
 
         return view('frontend.show-product', compact('singleProduct', 'recentProducts', 'recommendedProducts') );
     }
+
+    public function search($key){
+        $products = Product::where('status_id', '=', 1)
+            ->where('name','LIKE','%'. $key. '%')
+            ->paginate(9);
+        $productCount = Product::where('status_id', '=', 1)->count();
+        $categories = Category::all();
+        $selectedCategory = new Category([
+            'id' => 0,
+            'name' => 'All Category'
+        ]);
+
+        $data = [
+            'products'          => $products,
+            'productCount'      => $productCount,
+            'categories'        => $categories,
+            'selectedCategory'  => $selectedCategory
+        ];
+
+        return View('frontend.show-search-results')->with($data);
+    }
 }

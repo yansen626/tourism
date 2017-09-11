@@ -2628,16 +2628,16 @@
         },
         {
             "name": "webpatser/laravel-uuid",
-            "version": "2.2",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webpatser/laravel-uuid.git",
-                "reference": "5612ff06f62805cd257ebf000be5a11bad35b73d"
+                "reference": "c87d5c631938edad7aae96d27881e3ea3de23d80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webpatser/laravel-uuid/zipball/5612ff06f62805cd257ebf000be5a11bad35b73d",
-                "reference": "5612ff06f62805cd257ebf000be5a11bad35b73d",
+                "url": "https://api.github.com/repos/webpatser/laravel-uuid/zipball/c87d5c631938edad7aae96d27881e3ea3de23d80",
+                "reference": "c87d5c631938edad7aae96d27881e3ea3de23d80",
                 "shasum": ""
             },
             "require": {
@@ -2678,7 +2678,7 @@
             "keywords": [
                 "UUID RFC4122"
             ],
-            "time": "2017-09-04T00:24:34+00:00"
+            "time": "2017-09-10T21:34:32+00:00"
         }
     ],
     "packages-dev": [

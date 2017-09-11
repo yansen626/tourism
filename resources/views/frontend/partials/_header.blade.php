@@ -45,6 +45,14 @@
                 <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="" /></a>
             </div><!-- //LOGO -->
 
+            <!-- SEARCH FORM -->
+            <div class="top_search_form">
+                <a class="top_search_btn" href="javascript:void(0);" ><i class="fa fa-search"></i></a>
+                <form method="get" action="#">
+                    <input type="text" name="search" value="Search" onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
+                </form>
+            </div><!-- SEARCH FORM -->
+
 
             <!-- SHOPPING BAG -->
             <div class="shopping_bag">
@@ -190,6 +198,7 @@
                 {{--</li>--}}
                 {{--<li class="last sale_menu"><a href="sale.html" >Sale</a></li>--}}
             </ul><!-- //MENU -->
+
         </div><!-- //MENU BLOCK -->
     </div><!-- //CONTAINER -->
 </header><!-- //HEADER -->
