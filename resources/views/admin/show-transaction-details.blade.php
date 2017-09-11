@@ -75,10 +75,6 @@
                                             <b>New Order</b>
                                         @elseif($transaction->status_id == 6)
                                             <b>In Process</b>
-                                        @elseif($transaction->status_id == 7)
-                                            <b>Rejected</b>
-                                        @elseif($transaction->status_id == 8)
-                                            <b>In Delivery</b>
                                         @elseif($transaction->status_id == 9)
                                             {{ \Carbon\Carbon::parse($transaction->finish_date)->format('j M Y G:i:s')}} -
                                             <b><span style="color: #42b549;">Success</span></b>

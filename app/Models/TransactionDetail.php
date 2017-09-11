@@ -79,4 +79,12 @@ class TransactionDetail extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Transaction::class);
 	}
+
+	public function getPriceFinalAttribute(){
+        return number_format($this->attributes['price_final'],0, ",", ".");
+    }
+
+    public function getSubtotalPriceAttribute(){
+        return number_format($this->attributes['subtotal_price'],0, ",", ".");
+    }
 }

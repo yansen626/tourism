@@ -76,8 +76,10 @@ Route::prefix('user/address')->group(function(){
 // Purchasing
 Route::prefix('purchase')->group(function(){
    Route::get('/transfer', 'Frontend\PurchaseController@showTransferConfirm')->name('user-transfer-list');
+    Route::get('/order', 'Frontend\PurchaseController@order')->name('user-order-list');
+    Route::get('/history', 'Frontend\PurchaseController@history')->name('user-order-history-list');
 });
-Route::get('invoice','Frontend\PurchaseController@invoice')->name('invoice-view');
+Route::get('invoice/{id}','Frontend\PurchaseController@invoice')->name('invoice-view');
 
 // End Frontend Routing
 

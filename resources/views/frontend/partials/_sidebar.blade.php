@@ -3,9 +3,9 @@
     <div class="sidepanel widget_categories">
         <h3>Transaction Menu</h3>
         <ul>
-            <li><a href="javascript:void(0);" >PAYMENT STATUS</a></li>
-            <li><a href="javascript:void(0);" >ORDER STATUS</a></li>
-            <li><a href="javascript:void(0);" >TRANSACTION HISTORY</a></li>
+            <li><a href="{{ route('user-transfer-list') }}" >PAYMENT STATUS</a></li>
+            <li><a href="{{ route('user-order-list') }}" >ORDER STATUS</a></li>
+            <li><a href="{{ route('user-order-history-list') }}" >TRANSACTION HISTORY</a></li>
         </ul>
     </div>
     <!-- //MENU-->

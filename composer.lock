@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e5ea62ed6f651aa318b64e2f2d45ead",
+    "content-hash": "cb08bb209ed2fbf5f733a1f11287eae5",
     "packages": [
+        {
+            "name": "agungjk/rajaongkir",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/agungjk/rajaongkir.git",
+                "reference": "dd40203cd8c29f268488cfc3735feb3665ed0323"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/agungjk/rajaongkir/zipball/dd40203cd8c29f268488cfc3735feb3665ed0323",
+                "reference": "dd40203cd8c29f268488cfc3735feb3665ed0323",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "agungjk\\rajaongkir\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Agung Jati Kusumo",
+                    "email": "agungjk.social@gmail.com"
+                }
+            ],
+            "description": "Raja Ongkir API Wrapper for Laravel 5",
+            "keywords": [
+                "application programming interface",
+                "laravel",
+                "rajaongkir",
+                "wrapper"
+            ],
+            "time": "2017-06-28T11:44:29+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

@@ -54,8 +54,9 @@ class DeliveryTypeController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'courier' => 'required|option_not_default',
-            'description' => 'required',
+            'code'          => 'required|max:20',
+            'courier'       => 'required|option_not_default',
+            'description'   => 'required|max:100',
         ],[
             'option_not_default'    => 'Select a courier'
         ]);
@@ -67,6 +68,7 @@ class DeliveryTypeController extends Controller
         }
 
         DeliveryType::create([
+            'code'          => Input::get('code'),
             'description'   => Input::get('description'),
             'courier_id'    => Input::get('courier'),
             'status_id'     => 1
@@ -117,10 +119,11 @@ class DeliveryTypeController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'courier_id' => 'required|option_not_default',
-            'description' => 'required',
+            'code'          => 'required|max:20',
+            'courier_id'    => 'required|option_not_default',
+            'description'   => 'required|max:100',
         ],[
-            'option_not_default'    => 'Select a courier'
+            'option_not_default'    => 'Select a delivery type'
         ]);
 
         if ($validator->fails()) {
@@ -130,6 +133,7 @@ class DeliveryTypeController extends Controller
         }
 
         $delivery = DeliveryType::find($id);
+        $delivery->code = Input::get('code');
         $delivery->description = Input::get('description');
         $delivery->courier_id = Input::get('courier');
         $delivery->status_id = Input::get('status');

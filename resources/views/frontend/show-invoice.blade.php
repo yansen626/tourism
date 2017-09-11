@@ -19,8 +19,7 @@
                 <div class="col-xs-4">
                     <address>
                         <strong>Shipped Via:</strong><br>
-                        {{ strtoupper($trx->courier) }}}<br>
-                        {{ $trx->delivery_type }}
+                        {{ strtoupper($trx->courier) }} - {{ $trx->delivery_type }}
                     </address>
                 </div>
                 <div class="col-xs-4 text-right">
@@ -43,7 +42,7 @@
                 <div class="col-xs-6 text-right">
                     <address>
                         <strong>Order Date:</strong><br>
-                        {{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y') }}<br><br>
+                        {{ \Carbon\Carbon::parse($trx->created_on)->format('j M Y') }}<br><br>
                     </address>
                 </div>
             </div>

@@ -53,7 +53,7 @@ class TransactionController extends Controller
     public function rejectOrder(Request $request){
         $trx = Transaction::find(Input::get('reject-trx-id'));
 
-        $trx->status_id = 7;
+        $trx->status_id = 10;
         if(!empty(Input::get('reject-reason'))){
             $trx->reject_note = Input::get('reject-reason');
         }

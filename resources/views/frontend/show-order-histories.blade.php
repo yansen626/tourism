@@ -14,15 +14,15 @@
             <div class="row">
 
                 <!-- SIDEBAR -->
-                @include('frontend.partials._sidebar')
-                <!-- //SIDEBAR -->
+            @include('frontend.partials._sidebar')
+            <!-- //SIDEBAR -->
 
                 <!-- CONTENT -->
                 <div class="col-lg-9 col-sm-9 col-sm-9 padbot20">
 
                     <!-- ROW -->
                     <div class="row">
-                        <h2>PAYMENT STATUS</h2>
+                        <h2>TRANSACTION HISTORY</h2>
                         <form class="form-inline">
                             <div class="form-group">
                                 <div class="input-daterange input-group" id="datepicker">
@@ -34,9 +34,8 @@
                             <div class="form-group">
                                 <input type="text" id="invoice" name="invoice" class="form-control" id="email" placeholder="invoice">
                             </div>
-                            <div class="btn btn-default" onclick="orderFilter('/purchase/order')"><i class="fa fa-search"></i></div>
+                            <div class="btn btn-default" onclick="orderFilter('/purchase/history')"><i class="fa fa-search"></i></div>
                         </form>
-
                         <table id="order-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead style="display: none;">
                             <tr>
@@ -51,8 +50,20 @@
                                         <div class="panel-group">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading" data-toggle="collapse" href="#order-{{ $idx }}">
-                                                    <b>{{ $trx->invoice }}</b><br/>
-                                                    Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}
+                                                    <a class="invoice-link" href="{{ route('invoice-view', ['id' => $trx->id]) }}"><b>{{ $trx->invoice }}</b></a><br/>
+                                                    Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}<br/>
+                                                    <b>Status</b><br/>
+                                                    @if($trx->status_id == 5)
+                                                        New Order
+                                                    @elseif($trx->status_id == 6)
+                                                        In Process
+                                                    @elseif($trx->status_id == 9)
+                                                        {{ \Carbon\Carbon::parse($trx->finish_date)->format('j F Y G:i:s')}} -
+                                                        <b><span style="color: #42b549;">Success</span></b>
+                                                    @elseif($trx->status_id == 10)
+                                                        {{ \Carbon\Carbon::parse($trx->finish_date)->format('j F Y G:i:s')}} -
+                                                        <b><span style="color: red;">Failed</span></b>
+                                                    @endif
                                                     <div class="arrow-show">
                                                         <i class="fa fa-arrow-circle-o-down">&nbsp;<b>Show</b></i>
                                                     </div>

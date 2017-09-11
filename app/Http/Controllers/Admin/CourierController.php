@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Courier;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rules\In;
 
 class CourierController extends Controller
 {
@@ -48,10 +50,15 @@ class CourierController extends Controller
     {
         //
         $this->validate($request, [
-            'description' => 'required',
+            'code'          => 'required|max:20',
+            'description'   => 'required|max:100'
         ]);
 
-        Courier::create(request(['description']));
+        Courier::create([
+            'code'          => Input::get('code'),
+            'description'   => Input::get('description'),
+            'status_id'     => 1
+        ]);
 
         Session::flash('message', 'Success Creating Courier!!!');
 
@@ -93,12 +100,15 @@ class CourierController extends Controller
     {
         //
         $this->validate(request(), [
-            'description' => 'required'
+            'code'          => 'required',
+            'description'   => 'required'
         ]);
 
 
         Courier::where('id', $id)->update([
-            'description' => $request->description
+            'code'          => Input::get('code'),
+            'description'   => Input::get('description'),
+            'status_id'     => Input::get('status')
         ]);
 
         Session::flash('message', 'Success Updating Courier!!!');
