@@ -24,9 +24,9 @@ use Webpatser\Uuid\Uuid;
 class ProductController extends Controller
 {
     public function __construct()
-    {
-        $this->middleware('auth:user_admins');
-    }
+{
+    $this->middleware('auth:user_admins');
+}
 
     public function index(){
         $products = Product::all()->sortByDesc('created_on');
@@ -88,6 +88,9 @@ class ProductController extends Controller
                 $product->discount_flat = $discountFlat;
 
                 $product->price_discounted = $priceDouble - $discountFlat;
+            }
+            else{
+                $product->price_discounted = $priceDouble;
             }
 
             if(!empty(Input::get('description'))){
@@ -219,6 +222,7 @@ class ProductController extends Controller
                 // Set all null
                 $product->discount = null;
                 $product->discount_flat = null;
+                $product->price_discounted = $priceDouble;
             }
 
             if(!empty(Input::get('description'))){
@@ -269,7 +273,7 @@ class ProductController extends Controller
                         $productImage = ProductImage::find($deletedId);
 
                         $deletedPath = storage_path('app/public/product/'. $productImage->path);
-                        unlink($deletedPath);
+                        if(file_exists($deletedPath)) unlink($deletedPath);
 
                         $productImage->delete();
                     }

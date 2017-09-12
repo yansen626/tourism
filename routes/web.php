@@ -122,6 +122,16 @@ Route::get('/admin/transfer/confirm/{id}', 'Admin\TransactionController@confirmT
 Route::get('/admin/delivery', 'Admin\TransactionController@deliveryRequest')->name('delivery-list');
 Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDelivery')->name('delivery-confirm');
 
+// Banner
+Route::prefix('/admin/banner/slider')->group(function(){
+    Route::get('/', 'Admin\BannerController@index')->name('slider-banner-list');
+    Route::post('/', 'Admin\BannerController@store');
+    Route::get('/create', 'Admin\BannerController@create')->name('slider-banner-create');
+    Route::get('/edit/{id}', 'Admin\BannerController@edit')->name('slider-banner-edit');
+    Route::post('/{id}', 'Admin\BannerController@update');
+    Route::get('/delete/{id}', 'Admin\BannerController@delete');
+});
+
 // Category
 Route::prefix('admin/category')->group(function(){
     Route::get('/', 'Admin\CategoryController@index')->name('category-list');
