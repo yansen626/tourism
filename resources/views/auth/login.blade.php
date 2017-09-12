@@ -11,15 +11,12 @@
                 <div class="login">
                     <h2>Login</h2>
 
-                    @foreach($errors->all() as $error)
-                        <h5 style="color: red;"> {{ $error }} </h5>
-                    @endforeach
-
-                    @if(\Illuminate\Support\Facades\Session::has('message'))
-                        <div class="alert alert-success alert-dismissible fade in" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                            </button>
-                            <strong>{{ \Illuminate\Support\Facades\Session::get('message') }}</strong>
+                    @if($errors->count() > 0)
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            @foreach($errors->all() as $error)
+                                {{ $error }}<br/>
+                            @endforeach
                         </div>
                     @endif
 

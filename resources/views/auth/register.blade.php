@@ -9,15 +9,23 @@
             <div class="my_account_block clearfix">
                 <div class="login">
                     <h2>Register</h2>
-                    @foreach($errors->all() as $error)
-                        <h5 style="color: red;"> {{ $error }} </h5>
-                    @endforeach
+
+                    @if($errors->count() > 0)
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            @foreach($errors->all() as $error)
+                                {{ $error }}<br/>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <form class="form-horizontal" role="form" method="POST" action="/register">
                         {{ csrf_field() }}
 
                         <input type="email" name="email" placeholder="Email" />
                         <input type="text" name="first_name" placeholder="Fist name"/>
                         <input type="text" name="last_name" placeholder="Last Name" />
+                        <input type="text" name="phone" placeholder="Phone Number" />
 
                         <input class="last" type="password" name="password" placeholder="Password"/>
                         <input class="last" type="password" name="password_confirmation" placeholder="Re-type Password" />

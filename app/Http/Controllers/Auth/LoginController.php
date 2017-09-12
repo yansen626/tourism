@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerification;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -27,7 +33,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    //protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -46,12 +52,40 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
+        $validator = Validator::make($request->all(),
+            [
+                'email'                 => 'required|email|max:100',
+                'password'              => 'required|min:6|max:20'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status_id' => 1])) {
             // Authentication passed...
             return redirect()->action('Frontend\HomeController@home');
         }
-        else{
-            return redirect()->route('login')->withErrors('Verify Your Email First!!');
+        else
+        {
+            //return redirect()->route('login')->withErrors('Verify Your Email First!!');
+            $user = User::where('email',Input::get('email'))->first();
+            if($user != null && Hash::check(Input::get('password'), $user->getAuthPassword())){
+                error_log('VERIFYYYYYYYY');
+                $emailVerify = new EmailVerification($user);
+                Mail::to($user->email)->send($emailVerify);
+
+                return View('auth.send-email')->with('email',Input::get('email'));
+            }
+            else{
+                error_log('WRONGGGGGGGG');
+                return redirect()->route('login')->withErrors('Wrong email or password');
+            }
         }
+    }
+
+    public function email(){
+
     }
 }

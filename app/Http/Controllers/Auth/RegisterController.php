@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -39,10 +40,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('guest');
+//    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -89,15 +90,28 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-        //event(new Registered($user = $this->create($request->all())));
-        //dispatch(new SendVerificationEmail($user));
+        $validator = Validator::make($request->all(),
+            [
+                'email'                 => 'required|email|max:100|unique:users',
+                'first_name'            => 'required|max:100',
+                'last_name'             => 'required|max:100',
+                'phone'                 => 'required|max:20',
+                'password'              => 'required|min:6|max:20|confirmed',
+                'password_confirmation' => 'required|same:password'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
         $user = $this->create($request->all());
-        $email = new EmailVerification($user);
-        Mail::to($user->email)->send($email);
+        $emailVerify = new EmailVerification($user);
+        Mail::to($user->email)->send($emailVerify);
 
-        return view('auth.verification');
+        $email = Input::get('email');
+
+        return View('auth.send-email', compact('email'));
     }
     /**
      * Handle a registration request for the application.
@@ -111,7 +125,7 @@ class RegisterController extends Controller
         $user->status_id = 1;
 
         if($user->save()){
-            return view('auth.emailconfirm',['user'=>$user]);
+            return View('auth.email-confirm',['user'=>$user]);
         }
     }
 }

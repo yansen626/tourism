@@ -14,14 +14,15 @@
 //Build in Routes for Auth
 Auth::routes();
 
+Route::get('/login', function (){
+    return view('auth/login');
+});
 Route::post('/login', 'Auth\LoginController@authenticate')->name('login');
 
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
-/*Route::get('/login', function (){
-    return view('frontend/login');
-});
+/*
 
 Route::get('/register', function (){
     return view('frontend/register');
@@ -102,13 +103,8 @@ Route::get('/lowids/login/{failed}', function ($failed){
 
 Route::get('/admin/user', 'Admin\UserManagementController@index');
 
-Route::get('/admin/product', 'Admin\ProductController@index');
-
-
-Route::post('/admin/login-success', 'Auth\LoginAdminController@login');
-
+Route::post('/admin', 'Auth\LoginAdminController@login');
 Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
-
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
 
 // Product

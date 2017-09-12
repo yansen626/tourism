@@ -9,7 +9,7 @@
 
             <div class="my_account_block clearfix">
                 <div class="login">
-                    <h2>You have successfully registered. An email is sent to you for verification.</h2>
+                    <p style="font-size: 15px;>Your Email is successfully verified. Click here to <strong><a href="{{ route('login')}}">login</a></strong></p>
                 </div>
             </div>
         </div><!-- //CONTAINER -->
