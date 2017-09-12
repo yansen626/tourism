@@ -29,9 +29,9 @@
                     <div class="sidepanel widget_categories">
                         <h3>Product Categories</h3>
                         <ul>
-                            <li><a href="{{ route('product-list', ['categoryId' => 0]) }}" >All Category</a></li>
+                            <li><a href="{{ route('products', ['categoryId' => 0]) }}" >All Category</a></li>
                             @foreach($categories as $category)
-                                <li><a href="{{ route('product-list', ['categoryId' => $category->id]) }}" >{{$category->name}}</a></li>
+                                <li><a href="{{ route('products', ['categoryId' => $category->id]) }}" >{{$category->name}}</a></li>
                             @endforeach
                         </ul>
                     </div><!-- //CATEGORIES -->

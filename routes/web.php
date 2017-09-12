@@ -32,7 +32,7 @@ Route::post('/register', 'Auth\RegisterController@create');
 Route::get('/', 'Frontend\HomeController@Home')->name('home');*/
 
 //product
-Route::get('product-list/{categoryId}', 'Frontend\ProductsController@ProductsShowAll')->name('product-list');
+Route::get('product-list/{categoryId}', 'Frontend\ProductsController@ProductsShowAll')->name('products');
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
 //cart process
 Route::get('cart-list', 'Frontend\CartController@CartShowAll')->name('cart-list');
@@ -45,20 +45,15 @@ Route::post('/edit-cart', [
     'uses' => 'Frontend\CartController@EditQuantityCart',
     'as' => 'editCart'
 ]);
-Route::get('search/{key}', 'Frontend\ProductsController@search');
-
 //transaction
 Route::get('checkout-1', 'Frontend\TransactionController@CheckoutProcess1')->name('checkout');
-
-Route::get('/checkout-2', function (){
-    return view('frontend/checkout-step2');
-})->name('checkout2');
-Route::get('/checkout-3', function (){
-    return view('frontend/checkout-step3');
-})->name('checkout3');
-Route::get('/checkout-4', function (){
-    return view('frontend/checkout-step4');
-})->name('checkout4');
+Route::get('checkout-2', 'Frontend\TransactionController@CheckoutProcess2')->name('checkout2');
+Route::post('/checkout2-submit', [
+    'uses' => 'Frontend\TransactionController@CheckoutProcess2Submit',
+    'as' => 'checkout2Submit'
+]);
+Route::get('checkout-3', 'Frontend\TransactionController@CheckoutProcess3')->name('checkout3');
+Route::get('checkout-4', 'Frontend\TransactionController@CheckoutProcess4')->name('checkout4');
 // End Frontend Routing
 
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');

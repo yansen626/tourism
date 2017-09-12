@@ -111,14 +111,14 @@
 
             <!-- MENU -->
             <ul class="navmenu center">
-                <li class="sub-menu"><a href="{{ route('product-list', ['categoryId' => 0]) }}" >Products</a>
+                <li class="sub-menu"><a href="{{ route('products', ['categoryId' => 0]) }}" >Products</a>
                     <!-- MEGA MENU -->
                     <ul class="mega_menu megamenu_col1 clearfix">
                         <li class="col">
                             <ol>
-                                <li><a href="{{ route('product-list', ['categoryId' => 1]) }}" >Tofieco Essense & Pasta</a></li>
-                                <li><a href="{{ route('product-list', ['categoryId' => 2]) }}" >Rum,Pasta,Essence</a></li>
-                                <li><a href="{{ route('product-list', ['categoryId' => 3]) }}" >Pewarna</a></li>
+                                <li><a href="{{ route('products', ['categoryId' => 1]) }}" >Tofieco Essense & Pasta</a></li>
+                                <li><a href="{{ route('products', ['categoryId' => 2]) }}" >Rum,Pasta,Essence</a></li>
+                                <li><a href="{{ route('products', ['categoryId' => 3]) }}" >Pewarna</a></li>
                             </ol>
                         </li>
                     </ul><!-- //MEGA MENU -->

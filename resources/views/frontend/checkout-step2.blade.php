@@ -34,31 +34,54 @@
                     <li class="last">4. Confirm Orded</li>
                 </ul>
 
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('checkout2Submit') }}">
+                    {{ csrf_field() }}
                 <div class="checkout_delivery clearfix">
                     <p class="checkout_title">SHIPPING METHOD</p>
                     <ul>
-                        <li>
-                            <input id="ridio1" type="radio" name="radio" hidden />
-                            <label for="ridio1">Standard International Post <b>Free  (3-6 week)</b><img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" /></label>
-                        </li>
-                        <li>
-                            <input id="ridio2" type="radio" name="radio" hidden />
-                            <label for="ridio2">Excluseve International Post <b>Postage $ 10 (2-4 week)</b><img src="{{ URL::asset('frontend_images/excluseve_post.jpg') }}" alt="" /></label>
-                        </li>
-                        <li>
-                            <input id="ridio3" type="radio" name="radio" hidden />
-                            <label for="ridio3">Premium Post <b>Postage $ 50 (1-2 week)</b><img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" /></label>
-                        </li>
-                        <li>
-                            <input id="ridio4" type="radio" name="radio" hidden />
-                            <label for="ridio4">For VIP clients <b>$ 100 (3 days)</b><img src="{{ URL::asset('frontend_images/vip_post.jpg') }}" alt="" /></label>
-                        </li>
+                        @for($i=0; $i<4; $i++)
+                            @php( $liID = "ridio".$i )
+                            @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-9000" )
+
+                            <li>
+                                <input id="{{$liID}}" type="radio" name="shippingRadio" hidden value="{{$valueRadio}}"/>
+                                <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp xxxxxx</b>
+                                    @if($deliveryTypes[$i]->courier_id == 1)
+                                        <img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />
+                                    @elseif ($deliveryTypes[$i]->courier_id == 2)
+                                        <img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />
+                                    @endif
+                                </label>
+                            </li>
+                        @endfor
                     </ul>
+                    @if($deliveryTypes->count() > 4)
+                        @for($i=4; $i<8; $i++)
+                            @php( $liID = "ridio".$i )
+                            <ul>
+                                <li>
+                                    <input id="{{$liID}}" type="radio" name="radio" hidden />
+                                    <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp xxxxxx</b>
+                                        @if($deliveryTypes[$i]->courier_id == 1)
+                                            <img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />
+                                        @elseif ($deliveryTypes[$i]->courier_id == 2)
+                                            <img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />
+                                        @endif
+                                    </label>
+                                </li>
+                            </ul>
+                        @endfor
+                    @endif
 
-                    <div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>
+                        <div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>
 
-                    <a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>
+                        {{--<a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>--}}
+                        <input type="submit" value="Submit" class="btn active pull-right checkout_block_btn">
+
+                    {{--<a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>--}}
                 </div>
+
+                </form>
             </div><!-- //CHECKOUT BLOCK -->
         </div><!-- //CONTAINER -->
     </section><!-- //CHECKOUT PAGE -->
