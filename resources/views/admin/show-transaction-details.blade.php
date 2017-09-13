@@ -68,11 +68,14 @@
                                     <li>
                                         <b>Transaction Date:</b><br/>{{ \Carbon\Carbon::parse($transaction->created_on)->format('j M Y G:i:s') }}
                                     </li>
-                                    <li><b>Status:</b><br/>
-                                        @if($transaction->status_id == 4)
-                                            <b>Need to confirm payment</b>
-                                        @elseif($transaction->status_id == 5)
+                                    <li>
+                                        <b>Status:</b><br/>
+                                        @if($transaction->status_id == 3)
                                             <b>New Order</b>
+                                        @if($transaction->status_id == 4)
+                                            <b>Payment Verification</b>
+                                        @elseif($transaction->status_id == 5)
+                                            <b>Payment Confirmed</b>
                                         @elseif($transaction->status_id == 6)
                                             <b>In Process</b>
                                         @elseif($transaction->status_id == 9)
@@ -82,8 +85,14 @@
                                             {{ \Carbon\Carbon::parse($transaction->finish_date)->format('j M Y G:i:s')}} -
                                             <b><span style="color: red;">Failed</span></b>
                                         @endif
-
                                     </li>
+                                    @if(!empty($transaction->tracking_code))
+                                        <li>
+                                            <b>Waybill:</b><br/>
+                                            {{ $transaction->tracking_code }}
+                                            <button id="btn-track" onclick="trackPopUp('{{ $transaction->id }}')" class="btn btn-primary">Track</button>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="col-md-9 col-sm-9 col-xs-12">
@@ -153,5 +162,43 @@
         </div>
     </div>
     <!-- /page content -->
+
+    <!-- track modal -->
+    <div id="modal-track" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Tracking</h4>
+                </div>
+                <div id="track-content" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /track modal -->
+
+
+    <script>
+        function trackPopUp(){
+            $("#btn-track").html("Loading...");
+            $("#btn-track").attr('disabled', true);
+            $.get('{{ route('track', ['id' => $transaction->id]) }}', function (data) {
+                $("#modal-track").modal();
+                if(data.success == true) {
+                    //user_jobs div defined on page
+                    $('#track-content').html(data.html);
+                    $("#btn-track").removeAttr('disabled');
+                    $("#btn-track").html("Track");
+                }
+            });
+        }
+    </script>
 
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class HomeController extends Controller
     public function Home(Request $request){
         $recentProducts = Product::orderby('created_on', 'desc')->take(10)->get();
         $featuredProducts = Product::inRandomOrder()->take(6)->get();
+        $slideBanners = Banner::where('type', 1)->get();
 
         if (Auth::check())
         {
@@ -32,6 +34,13 @@ class HomeController extends Controller
         }
         $request->session()->put('key', 'value');
 
-        return view('frontend.home',compact('recentProducts', 'featuredProducts', 'userId'));
+        $data = [
+            'recentProducts'    => $recentProducts,
+            'featuredProducts'  => $featuredProducts,
+            'slideBanners'      => $slideBanners,
+            'userId'            => $userId
+        ];
+
+        return View('frontend.home')->with($data);
     }
 }

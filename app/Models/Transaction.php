@@ -140,6 +140,11 @@ class Transaction extends Eloquent
 		return $this->hasMany(\App\Models\TransactionDetail::class);
 	}
 
+    public function transfer_confirmation()
+    {
+        return $this->hasMany(\App\Models\TransferConfirmation::class);
+    }
+
 	public function getTotalPriceAttribute(){
 	    return number_format($this->attributes['total_price'],0, ",", ".");
     }

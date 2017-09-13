@@ -237,7 +237,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="description" name="description" class="form-control col-md-7 col-xs-12"></textarea>
+                                    <textarea rows="5" style="resize: vertical" id="description" name="description" class="form-control col-md-7 col-xs-12"></textarea>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>

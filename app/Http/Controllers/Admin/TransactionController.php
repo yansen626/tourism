@@ -15,6 +15,7 @@ use App\Models\TransferConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use GuzzleHttp\Client;
 
 class TransactionController extends Controller
 {
@@ -63,9 +64,12 @@ class TransactionController extends Controller
     }
 
     public function userTransfer(){
-        $transfers = TransferConfirmation::where('status_id', 3)->get();
+        //$transfers = TransferConfirmation::where('status_id', 4)->get();
+        $transactions = Transaction::where('status_id', 3)
+            ->orWhere('status_id', 4)
+            ->orderByDesc('created_on')->get();
 
-        return View('admin.show-user-transfers', compact('transfers'));
+        return View('admin.show-user-transfers', compact('transactions'));
     }
 
     public function confirmTransfer($id){
@@ -95,5 +99,33 @@ class TransactionController extends Controller
         $trx->save();
 
         return redirect::route('delivery-list');
+    }
+
+    public function track($id){
+        $trx = Transaction::find($id);
+
+        $client = new Client([
+            'base_uri' => 'https://pro.rajaongkir.com/api/waybill',
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'key' => env('RAJAONGKIR_API_KEY')
+            ],
+        ]);
+
+        $request = $client->request('POST', 'https://pro.rajaongkir.com/api/waybill', [
+            'form_params' => [
+                'waybill' => $trx->tracking_code,
+                'courier' => $trx->courier_code,
+            ]
+        ]);
+
+        if($request->getStatusCode() == 200){
+            $collect = json_decode($request->getBody());
+
+            $returnHtml = View('admin.partials._show-tracks',['collect' => $collect])->render();
+
+            return response()->json( array('success' => true, 'html' => $returnHtml) );
+        }
     }
 }

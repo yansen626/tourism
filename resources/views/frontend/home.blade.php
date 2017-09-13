@@ -9,29 +9,33 @@
 		<!-- TOP SLIDER -->
 		<div class="flexslider top_slider sale_page">
 			<ul class="slides">
+				@foreach($slideBanners as $slider)
 				<li class="slide1">
-
-					<!-- CONTAINER -->
-					<div class="container">
-						<div class="sale_caption1">
-							<p class="title1 captionDelay2 FromTop">DRESS DAY</p>
-							<p class="title2 FromTop">last week of sales</p>
-							<a class="flex_btn" href="javascript:void(0);" >Buy now and get 25% discount</a>
+					<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id:$slider->url }}">
+						<div class="container" style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover;">
+							<div class="sale_caption1">
+								@if(!empty($banner->caption))
+									<p class="title1 captionDelay2 FromTop">DRESS DAY</p>
+								@endif
+								@if(!empty($banner->sub_caption))
+									<p class="title2 FromTop">last week of sales</p>
+								@endif
+							</div>
 						</div>
-					</div><!-- //CONTAINER -->
+					</a>
 				</li>
+				@endforeach
+				{{--<li class="slide2">--}}
 
-				<li class="slide2">
-
-					<!-- CONTAINER -->
-					<div class="container">
-						<div class="sale_caption1">
-							<p class="title1 captionDelay2 FromTop">DRESS DAY</p>
-							<p class="title2 FromTop">last week of sales</p>
-							<a class="flex_btn" href="javascript:void(0);" >Buy now and get 25% discount</a>
-						</div>
-					</div><!-- //CONTAINER -->
-				</li>
+					{{--<!-- CONTAINER -->--}}
+					{{--<div class="container">--}}
+						{{--<div class="sale_caption1">--}}
+							{{--<p class="title1 captionDelay2 FromTop">DRESS DAY</p>--}}
+							{{--<p class="title2 FromTop">last week of sales</p>--}}
+							{{--<a class="flex_btn" href="javascript:void(0);" >Buy now and get 25% discount</a>--}}
+						{{--</div>--}}
+					{{--</div><!-- //CONTAINER -->--}}
+				{{--</li>--}}
 			</ul>
 		</div><!-- //TOP SLIDER -->
 	</section><!-- //HOME -->
@@ -88,11 +92,6 @@
 				<!-- TOVAR WRAPPER -->
 				<div class="tovar_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
 
-					<!-- BANNER -->
-					<div class="col-lg-3 col-md-3 col-xs-6 col-ss-12">
-						<a class="banner type3 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner3.jpg') }}" alt="" /></a>
-					</div><!-- //BANNER -->
-
 					<div class="respond_clear_768"></div>
 					@for($i =3; $i< 6; $i++)
 						<!-- TOVAR -->
@@ -117,6 +116,10 @@
 					@endfor
 
 				</div><!-- //TOVAR WRAPPER -->
+				<!-- BANNER -->
+				<div class="col-lg-3 col-md-3 col-xs-6 col-ss-12">
+					<a class="banner type3 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner3.jpg') }}" alt="" /></a>
+				</div><!-- //BANNER -->
 			</div><!-- //ROW -->
 
 
@@ -124,17 +127,17 @@
 			<div class="row">
 
 				<!-- BANNER WRAPPER -->
-				<div class="banner_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
-					<!-- BANNER -->
-					<div class="col-lg-9 col-md-9">
-						<a class="banner type4 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner4.jpg') }}" alt="" /></a>
-					</div><!-- //BANNER -->
+				{{--<div class="banner_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>--}}
+					{{--<!-- BANNER -->--}}
+					{{--<div class="col-lg-9 col-md-9">--}}
+						{{--<a class="banner type4 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner4.jpg') }}" alt="" /></a>--}}
+					{{--</div><!-- //BANNER -->--}}
 
-					<!-- BANNER -->
-					<div class="col-lg-3 col-md-3">
-						<a class="banner nobord margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner5.jpg') }}" alt="" /></a>
-					</div><!-- //BANNER -->
-				</div><!-- //BANNER WRAPPER -->
+					{{--<!-- BANNER -->--}}
+					{{--<div class="col-lg-3 col-md-3">--}}
+						{{--<a class="banner nobord margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner5.jpg') }}" alt="" /></a>--}}
+					{{--</div><!-- //BANNER -->--}}
+				{{--</div><!-- //BANNER WRAPPER -->--}}
 			</div><!-- //ROW -->
 		</div><!-- //CONTAINER -->
 	</section><!-- //TOVAR SECTION -->
@@ -180,39 +183,39 @@
 
 
 	<!-- BRANDS -->
-	<section class="brands_carousel">
+	{{--<section class="brands_carousel">--}}
 
-		<!-- CONTAINER -->
-		<div class="container">
+		{{--<!-- CONTAINER -->--}}
+		{{--<div class="container">--}}
 
-			<!-- JCAROUSEL -->
-			<div class="jcarousel-wrapper">
+			{{--<!-- JCAROUSEL -->--}}
+			{{--<div class="jcarousel-wrapper">--}}
 
-				<!-- NAVIGATION -->
-				<div class="jCarousel_pagination">
-					<a href="javascript:void(0);" class="jcarousel-control-prev" ><i class="fa fa-angle-left"></i></a>
-					<a href="javascript:void(0);" class="jcarousel-control-next" ><i class="fa fa-angle-right"></i></a>
-				</div><!-- //NAVIGATION -->
+				{{--<!-- NAVIGATION -->--}}
+				{{--<div class="jCarousel_pagination">--}}
+					{{--<a href="javascript:void(0);" class="jcarousel-control-prev" ><i class="fa fa-angle-left"></i></a>--}}
+					{{--<a href="javascript:void(0);" class="jcarousel-control-next" ><i class="fa fa-angle-right"></i></a>--}}
+				{{--</div><!-- //NAVIGATION -->--}}
 
-				<div class="jcarousel" data-appear-top-offset='-100' data-animated='fadeInUp'>
-					<ul>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/1.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/2.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/3.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/4.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/5.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/6.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/7.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/8.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/9.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/10.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/11.jpg') }}" alt="" /></a></li>
-						<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/12.jpg') }}" alt="" /></a></li>
-					</ul>
-				</div>
-			</div><!-- //JCAROUSEL -->
-		</div><!-- //CONTAINER -->
-	</section><!-- //BRANDS -->
+				{{--<div class="jcarousel" data-appear-top-offset='-100' data-animated='fadeInUp'>--}}
+					{{--<ul>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/1.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/2.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/3.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/4.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/5.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/6.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/7.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/8.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/9.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/10.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/11.jpg') }}" alt="" /></a></li>--}}
+						{{--<li><a href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/brands/12.jpg') }}" alt="" /></a></li>--}}
+					{{--</ul>--}}
+				{{--</div>--}}
+			{{--</div><!-- //JCAROUSEL -->--}}
+		{{--</div><!-- //CONTAINER -->--}}
+	{{--</section><!-- //BRANDS -->--}}
 
 	<hr class="container">
 

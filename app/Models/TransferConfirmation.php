@@ -14,7 +14,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $user_id
- * @property string $trx_id
+ * @property string $transaction_id
  * @property string $receiver_bank
  * @property float $transfer_amount
  * @property string $sender_name
@@ -69,7 +69,7 @@ class TransferConfirmation extends Eloquent
 
 	public function transaction()
 	{
-		return $this->belongsTo(\App\Models\Transaction::class, 'trx_id');
+		return $this->belongsTo(\App\Models\Transaction::class, 'transaction_id');
 	}
 
 	public function user()

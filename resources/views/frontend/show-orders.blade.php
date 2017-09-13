@@ -53,8 +53,10 @@
                                                     <a class="invoice-link" href="{{ route('invoice-view', ['id' => $trx->id]) }}"><b>{{ $trx->invoice }}</b></a><br/>
                                                     Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}<br/>
                                                     <b>Status</b><br/>
-                                                    @if($trx->status_id == 5)
-                                                        New Order
+                                                    @if($trx->status_id == 4)
+                                                        In Verification
+                                                    @elseif($trx->status_id == 5)
+                                                        Payment Confirmed
                                                     @elseif($trx->status_id == 6)
                                                         In Process
                                                     @endif
@@ -78,7 +80,12 @@
                                                             </div>
                                                             <div class="col-lg-3 col-md-3">
                                                                 <b>Delivery Fee</b><br/>
-                                                                Rp {{ $trx->delivery_fee }}
+                                                                Rp {{ $trx->delivery_fee }} <br/>
+                                                                @if(!empty($trx->tracking_code))
+                                                                <b>Waybill:</b><br/>
+                                                                {{ $trx->tracking_code }}<br/>
+                                                                <button id="{{ 'btn-track-'. $trx->id }}" class="btn btn-primary" onclick="trackPopUp()">TRACK</button>
+                                                                @endif
                                                             </div>
                                                         </div>
 
@@ -133,5 +140,41 @@
         </div>
         <!-- //CONTAINER -->
     </section>
+
+    <!-- track modal -->
+    <div id="modal-track" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Tracking</h4>
+                </div>
+                <div id="track-content" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /track modal -->
+
+    <script>
+        function trackPopUp(){
+            $("{{ '#btn-track-'. $trx->id }}").html("Loading...");
+            $("{{ '#btn-track-'. $trx->id }}").attr('disabled', true);
+            $.get('{{ route('track', ['id' => $trx->id]) }}', function (data) {
+                $("#modal-track").modal();
+                if(data.success == true) {
+                    $('#track-content').html(data.html);
+                    $("{{ '#btn-track-'. $trx->id }}").removeAttr('disabled');
+                    $("{{ '#btn-track-'. $trx->id }}").html("Track");
+                }
+            });
+        }
+    </script>
 
 @endsection

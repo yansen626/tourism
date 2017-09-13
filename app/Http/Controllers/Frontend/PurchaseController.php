@@ -33,20 +33,20 @@ class PurchaseController extends Controller
 
             if(!empty(request()->search)){
                 $transactions = Transaction::where('user_id', $id)
-                    ->where('status_id', 4)
+                    ->where('status_id', 3)
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->where('invoice','LIKE','%'. request()->search. '%')
                     ->orderByDesc('created_on')->get();
             }else{
                 $transactions = Transaction::where('user_id', $id)
-                    ->where('status_id', 4)
+                    ->where('status_id', 3)
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->orderByDesc('created_on')->get();
             }
         }
         else{
             $transactions = Transaction::where('user_id', $id)
-                ->where('status_id', 4)
+                ->where('status_id', 3)
                 ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                 ->orderByDesc('created_on')->get();
         }
@@ -77,8 +77,8 @@ class PurchaseController extends Controller
 
             if(!empty(request()->search)){
                 $transactions = Transaction::where('user_id', $id)
+
                     ->where('status_id', '!=', 3)
-                    ->where('status_id', '!=', 4)
                     ->where('status_id', '!=', 9)
                     ->where('status_id', '!=', 10)
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
@@ -87,7 +87,6 @@ class PurchaseController extends Controller
             }else{
                 $transactions = Transaction::where('user_id', $id)
                     ->where('status_id', '!=', 3)
-                    ->where('status_id', '!=', 4)
                     ->where('status_id', '!=', 9)
                     ->where('status_id', '!=', 10)
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
@@ -97,7 +96,6 @@ class PurchaseController extends Controller
         else{
             $transactions = Transaction::where('user_id', $id)
                 ->where('status_id', '!=', 3)
-                ->where('status_id', '!=', 4)
                 ->where('status_id', '!=', 9)
                 ->where('status_id', '!=', 10)
                 ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
@@ -125,23 +123,29 @@ class PurchaseController extends Controller
 
             if(!empty(request()->search)){
                 $transactions = Transaction::where('user_id', $id)
-                    ->where('status_id', '!=', 3)
-                    ->where('status_id', '!=', 4)
+                    ->where(function($query){
+                        $query->where('status_id', '!=', 3)
+                            ->orWhere('status_id', '!=', 4);
+                    })
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->where('invoice','LIKE','%'. request()->search. '%')
                     ->orderByDesc('created_on')->get();
             }else{
                 $transactions = Transaction::where('user_id', $id)
-                    ->where('status_id', '!=', 3)
-                    ->where('status_id', '!=', 4)
+                    ->where(function($query){
+                        $query->where('status_id', '!=', 3)
+                            ->orWhere('status_id', '!=', 4);
+                    })
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->orderByDesc('created_on')->get();
             }
         }
         else{
             $transactions = Transaction::where('user_id', $id)
-                ->where('status_id', '!=', 3)
-                ->where('status_id', '!=', 4)
+                ->where(function($query){
+                    $query->where('status_id', '!=', 3)
+                        ->orWhere('status_id', '!=', 4);
+                })
                 ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                 ->orderByDesc('created_on')->get();
         }

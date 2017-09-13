@@ -306,14 +306,6 @@
                                     </div>
                                 </div>
                             @endif
-
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="description" name="description" class="form-control col-md-7 col-xs-12">{{ $product->description }}</textarea>
-                                </div>
-                            </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Status <span class="required">*</span>
                                 </label>
@@ -331,6 +323,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea rows="5" id="description" name="description" class="form-control col-md-7 col-xs-12" style="resize: vertical;">{{ $product->description }}</textarea>
+                                </div>
+                            </div>
+
                             {{ Form::hidden('deleted_img_id', '', array('id' => 'deleted_img_id')) }}
                             {{ Form::hidden('img_featured_changed', '', array('id' => 'img_featured_changed')) }}
                             <div class="ln_solid"></div>

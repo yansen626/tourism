@@ -27,7 +27,6 @@
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
-                                    <th>No</th>
                                     <th>Invoice</th>
                                     <th>Customer Name</th>
                                     <th>Bank</th>
@@ -37,22 +36,40 @@
                                     <th>Transfer Date</th>
                                     <th>Confirm Date</th>
                                     <th>Note</th>
+                                    <th>Status</th>
                                     <th>Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php( $idx = 1 )
-                                @foreach($transfers as $trans)
+                                @foreach($transactions as $trx)
+                                    @php( $trans = $trx->transfer_confirmation()->first())
                                     <tr>
-                                        <td>{{ $idx }}</td>
-                                        <td>{{ $trans->transaction->invoice }}</td>
-                                        <td>{{ $trans->user->first_name }}&nbsp;{{ $trans->user->last_name }}</td>
-                                        <td>{{ $trans->receiver_bank }}</td>
-                                        <td>{{ $trans->sender_name }}</td>
-                                        <td>Rp {{ $trans->transfer_amount }}</td>
-                                        <td>Rp {{ $trans->transaction->total_payment }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($trans->created_on)->format('j M Y') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($trans->created_on)->format('j M Y G:i:s') }}</td>
+                                        <td>{{ $trx->invoice }}</td>
+                                        <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
+                                        <td>{{ $trans->receiver_bank ?? '-' }}</td>
+                                        <td>{{ $trans->sender_name ?? '-'}}</td>
+                                        <td>
+                                            @if(!empty($trans))
+                                                Rp {{ $trans->transfer_amount }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>Rp {{ $trx->total_payment }}</td>
+                                        <td>
+                                            @if(!empty($trans->transfer_date))
+                                                {{ \Carbon\Carbon::parse($trans->transfer_date)->format('j M Y') }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($trans->created_on))
+                                                {{ \Carbon\Carbon::parse($trans->created_on)->format('j M Y G:i:s') }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                         <td>
                                             @if(!empty($trans->note))
                                                 {{ $trans->note }}
@@ -61,11 +78,19 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a onclick="modalPop('{{ $trans->id }}', 'transfer', '/admin/transfer/confirm/')" class="btn btn-success">Confirm</a>
-                                            <a href="/admin/transaction/detail/{{ $trans->trx_id }}" class="btn btn-primary">Detail</a>
+                                            @if($trx->status_id == 3)
+                                                <span style="color: red;">Pending Payment</span>
+                                            @else
+                                                <span style="color: orange;">Need Verification</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($trans))
+                                                <a onclick="modalPop('{{ $trans->id }}', 'transfer', '/admin/transfer/confirm/')" class="btn btn-success">Confirm</a>
+                                            @endif
+                                            <a href="/admin/transaction/detail/{{ $trx->id }}" class="btn btn-primary">Detail</a>
                                         </td>
                                     </tr>
-                                    @php( $idx++ )
                                 @endforeach
                                 </tbody>
                             </table>

@@ -60,6 +60,7 @@ class BannerController extends Controller
         }
 
         $banner = new Banner;
+        $banner->type = 1;
         $banner->status_id = 1;
         $banner->created_at = Carbon::now('Asia/Jakarta');
         $banner->created_by = Auth::guard('user_admins')->id();

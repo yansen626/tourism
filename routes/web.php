@@ -112,15 +112,18 @@ Route::prefix('/admin/product')->group(function (){
 });
 
 // Transaction
+Route::prefix('admin/transaction')->group(function(){
+    Route::get('/', 'Admin\TransactionController@index')->name('transaction-list');
+    Route::get('/detail/{id}', 'Admin\TransactionController@detail')->name('transaction-detail');
+});
 Route::get('/admin/neworder', 'Admin\TransactionController@newOrder')->name('new-order-list');
 Route::get('/admin/neworder/accept/{id}', 'Admin\TransactionController@acceptOrder')->name('new-order-accept');
 Route::post('/admin/neworder/reject', 'Admin\TransactionController@rejectOrder')->name('new-order-accept');
-Route::get('/admin/transaction', 'Admin\TransactionController@index')->name('transaction-list');
-Route::get('/admin/transaction/detail/{id}', 'Admin\TransactionController@detail')->name('transaction-detail');
 Route::get('/admin/transfer', 'Admin\TransactionController@userTransfer')->name('transfer-list');
 Route::get('/admin/transfer/confirm/{id}', 'Admin\TransactionController@confirmTransfer')->name('transfer-confirm');
 Route::get('/admin/delivery', 'Admin\TransactionController@deliveryRequest')->name('delivery-list');
 Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDelivery')->name('delivery-confirm');
+Route::get('/track/{id}', 'Admin\TransactionController@track')->name('track');
 
 // Banner
 Route::prefix('/admin/banner/slider')->group(function(){

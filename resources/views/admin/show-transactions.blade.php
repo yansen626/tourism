@@ -56,10 +56,12 @@
                                         <td>Rp {{ $trx->total_payment }}</td>
                                         <td></td>
                                         <td>
-                                            @if($trx->status_id == 4)
-                                                Need to confirm payment
+                                            @if($trx->status_id == 3)
+                                                Pending Payment
+                                            @elseif($trx->status_id == 4)
+                                                Payment Verification
                                             @elseif($trx->status_id == 5)
-                                                New Order
+                                                Payment Confirmed
                                             @elseif($trx->status_id == 6)
                                                 In Process
                                             @elseif($trx->status_id == 7)
@@ -73,7 +75,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/invoice/{{ $trx->id }}" class="btn btn-primary">Detail</a>
+                                            <a href="/admin/transaction/detail/{{ $trx->id }}" class="btn btn-primary">Detail</a>
                                         </td>
                                     </tr>
                                     @php( $idx++ )
