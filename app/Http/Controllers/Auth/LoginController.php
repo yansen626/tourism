@@ -72,14 +72,12 @@ class LoginController extends Controller
             //return redirect()->route('login')->withErrors('Verify Your Email First!!');
             $user = User::where('email',Input::get('email'))->first();
             if($user != null && Hash::check(Input::get('password'), $user->getAuthPassword())){
-                error_log('VERIFYYYYYYYY');
                 $emailVerify = new EmailVerification($user);
                 Mail::to($user->email)->send($emailVerify);
 
                 return View('auth.send-email')->with('email',Input::get('email'));
             }
             else{
-                error_log('WRONGGGGGGGG');
                 return redirect()->route('login')->withErrors('Wrong email or password');
             }
         }

@@ -43,6 +43,16 @@
                             <li><a href="{{ route('product-create') }}">Create</a></li>
                         </ul>
                     </li>
+                    <li><a><i class="fa fa-edit"></i> Banner <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a>Slider Banner<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li class="sub-menu"><a href="{{ route('slider-banner-list') }}">Show</a></li>
+                                    <li><a href="{{ route('slider-banner-create') }}">Create</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                     <li><a><i class="fa fa-shopping-cart"></i> Transaction <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('delivery-list') }}">Delivery Request</a></li>

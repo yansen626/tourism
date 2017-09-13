@@ -111,7 +111,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-danger submit">Edit</a>
+                                            <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">Edit</a>
                                         </td>
                                     </tr>
                                     @php ($idx++)

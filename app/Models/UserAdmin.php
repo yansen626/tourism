@@ -35,7 +35,12 @@ class UserAdmin extends Authenticatable
 
     protected $table = 'user_admins';
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     protected $fillable = [
+        'id',
         'email',
         'password',
         'first_name',
