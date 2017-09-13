@@ -41,11 +41,13 @@
                     <ul>
                         @for($i=0; $i<4; $i++)
                             @php( $liID = "ridio".$i )
-                            @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-9000" )
+                            @php( $asdf = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
+                            @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$asdf )
+                            @php( $price = number_format($asdf, 0, ",", ".") )
 
                             <li>
                                 <input id="{{$liID}}" type="radio" name="shippingRadio" hidden value="{{$valueRadio}}"/>
-                                <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp xxxxxx</b>
+                                <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>{{$price}}</b>
                                     @if($deliveryTypes[$i]->courier_id == 1)
                                         <img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />
                                     @elseif ($deliveryTypes[$i]->courier_id == 2)
@@ -55,13 +57,18 @@
                             </li>
                         @endfor
                     </ul>
+                    {{-- antisipasi kalau ternyata ada lebih dari 4 pengiriman --}}
                     @if($deliveryTypes->count() > 4)
                         @for($i=4; $i<8; $i++)
                             @php( $liID = "ridio".$i )
+                                @php( $liID = "ridio".$i )
+                                @php( $asdf = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
+                                @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$asdf )
+                                @php( $price = number_format($asdf, 0, ",", ".") )
                             <ul>
                                 <li>
                                     <input id="{{$liID}}" type="radio" name="radio" hidden />
-                                    <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp xxxxxx</b>
+                                    <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>{{$price}}</b>
                                         @if($deliveryTypes[$i]->courier_id == 1)
                                             <img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />
                                         @elseif ($deliveryTypes[$i]->courier_id == 2)
@@ -73,9 +80,8 @@
                         @endfor
                     @endif
 
-                        <div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>
+                        {{--<div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>--}}
 
-                        {{--<a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>--}}
                         <input type="submit" value="Submit" class="btn active pull-right checkout_block_btn">
 
                     {{--<a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>--}}
