@@ -12,17 +12,17 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-    public function showTransferConfirm(){
-        //$id = Auth::user()->id;
-        $id = '8c4d3607-8d60-11e7-afa8-7085c23fc9a7';
+    public function payment(){
+        $id = Auth::user()->id;
 
         $start = Carbon::today('Asia/Jakarta')->subMonth(3);
         $end = Carbon::today('Asia/Jakarta')->addMonths(3);
@@ -33,20 +33,29 @@ class PurchaseController extends Controller
 
             if(!empty(request()->search)){
                 $transactions = Transaction::where('user_id', $id)
-                    ->where('status_id', 3)
+                    ->where(function($query){
+                        $query->where('status_id', 3)
+                            ->orWhere('status_id', 4);
+                    })
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->where('invoice','LIKE','%'. request()->search. '%')
                     ->orderByDesc('created_on')->get();
             }else{
                 $transactions = Transaction::where('user_id', $id)
-                    ->where('status_id', 3)
+                    ->where(function($query){
+                        $query->where('status_id', 3)
+                            ->orWhere('status_id', 4);
+                    })
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->orderByDesc('created_on')->get();
             }
         }
         else{
             $transactions = Transaction::where('user_id', $id)
-                ->where('status_id', 3)
+                ->where(function($query){
+                    $query->where('status_id', 3)
+                        ->orWhere('status_id', 4);
+                })
                 ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                 ->orderByDesc('created_on')->get();
         }
@@ -57,7 +66,7 @@ class PurchaseController extends Controller
             'date_end'      => $end->format('d/m/Y')
         ];
 
-        return View('frontend.show-transfers')->with($data);
+        return View('frontend.show-payments')->with($data);
     }
 
     public function invoice($id){
@@ -67,7 +76,8 @@ class PurchaseController extends Controller
     }
 
     public function order(){
-        $id = '8c4d3607-8d60-11e7-afa8-7085c23fc9a7';
+        $id = Auth::user()->id;
+
         $start = Carbon::today('Asia/Jakarta')->subMonth(3);
         $end = Carbon::today('Asia/Jakarta')->addMonths(3);
 
@@ -77,7 +87,6 @@ class PurchaseController extends Controller
 
             if(!empty(request()->search)){
                 $transactions = Transaction::where('user_id', $id)
-
                     ->where('status_id', '!=', 3)
                     ->where('status_id', '!=', 9)
                     ->where('status_id', '!=', 10)
@@ -112,7 +121,7 @@ class PurchaseController extends Controller
     }
 
     public function history(){
-        $id = '8c4d3607-8d60-11e7-afa8-7085c23fc9a7';
+        $id = Auth::user()->id;
 
         $start = Carbon::today('Asia/Jakarta')->subMonth(3);
         $end = Carbon::today('Asia/Jakarta')->addMonths(3);
@@ -123,29 +132,23 @@ class PurchaseController extends Controller
 
             if(!empty(request()->search)){
                 $transactions = Transaction::where('user_id', $id)
-                    ->where(function($query){
-                        $query->where('status_id', '!=', 3)
-                            ->orWhere('status_id', '!=', 4);
-                    })
+                    ->where('status_id', '!=', 3)
+                    ->where('status_id', '!=', 4)
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->where('invoice','LIKE','%'. request()->search. '%')
                     ->orderByDesc('created_on')->get();
             }else{
                 $transactions = Transaction::where('user_id', $id)
-                    ->where(function($query){
-                        $query->where('status_id', '!=', 3)
-                            ->orWhere('status_id', '!=', 4);
-                    })
+                    ->where('status_id', '!=', 3)
+                    ->where('status_id', '!=', 4)
                     ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                     ->orderByDesc('created_on')->get();
             }
         }
         else{
             $transactions = Transaction::where('user_id', $id)
-                ->where(function($query){
-                    $query->where('status_id', '!=', 3)
-                        ->orWhere('status_id', '!=', 4);
-                })
+                ->where('status_id', '!=', 3)
+                ->where('status_id', '!=', 4)
                 ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
                 ->orderByDesc('created_on')->get();
         }

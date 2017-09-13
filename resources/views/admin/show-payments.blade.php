@@ -20,7 +20,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Bank Manual Transfer</h2>
+                            <h2>Payment Status</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -29,7 +29,7 @@
                                 <tr>
                                     <th>Invoice</th>
                                     <th>Customer Name</th>
-                                    <th>Bank</th>
+                                    <th>Payment Method</th>
                                     <th>Sender Name</th>
                                     <th>Transfer Amount</th>
                                     <th>Total Payment</th>
@@ -46,7 +46,7 @@
                                     <tr>
                                         <td>{{ $trx->invoice }}</td>
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
-                                        <td>{{ $trans->receiver_bank ?? '-' }}</td>
+                                        <td>{{ $trx->payment_method->type }} - {{ $trx->payment_method->description }}</td>
                                         <td>{{ $trans->sender_name ?? '-'}}</td>
                                         <td>
                                             @if(!empty($trans))

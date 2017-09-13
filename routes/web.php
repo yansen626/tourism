@@ -56,10 +56,10 @@ Route::get('checkout-3', 'Frontend\TransactionController@CheckoutProcess3')->nam
 Route::get('checkout-4', 'Frontend\TransactionController@CheckoutProcess4')->name('checkout4');
 // End Frontend Routing
 
-Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+Route::get('/verif-yemail/{token}', 'Auth\RegisterController@verify');
 
 //User Data
-Route::get('user', 'Frontend\UserController@index');
+Route::get('user', 'Frontend\UserController@index')->name('user-profile');
 Route::get('user/edit-show', 'Frontend\UserController@edit')->name('user-edit-show');
 Route::post('user/edit-show', 'Frontend\UserController@update');
 
@@ -73,7 +73,7 @@ Route::prefix('user/address')->group(function(){
 
 // Purchasing
 Route::prefix('purchase')->group(function(){
-   Route::get('/transfer', 'Frontend\PurchaseController@showTransferConfirm')->name('user-transfer-list');
+   Route::get('/payment', 'Frontend\PurchaseController@payment')->name('user-payment-list');
     Route::get('/order', 'Frontend\PurchaseController@order')->name('user-order-list');
     Route::get('/history', 'Frontend\PurchaseController@history')->name('user-order-history-list');
 });
@@ -82,7 +82,8 @@ Route::get('invoice/{id}','Frontend\PurchaseController@invoice')->name('invoice-
 // End Frontend Routing
 
 
-
+// Rajaongkir
+Route::get('rajaongkir/subdistrict/{cityId}', 'Frontend\UserAddressController@getSubdistrict');
 
 // Backend Routing
 Route::get('/admin', 'Admin\DashboardController@dashboardShow')->name('admin-dashboard');
@@ -119,8 +120,8 @@ Route::prefix('admin/transaction')->group(function(){
 Route::get('/admin/neworder', 'Admin\TransactionController@newOrder')->name('new-order-list');
 Route::get('/admin/neworder/accept/{id}', 'Admin\TransactionController@acceptOrder')->name('new-order-accept');
 Route::post('/admin/neworder/reject', 'Admin\TransactionController@rejectOrder')->name('new-order-accept');
-Route::get('/admin/transfer', 'Admin\TransactionController@userTransfer')->name('transfer-list');
-Route::get('/admin/transfer/confirm/{id}', 'Admin\TransactionController@confirmTransfer')->name('transfer-confirm');
+Route::get('/admin/payment', 'Admin\TransactionController@payment')->name('payment-list');
+Route::get('/admin/payment/confirm/{id}', 'Admin\TransactionController@confirmPayment')->name('payment-confirm');
 Route::get('/admin/delivery', 'Admin\TransactionController@deliveryRequest')->name('delivery-list');
 Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDelivery')->name('delivery-confirm');
 Route::get('/track/{id}', 'Admin\TransactionController@track')->name('track');

@@ -28,13 +28,14 @@
 
                         <input type="text" name="name" placeholder="Address Name"/>
                         <select id="province" name="province_id" onchange="checkCities()">
+                            <option value="-1" selected>Select Province</option>
                             @foreach($provinces as $province)
-                                <option value="{{$province->id}}">{{$province->name}}</option>
+                                <option value="{{ $province->id }}">{{ $province->name }}</option>
                             @endforeach
                         </select>
 
-                        <select id="city" name="city_id">
-                            <option value="0">Select City!!</option>
+                        <select id="city" name="city_id" onchange="getSubdistrict()" style="display: none;">
+                            <option value="-1">Select City</option>
                             @foreach($cities as $city)
                                 @if($city->province_id == 1)
                                     <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}">{{$city->name}}</option>
@@ -42,8 +43,11 @@
                                 <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}" hidden>{{$city->name}}</option>
                             @endforeach
                         </select>
+                        <select id="subdistrict" name="subdistrict_id" style="display: none;">
+                            <option value="-1">Populating data please wait...</option>
+                        </select>
                         <textarea name="detail" cols="50" rows="10" placeholder="Address Details"></textarea>
-                        <input type="number" name="postal_code" placeholder="Postal Code"/>
+                        <input type="text" name="postal_code" placeholder="Postal Code"/>
                         <div class="center"><input type="submit" value="Submit"></div>
                     </form>
                 </div>
@@ -56,6 +60,8 @@
     <script type="text/javascript">
         function checkCities()
         {
+            $("#city").show();
+            $('#subdistrict').hide();
             var provinceId = $("#province option:selected").val();
 
             $("#city > option").each(function()
@@ -70,6 +76,17 @@
                 }
             });
             $('#city').children('option:enabled').eq(0).prop('selected',true);
+        }
+
+        function getSubdistrict(){
+            var cityId = $("#city option:selected").val();
+            var tmp = $.parseJSON(cityId.replace(/'/g, '"'));
+            $('#subdistrict').show();
+            $.get('/rajaongkir/subdistrict/' + tmp.city_id, function (data) {
+                if(data.success == true) {
+                    $('#subdistrict').html(data.html);
+                }
+            });
         }
     </script>
 @endsection

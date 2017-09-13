@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $address = Address::where('user_id', Auth::id())->first();
 
-        return view('frontend.user', compact('address'));
+        return view('frontend.show-user-profile', compact('address'));
     }
 
     public function edit()
@@ -51,26 +51,11 @@ class UserController extends Controller
         return redirect('user');
     }
 
-    public function addressShow()
-    {
-
-    }
-
-    public function addressEdit()
-    {
-
-    }
-
     public function addressCreate()
     {
         $provinces = Province::all();
         $cities = City::all();
 
         return view('', compact('provinces', 'cities'));
-    }
-
-    public function addressStore()
-    {
-
     }
 }

@@ -55,9 +55,15 @@
                                     <td>
                                         <div class="panel-group">
                                             <div class="panel panel-default">
-                                                <div class="panel-heading" data-toggle="collapse" href="#order-{{ $idx }}">
+                                                <div class="panel-heading" data-toggle="collapse" href="#order-{{ $idx }}" style="cursor: pointer;">
                                                     <a class="invoice-link" href="{{ route('invoice-view', ['id' => $trx->id]) }}"><b>{{ $trx->invoice }}</b></a><br/>
-                                                    Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}
+                                                    Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}<br/>
+                                                    <b>Status</b><br/>
+                                                    @if($trx->status_id == 3)
+                                                        Pending Payment
+                                                    @elseif($trx->status_id == 4)
+                                                        Payment Verification
+                                                    @endif
                                                     <div class="arrow-show">
                                                         <i class="fa fa-arrow-circle-o-down">&nbsp;<b>Show</b></i>
                                                     </div>

@@ -3,36 +3,14 @@
 <header>
 
     <!-- TOP INFO -->
-    <div class="top_info">
+    {{--<div class="top_info">--}}
 
-        <!-- CONTAINER -->
-        <div class="container clearfix">
-            <ul class="secondary_menu">
-                @if(auth()->check())
-                    <li>
-                        <span>{{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->id }}</span>
-                    </li>
-                    <li>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
+        {{--<!-- CONTAINER -->--}}
+        {{--<div class="container clearfix">--}}
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
-                    @else
-                    <li><a href="{{ route('login') }}" >Login</a></li>
-                    <li><a href="{{ route('register') }}" >Register</a></li>
-                @endif
-            </ul>
-
-            <div class="phone_top">have a question? <a href="tel:1 800 888 2828" >1 800 888 2828</a></div>
-        </div><!-- //CONTAINER -->
-    </div><!-- TOP INFO -->
-
+            {{--<div class="phone_top">have a question? <a href="tel:1 800 888 2828" >1 800 888 2828</a></div>--}}
+        {{--</div><!-- //CONTAINER -->--}}
+    {{--</div><!-- TOP INFO -->--}}
 
     <!-- MENU BLOCK -->
     <div class="menu_block">
@@ -45,14 +23,43 @@
                 <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="" /></a>
             </div><!-- //LOGO -->
 
+            <!-- USER MENU -->
+            <div class="shopping_bag">
+                <a class="shopping_bag_btn" id="menu-profile" href="javascript:void(0);" style="padding:15px"><i class="fa fa-user fa-2x"></i><p></p></a>
+                <div class="cart" id="submenu-profile" >
+                    <ul class="cart-items">
+                        @if(auth()->check())
+                            <li class="clearfix">
+                                Welcome,<br/>
+                                {{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}
+                            </li>
+                            <li class="clearfix"><a href="{{ route('user-profile') }}" >Profile</a></li>
+                            <li class="clearfix"><a href="{{ route('user-payment-list') }}" >Transaction</a></li>
+                            <li class="clearfix">
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        @else
+                            <li class="clearfix"><a href="{{ route('login') }}" >Login</a></li>
+                            <li class="clearfix"><a href="{{ route('register') }}" >Register</a></li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+            <!-- USER MENU -->
+
             <!-- SEARCH FORM -->
             <div class="top_search_form">
                 <a class="top_search_btn" href="javascript:void(0);" ><i class="fa fa-search"></i></a>
                 <form method="get" action="#">
                     <input type="text" name="search" value="Search" onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
                 </form>
-            </div><!-- SEARCH FORM -->
-
+            </div>
+            <!-- SEARCH FORM -->
 
             <!-- SHOPPING BAG -->
             <div class="shopping_bag">
@@ -60,8 +67,8 @@
                     @php ( $cartTotal = Session::get('cartTotal')  )
                     @php ( $cartList = Session::get('cartList')  )
 
-                    <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping cart</p><span>{{$cartTotal}}</span></a>
-                    <div class="cart">
+                    <a class="shopping_bag_btn" id="menu-cart" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping cart</p><span>{{$cartTotal}}</span></a>
+                    <div class="cart" id="submenu-cart">
                         <ul class="cart-items">
                             @if($cartTotal > 1)
                                 @for($i=0; $i < 2; $i++)

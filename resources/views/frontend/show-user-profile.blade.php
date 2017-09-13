@@ -37,7 +37,8 @@
                             <br/>
                             {{ $address->detail }}
                             <br/>
-                            {{ $address->city_name }}, {{ $address->province_name }}
+                            {{ $address->city_name }}, {{ $address->subdistrict_name }}<br/>
+                            {{ $address->province_name }} {{ $address->postal_code }}
                         </p>
                         <div class="center"><a class="btn active" href="{{ route('user-address-edit') }}" >Edit Address</a></div>
                     @else

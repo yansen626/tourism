@@ -63,16 +63,16 @@ class TransactionController extends Controller
         return redirect::route('new-order-list');
     }
 
-    public function userTransfer(){
+    public function payment(){
         //$transfers = TransferConfirmation::where('status_id', 4)->get();
         $transactions = Transaction::where('status_id', 3)
             ->orWhere('status_id', 4)
             ->orderByDesc('created_on')->get();
 
-        return View('admin.show-user-transfers', compact('transactions'));
+        return View('admin.show-payments', compact('transactions'));
     }
 
-    public function confirmTransfer($id){
+    public function confirmPayment($id){
         $trans = TransferConfirmation::find($id);
 
         $trans->status_id = 5;

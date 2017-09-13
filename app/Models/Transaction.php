@@ -15,6 +15,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $id
  * @property string $user_id
  * @property int $payment_method_id
+ * @property string $invoice
+ * @property string $order_id
  * @property int $payment_code
  * @property float $total_payment
  * @property float $total_price
@@ -36,6 +38,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $delivery_type_code
  * @property float $delivery_fee
  * @property float $admin_fee
+ * @property \Carbon\Carbon $paid_date
+ * @property \Carbon\Carbon $accept_date
  * @property \Carbon\Carbon $delivery_date
  * @property \Carbon\Carbon $finish_date
  * @property string $reject_note
@@ -73,6 +77,8 @@ class Transaction extends Eloquent
 	];
 
 	protected $dates = [
+        'paid_date',
+        'accept_date',
         'delivery_date',
         'finish_date',
 		'created_on',
@@ -84,6 +90,7 @@ class Transaction extends Eloquent
 		'user_id',
 		'payment_method_id',
         'invoice',
+        'order_id',
 		'payment_code',
 		'total_payment',
 		'total_price',
@@ -105,6 +112,8 @@ class Transaction extends Eloquent
         'delivery_type_code',
 		'delivery_fee',
 		'admin_fee',
+        'paid_date',
+        'accept_date',
         'delivery_fee',
         'finish_date',
         'reject_note',

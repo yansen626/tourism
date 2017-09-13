@@ -34,7 +34,7 @@
                     </li>
                     <li>
                         <a href="{{ route('transfer-list') }}">
-                            <i class="fa fa-money"></i> New User Transfer
+                            <i class="fa fa-money"></i> Payment Status
                         </a>
                     </li>
                     <li><a><i class="fa fa-tags"></i> Product <span class="fa fa-chevron-down"></span></a>
