@@ -30,8 +30,8 @@
                 <ul class="checkout_nav">
                     <li class="done_step">1. Shipping Address</li>
                     <li class="active_step">2. Delivery</li>
-                    <li>3. Payment</li>
-                    <li class="last">4. Confirm Orded</li>
+                    <li>3. Confirm Order</li>
+                    <li class="last">4. Payment</li>
                 </ul>
 
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('checkout2Submit') }}">
@@ -41,8 +41,8 @@
                     <ul>
                         @for($i=0; $i<4; $i++)
                             @php( $liID = "ridio".$i )
-                            @php( $asdf = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
-                            @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$asdf )
+                            @php( $price = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
+                            @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
                             @php( $price = number_format($asdf, 0, ",", ".") )
 
                             <li>
@@ -61,10 +61,10 @@
                     @if($deliveryTypes->count() > 4)
                         @for($i=4; $i<8; $i++)
                             @php( $liID = "ridio".$i )
-                                @php( $liID = "ridio".$i )
-                                @php( $asdf = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
-                                @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$asdf )
-                                @php( $price = number_format($asdf, 0, ",", ".") )
+                            @php( $liID = "ridio".$i )
+                            @php( $price = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
+                            @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
+                            @php( $price = number_format($asdf, 0, ",", ".") )
                             <ul>
                                 <li>
                                     <input id="{{$liID}}" type="radio" name="radio" hidden />

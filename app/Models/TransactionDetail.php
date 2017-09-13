@@ -54,6 +54,7 @@ class TransactionDetail extends Eloquent
 	];
 
 	protected $fillable = [
+	    'id',
 		'transaction_id',
 		'product_id',
 		'name',

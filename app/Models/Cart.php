@@ -20,9 +20,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $courier_id
  * @property int $delivery_type_id
  * @property float $delivery_fee
+ * @property string $order_id
  *
  * @property \App\Models\Product $product
  * @property \App\Models\User $user
+ * @property \App\Models\Courier $courier
+ * @property \App\Models\DeliveryType $delivery_type
  *
  * @package App\Models
  */
@@ -43,7 +46,8 @@ class Cart extends Eloquent
 		'total_price',
         'courier_id',
         'delivery_type_id',
-        'delivery_fee'
+        'delivery_fee',
+        'order_id'
 	];
 
 	public function product()
@@ -64,7 +68,7 @@ class Cart extends Eloquent
     {
         return $this->belongsTo(\App\Models\Courier::class);
     }
-    public function delivery_type()
+    public function deliveryType()
     {
         return $this->belongsTo(\App\Models\DeliveryType::class);
     }

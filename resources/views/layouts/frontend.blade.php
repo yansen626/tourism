@@ -14,7 +14,7 @@
 
     <!-- CSS -->
     <link href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" rel="stylesheet">
-
+    <link href="{{ URL::asset('css/frontend/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 
     <link href="{{ URL::asset('css/frontend/flexslider.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/frontend/fancySelect.css') }}" rel="stylesheet" media="screen, projection" >
@@ -65,6 +65,10 @@
 
 <script src="{{ URL::asset('js/frontend/jquery.min.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+
+<!-- autoNumeric -->
+<script src="{{ URL::asset('js/autoNumeric/autoNumeric.min.js') }}"></script>
 
 <!-- Datatables -->
 <script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
@@ -80,6 +84,8 @@
 
 
 <script src="{{ URL::asset('js/frontend/custom.js') }}"></script>
+<!-- Custom Lowids Scripts for autonumeric-->
+<script src="{{ URL::asset('js/admin/custom-lowids.js') }}"></script>
 <script>
     if (top != self) top.location.replace(self.location.href);
 </script>

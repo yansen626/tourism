@@ -31,8 +31,8 @@
                 <ul class="checkout_nav">
                     <li class="active_step">1. Shipping Address</li>
                     <li>2. Delivery</li>
-                    <li>3. Payment</li>
-                    <li class="last">4. Confirm Orded</li>
+                    <li>3. Confirm Order</li>
+                    <li class="last">4. Payment</li>
                 </ul>
 
                 <form class="checkout_form clearfix" action="javascript:void(0);" method="get">
