@@ -22,16 +22,6 @@ use function MongoDB\BSON\toJSON;
 
 class TransactionController extends Controller
 {
-    public function __construct()
-    {
-        //sandbox
-        Midtrans::$serverKey = 'VT-server-2NH8CTXcytpqG1GcwFEtvq0s';
-        //Production
-        //Veritrans::$serverKey = 'VT-server-2NH8CTXcytpqG1GcwFEtvq0s';
-
-        //set is production to true for production mode
-        Midtrans::$isProduction = false;
-    }
     //
     public function CheckoutProcess1(){
 
