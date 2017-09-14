@@ -28,7 +28,7 @@ class BannerController extends Controller
     }
 
     public function index(){
-        $banners = Banner::all();
+        $banners = Banner::where('type', 1)->get();
 
         return View('admin.show-slider-banners', compact('banners'));
     }
@@ -196,5 +196,91 @@ class BannerController extends Controller
         $banner->delete();
 
         return redirect::route('slider-banner-list');
+    }
+
+    public function sideBannerIndex(){
+        $banner1st = Banner::where('type',2)->get()->first();
+        $banner2nd = Banner::where('type',3)->get()->first();
+        $banner3rd = Banner::where('type',4)->get()->first();
+
+        $data = [
+            'banner1st'    => $banner1st,
+            'banner2nd'    => $banner2nd,
+            'banner3rd'    => $banner3rd
+        ];
+
+        return View('admin.show-side-banners')->with($data);
+    }
+
+    public function sideBannerEdit($id){
+        $banner = Banner::find($id);
+        $products = Product::all();
+
+        $data = [
+            'banner'    => $banner,
+            'products'  => $products
+        ];
+
+        return View('admin.edit-side-banner')->with($data);
+    }
+
+    public function sideBannerUpdate(Request $request, $id){
+        $validator = Validator::make($request->all(),[
+            'image'         => 'mimes:jpeg,jpg,png',
+            'url'           => 'max:50'
+        ]);
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        if(Input::get('options') == 'yes'){
+            if(Input::get('product') == '-1'){
+                return redirect()->route('slider-banner-create')->withErrors('Please select a product');
+            }
+        }
+
+        $banner = Banner::find($id);
+
+        $banner->updated_at = Carbon::now('Asia/Jakarta');
+        $banner->updated_by = Auth::guard('user_admins')->id();
+
+        if(!empty($request->file('image'))){
+            $img = Image::make($request->file('image'));
+
+            // Get image extension
+            $extStr = $img->mime();
+            $ext = explode('/', $extStr, 2);
+
+            $filename = 'banner2_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
+
+            $img->save(public_path('storage\banner' . '\\'. $filename));
+
+            // Save old banner image
+            $oldImgPath = $banner->image_path;
+
+            // Set new banner image
+            $banner->image_path = $filename;
+
+            // Delete old banner image
+            $deletedPath = storage_path('app/public/banner/'. $oldImgPath);
+            if(file_exists($deletedPath)) unlink($deletedPath);
+        }
+
+        if(Input::get('options') == 'yes'){
+            $banner->product_id = Input::get('product');
+            $banner->url = null;
+        }else{
+            if(!empty(Input::get('url'))){
+                $banner->url = Input::get('url');
+                $banner->product_id = null;
+            }
+        }
+
+        $banner->save();
+
+        return redirect::route('side-banner-list');
     }
 }

@@ -6,7 +6,7 @@
  * Time: 14:00
  */
 
-namespace App;
+namespace App\Service;
 
 
 use App\Models\Category;

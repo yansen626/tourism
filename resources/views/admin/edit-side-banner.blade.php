@@ -19,12 +19,12 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Edit Slider Banner</h2>
+                            <h2>Edit Side Banner</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
 
-                            {!! Form::open(array('action' => array('Admin\BannerController@update', $banner->id), 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
+                            {!! Form::open(array('action' => array('Admin\BannerController@sideBannerUpdate', $banner->id), 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
                             {{ csrf_field() }}
 
                             @if($errors->count() > 0)
@@ -39,24 +39,17 @@
                             @endif
 
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Slider Image <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Slider Image
+                                    @if($banner->type == 2 || $banner->type == 3)
+                                        ( recommended 270x190 pixel )
+                                    @else
+                                        ( recommended 270x370 pixel )
+                                    @endif
+                                    <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     {!! Form::file('image', array('id' => 'image-edit', 'class' => 'file-loading', 'data-slider-image' => asset('storage/banner/'. $banner->image_path))) !!}
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Caption
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="caption" name="caption"  class="form-control col-md-7 col-xs-12" type="text" value="{{ $banner->caption }}">
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" >Sub Caption
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="subcaption" name="subcaption" class="form-control col-md-7 col-xs-12" value="{{ $banner->sub_caption }}">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -136,27 +129,10 @@
                                 </div>
                             @endif
 
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Status
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select id="status" name="status" class="form-control col-md-7 col-xs-1">
-
-                                        @if($banner->status_id == 1)
-                                            <option value="1" selected>Publish</option>
-                                            <option value="0">Unpublish</option>
-                                        @else
-                                            <option value="1">Publish</option>
-                                            <option value="0" selected>Unpublish</option>
-                                        @endif
-
-                                    </select>
-                                </div>
-                            </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <a href="{{ route('slider-banner-list') }}" class="btn btn-primary">Cancel</a>
+                                    <a href="{{ route('side-banner-list') }}" class="btn btn-primary">Cancel</a>
                                     <button id="send" type="submit" class="btn btn-success">Save</button>
                                 </div>
                             </div>

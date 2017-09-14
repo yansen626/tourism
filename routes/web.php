@@ -142,7 +142,7 @@ Route::get('/admin/delivery', 'Admin\TransactionController@deliveryRequest')->na
 Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDelivery')->name('delivery-confirm');
 Route::get('/track/{id}', 'Admin\TransactionController@track')->name('track');
 
-// Banner
+// Slider Banner
 Route::prefix('/admin/banner/slider')->group(function(){
     Route::get('/', 'Admin\BannerController@index')->name('slider-banner-list');
     Route::post('/', 'Admin\BannerController@store');
@@ -150,6 +150,13 @@ Route::prefix('/admin/banner/slider')->group(function(){
     Route::get('/edit/{id}', 'Admin\BannerController@edit')->name('slider-banner-edit');
     Route::post('/{id}', 'Admin\BannerController@update');
     Route::get('/delete/{id}', 'Admin\BannerController@delete');
+});
+
+// Side Banner
+Route::prefix('/admin/banner/side')->group(function(){
+    Route::get('/', 'Admin\BannerController@sideBannerIndex')->name('side-banner-list');
+    Route::get('/edit/{id}', 'Admin\BannerController@sideBannerEdit')->name('side-banner-edit');
+    Route::post('/{id}', 'Admin\BannerController@sideBannerUpdate');
 });
 
 // Category

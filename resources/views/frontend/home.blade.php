@@ -79,8 +79,18 @@
 
 					<!-- BANNER -->
 					<div class="col-lg-3 col-md-3 col-xs-6 col-ss-12">
-						<a class="banner type1 margbot30" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner1.jpg') }}" alt="" /></a>
-						<a class="banner type2 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner2.jpg') }}" alt="" /></a>
+
+						@if(!empty($banner1st))
+							<a class="banner type1 margbot30" href="{{ $banner1st->product_id ? 'product-detail/'. $banner1st->product_id:$banner1st->url }}" ><img src="{{ asset('storage/banner/'. $banner1st->image_path) }}" alt="" /></a>
+						@else
+							<a class="banner type1 margbot30" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner1.jpg') }}" alt="" /></a>
+						@endif
+						@if(!empty($banner2nd))
+							<a class="banner type1 margbot30" href="{{ $banner2nd->product_id ? 'product-detail/'. $banner2nd->product_id:$banner2nd->url }}" ><img src="{{ asset('storage/banner/'. $banner2nd->image_path) }}" alt="" /></a>
+						@else
+							<a class="banner type2 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner2.jpg') }}" alt="" /></a>
+						@endif
+
 					</div><!-- //BANNER -->
 				</div><!-- //TOVAR WRAPPER -->
 			</div><!-- //ROW -->
@@ -118,7 +128,11 @@
 				</div><!-- //TOVAR WRAPPER -->
 				<!-- BANNER -->
 				<div class="col-lg-3 col-md-3 col-xs-6 col-ss-12">
-					<a class="banner type3 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner3.jpg') }}" alt="" /></a>
+					@if(!empty($banner3rd))
+						<a class="banner type1 margbot30" href="{{ $banner3rd->product_id ? 'product-detail/'. $banner3rd->product_id:$banner3rd->url }}" ><img src="{{ asset('storage/banner/'. $banner3rd->image_path) }}" alt="" /></a>
+					@else
+						<a class="banner type3 margbot40" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner3.jpg') }}" alt="" /></a>
+					@endif
 				</div><!-- //BANNER -->
 			</div><!-- //ROW -->
 

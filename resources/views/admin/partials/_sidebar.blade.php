@@ -51,6 +51,8 @@
                                     <li><a href="{{ route('slider-banner-create') }}">Create</a></li>
                                 </ul>
                             </li>
+                            <li><a href="{{ route('side-banner-list') }}">Side Banner</a>
+                            </li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-shopping-cart"></i> Transaction <span class="fa fa-chevron-down"></span></a>
