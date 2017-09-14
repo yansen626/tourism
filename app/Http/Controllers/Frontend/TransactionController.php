@@ -29,11 +29,14 @@ class TransactionController extends Controller
 {
     //set address for shipping
     public function CheckoutProcess1(){
-
+        if (!Auth::check())
+        {
+            return redirect()->route('landing');
+        }
         $id = Auth::user()->id;
-        $data = Address::where('user_id', $id)->first();
+        $Addressdata = Address::where('user_id', $id)->first();
 
-        return view('frontend.checkout-step1', compact('data'));
+        return view('frontend.checkout-step1', compact('Addressdata'));
     }
 
 
@@ -100,6 +103,10 @@ class TransactionController extends Controller
 
     //submit shipping and add data to DB
     public function CheckoutProcess2Submit(Request $request){
+        if (!Auth::check())
+        {
+            return redirect()->route('landing');
+        }
         $user = Auth::user();
         $userId = $user->id;
 
@@ -119,6 +126,10 @@ class TransactionController extends Controller
 
     //checkout item, address, shipping and courier, price
     public function CheckoutProcess3(){
+        if (!Auth::check())
+        {
+            return redirect()->route('landing');
+        }
         $user = Auth::user();
         $userId = $user->id;
 
@@ -147,6 +158,10 @@ class TransactionController extends Controller
 
     //select payment method
     public function CheckoutProcess4(){
+        if (!Auth::check())
+        {
+            return redirect()->route('landing');
+        }
         $user = Auth::user();
         $userId = $user->id;
         $carts = Cart::where('user_id', 'like', $userId)->get();
@@ -199,9 +214,17 @@ class TransactionController extends Controller
 //    }
 
     //midtrans process
-    public function CheckoutProcessMidtrans(){
+    public function CheckoutProcessMidtrans(Request $request){
+
+        if (!Auth::check())
+        {
+            return redirect()->route('landing');
+        }
         $user = Auth::user();
         $userId = $user->id;
+
+        $enabledPayments = $request['shippingRadio'];
+        $adminFee   = (int)$request['selected-fee'];
 
         //get all item from DB
         $carts = Cart::where('user_id', 'like', $userId)->get();
@@ -231,8 +254,11 @@ class TransactionController extends Controller
             $selectedDeliveryType = $cart->DeliveryType->description;
             $ShippingPrice = (int)$cart->getOriginal('delivery_fee');
 
-            //set order id to cart DB
+            //set order id and admin fee to cart DB
             $cart->order_id = $uniqId;
+            $cart->admin_fee = $adminFee;
+            $cart->payment_method = $enabledPayments == 'credit_card'?2:1;
+
             $cart->save();
         }
         $arrShipping = [];
@@ -242,7 +268,17 @@ class TransactionController extends Controller
         $arrShipping = array_add($arrShipping, 'name', 'Ongkos Kirim '.$selectedCourier.'-'.$selectedDeliveryType);
 
         array_push($itemArr, $arrShipping);
+
+        $arrAdminFee = [];
+        $arrAdminFee = array_add($arrAdminFee, 'id', uniqid());
+        $arrAdminFee = array_add($arrAdminFee, 'price', $adminFee);
+        $arrAdminFee = array_add($arrAdminFee, 'quantity', 1);
+        $arrAdminFee = array_add($arrAdminFee, 'name', 'Biaya admin');
+
+        array_push($itemArr, $arrAdminFee);
+
         $totalPrice += $ShippingPrice;
+        $totalPrice += $adminFee;
 
         //transaction_details 2
         $transactionDetailsArr = array_add($transactionDetailsArr, 'gross_amount', $totalPrice);
@@ -250,10 +286,16 @@ class TransactionController extends Controller
         //vtweb
         $vtWebArr = [];
         $vtWebArr = array_add($vtWebArr, 'credit_card_3d_secure', true);
-        $vtWebArr = array_add($vtWebArr, 'enabled_payments', ['credit_card', 'mandiri_clickpay', 'cimb_clicks', 'bca_klikpay', 'bri_epay', 'echannel','permata_va','bca_va','other_va']);
-        $vtWebArr = array_add($vtWebArr, 'finish_redirect_url', 'http://lowids.com/checkout-success/'.$userId);
-        $vtWebArr = array_add($vtWebArr, 'unfinish_redirect_url', 'http://lowids.com/checkout-failed');
-        $vtWebArr = array_add($vtWebArr, 'error_redirect_url', 'http://lowids.com/checkout-failed');
+        // credit card = credit_card
+        // bank transfer = bank_transfer
+        // e-wallet =
+        // direct debit = mandiri_clickpay, cimb_clicks, bri_epay, bca_klikpay
+
+//      $vtWebArr = array_add($vtWebArr, 'enabled_payments', ['credit_card', 'mandiri_clickpay', 'cimb_clicks', 'bca_klikpay', 'bri_epay', 'echannel','permata_va','bca_va','other_va']);
+        $vtWebArr = array_add($vtWebArr, 'enabled_payments', [$enabledPayments]);
+        $vtWebArr = array_add($vtWebArr, 'finish_redirect_url', 'http://localhost:8000/checkout-success/'.$userId);
+        $vtWebArr = array_add($vtWebArr, 'unfinish_redirect_url', 'http://localhost:8000/checkout-failed');
+        $vtWebArr = array_add($vtWebArr, 'error_redirect_url', 'http://localhost:8000/checkout-failed');
 
 
         $transactionDataArr = [];
@@ -288,34 +330,8 @@ class TransactionController extends Controller
         }
     }
 
-    public function CheckoutProcessNotification(Request $request){
-
-//        $selectedShipping   = $request['status_code'];
-//        $selectedShipping   = $request['status_message'];
-//        $selectedShipping   = $request['order_id'];
-//        $selectedShipping   = $request['transaction_status'];
-//        $selectedShipping   = $request['payment_type'];
-//        $selectedShipping   = $request['gross_amount'];
-//
-//        $selectedShipping   = $request['transaction_id'];
-//        $selectedShipping   = $request['transaction_time'];
-//        $selectedShipping   = $request['fraud_status'];
-//        $selectedShipping   = $request['bank'];
-//        $selectedShipping   = $request['permata_va_number'];
-//        $selectedShipping   = $request['signature_key'];
-//        $selectedShipping   = $request['masked_card'];
-//        $selectedShipping   = $request['bill_key'];
-//        $selectedShipping   = $request['biller_code'];
-
-        $midJsonBody = json_decode($request);
-
-
-
-    }
-
     //payment online success
     public function CheckoutProcessSuccess($userId){
-
         //transactions data
         $dateTimeNow = Carbon::now('Asia/Jakarta');
         $carts = Cart::where('user_id', 'like', $userId)->get();
@@ -324,21 +340,24 @@ class TransactionController extends Controller
 
         $totalPrice = 0;
         $totalPriceWithDeliveryFee = 0;
+
         foreach ($carts as $cart) {
             $PriceDB = (int)$cart->getOriginal('total_price') / $cart->quantity;
             $totalPriceDB = (int)$cart->getOriginal('total_price');
             $totalPrice += $totalPriceDB;
-
+            $orderId = $cart->order_id;
             $ShippingPrice = (int)$cart->getOriginal('delivery_fee');
+            $adminFee = (int)$cart->getOriginal('admin_fee');
+            $paymentMethod = $cart->payment_method;
         }
-        $totalPriceWithDeliveryFee = $totalPrice+ $ShippingPrice;
+        $totalPriceWithDeliveryFeeAdminFee = $totalPrice + $ShippingPrice + $adminFee;
 
         //insert into transactions DB
         $transaction = Transaction::create([
             'id'                => Uuid::generate(),
             'user_id'           => $userId,
-            'payment_method_id' => 1,
-            'total_payment'     => $totalPriceWithDeliveryFee,
+            'order_id'          => $orderId,
+            'total_payment'     => $totalPriceWithDeliveryFeeAdminFee,
             'total_price'       => $totalPrice,
             'address_name'      => $userAddress->name,
             'phone'             => $userData->phone,
@@ -351,12 +370,28 @@ class TransactionController extends Controller
             'postal_code'       => $userAddress->postal_code,
             'address_detail'    => $userAddress->detail,
             'courier'           => $carts[0]->courier->description,
-            'delivery_fee'      => $carts[0]->delivery_fee,
+            'courier_code'      => $carts[0]->courier->code,
+            'delivery_type'     => $carts[0]->deliveryType->description,
+            'delivery_type_code'=> $carts[0]->deliveryType->code,
+            'delivery_fee'      => $ShippingPrice,
+            'admin_fee'         => $adminFee,
             'status_id'         => 3,
             'created_on'        => $dateTimeNow->toDateTimeString(),
             'created_by'        => $userId
         ]);
+        if($paymentMethod == "credit_card"){
+            $transaction->payment_method_id = 2;
+            $transaction->paid_date = $dateTimeNow->toDateTimeString();
+            $transaction->status_id = 4;
+        }
+        else{
+            $transaction->payment_method_id = 1;
+        }
+
+        $transaction->payment_method_id = $paymentMethod == "credit_card"? 2: 1;
+        $transaction->status_id = $paymentMethod == "credit_card"? 4: 3;
         $transaction->save();
+
         $savedId = $transaction->id;
 
         //set transaction detail
@@ -393,11 +428,55 @@ class TransactionController extends Controller
 
             $transactionDetail->save();
         }
+
+        //delete cart from database
+        foreach($carts as $cart){
+            $cart->delete();
+        }
+
         return redirect()->route('user-payment-list');
     }
+
     //payment online failed
     public function CheckoutProcessFailed(){
         return view('frontend.checkout-step4-failed');
     }
+
+    public function CheckoutProcessNotification(Request $request){
+
+//        $selectedShipping   = $request['status_code'];
+//        $selectedShipping   = $request['status_message'];
+//        $selectedShipping   = $request['order_id'];
+//        $selectedShipping   = $request['transaction_status'];
+//        $selectedShipping   = $request['payment_type'];
+//        $selectedShipping   = $request['gross_amount'];
+//
+//        $selectedShipping   = $request['transaction_id'];
+//        $selectedShipping   = $request['transaction_time'];
+//        $selectedShipping   = $request['fraud_status'];
+//        $selectedShipping   = $request['bank'];
+//        $selectedShipping   = $request['permata_va_number'];
+//        $selectedShipping   = $request['signature_key'];
+//        $selectedShipping   = $request['masked_card'];
+//        $selectedShipping   = $request['bill_key'];
+//        $selectedShipping   = $request['biller_code'];
+
+        $midJsonBody = json_decode($request);
+
+        $dateTimeNow = Carbon::now('Asia/Jakarta');
+        $transactionDB = Transaction::where('order_id', '=', $midJsonBody->order_id)->first();
+
+        if($midJsonBody->status_code == 200){
+            $transactionDB->accept_date = $dateTimeNow->toDateTimeString();
+            $transactionDB->status_id = 5;
+        }
+        else if($midJsonBody->status_code == 202){
+            $transactionDB->status_id = 10;
+        }
+
+        $transactionDB->modified_on = $dateTimeNow->toDateTimeString();
+        $transactionDB->save();
+    }
+
 
 }

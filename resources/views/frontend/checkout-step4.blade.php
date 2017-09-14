@@ -53,32 +53,60 @@
 
 
                 {{--</div>--}}
+                <div class="row">
 
-                <div class="col-lg-4 col-lg-offset-4 col-md-3 col-md-offset-4 col-xs-12 padbot60 center">
+                    <form class="form-horizontal" id="myForm" role="form" method="POST" action="{{ route('checkoutMid') }}">
+                        {{ csrf_field() }}
+                    <div class="col-lg-9 col-md-9 padbot60">
+                        <div class="checkout_delivery clearfix">
+                            <p class="checkout_title">PAYMENT METHOD</p>
+                            <ul>
+                                <li>
+                                    <input id="ridio1" type="radio" name="shippingRadio" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
+                                    <label for="ridio1"><b>Bank Transfer</b></label>
+                                </li>
 
-                    <!-- BAG TOTALS -->
-                    <div class="widget_bag_totals your_order_block">
-                        <h3>Your Order</h3>
-                        <table class="bag_total">
-                            <tr class="cart-subtotal clearfix">
-                                <th>Sub total</th>
-                                <td>Rp {{$totalPrice}}</td>
-                            </tr>
-                            <tr class="shipping clearfix">
-                                <th>SHIPPING</th>
-                                <td>Rp {{$shipping}}</td>
-                            </tr>
-                            <tr class="total clearfix">
-                                <th>Total</th>
-                                <td>Rp {{$grandTotal}}</td>
-                            </tr>
-                            <tr class="shipping clearfix">
-                                <th style="color:red">Payment will be charge as admin fee</th>
-                            </tr>
-                        </table>
-                        <a class="btn active" href="{{route ('checkoutMid')}}" >Pay</a>
-                    </div><!-- //REGISTRATION FORM -->
-                </div><!-- //SIDEBAR -->
+                                <li>
+                                    <input id="ridio2" type="radio" name="shippingRadio" hidden value="credit_card" onchange="handleChangePayment(this);" />
+                                    <label for="ridio2"><b>Credit Card</b></label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 padbot60">
+
+                        <!-- BAG TOTALS -->
+                        <div class="sidepanel widget_bag_totals your_order_block">
+                            <h3>Your Order</h3>
+                            <table class="bag_total">
+                                <tr class="cart-subtotal clearfix">
+                                    <th>Sub total</th>
+                                    <td>Rp {{$totalPrice}}</td>
+                                </tr>
+                                <tr class="shipping clearfix">
+                                    <th>SHIPPING</th>
+                                    <td>Rp {{$shipping}}</td>
+                                </tr>
+                                <tr class="shipping clearfix">
+                                    <input type="hidden" id="selected-fee" name="selected-fee" value="0">
+                                    <th>ADMIN</th>
+                                    <td id="admin-fee">Rp 0</td>
+                                </tr>
+                                <tr class="total clearfix">
+                                    <input type="hidden" id="grand-total-value" value="{{$grandTotal}}">
+                                    <th>Total</th>
+                                    <td id="grand-total-price">Rp {{$grandTotal}}</td>
+                                </tr>
+                                <tr class="shipping clearfix">
+                                    <th style="color:red">Payment will be charge as admin fee</th>
+                                </tr>
+                            </table>
+                            <a class="btn active" onclick="document.getElementById('myForm').submit();" >Pay</a>
+                        </div><!-- //REGISTRATION FORM -->
+                    </div><!-- //SIDEBAR -->
+
+                    </form>
+                </div>
             </div><!-- //CHECKOUT BLOCK -->
         </div><!-- //CONTAINER -->
     </section><!-- //CHECKOUT PAGE -->

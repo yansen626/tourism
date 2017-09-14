@@ -79,3 +79,56 @@ if(quantity){
     });
 }
 }
+
+// autoNumeric
+numberFormat = AutoNumeric.multiple('.price-format > input', {
+    decimalCharacter: ',',
+    digitGroupSeparator: '.',
+    decimalPlaces: 0
+});
+
+//SELECT PAYMENT
+function handleChangePayment(myRadio){
+    var selectedValue = myRadio.value;
+    var grandTotalValue = $("#grand-total-value").val();
+    grandTotalValue = grandTotalValue.replace(/[.]/g, "");
+    var newGrandTotalValue = 0;
+    var newGrandTotal = "";
+    var selectedFeeValue = $("#selected-fee").val();
+    selectedFeeValue = selectedFeeValue.replace(/[.]/g, "");
+    var selectedFee = "";
+
+    if(selectedValue == "bank_transfer"){
+        newGrandTotalValue = parseInt(grandTotalValue) - parseInt(selectedFeeValue) + 4000;
+        newGrandTotal = addCommas(newGrandTotalValue);
+
+        $("#selected-fee").val(4000);
+        $('#admin-fee').html(addCommas(4000));
+        $("#grand-total-value").val(newGrandTotalValue);
+        $("#grand-total-price").html(newGrandTotal);
+    }
+    else{
+        var fee = ((parseInt(grandTotalValue) - parseInt(selectedFeeValue)) * 0.03) + 2000;
+        selectedFee = addCommas(fee);
+        newGrandTotalValue = parseInt(grandTotalValue) - parseInt(selectedFeeValue) + fee;
+        newGrandTotal = addCommas(newGrandTotalValue);
+
+        $("#selected-fee").val(fee);
+        $('#admin-fee').html(selectedFee);
+        $("#grand-total-value").val(newGrandTotalValue);
+        $("#grand-total-price").html(newGrandTotal);
+    }
+}
+
+
+function addCommas(nStr) {
+    nStr += '';
+    x = nStr.split(',');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + '.' + '$2');
+    }
+    return "Rp " + x1 + x2;
+}

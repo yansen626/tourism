@@ -32,8 +32,8 @@
                 <ul class="checkout_nav">
                     <li class="done_step2">1. Shipping Address</li>
                     <li class="done_step2">2. Delivery</li>
-                    <li class="done_step">3. Payment</li>
-                    <li class="active_step last">4. Confirm Orded</li>
+                    <li class="done_step">3. Confirm Order</li>
+                    <li class="active_step last">4. Payment</li>
                 </ul>
             </div><!-- //CHECKOUT BLOCK -->
 
@@ -46,7 +46,7 @@
                                 <p class="checkout_title margbot10">Billing information</p>
 
                                 <div class="billing_information_content margbot40">
-                                    <span>{{$userData->name}}</span>
+                                    <span>{{$userData->first_name}} {{$userData->last_name}}</span>
                                     <span>{{$userData->phone}}</span>
                                     <span>{{$userData->email}}</span>
                                 </div>
@@ -105,7 +105,8 @@
                                 <td>Rp {{$grandTotal}}</td>
                             </tr>
                         </table>
-                        <a class="btn active" href="{{ Route('checkout4') }}" >Payment</a>
+                        <a class="btn active" href="{{ Route('checkout4') }}" >Select Payment</a>
+                        <a class="btn inactive" href="{{ route('checkout2') }}" >Back</a>
                     </div><!-- //REGISTRATION FORM -->
                 </div><!-- //SIDEBAR -->
             </div><!-- //ROW -->

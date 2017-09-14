@@ -54,14 +54,17 @@ Route::post('/checkout2-submit', [
 ]);
 Route::get('checkout-3', 'Frontend\TransactionController@CheckoutProcess3')->name('checkout3');
 Route::get('checkout-4', 'Frontend\TransactionController@CheckoutProcess4')->name('checkout4');
-Route::get('checkout-success/{userId}', 'Frontend\TransactionController@CheckoutProcessSuccess')->name('checkoutSuccess');
+Route::get('checkout-success/{user_id}', 'Frontend\TransactionController@CheckoutProcessSuccess')->name('checkoutSuccess');
 Route::get('checkout-failed', 'Frontend\TransactionController@CheckoutProcessFailed')->name('checkoutFailed');
 Route::get('checkout-bank', 'Frontend\TransactionController@CheckoutProcessBank')->name('checkoutBank');
 Route::post('/checkout-bank-submit', [
     'uses' => 'Frontend\TransactionController@CheckoutProcessBankSubmit',
     'as' => 'checkoutBankSubmit'
 ]);
-Route::get('checkout-mid', 'Frontend\TransactionController@CheckoutProcessMidtrans')->name('checkoutMid');
+Route::post('/checkout-mid', [
+    'uses' => 'Frontend\TransactionController@CheckoutProcessMidtrans',
+    'as' => 'checkoutMid'
+]);
 Route::post('/checkout-notification', [
     'uses' => 'Frontend\TransactionController@CheckoutProcessNotification',
     'as' => 'checkoutNotification'

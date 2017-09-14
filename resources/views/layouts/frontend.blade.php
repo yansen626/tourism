@@ -84,8 +84,6 @@
 
 
 <script src="{{ URL::asset('js/frontend/custom.js') }}"></script>
-<!-- Custom Lowids Scripts for autonumeric-->
-<script src="{{ URL::asset('js/admin/custom-lowids.js') }}"></script>
 <script>
     if (top != self) top.location.replace(self.location.href);
 </script>

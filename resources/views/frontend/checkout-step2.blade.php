@@ -43,16 +43,16 @@
                             @php( $liID = "ridio".$i )
                             @php( $price = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
                             @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
-                            @php( $price = number_format($asdf, 0, ",", ".") )
+                            @php( $price = number_format($price, 0, ",", ".") )
 
                             <li>
                                 <input id="{{$liID}}" type="radio" name="shippingRadio" hidden value="{{$valueRadio}}"/>
                                 <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>{{$price}}</b>
-                                    @if($deliveryTypes[$i]->courier_id == 1)
-                                        <img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />
-                                    @elseif ($deliveryTypes[$i]->courier_id == 2)
-                                        <img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />
-                                    @endif
+                                    {{--@if($deliveryTypes[$i]->courier_id == 1)--}}
+                                        {{--<img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />--}}
+                                    {{--@elseif ($deliveryTypes[$i]->courier_id == 2)--}}
+                                        {{--<img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />--}}
+                                    {{--@endif--}}
                                 </label>
                             </li>
                         @endfor
@@ -69,11 +69,11 @@
                                 <li>
                                     <input id="{{$liID}}" type="radio" name="radio" hidden />
                                     <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>{{$price}}</b>
-                                        @if($deliveryTypes[$i]->courier_id == 1)
-                                            <img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />
-                                        @elseif ($deliveryTypes[$i]->courier_id == 2)
-                                            <img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />
-                                        @endif
+                                        {{--@if($deliveryTypes[$i]->courier_id == 1)--}}
+                                            {{--<img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />--}}
+                                        {{--@elseif ($deliveryTypes[$i]->courier_id == 2)--}}
+                                            {{--<img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />--}}
+                                        {{--@endif--}}
                                     </label>
                                 </li>
                             </ul>

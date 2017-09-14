@@ -36,46 +36,34 @@
                 </ul>
 
                 <form class="checkout_form clearfix" action="javascript:void(0);" method="get">
-                    {{--@if($data != null)--}}
+                    @if( !empty($Addressdata))
 
-                        {{--<div class="checkout_form_input country">--}}
-                            {{--<label>Country <span class="color_red">*</span></label>--}}
-                            {{--<select class="basic">--}}
-                                {{--<option value="">New ZEALaND</option>--}}
-                                {{--<option>Australia</option>--}}
-                                {{--<option>Hungary</option>--}}
-                            {{--</select>--}}
-                        {{--</div>--}}
+                        <!-- ROW -->
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12 padbot60 about_us_description" data-appear-top-offset='-100' data-animated='fadeInLeft'>
+                                    <p>{{$Addressdata->name}}</p>
+                                    <span>{{$Addressdata->detail}} <br/>
+                                    Kecamatan {{$Addressdata->subdistrict_name}} <br/> Kota/Kabupaten {{$Addressdata->city_name}},
+                                        <br/>Provinsi {{$Addressdata->province_name}}, {{$Addressdata->postal_code}}</span>
+                                    <a class="btn active" href="{{Route('user-address-edit')}}" >Edit Address</a>
+                                </div>
 
-                        {{--<div class="clear"></div>--}}
+                                <div class="col-lg-6 col-md-6 col-sm-6 padbot30" data-appear-top-offset='-100' data-animated='fadeInRight'>
+                                    <img class="about_img1" src="images/about_img1.jpg" alt="" />
+                                </div>
+                            </div><!-- //ROW -->
 
-                        {{--<a class="btn active pull-right" href="{{route ('checkout2')}}" >Continue</a>--}}
-                    {{--@else--}}
-                        {{--<div style="text-align: center;">--}}
-                            {{--<h3><b>Add address</b></h3>--}}
-                            {{--<br >--}}
-                            {{--<a class="btn active" href="{{route ('checkout2')}}" >Add Address</a>--}}
-                        {{--</div>--}}
-                    {{--@endif--}}
+                            <div class="clear"></div>
 
-                    <!-- ROW -->
-                        <div class="row">
-                            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12 padbot60 about_us_description" data-appear-top-offset='-100' data-animated='fadeInLeft'>
-                                <p>Nama Penerima</p>
-                                <span>Jalan Berlian 3 blok C nomor 4 <br/>
-                                    Kecamatan Batu ceper <br/> Kota/Kabupaten Batuceper, <br/>Provinsi Banten, 15122</span>
-                                {{--<a class="btn active pull-right" href="{{route ('user/address/edit')}}" >Edit Address</a>--}}
-                                <a class="btn active" href="#" >Edit Address</a>
-                            </div>
+                            <a class="btn active pull-right" href="{{route ('checkout2')}}" >Continue</a>
+                    @else
+                        <div style="text-align: center;">
+                            <h3><b>Add address</b></h3>
+                            <br >
+                            <a class="btn active" href="{{route ('user-address-create')}}" >Add Address</a>
+                        </div>
+                    @endif
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 padbot30" data-appear-top-offset='-100' data-animated='fadeInRight'>
-                                <img class="about_img1" src="images/about_img1.jpg" alt="" />
-                            </div>
-                        </div><!-- //ROW -->
-
-                        <div class="clear"></div>
-
-                        <a class="btn active pull-right" href="{{route ('checkout2')}}" >Continue</a>
                 </form>
             </div><!-- //CHECKOUT BLOCK -->
         </div><!-- //CONTAINER -->
