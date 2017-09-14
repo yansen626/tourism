@@ -84,6 +84,7 @@
 
 
 <script src="{{ URL::asset('js/frontend/custom.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/frontend-custom-lowids-bayu.js') }}"></script>
 <script>
     if (top != self) top.location.replace(self.location.href);
 </script>

@@ -15,24 +15,68 @@ use App\Models\Product;
 class ProductsController extends Controller
 {
     //
-    public function ProductsShowAll($categoryId){
-        //$products = Product::all();
+    public function products($categoryId, $categoryName){
+
+        $products = Product::where('status_id', '=', 1);
+
         if($categoryId > 0){
-            $products = Product::where([['category_id', '=', $categoryId], ['status_id', '=', 1]])->paginate(9);
-            $productCount = Product::where([['category_id', '=', $categoryId], ['status_id', '=', 1]])->count();
-            $categories = Category::all();
+            $products = $products->where([['category_id', '=', $categoryId], ['status_id', '=', 1]]);
             $selectedCategory = Category::find($categoryId);
         }
-        else{
-            $products = Product::where('status_id', '=', 1)->paginate(9);
-            $productCount = Product::where('status_id', '=', 1)->count();
-            $categories = Category::all();
+        else
+        {
             $selectedCategory = new Category([
                 'id' => 0,
                 'name' => 'All Category'
             ]);
         }
-        return View('frontend.show-products', compact('products', 'selectedCategory', 'categories', 'productCount'));
+
+        if(!empty(request()->max) && !empty(request()->min)){
+            $products = $products->whereBetween('price_discounted', [floatval(request()->min), floatval(request()->max)]);
+        }
+        else if(!empty(request()->max && empty(request()->min))){
+            $products = $products->where('price_discounted', '<=', floatval(request()->max));
+        }
+        else if(empty(request()->max && !empty(request()->min))){
+            $products = $products->where('price_discounted', '>=', floatval(request()->min));
+        }
+
+        if(!empty(request()->sort)){
+            $sort = request()->sort;
+            if($sort == '1'){
+                // Newest
+                $products->orderByDesc('created_on');
+            }
+            else if($sort == '2'){
+                // Lowest-Highest Price
+                $products->orderBy('price_discounted');
+            }
+            else if($sort == '3'){
+                // Highest-Lowest Price
+                $products->orderByDesc('price_discounted');
+            }
+            else if($sort == '4'){
+                // A-Z
+                $products->orderBy('name');
+            }
+        }
+
+        $productCount = $products->count();
+        $products = $products->paginate(9);
+
+        $categories = Category::all();
+
+        $data = [
+            'products'          => $products,
+            'productCount'      => $productCount,
+            'categories'        => $categories,
+            'selectedCategory'  => $selectedCategory,
+            'filterMaxPrice'    => request()->max ?? null,
+            'filterMinPrice'    => request()->min ?? null,
+            'filterSort'        => request()->sort ?? null
+        ];
+
+        return View('frontend.show-products')->with($data);
     }
 
     //
@@ -51,21 +95,67 @@ class ProductsController extends Controller
     }
 
     public function search($key){
+
         $products = Product::where('status_id', '=', 1)
-            ->where('name','LIKE','%'. $key. '%')
-            ->paginate(9);
-        $productCount = Product::where('status_id', '=', 1)->count();
+            ->where('name','LIKE','%'. $key. '%');
+
+        if(!empty(request()->category) && request()->category != '-1'){
+            $products = $products->where('category_id', intval(request()->category));
+        }
+
+        if(!empty(request()->max) && !empty(request()->min)){
+            $products = $products->whereBetween('price_discounted', [floatval(request()->min), floatval(request()->max)]);
+        }
+        else if(!empty(request()->max && empty(request()->min))){
+            $products = $products->where('price_discounted', '<=', floatval(request()->max));
+        }
+        else if(empty(request()->max && !empty(request()->min))){
+            $products = $products->where('price_discounted', '>=', floatval(request()->min));
+        }
+
+        if(!empty(request()->sort)){
+            $sort = request()->sort;
+            if($sort == '1'){
+                // Newest
+                $products->orderByDesc('created_on');
+            }
+            else if($sort == '2'){
+                // Lowest-Highest Price
+                $products->orderBy('price_discounted');
+            }
+            else if($sort == '3'){
+                // Highest-Lowest Price
+                $products->orderByDesc('price_discounted');
+            }
+            else if($sort == '4'){
+                // A-Z
+                $products->orderBy('name');
+            }
+        }
+
+        $productCount = $products->count();
+
+        $products = $products->paginate(9);
         $categories = Category::all();
         $selectedCategory = new Category([
             'id' => 0,
             'name' => 'All Category'
         ]);
 
+        if(!empty(request()->category) && request()->category != '-1'){
+            $selectedCategory = Category::find(request()->category);
+        }
+
         $data = [
             'products'          => $products,
             'productCount'      => $productCount,
             'categories'        => $categories,
-            'selectedCategory'  => $selectedCategory
+            'selectedCategory'  => $selectedCategory,
+            'filterCategory'    => request()->category ?? null,
+            'filterMaxPrice'    => request()->max ?? null,
+            'filterMinPrice'    => request()->min ?? null,
+            'filterSort'        => request()->sort ?? null,
+            'searchKey'         => $key
         ];
 
         return View('frontend.show-search-results')->with($data);

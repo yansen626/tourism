@@ -1,3 +1,4 @@
+@inject('categories', 'App\Service\CategoryHeader')
 
 <!-- HEADER -->
 <header>
@@ -55,8 +56,12 @@
             <!-- SEARCH FORM -->
             <div class="top_search_form">
                 <a class="top_search_btn" href="javascript:void(0);" ><i class="fa fa-search"></i></a>
-                <form method="get" action="#">
-                    <input type="text" name="search" value="Search" onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
+                <form method="get" onsubmit="return false;">
+                    @if(!empty($searchKey))
+                        <input type="text" id="search" name="search" style="padding: 10px;" onkeypress="searchKey(event)" placeholder="Search" value="{{ $searchKey }}"/>
+                    @else
+                        <input type="text" id="search" name="search" style="padding: 10px;" onkeypress="searchKey(event)" placeholder="Search"/>
+                    @endif
                 </form>
             </div>
             <!-- SEARCH FORM -->
@@ -118,14 +123,14 @@
 
             <!-- MENU -->
             <ul class="navmenu center">
-                <li class="sub-menu"><a href="{{ route('products', ['categoryId' => 0]) }}" >Products</a>
+                <li class="sub-menu"><a href="{{ route('products', ['categoryId' => 0, 'categoryName' => 'all']) }}" >Products</a>
                     <!-- MEGA MENU -->
                     <ul class="mega_menu megamenu_col1 clearfix">
                         <li class="col">
                             <ol>
-                                <li><a href="{{ route('products', ['categoryId' => 1]) }}" >Tofieco Essense & Pasta</a></li>
-                                <li><a href="{{ route('products', ['categoryId' => 2]) }}" >Rum,Pasta,Essence</a></li>
-                                <li><a href="{{ route('products', ['categoryId' => 3]) }}" >Pewarna</a></li>
+                                @foreach($categories::allCategory() as $category)
+                                    <li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>
+                                @endforeach
                             </ol>
                         </li>
                     </ul><!-- //MEGA MENU -->
