@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('transfer-list') }}">
+                        <a href="{{ route('payment-list') }}">
                             <i class="fa fa-money"></i> Payment Status
                         </a>
                     </li>
