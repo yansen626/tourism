@@ -28,7 +28,7 @@
 
                         <input type="text" name="name" placeholder="Address Name"/>
                         <select id="province" name="province_id" onchange="checkCities()">
-                            <option value="-1" selected>Select Province</option>
+                            <option value="-1" selected>Select province</option>
                             @foreach($provinces as $province)
                                 <option value="{{ $province->id }}">{{ $province->name }}</option>
                             @endforeach
@@ -60,31 +60,35 @@
     <script type="text/javascript">
         function checkCities()
         {
-            $("#city").show();
-            $('#subdistrict').hide();
             var provinceId = $("#province option:selected").val();
 
-            $("#city > option").each(function()
-            {
-                // Add $(this).val() to your list
-                var test = $.parseJSON(this.value.replace(/'/g, '"'));
-                if(test.province_id != provinceId){
-                    $(this).hide();
-                }
-                else if(test.province_id == provinceId){
-                    $(this).show();
-                }
-            });
-            $('#city').children('option:enabled').eq(0).prop('selected',true);
+            if(provinceId != '-1'){
+                $("#city").show();
+                $('#subdistrict').hide();
+                $("#city > option").each(function()
+                {
+                    // Add $(this).val() to your list
+                    var test = $.parseJSON(this.value.replace(/'/g, '"'));
+                    if(test.province_id != provinceId){
+                        $(this).hide();
+                    }
+                    else if(test.province_id == provinceId){
+                        $(this).show();
+                    }
+                });
+                $('#city').children('option:enabled').eq(0).prop('selected',true);
+            }
+
         }
 
         function getSubdistrict(){
             var cityId = $("#city option:selected").val();
             var tmp = $.parseJSON(cityId.replace(/'/g, '"'));
-            $('#subdistrict').show();
+            $('#subdistrict').hide();
             $.get('/rajaongkir/subdistrict/' + tmp.city_id, function (data) {
                 if(data.success == true) {
                     $('#subdistrict').html(data.html);
+                    $('#subdistrict').show();
                 }
             });
         }

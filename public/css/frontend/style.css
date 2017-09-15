@@ -2204,7 +2204,7 @@ ul.comments li ul li{
 /*-----------------------------------------------------------------------------------*/
 .top_sale {
 	min-height:970px;
-	background-image:url(../images/top_sale.jpg);
+	background-image:url(frontend_images/top_sale.jpg);
 	background-repeat:no-repeat;
 	background-size:cover;
 }
@@ -2394,7 +2394,7 @@ ul.comments li ul li{
 	background-color:inherit;
 	background-repeat:no-repeat;
 	background-size:cover;
-	background-image:url(../images/breadcrumb_bg2.jpg);
+	background-image:url(../../frontend_images/breadcrumb_bg2.jpg);
 }
 
 
@@ -2408,8 +2408,8 @@ ul.comments li ul li{
 	background-repeat:no-repeat;
 	background-size:cover;
 }
-.breadcrumb.women {background-image:url(../images/breadcrumb_bg1.jpg);}
-.breadcrumb.men {background-image:url(../images/breadcrumb_bg2.jpg);}
+.breadcrumb.women {background-image:url(../../frontend_images/breadcrumb_bg1.jpg);}
+.breadcrumb.men {background-image:url(../../frontend_images/breadcrumb_bg2.jpg);}
 
 .breadcrumb h2 {
 	margin:0;
@@ -5707,7 +5707,9 @@ input[type="submit"]:hover {background-color:#242424;}
 
 }
 
-
+.sale_caption1{
+	width: auto;
+}
 
 /*-----------------------------------------------------------------------------------*/
 /*	Magnific Popup CSS

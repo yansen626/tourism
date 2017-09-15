@@ -4,14 +4,18 @@
 <header>
 
     <!-- TOP INFO -->
-    {{--<div class="top_info">--}}
+    <div class="top_info">
 
-        {{--<!-- CONTAINER -->--}}
-        {{--<div class="container clearfix">--}}
-
+        <!-- CONTAINER -->
+        <div class="container clearfix">
+            <ul class="secondary_menu">
+                {{--<li><a href="my-account.html" >my account</a></li>--}}
+                {{--<li><a href="my-account.html" >Register</a></li>--}}
+            </ul>
+            {{--<div class="live_chat"><a href="javascript:void(0);" ><i class="fa fa-comment-o"></i> Live chat</a></div>--}}
             {{--<div class="phone_top">have a question? <a href="tel:1 800 888 2828" >1 800 888 2828</a></div>--}}
-        {{--</div><!-- //CONTAINER -->--}}
-    {{--</div><!-- TOP INFO -->--}}
+        </div><!-- //CONTAINER -->
+    </div><!-- TOP INFO -->
 
     <!-- MENU BLOCK -->
     <div class="menu_block">
@@ -123,18 +127,23 @@
 
             <!-- MENU -->
             <ul class="navmenu center">
-                <li class="sub-menu"><a href="{{ route('products', ['categoryId' => 0, 'categoryName' => 'all']) }}" >Products</a>
-                    <!-- MEGA MENU -->
-                    <ul class="mega_menu megamenu_col1 clearfix">
-                        <li class="col">
-                            <ol>
-                                @foreach($categories::allCategory() as $category)
-                                    <li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>
-                                @endforeach
-                            </ol>
-                        </li>
-                    </ul><!-- //MEGA MENU -->
+                {{--<li class="sub-menu"><a href="{{ route('products', ['categoryId' => 0, 'categoryName' => 'all']) }}" >Products</a>--}}
+                    {{--<!-- MEGA MENU -->--}}
+                    {{--<ul class="mega_menu megamenu_col1 clearfix">--}}
+                        {{--<li class="col">--}}
+                            {{--<ol>--}}
+                                {{--@foreach($categories::allCategory() as $category)--}}
+                                    {{--<li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>--}}
+                                {{--@endforeach--}}
+                            {{--</ol>--}}
+                        {{--</li>--}}
+                    {{--</ul><!-- //MEGA MENU -->--}}
+                {{--</li>--}}
+                <li><a href="{{ route('landing') }}" >Home</a>
                 </li>
+                @foreach($categories::allCategory() as $category)
+                    <li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>
+                @endforeach
                 {{--<li class="sub-menu"><a href="javascript:void(0);" >Men</a>--}}
                     {{--<!-- MEGA MENU -->--}}
                     {{--<ul class="mega_menu megamenu_col2 clearfix">--}}

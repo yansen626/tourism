@@ -25,7 +25,8 @@
                         <br/>
                         Phone: {{\Illuminate\Support\Facades\Auth::user()->phone}}
                     </p>
-                    <div class="center"><a class="btn active" href="{{ route('user-edit-show') }}" >Edit</a></div>
+                    <div class="center"><a class="btn" href="{{ route('user-edit') }}" >Edit</a></div>
+                    <div class="center" style="margin-top: 2em;"><a class="btn" href="{{ route('password-edit') }}" >Change Password</a></div>
                     <br/>
                 </div>
                 <div class="new_customers">
@@ -40,9 +41,9 @@
                             {{ $address->city_name }}, {{ $address->subdistrict_name }}<br/>
                             {{ $address->province_name }} {{ $address->postal_code }}
                         </p>
-                        <div class="center"><a class="btn active" href="{{ route('user-address-edit') }}" >Edit Address</a></div>
+                        <div class="center"><a class="btn" href="{{ route('user-address-edit') }}" >Edit Address</a></div>
                     @else
-                        <div class="center"><a class="btn active" href="{{ route('user-address-create') }}" >Add Address</a></div>
+                        <div class="center"><a class="btn" href="{{ route('user-address-create') }}" >Add Address</a></div>
                     @endif
                 </div>
             </div>

@@ -74,10 +74,14 @@ Route::post('/checkout-notification', [
 
 Route::get('/verif-yemail/{token}', 'Auth\RegisterController@verify');
 
-//User Data
-Route::get('user', 'Frontend\UserController@index')->name('user-profile');
-Route::get('user/edit-show', 'Frontend\UserController@edit')->name('user-edit-show');
-Route::post('user/edit-show', 'Frontend\UserController@update');
+// User Data
+Route::prefix('user')->group(function(){
+    Route::get('/', 'Frontend\UserController@index')->name('user-profile');
+    Route::get('/edit', 'Frontend\UserController@edit')->name('user-edit');
+    Route::post('/edit/save', 'Frontend\UserController@update');
+    Route::get('/password/edit', 'Frontend\UserController@passwordChange')->name('password-edit');
+    Route::post('/password/save', 'Frontend\UserController@passwordUpdate');
+});
 
 //User Address
 Route::prefix('user/address')->group(function(){
@@ -209,9 +213,10 @@ Route::prefix('admin/status')->group(function(){
 });
 
 // Admin Options
-Route::get('/admin/options', 'Admin\OptionsController@index');
-Route::post('/admin/options', 'Admin\OptionsController@update');
-
+Route::get('/admin/option/address', 'Admin\OptionController@index')->name('store-address');
+Route::post('/admin/option/address/save', 'Admin\OptionController@update');
+Route::get('/admin/option/city', 'Admin\OptionController@getCities');
+Route::get('/admin/option/subdistrict', 'Admin\OptionController@getSubdistricts');
 // report
 Route::prefix('admin/report')->group(function(){
     Route::get('/form', 'Admin\ReportController@index')->name('report-form');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\libs\RajaOngkir;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\Province;
@@ -27,9 +28,19 @@ class UserAddressController extends Controller
         $cities = City::all();
 
         $id = Auth::user()->id;
-        $data = Address::where('user_id', $id)->first();
+        $addr = Address::where('user_id', $id)->first();
 
-        return view('frontend.user-address-edit', compact('data', 'provinces', 'cities'));
+        $collect = RajaOngkir::getSubdistrict($addr->city_id);
+        $subdistricts = $collect->rajaongkir->results;
+
+        $data = [
+            'provinces'         => $provinces,
+            'cities'            => $cities,
+            'addr'              => $addr,
+            'subdistricts'      => $subdistricts
+        ];
+
+        return view('frontend.user-address-edit')->with($data);
     }
 
     public function update(Request $request)

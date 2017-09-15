@@ -14,9 +14,12 @@ class CreateStoreDataTable extends Migration {
 	{
 		Schema::create('store_data', function(Blueprint $table)
 		{
+			$table->integer('id', true);
 			$table->text('address')->nullable();
 			$table->integer('province_id')->nullable();
 			$table->integer('city_id')->nullable();
+			$table->integer('subdistrict_id')->nullable();
+			$table->string('subdistrict_name', 45)->nullable();
 		});
 	}
 

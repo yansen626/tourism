@@ -65,7 +65,7 @@
 
                     <!-- SHOP BANNER -->
                     <div class="banner_block margbot15">
-                        <a class="banner nobord" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner21.jpg') }}" alt="" /></a>
+                        {{--<a class="banner nobord" href="javascript:void(0);" ><img src="{{ URL::asset('frontend_images/tovar/banner21.jpg') }}" alt="" /></a>--}}
                     </div><!-- //SHOP BANNER -->
 
                     <!-- SORTING TOVAR PANEL -->

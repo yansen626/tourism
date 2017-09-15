@@ -23,13 +23,27 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('user/edit-show') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('user/edit/save') }}">
                         {{ csrf_field() }}
-
-                        <input type="text" name="first_name" placeholder="First Name" value="{{ $data->first_name }}"/>
-                        <input type="text" name="last_name" placeholder="Last Name" value="{{ $data->last_name }}"/>
-                        <input type="text" name="phone" placeholder="Phone" value="{{ $data->phone }}"/>
-                        <div class="center"><input type="submit" value="Submit"></div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3 col-md-3 col-sm-3">First Name</label>
+                            <div class="col-lg-9 col-md-9 col-sm-9">
+                                <input class="form-control" type="text" name="first_name" placeholder="First Name" value="{{ $data->first_name }}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3 col-md-3 col-sm-3">Last Name</label>
+                            <div class="col-lg-9 col-md-9 col-sm-9">
+                                <input class="form-control" type="text" name="last_name" placeholder="Last Name" value="{{ $data->last_name }}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3 col-md-3 col-sm-3">Phone Number</label>
+                            <div class="col-lg-9 col-md-9 col-sm-9">
+                                <input class="form-control" type="text" name="phone" placeholder="Phone Number" value="{{ $data->phone }}"/>
+                            </div>
+                        </div>
+                        <div class="center"><input type="submit" value="Save"></div>
                     </form>
                 </div>
             </div>

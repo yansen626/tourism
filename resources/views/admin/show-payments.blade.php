@@ -35,7 +35,6 @@
                                     <th>Total Payment</th>
                                     <th>Transfer Date</th>
                                     <th>Confirm Date</th>
-                                    <th>Note</th>
                                     <th>Status</th>
                                     <th>Option</th>
                                 </tr>
@@ -71,24 +70,18 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if(!empty($trans->note))
-                                                {{ $trans->note }}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
                                             @if($trx->status_id == 3)
                                                 <span style="color: red;">Pending Payment</span>
                                             @else
-                                                <span style="color: orange;">Need Verification</span>
+                                                <span style="color: orange;">In Verification</span>
                                             @endif
                                         </td>
                                         <td>
-                                            @if(!empty($trans))
-                                                <a onclick="modalPop('{{ $trans->id }}', 'transfer', '/admin/transfer/confirm/')" class="btn btn-success">Confirm</a>
-                                            @endif
                                             <a href="/admin/transaction/detail/{{ $trx->id }}" class="btn btn-primary">Detail</a>
+                                            @if(!empty($trans))
+                                                <a onclick="modalPop('{{ $trans->id }}', 'transfer', '/admin/payment/confirm/')" class="btn btn-success">Confirm</a>
+                                            @endif
+                                            <a onclick="modalPop('{{ $trx->id }}', 'cancel', '/admin/payment/cancel/')" class="btn btn-danger">Cancel</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -104,6 +97,6 @@
 
     <!-- small modal -->
     @include('admin.partials._small_modal')
-    <!-- small modal -->
+    <!-- /small modal -->
 
 @endsection

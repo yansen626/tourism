@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\TransferConfirmation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -82,7 +83,16 @@ class TransactionController extends Controller
         $trx->status_id = 5;
         $trx->save();
 
-        return redirect::route('transfer-list');
+        return redirect::route('payment-list');
+    }
+
+    public function cancelPayment($id){
+        $trx = Transaction::find($id);
+        $trx->status_id = 10;
+        $trx->finish_date = Carbon::now('Asia/Jakarta')->toDateTimeString();
+        $trx->save();
+
+        return redirect::route('payment-list');
     }
 
     public function deliveryRequest(){

@@ -200,6 +200,19 @@ function modalPop(id, mode, url){
         var content = "Are you sure you want to confirm?"
         var yes = "Confirm"
 
+        $("#small-modal-yes").attr("class","btn btn-success");
+        $("#small-modal-title").html(title);
+        $("#small-modal-body").html(content);
+        $("#small-modal-yes").html(yes);
+        $("#small-modal-yes").attr('href', url + id);
+        $("#small-modal").modal();
+    }
+    else if(mode === "cancel"){
+        var title = "Warning";
+        var content = "Are you sure you want to cancel?"
+        var yes = "Cancel"
+
+        $("#small-modal-yes").attr("class","btn btn-danger");
         $("#small-modal-title").html(title);
         $("#small-modal-body").html(content);
         $("#small-modal-yes").html(yes);

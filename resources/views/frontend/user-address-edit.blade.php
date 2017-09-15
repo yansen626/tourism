@@ -26,10 +26,10 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('user-address-update') }}">
                         {{ csrf_field() }}
 
-                        <input type="text" name="name" placeholder="Address Name" value="{{ $data->name }}"/>
+                        <input type="text" name="name" placeholder="Address Name" value="{{ $addr->name }}"/>
                         <select id="province" name="province_id" onchange="checkCities()">
                             @foreach($provinces as $province)
-                                @if($province->id == $data->province_id)
+                                @if($province->id == $addr->province_id)
                                         <option value="{{$province->id}}" selected>{{$province->name}}</option>
                                     @else
                                         <option value="{{$province->id}}">{{$province->name}}</option>
@@ -37,18 +37,27 @@
                             @endforeach
                         </select>
 
-                        <select id="city" name="city_id">
+                        <select id="city" name="city_id" onchange="getSubdistrict()">
                             <option value="0">Select City!!</option>
                             @foreach($cities as $city)
-                                @if($city->city_id == $data->city_id)
+                                @if($city->city_id == $addr->city_id)
                                         <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}">{{$city->name}}</option>
                                     @else
                                         <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}" hidden>{{$city->name}}</option>
                                 @endif
                             @endforeach
                         </select>
-                        <textarea name="detail" cols="50" rows="10" placeholder="Address Details">{{ $data->detail }}</textarea>
-                        <input type="number" name="postal_code" placeholder="Postal Code" value="{{ $data->postal_code }}"/>
+                        <select id="subdistrict" name="subdistrict_id" style="display: none;">
+                            @foreach($subdistricts as $subdistrict)
+                                @if($subdistrict->subdistrict_id == $option->subdistrict_id)
+                                    <option value="{{ $subdistrict->subdistrict_id }}" selected>{{ $subdistrict->subdistrict_name }}</option>
+                                @else
+                                    <option value="{{ $subdistrict->subdistrict_id }}">{{ $subdistrict->subdistrict_name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <textarea name="detail" cols="50" rows="10" placeholder="Address Details">{{ $addr->detail }}</textarea>
+                        <input type="number" name="postal_code" placeholder="Postal Code" value="{{ $addr->postal_code }}"/>
                         <div class="center"><input type="submit" value="Submit"></div>
                     </form>
                 </div>
@@ -75,6 +84,18 @@
                 }
             });
             $('#city').children('option:enabled').eq(0).prop('selected',true);
+        }
+
+        function getSubdistrict(){
+            var cityId = $("#city option:selected").val();
+            var tmp = $.parseJSON(cityId.replace(/'/g, '"'));
+            $('#subdistrict').hide();
+            $.get('/rajaongkir/subdistrict/' + tmp.city_id, function (data) {
+                if(data.success == true) {
+                    $('#subdistrict').html(data.html);
+                    $('#subdistrict').show();
+                }
+            });
         }
     </script>
 @endsection

@@ -96,7 +96,7 @@ class RegisterController extends Controller
                 'first_name'            => 'required|max:100',
                 'last_name'             => 'required|max:100',
                 'phone'                 => 'required|max:20',
-                'password'              => 'required|min:6|max:20|confirmed',
+                'password'              => 'required|min:6|max:20|same:password',
                 'password_confirmation' => 'required|same:password'
             ]
         );

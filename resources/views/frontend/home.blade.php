@@ -13,12 +13,12 @@
 				<li class="slide1">
 					<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id:$slider->url }}">
 						<div class="container" style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover;">
-							<div class="sale_caption1">
-								@if(!empty($banner->caption))
-									<p class="title1 captionDelay2 FromTop">DRESS DAY</p>
+							<div class="sale_caption1" >
+								@if(!empty($slider->caption))
+									<p class="title1 captionDelay2 FromTop" style="background-color: rgba(255, 255, 255, 0.5);">{{ $slider->caption }}</p>
 								@endif
-								@if(!empty($banner->sub_caption))
-									<p class="title2 FromTop">last week of sales</p>
+								@if(!empty($slider->sub_caption))
+									<p class="title2 FromTop" style="background-color: rgba(255, 255, 255, 0.5);">{{ $slider->sub_caption }}</p>
 								@endif
 							</div>
 						</div>

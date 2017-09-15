@@ -2408,7 +2408,7 @@ ul.comments li ul li{
     background-repeat:no-repeat;
     background-size:cover;
 }
-.breadcrumb.women {background-image:url(../images/breadcrumb_bg1.jpg);}
+.breadcrumb.women {background-image:url(../../frontend_images/breadcrumb_bg1.jpg);}
 .breadcrumb.men {background-image:url(../images/breadcrumb_bg2.jpg);}
 
 .breadcrumb h2 {
