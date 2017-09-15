@@ -17,13 +17,14 @@ use App\Models\TransferConfirmation;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\DeliveryType;
-use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client;
 use Webpatser\Uuid\Uuid;
+use App\libs\Utilities;
+use App\Mail\EmailTransactionNotif;
+use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
@@ -387,9 +388,9 @@ class TransactionController extends Controller
         else{
             $transaction->payment_method_id = 1;
         }
+        $transaction->save();
 
-        $transaction->payment_method_id = $paymentMethod == "credit_card"? 2: 1;
-        $transaction->status_id = $paymentMethod == "credit_card"? 4: 3;
+        $transaction->invoice = Utilities::GenerateInvoice();
         $transaction->save();
 
         $savedId = $transaction->id;
@@ -439,7 +440,11 @@ class TransactionController extends Controller
 
     //payment online failed
     public function CheckoutProcessFailed(){
-        return view('frontend.checkout-step4-failed');
+
+        $emailBody = new EmailTransactionNotif();
+        Mail::to('d1d124acf0-fa64ac@inbox.mailtrap.io')->send($emailBody);
+
+        //return view('frontend.checkout-step4-failed');
     }
 
     public function CheckoutProcessNotification(Request $request){
@@ -469,6 +474,10 @@ class TransactionController extends Controller
         if($midJsonBody->status_code == 200){
             $transactionDB->accept_date = $dateTimeNow->toDateTimeString();
             $transactionDB->status_id = 5;
+
+
+            $emailBody = new EmailTransactionNotif();
+            Mail::to('yansen626@gmail.com')->send($emailBody);
         }
         else if($midJsonBody->status_code == 202){
             $transactionDB->status_id = 10;
@@ -477,6 +486,4 @@ class TransactionController extends Controller
         $transactionDB->modified_on = $dateTimeNow->toDateTimeString();
         $transactionDB->save();
     }
-
-
 }

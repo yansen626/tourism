@@ -138,13 +138,29 @@
 <script src="{{ URL::asset('css/admin/jszip/dist/jszip.min.js') }}"></script>
 <script src="{{ URL::asset('css/admin/pdfmake/build/pdfmake.min.js') }}"></script>
 <script src="{{ URL::asset('css/admin/pdfmake/build/vfs_fonts.js') }}"></script>
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>--}}
+<script src="http://www.position-absolute.com/creation/print/jquery.printPage.js"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('js/admin/custom.js') }}"></script>
 
 <!-- Custom Lowids Scripts -->
 <script src="{{ URL::asset('js/admin/custom-lowids.js') }}"></script>
-
+<script>
+    $('#datatable-responsive').DataTable( {
+        buttons: [
+            {
+                extend: 'print',
+                text: 'Print current page',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    }
+                }
+            }
+        ]
+    } );
+</script>
 
 </body>
 </html>
