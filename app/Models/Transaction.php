@@ -165,4 +165,8 @@ class Transaction extends Eloquent
     public function getDeliveryFeeAttribute(){
         return number_format($this->attributes['delivery_fee'],0, ",", ".");
     }
+
+    public function getAdminFeeAttribute(){
+        return number_format($this->attributes['admin_fee'],0, ",", ".");
+    }
 }

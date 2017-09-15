@@ -85,6 +85,11 @@
                             <li><a href="{{ route('delivery-type-create') }}">Create</a></li>
                         </ul>
                     </li>
+                    <li><a><i class="fa fa-bar-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('report-form') }}">Show</a></li>
+                        </ul>
+                    </li>
                     <li><a><i class="fa fa-edit"></i> Status <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('status-list') }}">Show</a></li>

@@ -440,11 +440,7 @@ class TransactionController extends Controller
 
     //payment online failed
     public function CheckoutProcessFailed(){
-
-        $emailBody = new EmailTransactionNotif();
-        Mail::to('d1d124acf0-fa64ac@inbox.mailtrap.io')->send($emailBody);
-
-        //return view('frontend.checkout-step4-failed');
+        return view('frontend.checkout-step4-failed');
     }
 
     public function CheckoutProcessNotification(Request $request){
@@ -475,9 +471,16 @@ class TransactionController extends Controller
             $transactionDB->accept_date = $dateTimeNow->toDateTimeString();
             $transactionDB->status_id = 5;
 
-
+            //send email to notify buyer transaction success
+            $userMail = $transactionDB->user->email;
             $emailBody = new EmailTransactionNotif();
-            Mail::to('yansen626@gmail.com')->send($emailBody);
+            Mail::to($userMail)->send($emailBody);
+
+            //send email to notify admin new transaction
+            $userMail = "yansen626@gmail.com";
+            $emailBody = new EmailTransactionNotif();
+            Mail::to($userMail)->send($emailBody);
+
         }
         else if($midJsonBody->status_code == 202){
             $transactionDB->status_id = 10;

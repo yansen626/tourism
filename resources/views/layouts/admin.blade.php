@@ -63,7 +63,8 @@
 <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
 <!-- bootstrap-file-input -->
 <script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
-
+<!-- DateTime -->
+<script src="{{ URL::asset('js/frontend/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 <!-- autoNumeric -->
 <script src="{{ URL::asset('js/autoNumeric/autoNumeric.min.js') }}"></script>
 

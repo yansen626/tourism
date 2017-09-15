@@ -90,6 +90,12 @@
                             <tr>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
+                                <td class="no-line text-center"><strong>Admin Fee</strong></td>
+                                <td class="no-line text-right">Rp {{ $trx->admin_fee }}</td>
+                            </tr>
+                            <tr>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
                                 <td class="no-line text-center"><strong>Total</strong></td>
                                 <td class="no-line text-right">Rp {{ $trx->total_payment }}</td>
                             </tr>
@@ -100,6 +106,15 @@
             </div>
         </div>
     </div>
+    <div class="pull-right" style="padding-bottom: 5%;">
+        <button onclick="InvoicePrint()"id="print-preview" class="btn btn-success">Print</button>
+    </div>
 </div>
 
 @endsection
+
+<script type="text/javascript">
+    function InvoicePrint() {
+        window.print();
+    }
+</script>

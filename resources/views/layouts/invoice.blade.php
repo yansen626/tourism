@@ -12,6 +12,8 @@
     <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}">
     <link href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/invoice/invoice-custom.css') }}" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{{ URL::asset('css/frontend/datatable/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 </head>
     <body>
 
@@ -23,6 +25,10 @@
 
         <script src="{{ URL::asset('js/frontend/jquery.min.js') }}"></script>
         <script src="{{ URL::asset('js/frontend/bootstrap.min.js') }}"></script>
+
+        <!-- Datatables -->
+        <script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ URL::asset('js/frontend/datatable/dataTables.bootstrap.min.js') }}"></script>
 
     </body>
 </html>

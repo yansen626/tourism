@@ -212,6 +212,14 @@ Route::prefix('admin/status')->group(function(){
 Route::get('/admin/options', 'Admin\OptionsController@index');
 Route::post('/admin/options', 'Admin\OptionsController@update');
 
+// report
+Route::prefix('admin/report')->group(function(){
+    Route::get('/form', 'Admin\ReportController@index')->name('report-form');
+    Route::post('/', 'Admin\ReportController@request');
+    Route::get('/show', 'Admin\ReportController@show')->name('report-preview');
+});
+
+
 // End Backend Routing
 
 
