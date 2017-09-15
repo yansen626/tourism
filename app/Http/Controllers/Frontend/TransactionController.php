@@ -17,6 +17,7 @@ use App\Models\TransferConfirmation;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\DeliveryType;
+use App\Notifications\TransactionNotify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -473,6 +474,7 @@ class TransactionController extends Controller
 
             //send email to notify buyer transaction success
             $userMail = $transactionDB->user->email;
+            TransactionNotify::toMail();
             $emailBody = new EmailTransactionNotif();
             Mail::to($userMail)->send($emailBody);
 
