@@ -245,7 +245,8 @@
                             @endif
 
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Featured Photo <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 0;">Featured Photo<br/>
+                                    <span style="color: red;">recommended image ratio 3:4 or exact 270x370 pixel</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
@@ -266,7 +267,8 @@
 
                             @if(!$imgPhotos->isEmpty())
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Current Photos <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 0;">Current Photos<br/>
+                                        <span style="color: red;">recommended image ratio 3:4 or exact 270x370 pixel</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="cover-container">

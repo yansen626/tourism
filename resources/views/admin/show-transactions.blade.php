@@ -54,7 +54,7 @@
                                         <td>Rp {{ $trx->total_price }}</td>
                                         <td>Rp {{ $trx->delivery_fee }}</td>
                                         <td>Rp {{ $trx->total_payment }}</td>
-                                        <td></td>
+                                        <td>{{ \Carbon\Carbon::parse($trx->created_on)->format('j M Y G:i:s') }}</td>
                                         <td>
                                             @if($trx->status_id == 3)
                                                 Pending Payment

@@ -81,7 +81,7 @@
                                             @if(!empty($trans))
                                                 <a onclick="modalPop('{{ $trans->id }}', 'transfer', '/admin/payment/confirm/')" class="btn btn-success">Confirm</a>
                                             @endif
-                                            <a onclick="modalPop('{{ $trx->id }}', 'cancel', '/admin/payment/cancel/')" class="btn btn-danger">Cancel</a>
+                                            <a onclick="modalPop('{{ $trx->id }}', 'cancel', '/admin/payment/cancel/')" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

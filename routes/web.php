@@ -117,7 +117,8 @@ Route::get('/lowids/login/{failed}', function ($failed){
     return view('admin/login')->with('msg', $msg);
 })->name('login-admin-failed');
 
-Route::get('/admin/user', 'Admin\UserManagementController@index');
+// User
+Route::get('/admin/customer', 'Admin\CustomerController@index')->name('customer-list');
 
 Route::post('/admin', 'Auth\LoginAdminController@login');
 Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
@@ -224,6 +225,15 @@ Route::prefix('admin/report')->group(function(){
     Route::get('/show', 'Admin\ReportController@show')->name('report-preview');
 });
 
+// Admin
+Route::prefix('admin/user')->group(function(){
+    Route::get('/list', 'Admin\AdminController@index')->name('admin-list');
+    Route::get('/show/{id}', 'Admin\AdminController@show')->name('admin-show');
+    Route::get('/edit/{id}', 'Admin\AdminController@edit')->name('admin-edit');
+    Route::post('/save/{id}', 'Admin\AdminController@update');
+    Route::get('/password/{id}', 'Admin\AdminController@passwordEdit')->name('admin-password-edit');
+    Route::post('/password/save/{id}', 'Admin\AdminController@passwordUpdate');
+});
 
 // End Backend Routing
 

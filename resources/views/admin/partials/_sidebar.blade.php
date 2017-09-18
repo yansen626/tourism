@@ -37,6 +37,11 @@
                             <i class="fa fa-money"></i> Payment Status
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('customer-list') }}">
+                            <i class="fa fa-users"></i> Customer List
+                        </a>
+                    </li>
                     <li><a><i class="fa fa-tags"></i> Product <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('product-list') }}">Show</a></li>
@@ -94,6 +99,11 @@
                         <ul class="nav child_menu">
                             <li><a href="{{ route('status-list') }}">Show</a></li>
                             <li><a href="{{ route('status-create') }}">Create</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-user-secret"></i> Admin <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('admin-list') }}">Show</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-gear"></i> Store Setting <span class="fa fa-chevron-down"></span></a>

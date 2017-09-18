@@ -209,8 +209,8 @@ function modalPop(id, mode, url){
     }
     else if(mode === "cancel"){
         var title = "Warning";
-        var content = "Are you sure you want to cancel?"
-        var yes = "Cancel"
+        var content = "Are you sure you want to delete?"
+        var yes = "Delete"
 
         $("#small-modal-yes").attr("class","btn btn-danger");
         $("#small-modal-title").html(title);

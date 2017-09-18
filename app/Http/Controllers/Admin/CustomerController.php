@@ -14,13 +14,18 @@ use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 
-class UserManagementController extends Controller
+class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:user_admins');
+    }
+
     public function index()
     {
         $users = User::all();
 
-        return View('admin.show-users', compact('users'));
+        return View('admin.show-customers', compact('users'));
         //return view('admin.show_users')->with('users', $users);
     }
 }

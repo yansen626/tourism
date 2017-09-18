@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class LoginAdminController extends Controller
@@ -34,7 +35,7 @@ class LoginAdminController extends Controller
         $pass = $request->input('password');
 
         if(Auth::guard('user_admins')->attempt(['email' => $email, 'password' => $pass])){
-            return view('admin.dashboard')->with('test', 'testing');
+            return Redirect::route('admin-dashboard');
         }
         else{
             return redirect()->back()->withErrors('Wrong Email or Password!!', 'default')->withInput($request->only('email'));

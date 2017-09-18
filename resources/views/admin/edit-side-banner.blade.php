@@ -39,14 +39,15 @@
                             @endif
 
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    Slider Image
-                                    @if($banner->type == 2 || $banner->type == 3)
-                                        ( recommended 270x190 pixel )
-                                    @else
-                                        ( recommended 270x370 pixel )
-                                    @endif
-                                    <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 0;">
+                                    Slider Image <span class="required">*</span><br/>
+                                    <span style="color: red;">
+                                        @if($banner->type == 2 || $banner->type == 3)
+                                            recommended image ratio 4:3 or exact 270x190 pixel
+                                        @else
+                                            recommended image ratio 4:5 or exact 270x370 pixel
+                                        @endif
+                                    </span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     {!! Form::file('image', array('id' => 'image-edit', 'class' => 'file-loading', 'data-slider-image' => asset('storage/banner/'. $banner->image_path))) !!}
