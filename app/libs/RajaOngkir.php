@@ -46,4 +46,33 @@ class RajaOngkir
             return $collect;
         }
     }
+
+
+    public static function getCost($origin, $originType, $destination, $destinationType, $weight, $courier){
+        $client = new Client([
+            'base_uri' => 'https://pro.rajaongkir.com/api/cost',
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'key' => env('RAJAONGKIR_API_KEY')
+            ],
+        ]);
+
+        $request = $client->request('POST', 'https://pro.rajaongkir.com/api/cost', [
+            'form_params' => [
+                'origin' => $origin,
+                'originType' => $originType,
+                'destination' => $destination,
+                'destinationType' => $destinationType,
+                'weight' => $weight,
+                'courier' => $courier,
+            ]
+        ]);
+
+        if($request->getStatusCode() == 200){
+            $collect = json_decode($request->getBody());
+
+            return $collect;
+        }
+    }
 }

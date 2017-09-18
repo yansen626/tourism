@@ -72,7 +72,15 @@
 
                 <!--[if (gte mso 9)|(lte ie 8)]><table align="center" border="0" cellspacing="0" cellpadding="0" width="570"><tr><td align="center" valign="top"><![endif]-->
                 <div class="oldwebkit" style="max-width: 570px;">
-                    <table class="vb-container fullpad" style="border-collapse: separate;border-spacing: 18px;padding-left: 0;padding-right: 0;width: 100%;max-width: 570px;background-color: #fff;" width="570" cellspacing="18" cellpadding="0" border="0" bgcolor="#ffffff"><tbody><tr><td class="long-text links-color" style="text-align: left; font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #3f3f3f;" align="left"><p style="margin: 1em 0px;margin-top: 0px;">Thank you for bought from lowids, these are your items<br></p><ul><li>nama barang (qty) = (harga total) <br data-mce-bogus="1"></li><li>nama barang (qty) = (harga total) </li></ul><p style="margin: 1em 0px;">kindly check your item on <a href="lowids.com" style="color: #3f3f3f;text-decoration: underline;">lowids</a><br data-mce-bogus="1"></p>
+                    <table class="vb-container fullpad" style="border-collapse: separate;border-spacing: 18px;padding-left: 0;padding-right: 0;width: 100%;max-width: 570px;background-color: #fff;" width="570" cellspacing="18" cellpadding="0" border="0" bgcolor="#ffffff"><tbody><tr><td class="long-text links-color" style="text-align: left; font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #3f3f3f;" align="left">
+                                <p style="margin: 1em 0px;margin-top: 0px;">Thank you for bought from lowids, these are your items<br></p>
+                                <ul>
+                                    @foreach($transactionDetail as $detail)
+                                        <li>{{$detail->name}} ({{$detail->quantity}}) = {{$detail->subtotal_price}}
+                                            <br data-mce-bogus="1">
+                                        </li>
+                                    @endforeach
+                                </ul><p style="margin: 1em 0px;">kindly check your item on <a href="lowids.com" style="color: #3f3f3f;text-decoration: underline;">lowids</a><br data-mce-bogus="1"></p>
                                 <p style="margin: 1em 0px;margin-bottom: 0px;"><br></p></td>
                         </tr></tbody></table></div>
                 <!--[if (gte mso 9)|(lte ie 8)]></td></tr></table><![endif]-->

@@ -98,7 +98,7 @@
                                     <td id="grand-total-price">Rp {{$grandTotal}}</td>
                                 </tr>
                                 <tr class="shipping clearfix">
-                                    <th style="color:red">Payment will be charge as admin fee</th>
+                                    <th style="color:red">Price include admin fee</th>
                                 </tr>
                             </table>
                             <a class="btn active" onclick="document.getElementById('myForm').submit();" >Pay</a>

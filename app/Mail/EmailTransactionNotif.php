@@ -29,6 +29,6 @@ class EmailTransactionNotif extends Mailable
      */
     public function build()
     {
-        return $this->view('email.transaction-notification');
+        return $this->view('email.transaction-notification-admin');
     }
 }

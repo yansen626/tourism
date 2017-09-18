@@ -8,12 +8,16 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Address;
+use App\libs\Midtrans;
+use App\libs\RajaOngkir;
+use App\libs\Utilities;
 use App\Http\Controllers\Controller;
+use App\Mail\EmailTransactionNotif;
+use App\Mail\EmailTransactionNotifUser;
+use App\Models\Address;
 use App\Models\Courier;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
-use App\Models\TransferConfirmation;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\DeliveryType;
@@ -21,11 +25,8 @@ use App\Notifications\TransactionNotify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use GuzzleHttp\Client;
-use Webpatser\Uuid\Uuid;
-use App\libs\Utilities;
-use App\Mail\EmailTransactionNotif;
 use Illuminate\Support\Facades\Mail;
+use Webpatser\Uuid\Uuid;
 
 class TransactionController extends Controller
 {
@@ -59,45 +60,32 @@ class TransactionController extends Controller
             }
             $temp++;
         }
+        //address login user
+        $id = Auth::user()->id;
+        $Addressdata = Address::where('user_id', $id)->first();
+
+        //get product total weight
+        $totalWeight = 0;
+        $carts = Cart::where('user_id', 'like', $id)->get();
+        foreach($carts as $cart){
+            $totalWeight += $cart->product->weight;
+        }
 
         //rajaongkir process
-        $client = new Client([
-            'base_uri' => 'https://pro.rajaongkir.com/api/cost',
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'key' => 'b3d50254282ab0e5907bedacf1eb1e3f'
-            ],
-        ]);
+        $collect = RajaOngkir::getCost('151', 'city', $Addressdata->city_id, 'city', (string)$totalWeight, $courierThrow);
+        $results = $collect->rajaongkir->results;
 
+        $resultCollection = collect();
+        foreach ($deliveryTypes as $deliveryType){
+            $resultCollection->put($deliveryType->courier->code."-".$deliveryType->code, $deliveryType->courier->code."-".$deliveryType->code);
+        }
 
-        $request = $client->request('POST', 'https://pro.rajaongkir.com/api/cost', [
-            'form_params' => [
-                'origin' => '151',
-                'originType' => 'city',
-                'destination' => '456',
-                'destinationType' => 'city',
-                'weight' => '1700',
-                'courier' => $courierThrow,
-            ]
-        ]);
-
-        if($request->getStatusCode() == 200){
-            $responseData = json_decode($request->getBody());
-            $results = $responseData->rajaongkir->results;
-
-            $resultCollection = collect();
-            foreach ($deliveryTypes as $deliveryType){
-                $resultCollection->put($deliveryType->courier->code."-".$deliveryType->code, $deliveryType->courier->code."-".$deliveryType->code);
-            }
-
-            foreach($results as $result){
-                foreach ($result->costs as $cost){
-                    if($resultCollection->contains($result->code."-".$cost->service)){
-                        $resultCollection[$result->code."-".$cost->service] = $cost->cost[0]->value;
-                    }
-
+        foreach($results as $result){
+            foreach ($result->costs as $cost){
+                if($resultCollection->contains($result->code."-".$cost->service)){
+                    $resultCollection[$result->code."-".$cost->service] = $cost->cost[0]->value;
                 }
+
             }
         }
         return view('frontend.checkout-step2', compact('resultCollection', 'deliveryTypes'));
@@ -228,108 +216,13 @@ class TransactionController extends Controller
         $enabledPayments = $request['shippingRadio'];
         $adminFee   = (int)$request['selected-fee'];
 
-        //get all item from DB
-        $carts = Cart::where('user_id', 'like', $userId)->get();
-        $totalPrice = 0;
-
-        //transaction_details 1
-        $uniqId = uniqid();
-        $transactionDetailsArr = [];
-        $transactionDetailsArr = array_add($transactionDetailsArr, 'order_id', $uniqId);
-
-        //item_details
-        $itemArr = [];
-        foreach($carts as $cart){
-            $PriceDB = (int)$cart->getOriginal('total_price') / $cart->quantity;
-            $totalPriceDB = (int)$cart->getOriginal('total_price');
-            $totalPrice += $totalPriceDB;
-
-            //set item detail
-            $arrItem = [];
-            $arrItem = array_add($arrItem, 'id', $cart->id);
-            $arrItem = array_add($arrItem, 'price', $PriceDB);
-            $arrItem = array_add($arrItem, 'quantity', $cart->quantity);
-            $arrItem = array_add($arrItem, 'name', $cart->Product->name);
-            array_push($itemArr, $arrItem);
-
-            $selectedCourier = $cart->Courier->description;
-            $selectedDeliveryType = $cart->DeliveryType->description;
-            $ShippingPrice = (int)$cart->getOriginal('delivery_fee');
-
-            //set order id and admin fee to cart DB
-            $cart->order_id = $uniqId;
-            $cart->admin_fee = $adminFee;
-            $cart->payment_method = $enabledPayments == 'credit_card'?2:1;
-
-            $cart->save();
-        }
-        $arrShipping = [];
-        $arrShipping = array_add($arrShipping, 'id', uniqid());
-        $arrShipping = array_add($arrShipping, 'price', $ShippingPrice);
-        $arrShipping = array_add($arrShipping, 'quantity', 1);
-        $arrShipping = array_add($arrShipping, 'name', 'Ongkos Kirim '.$selectedCourier.'-'.$selectedDeliveryType);
-
-        array_push($itemArr, $arrShipping);
-
-        $arrAdminFee = [];
-        $arrAdminFee = array_add($arrAdminFee, 'id', uniqid());
-        $arrAdminFee = array_add($arrAdminFee, 'price', $adminFee);
-        $arrAdminFee = array_add($arrAdminFee, 'quantity', 1);
-        $arrAdminFee = array_add($arrAdminFee, 'name', 'Biaya admin');
-
-        array_push($itemArr, $arrAdminFee);
-
-        $totalPrice += $ShippingPrice;
-        $totalPrice += $adminFee;
-
-        //transaction_details 2
-        $transactionDetailsArr = array_add($transactionDetailsArr, 'gross_amount', $totalPrice);
-
-        //vtweb
-        $vtWebArr = [];
-        $vtWebArr = array_add($vtWebArr, 'credit_card_3d_secure', true);
-        // credit card = credit_card
-        // bank transfer = bank_transfer
-        // e-wallet =
-        // direct debit = mandiri_clickpay, cimb_clicks, bri_epay, bca_klikpay
-
-//      $vtWebArr = array_add($vtWebArr, 'enabled_payments', ['credit_card', 'mandiri_clickpay', 'cimb_clicks', 'bca_klikpay', 'bri_epay', 'echannel','permata_va','bca_va','other_va']);
-        $vtWebArr = array_add($vtWebArr, 'enabled_payments', [$enabledPayments]);
-        $vtWebArr = array_add($vtWebArr, 'finish_redirect_url', 'http://localhost:8000/checkout-success/'.$userId);
-        $vtWebArr = array_add($vtWebArr, 'unfinish_redirect_url', 'http://localhost:8000/checkout-failed');
-        $vtWebArr = array_add($vtWebArr, 'error_redirect_url', 'http://localhost:8000/checkout-failed');
-
-
-        $transactionDataArr = [];
-        $transactionDataArr = array_add($transactionDataArr, 'payment_type', 'vtweb');
-        $transactionDataArr = array_add($transactionDataArr, 'transaction_details', $transactionDetailsArr);
-        $transactionDataArr = array_add($transactionDataArr, 'item_details', $itemArr);
-        $transactionDataArr = array_add($transactionDataArr, 'vtweb', $vtWebArr);
-
-        //create json for sending to midtrans
-        json_encode($transactionDataArr);
+        //set data to request
+        $transactionDataArr = Midtrans::setRequestData($userId, $adminFee, $enabledPayments);
 
         //sending to midtrans
-        $serverKey = "VT-server-2NH8CTXcytpqG1GcwFEtvq0s";
-        $base64ServerKey = base64_encode($serverKey);
-        $client = new Client([
-            'base_uri' => 'https://api.sandbox.midtrans.com/v2/charge',
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Basic '.$base64ServerKey
-            ],
-        ]);
-        $request = $client->request('POST', 'https://api.sandbox.midtrans.com/v2/charge', [
-            'json' => $transactionDataArr
-        ]);
+        $redirectUrl = Midtrans::sendRequest($transactionDataArr);
 
-        if($request->getStatusCode() == 200){
-            $responseData = json_decode($request->getBody());
-            $redirectUrl = $responseData->redirect_url;
-
-            return redirect($redirectUrl);
-        }
+        return redirect($redirectUrl);
     }
 
     //payment online success
@@ -441,6 +334,16 @@ class TransactionController extends Controller
 
     //payment online failed
     public function CheckoutProcessFailed(){
+
+        $transactionDB = Transaction::where('order_id', '=', '59ba09dc171c4')->first();
+//        $userMail = $transactionDB->user;
+//
+//        $userMail->notify(new TransactionNotify($transactionDB));
+
+        $userMail = "yansen626@gmail.com";
+        $emailBody = new EmailTransactionNotifUser($transactionDB);
+        Mail::to($userMail)->send($emailBody);
+
         return view('frontend.checkout-step4-failed');
     }
 
@@ -474,9 +377,7 @@ class TransactionController extends Controller
 
             //send email to notify buyer transaction success
             $userMail = $transactionDB->user->email;
-            TransactionNotify::toMail();
-            $emailBody = new EmailTransactionNotif();
-            Mail::to($userMail)->send($emailBody);
+            $userMail->notify(new TransactionNotify($transactionDB));
 
             //send email to notify admin new transaction
             $userMail = "yansen626@gmail.com";
