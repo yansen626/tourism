@@ -1,10 +1,8 @@
 @extends('layouts.frontend')
 
 @section('body-content')
-    <!-- BREADCRUMBS -->
-    <section class="breadcrumb parallax margbot30"></section>
-    <!-- //BREADCRUMBS -->
 
+    <section class="breadcrumb parallax margbot30"></section>
 
     <!-- TOVAR DETAILS -->
     <section class="tovar_details padbot70">
@@ -79,8 +77,7 @@
                                 @endif
                             </div>
                             <div class="tovar_view_btn">
-                                <a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i><span>Add to bag</span></a>
-                                <a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>
+                                <div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>
                             </div>
                         </div>
                     </div><!-- //CLEARFIX -->

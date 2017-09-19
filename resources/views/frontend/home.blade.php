@@ -63,8 +63,8 @@
 										<img class="img_h" src="{{ URL::asset('frontend_images/tovar/women/4_2.jpg') }}" alt="" />
 									</div>
 									<div class="tovar_item_btns">
-										<a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $featuredProducts[$i]->id }}')"><i class="fa fa-shopping-cart"></i></a>
-										<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>
+										<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+										{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
 									</div>
 								</div>
 								<div class="tovar_description clearfix">
@@ -114,7 +114,7 @@
 										</div>
 										<div class="tovar_item_btns">
 											<a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $featuredProducts[$i]->id }}')" ><i class="fa fa-shopping-cart"></i></a>
-											<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>
+											{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
 										</div>
 									</div>
 									<div class="tovar_description clearfix">

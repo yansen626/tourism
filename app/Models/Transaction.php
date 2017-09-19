@@ -15,6 +15,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $id
  * @property string $user_id
  * @property int $payment_method_id
+ * @property string $va_bank
+ * @property string $va_number
+ * @property string $bill_key
+ * @property string $biller_code
  * @property string $invoice
  * @property string $order_id
  * @property int $payment_code
@@ -89,6 +93,10 @@ class Transaction extends Eloquent
 	    'id',
 		'user_id',
 		'payment_method_id',
+        'va_bank',
+        'va_number',
+        'bill_key',
+        'biller_code',
         'invoice',
         'order_id',
 		'payment_code',

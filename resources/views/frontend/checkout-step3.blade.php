@@ -76,9 +76,10 @@
                             <ul class="cart-items">
                                 @foreach($carts as $cart)
                                     <li class="clearfix">
-                                        <img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
-                                        <a href="{{ route('product-detail', ['id' => $cart->Product->id]) }}" class="cart_item_title">{{$cart->product->name}}</a>
-                                        <span class="cart_item_price">Rp {{$cart->product->price}}</span>
+                                        {{--<img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />--}}
+                                        <div class="cart-image-header" style="background-image: url('{{ asset('storage/product/'. $cart->product->product_image()->where('featured', 1)->first()->path) }}')"></div>
+                                        <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}" class="cart_item_title">{{ $cart->product->name }}</a>
+                                        <span class="cart_item_price">Rp {{ $cart->product->price_discounted }}</span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -105,8 +106,8 @@
                                 <td>Rp {{$grandTotal}}</td>
                             </tr>
                         </table>
-                        <a class="btn active" href="{{ Route('checkout4') }}" >Select Payment</a>
-                        <a class="btn inactive" href="{{ route('checkout2') }}" >Back</a>
+                        <a class="btn btn-primary" href="{{ Route('checkout4') }}" >Select Payment</a>
+                        <a class="btn btn-primary" href="{{ route('checkout2') }}" >Back</a>
                     </div><!-- //REGISTRATION FORM -->
                 </div><!-- //SIDEBAR -->
             </div><!-- //ROW -->

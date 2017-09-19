@@ -14,10 +14,9 @@
 //Build in Routes for Auth
 Auth::routes();
 
-Route::get('/login', function (){
-    return view('auth/login');
-});
-Route::post('/login', 'Auth\LoginController@authenticate')->name('login');
+// Login Frontend
+Route::get('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
@@ -35,8 +34,9 @@ Route::get('/', 'Frontend\HomeController@Home')->name('home');*/
 Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsController@products')->name('products');
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
 Route::get('search/{key}', 'Frontend\ProductsController@search')->name('product-search');
-//cart process
-Route::get('cart-list', 'Frontend\CartController@CartShowAll')->name('cart-list');
+
+// Cart
+Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
 Route::post('/add-cart', [
     'uses' => 'Frontend\CartController@AddToCart',
     'as' => 'addCart'
@@ -67,7 +67,7 @@ Route::post('/checkout-mid', [
     'as' => 'checkoutMid'
 ]);
 Route::post('/checkout-notification', [
-    'uses' => 'Frontend\TransactionController@CheckoutProcessNotification',
+    'uses' => 'MidtransController@notification',
     'as' => 'checkoutNotification'
 ]);
 // End Frontend Routing

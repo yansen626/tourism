@@ -32,3 +32,30 @@
 .sale_caption1{
     width: 100%;
 }
+
+.cart-image{
+    background: no-repeat center;
+    background-size: cover;
+    height: 100px;
+    width: 100px;
+}
+
+.cart-image-header{
+    float: left;
+    margin-right: 20px;
+    background: no-repeat center;
+    background-size: cover;
+    height: 60px;
+    width: 60px;
+}
+
+.product-list-image{
+    background: no-repeat center;
+    background-size: contain;
+    height: inherit;
+    width: 200px;
+}
+
+.tovar_item_btns .add_bag .fa{
+    line-height: 46px !important;
+}

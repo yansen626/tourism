@@ -14,7 +14,7 @@
             <h3 class="pull-left"><b>Shopping bag</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('product-list', ['categoryId' => 0]) }}" >Back to shop<i class="fa fa-angle-right"></i></a>
+                {{--<a href="{{ route('product-list', ['categoryId' => 0]) }}" >Back to shop<i class="fa fa-angle-right"></i></a>--}}
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -49,23 +49,21 @@
                             @php ( $qtyId = "cart_quantity_".$cart->id )
                             @php ( $productTotalId = "product-subtotal-".$cart->id )
                             <tr class="cart_item" id="{{ $trId }}">
-                                <td class="product-thumbnail"><a href="product-page.html" ><img src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" width="100px" alt="" /></a></td>
+                                <td class="product-thumbnail">
+                                        {{--<img src="{{ asset('storage\product\\'. $cart->product->product_image()->where('featured', 1)->first()->path) }}" width="100px" alt="" /></a>--}}
+                                    <div class="cart-image" style="background-image: url('{{ asset('storage/product/'. $cart->product->product_image()->where('featured', 1)->first()->path) }}')"></div>
+                                </td>
                                 <td class="product-name">
                                     <a href="{{ route('product-detail', ['id' => $cart->Product->id]) }}"> {{ $cart->Product->name }}</a>
                                     <ul class="variation">
                                         <li class="variation-Color">Category: <span>{{$cart->Product->Category->name}}</span></li>
                                     </ul>
                                 </td>
-
-                                <td class="product-price">Rp. {{$cart->Product->price}}</td>
-
+                                <td class="product-price">Rp. {{$cart->product->price_discounted}}</td>
                                 <td class="product-quantity">
                                     <input type="text" id="{{$qtyId}}" value="{{$cart->quantity}}" style="width:50%" onkeyup="editCartQuantity('{{ $cart->id }}')"/>
                                 </td>
-
                                 <td class="product-subtotal" id="{{$productTotalId}}">Rp. {{$cart->total_price}}</td>
-
-                                {{--<td class="product-remove"><a href="javascript:void(0);" onclick="deleteCart('{{ $cart->id }}')"><i>X</i></a></td>--}}
                                 <td class="product-remove"><a href="{{ route('delete-cart', ['cartId' => $cart->id]) }}"><i>X</i></a></td>
                             </tr>
                         @endforeach
@@ -97,9 +95,12 @@
                             </tr>
                         </table>
 
-                        
-                        <a class="btn active" href="{{ route('checkout') }}" >Check out</a>
-                        <a class="btn inactive" href="{{ route('product-list', ['categoryId' => 0]) }}" >Continue shopping</a>
+                        @if($carts->count() > 0)
+                            <a class="btn btn-primary" href="{{ route('checkout') }}" >Check out</a>
+                        @else
+                            <button class="btn btn-primary" disabled>Check out</button>
+                        @endif
+                        {{--<a class="btn inactive" href="{{ route('product-list', ['categoryId' => 0]) }}" >Continue shopping</a>--}}
                     </div><!-- //REGISTRATION FORM -->
                 </div><!-- //SIDEBAR -->
             </div><!-- //ROW -->

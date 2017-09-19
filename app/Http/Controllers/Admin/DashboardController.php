@@ -14,19 +14,18 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Notifications\NewOrder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class DashboardController extends Controller
-{public function __construct()
 {
-    $this->middleware('auth:user_admins');
-}
-
+    public function __construct()
+    {
+        $this->middleware('auth:user_admins');
+    }
 
     public function index(){
-
-//        $user = Auth::user();
-//        $user->notify(new NewOrder());
-
         $trxTotal = Transaction::where('status_id', 8)->get()->count();
         $customerTotal = User::where('status_id',1)->get()->count();
 

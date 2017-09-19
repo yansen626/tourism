@@ -1,9 +1,8 @@
 @extends('layouts.frontend')
 
 @section('body-content')
-    <section class="breadcrumb parallax margbot30"></section>
-    <!-- //BREADCRUMBS -->
 
+    <section class="breadcrumb parallax margbot30"></section>
 
     <!-- PAGE HEADER -->
     <section class="page_header">
@@ -82,7 +81,7 @@
 
                         {{--<div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>--}}
 
-                        <input type="submit" value="Submit" class="btn active pull-right checkout_block_btn">
+                        <input type="submit" value="Continue" class="btn active pull-right checkout_block_btn">
 
                     {{--<a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>--}}
                 </div>

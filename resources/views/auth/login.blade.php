@@ -20,7 +20,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('signin') }}">
                         {{ csrf_field() }}
 
                         <input type="text" name="email" placeholder="Email" />
@@ -29,6 +29,7 @@
                             <div class="pull-left"><input type="checkbox" id="categorymanufacturer1" name="remember"/><label for="categorymanufacturer1">Keep me signed</label></div>
                             <div class="pull-right"><a class="forgot_pass" href="/password/reset" >Forgot password?</a></div>
                         </div>
+                        {{ Form::hidden('redirect', '', array('id' => 'redirect', 'value' => $redirect)) }}
                         <div class="center"><input type="submit" value="Login"></div>
                     </form>
                 </div>

@@ -20,62 +20,68 @@ class CartController
 {
     //
     public function CartShowAll(){
-
         if (Auth::check())
         {
-            //userId sesuai dengan session
             $userId = Auth::user()->id;
 
-            $carts = Cart::where('user_id', 'like', $userId)->get();
+            $carts = Cart::where('user_id', $userId)->get();
 
-            $totalPriceTem = Cart::where('user_id', 'like', $userId)->sum('total_price');
+            $totalPriceTem = Cart::where('user_id', $userId)->sum('total_price');
             $totalPrice = number_format($totalPriceTem, 0, ",", ".");
 
             return view('frontend.carts', compact('carts','totalPrice', 'totalPriceTem'));
         }
         else
         {
-            return redirect()->route('landing');
+            return redirect()->route('login');
         }
     }
 
     //
     public function AddToCart(Request $request){
-        //userId sesuai dengan session
-        $user = Auth::user();
-        $userId = $user->id;
+        try{
+            if (!Auth::check()){
+                return response()->json(['success' => false, 'error' => 'login']);
+            }
 
-        $productId   = $request['product_id'];
-        $alreadyInCart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
-        if($alreadyInCart){
-            $CartDB = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
-            $price = $CartDB->getOriginal('total_price') / $CartDB->quantity;
-            $newQuantity = $CartDB->quantity + 1;
-            $CartDB->quantity = $newQuantity;
-            $CartDB->total_price = $newQuantity * $price;
+            $user = Auth::user();
+            $userId = $user->id;
 
-            $CartDB->save();
+            $productId   = $request['product_id'];
+            $alreadyInCart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
+            if($alreadyInCart){
+                $cart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
+
+                $newQuantity = $cart->quantity + 1;
+                $cart->quantity = $newQuantity;
+                $cart->total_price = $newQuantity * $cart->product->getOriginal('price_discounted');
+
+                $cart->save();
+            }
+            else{
+                $product = Product::find($productId);
+
+                Cart::Create([
+                    'product_id' => $productId,
+                    'user_id' => $userId,
+                    'quantity' => 1,
+                    'total_price' => $product->getOriginal('price_discounted')
+                ]);
+            }
+
+            //edit session data
+            $userId = Auth::user()->id;
+            $carts = Cart::where('user_id', 'like', $userId)->get();
+            $cartTotal = $carts->count();
+            Session::put('cartList', $carts);
+            Session::put('cartTotal', $cartTotal);
+
+            return response()->json(['success' => true]);
         }
-        else{
-            $singleProduct = Product::find($productId);
-
-            Cart::Create([
-                'product_id' => $productId,
-                'user_id' => $userId,
-                'quantity' => 1,
-                'total_price' => $singleProduct->getOriginal('price')
-            ]);
-
+        catch (\Exception $ex){
+            error_log($ex);
+            return response()->json(['success' => false, 'error' => 'exception']);
         }
-
-        //edit session data
-        $userId = Auth::user()->id;
-        $carts = Cart::where('user_id', 'like', $userId)->get();
-        $cartTotal = $carts->count();
-        Session::put('cartList', $carts);
-        Session::put('cartTotal', $cartTotal);
-
-        return null;
     }
 
     //
@@ -106,15 +112,16 @@ class CartController
         $cartId   = $request['cart_id'];
         $quantity   = $request['quantity'];
 
-        $CartDB = Cart::find($cartId);
+        $cart = Cart::find($cartId);
 
-        $price = $CartDB->getOriginal('total_price') / $CartDB->quantity;
+        //$price = $CartDB->getOriginal('total_price') / $CartDB->quantity;
+        $price = $cart->product->getOriginal('price_discounted');
         $newSinglePrice = $quantity * $price;
         $newSinglePriceFormated = number_format($newSinglePrice, 0, ",", ".");
 
-        $CartDB->quantity = $quantity;
-        $CartDB->total_price = $newSinglePrice;
-        $CartDB->save();
+        $cart->quantity = $quantity;
+        $cart->total_price = $newSinglePrice;
+        $cart->save();
 
         $totalPriceTem = Cart::where('user_id', 'like', $userId)->sum('total_price');
         $newTotalPriceFormated = number_format($totalPriceTem, 0, ",", ".");

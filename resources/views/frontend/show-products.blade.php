@@ -27,7 +27,7 @@
                     <div class="sidepanel widget_categories">
                         <h3>Product Categories</h3>
                         <ul>
-                            <li><a href="{{ route('products', ['categoryId' => 0, 'categoryName' => "all"]) }}" >All Category</a></li>
+                            <li><a href="{{ route('products', ['categoryId' => 0, 'categoryName' => "all"]) }}" >All</a></li>
                             @foreach($categories as $category)
                                 <li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{$category->name}}</a></li>
                             @endforeach
@@ -76,7 +76,7 @@
                             <p>@if($selectedCategory->count() > 0)
                                     {{$selectedCategory->name}}
                                    @else
-                                   All Category
+                                   All Categories
                                 @endif
                             </p>
                             <span>{{$productCount}} Items</span>
@@ -132,6 +132,8 @@
                                             @if($product->product_image->count() > 0)
                                                 <img class="img" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
                                                 <img class="img_h" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+                                                {{--<div class="img product-list-image" style="background-image: url('{{ asset('storage/product/'. $product->product_image()->where('featured', 1)->first()->path) }}')"></div>--}}
+                                                {{--<div class="img_h product-list-image" style="background-image: url('{{ asset('storage/product/'. $product->product_image()->where('featured', 1)->first()->path) }}')"></div>--}}
                                             @else
                                                 <img class="img" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
                                                 <img class="img_h" src="{{ URL::asset('frontend_images/tovar/women/1_2.jpg') }}" alt="" />

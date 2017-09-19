@@ -13,7 +13,14 @@ function addToCart(productId){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success : function(response){
-            $("#add-cart-modal").modal()
+            if(response.success === true){
+                $("#add-cart-modal").modal()
+            }else{
+                if(response.error === "login"){
+                    var redirect = window.location.href;
+                    window.location = "/login?redirect=" + redirect;
+                }
+            }
         },
         error:function(){
 

@@ -27,7 +27,7 @@ class ProductsController extends Controller
         {
             $selectedCategory = new Category([
                 'id' => 0,
-                'name' => 'All Category'
+                'name' => 'All'
             ]);
         }
 
@@ -139,7 +139,7 @@ class ProductsController extends Controller
         $categories = Category::all();
         $selectedCategory = new Category([
             'id' => 0,
-            'name' => 'All Category'
+            'name' => 'All'
         ]);
 
         if(!empty(request()->category) && request()->category != '-1'){

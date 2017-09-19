@@ -76,39 +76,35 @@
                     @php ( $cartTotal = Session::get('cartTotal')  )
                     @php ( $cartList = Session::get('cartList')  )
 
+                    @if($cartTotal != '0')
                     <a class="shopping_bag_btn" id="menu-cart" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping cart</p><span>{{$cartTotal}}</span></a>
                     <div class="cart" id="submenu-cart">
                         <ul class="cart-items">
-                            @if($cartTotal > 1)
-                                @for($i=0; $i < 2; $i++)
-                                    <li class="clearfix">
-                                        <img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
-                                        <a href="product-page.html" class="cart_item_title">{{$cartList[$i]->Product->name}}</a>
-                                        <span class="cart_item_price">{{$cartList[$i]->quantity}} x Rp {{$cartList[$i]->Product->price}}</span>
-                                    </li>
-                                @endfor
-                            @else
-                                @foreach($cartList as $cart)
-                                    <li class="clearfix">
-                                        <img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
-                                        <a href="product-page.html" class="cart_item_title">{{$cart->Product->name}}</a>
-                                        <span class="cart_item_price">{{$cart->quantity}} x Rp {{$cart->Product->price}}</span>
-                                    </li>
-                                @endforeach
-                            @endif
-
+                            @php( $idx = 1 )
+                            @foreach($cartList as $cart)
+                                @if($idx == 3)
+                                    @break
+                                @endif
+                                <li class="clearfix">
+                                    <div class="cart-image-header" style="background-image: url('{{ asset('storage/product/'. $cart->product->product_image()->where('featured', 1)->first()->path) }}')"></div>
+                                    <a class="cart_item_title">{{$cart->product->name}}</a>
+                                    <span class="cart_item_price">{{$cart->quantity}} x Rp {{$cart->product->price_discounted}}</span>
+                                </li>
+                                @php( $idx++ )
+                            @endforeach
                         </ul>
                         <div class="cart_total">
-                            <a class="btn active" href="{{ route('cart-list') }}">View Cart</a>
+                            <a class="btn btn-primary" href="{{ route('cart-list') }}">View Cart</a>
                         </div>
                     </div>
+                    @else
+                        <a class="shopping_bag_btn" href="{{ route('cart-list') }}" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p></a>
+                    @endif
                 @else
-                    <a class="shopping_bag_btn" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p></a>
+                    <a class="shopping_bag_btn" href="{{ route('cart-list') }}" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p></a>
                 @endif
 
-
             </div><!-- //SHOPPING BAG -->
-
 
             {{--<!-- LOVE LIST -->--}}
             {{--<div class="love_list">--}}

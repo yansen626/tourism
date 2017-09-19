@@ -65,11 +65,16 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status_id' => 1])) {
             // Authentication passed...
-            return redirect()->action('Frontend\HomeController@home');
+            error_log(Input::get('redirect'));
+            if(!empty(Input::get('redirect'))){
+                return redirect(Input::get('redirect'));
+            }
+            else{
+                return redirect()->action('Frontend\HomeController@home');
+            }
         }
         else
         {
-            //return redirect()->route('login')->withErrors('Verify Your Email First!!');
             $user = User::where('email',Input::get('email'))->first();
             if($user != null && Hash::check(Input::get('password'), $user->getAuthPassword())){
                 $emailVerify = new EmailVerification($user);
@@ -85,5 +90,13 @@ class LoginController extends Controller
 
     public function email(){
 
+    }
+
+    public function login(){
+        $redirect = "";
+        if(!empty(request()->redirect)){
+            $redirect = request()->redirect;
+        }
+        return view('auth/login', compact('redirect'));
     }
 }
