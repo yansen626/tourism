@@ -46,7 +46,8 @@ Route::post('/edit-cart', [
     'uses' => 'Frontend\CartController@EditQuantityCart',
     'as' => 'editCart'
 ]);
-//transaction
+
+// Payment
 Route::get('checkout-1', 'Frontend\TransactionController@CheckoutProcess1')->name('checkout');
 Route::get('checkout-2', 'Frontend\TransactionController@CheckoutProcess2')->name('checkout2');
 Route::post('/checkout2-submit', [
@@ -55,8 +56,8 @@ Route::post('/checkout2-submit', [
 ]);
 Route::get('checkout-3', 'Frontend\TransactionController@CheckoutProcess3')->name('checkout3');
 Route::get('checkout-4', 'Frontend\TransactionController@CheckoutProcess4')->name('checkout4');
-Route::get('checkout-success/{user_id}', 'Frontend\TransactionController@CheckoutProcessSuccess')->name('checkoutSuccess');
-Route::get('checkout-failed', 'Frontend\TransactionController@CheckoutProcessFailed')->name('checkoutFailed');
+Route::get('checkout-success/{userId}', 'MidtransController@success')->name('checkoutSuccess');
+Route::get('checkout-failed', 'Frontend\TTraransactionController@CheckoutProcessFailed')->name('checkoutFailed');
 Route::get('checkout-bank', 'Frontend\TransactionController@CheckoutProcessBank')->name('checkoutBank');
 Route::post('/checkout-bank-submit', [
     'uses' => 'Frontend\TransactionController@CheckoutProcessBankSubmit',

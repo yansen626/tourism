@@ -59,3 +59,80 @@
 .tovar_item_btns .add_bag .fa{
     line-height: 46px !important;
 }
+
+footer{
+    background-color: #8ac657;
+}
+
+.foot_address{
+    color: #000000;
+}
+
+.copyright{
+    background-color: #81B951;
+}
+
+.copyright_inf span{
+    color: #000000;
+}
+
+.copyright .back_top{
+    color: #000000;
+}
+
+.foot_logo_img{
+    height: 110px;
+    max-width: 100%;
+}
+
+.foot_phone span{
+    color: #000000;
+    font-weight: 900;
+    line-height: 26px;
+    font-size: 16px;
+}
+
+.foot_mail a{
+    color: #000000 !important;
+}
+
+footer h4{
+    color: #000000;
+}
+
+.top_search_form .fa{
+    line-height: 20px !important;
+}
+
+.menu_block {
+    background-color: #81B951;
+}
+
+#menu-profile{
+    border-left: 0;
+    border-right: 1px solid #e9e9e9;
+}
+
+header{
+    position: static;
+}
+
+.margtop60{
+    margin-top: 60px;
+}
+
+.breadcrumb{
+    min-height: 0;
+}
+
+.menu_block *{
+    z-index: 9999;
+}
+
+/*.shopping_bag.cart_active .shopping_bag_btn{*/
+    /*background: #E5E4D7 !important;*/
+/*}*/
+
+/*.cart{*/
+    /*background-color: #8ac657 !important;*/
+/*}*/

@@ -4,18 +4,18 @@
 <header>
 
     <!-- TOP INFO -->
-    <div class="top_info">
+    {{--<div class="top_info">--}}
 
-        <!-- CONTAINER -->
-        <div class="container clearfix">
-            <ul class="secondary_menu">
+        {{--<!-- CONTAINER -->--}}
+        {{--<div class="container clearfix">--}}
+            {{--<ul class="secondary_menu">--}}
                 {{--<li><a href="my-account.html" >my account</a></li>--}}
                 {{--<li><a href="my-account.html" >Register</a></li>--}}
-            </ul>
+            {{--</ul>--}}
             {{--<div class="live_chat"><a href="javascript:void(0);" ><i class="fa fa-comment-o"></i> Live chat</a></div>--}}
             {{--<div class="phone_top">have a question? <a href="tel:1 800 888 2828" >1 800 888 2828</a></div>--}}
-        </div><!-- //CONTAINER -->
-    </div><!-- TOP INFO -->
+        {{--</div><!-- //CONTAINER -->--}}
+    {{--</div><!-- TOP INFO -->--}}
 
     <!-- MENU BLOCK -->
     <div class="menu_block">
@@ -24,13 +24,13 @@
         <div class="container clearfix">
 
             <!-- LOGO -->
-            <div class="logo">
-                <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/logo.png') }}" alt="" /></a>
+            <div class="logo text-center">
+                <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/lowids-logo.png') }}" alt="" style="height: 60px;"/></a>
             </div><!-- //LOGO -->
 
             <!-- USER MENU -->
             <div class="shopping_bag">
-                <a class="shopping_bag_btn" id="menu-profile" href="javascript:void(0);" style="padding:15px"><i class="fa fa-user fa-2x"></i><p></p></a>
+                <a class="shopping_bag_btn" id="menu-profile" href="javascript:void(0);"><i class="fa fa-user"></i><p></p></a>
                 <div class="cart" id="submenu-profile" >
                     <ul class="cart-items">
                         @if(auth()->check())

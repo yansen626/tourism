@@ -245,6 +245,5 @@
             }
         }
     </script>
+    @include('frontend.partials._modal')
 @endsection
-
-@include('frontend.partials._modal')

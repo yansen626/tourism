@@ -25,6 +25,7 @@ use App\Notifications\TransactionNotify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Monolog\Handler\StreamHandler;
@@ -80,7 +81,7 @@ class TransactionController extends Controller
         $totalWeight = 0;
         $carts = Cart::where('user_id', 'like', $id)->get();
         foreach($carts as $cart){
-            $totalWeight += $cart->product->weight;
+            $totalWeight += ($cart->product->weight * $cart->quantity);
         }
 
         //rajaongkir process
@@ -109,6 +110,11 @@ class TransactionController extends Controller
         {
             return redirect()->route('landing');
         }
+
+        if(empty(Input::get('shippingRadio'))){
+            return redirect()->route('checkout2');
+        }
+
         $user = Auth::user();
         $userId = $user->id;
 
@@ -225,7 +231,12 @@ class TransactionController extends Controller
         $user = Auth::user();
         $userId = $user->id;
 
-        $enabledPayments = $request['shippingRadio'];
+        if(empty(Input::get('payment'))){
+            return redirect()->route('checkout4');
+        }
+
+        $enabledPayments = Input::get('payment');
+
         $adminFee   = (int)$request['selected-fee'];
 
         //set data to request
@@ -235,119 +246,6 @@ class TransactionController extends Controller
         $redirectUrl = Midtrans::sendRequest($transactionDataArr);
 
         return redirect($redirectUrl);
-    }
-
-    //payment online success
-    public function CheckoutProcessSuccess($userId){
-        try{
-            //transactions data
-            $dateTimeNow = Carbon::now('Asia/Jakarta');
-            $carts = Cart::where('user_id', $userId)->get();
-            $userData = User::find($userId);
-            $userAddress = Address::where('user_id', $userId)->first();
-
-            $totalPrice = 0;
-            $totalPriceWithDeliveryFee = 0;
-
-            foreach ($carts as $cart) {
-                //$totalPriceDB = (int)$cart->getOriginal('total_price');
-                $subtotalPrice = $cart->product->getOriginal('price_discounted') * $cart->quantity;
-                $totalPrice += $subtotalPrice;
-                $orderId = $cart->order_id;
-                $deliveryFee = (int)$cart->getOriginal('delivery_fee');
-                $adminFee = (int)$cart->getOriginal('admin_fee');
-                $paymentMethod = $cart->payment_method;
-            }
-            $totalPriceWithDeliveryFeeAdminFee = $totalPrice + $deliveryFee + $adminFee;
-
-            //insert into transactions DB
-            $transaction = Transaction::create([
-                'id'                => Uuid::generate(),
-                'user_id'           => $userId,
-                'order_id'          => $orderId,
-                'total_payment'     => $totalPriceWithDeliveryFeeAdminFee,
-                'total_price'       => $totalPrice,
-                'address_name'      => $userAddress->name,
-                'phone'             => $userData->phone,
-                'province_id'       => $userAddress->province_id,
-                'province_name'     => $userAddress->province_name,
-                'city_id'           => $userAddress->city_id,
-                'city_name'         => $userAddress->city_name,
-                'subdistrict_id'    => $userAddress->subdistrict_id,
-                'subdistrict_name'  => $userAddress->subdistrict_name,
-                'postal_code'       => $userAddress->postal_code,
-                'address_detail'    => $userAddress->detail,
-                'courier'           => $carts[0]->courier->description,
-                'courier_code'      => $carts[0]->courier->code,
-                'delivery_type'     => $carts[0]->deliveryType->description,
-                'delivery_type_code'=> $carts[0]->deliveryType->code,
-                'delivery_fee'      => $deliveryFee,
-                'admin_fee'         => $adminFee,
-                'status_id'         => 3,
-                'created_on'        => $dateTimeNow->toDateTimeString(),
-                'created_by'        => $userId
-            ]);
-
-            if($paymentMethod == "credit_card"){
-                $transaction->payment_method_id = 2;
-                $transaction->paid_date = $dateTimeNow->toDateTimeString();
-                $transaction->status_id = 4;
-            }
-            else{
-                $transaction->payment_method_id = 1;
-            }
-            $transaction->save();
-
-            $transaction->invoice = Utilities::GenerateInvoice();
-            $transaction->save();
-
-            $savedId = $transaction->id;
-
-            //set transaction detail
-            foreach ($carts as $cart) {
-                $id = Uuid::generate();
-                $transactionDetail = TransactionDetail::create([
-                    'id'                => $id,
-                    'transaction_id'    => $savedId,
-                    'product_id'        => $cart->product_id,
-                    'name'              => $cart->product->name,
-                    'weight'            => $cart->product->weight,
-                    'price_basic'       => $cart->product->getOriginal('price_discounted'),
-                    'quantity'          => $cart->quantity,
-                    'subtotal_price'    => $cart->getOriginal('total_price'),
-                    'created_on'        => $dateTimeNow->toDateTimeString(),
-                    'created_by'        => $userId
-                ]);
-
-                if (!empty ($cart->Product->discount)) {
-                    $discountTemp = $cart->product->getOriginal('discount');
-                    $transactionDetail->discount = $discountTemp;
-                }
-                if (!empty ($cart->product->discount_flat)) {
-                    $discountFlatTemp = $cart->product->getOriginal('discount_flat');
-                    $transactionDetail->discount_flat = $discountFlatTemp;
-                }
-                if (!empty ($cart->product->price_discounted)){
-                    $priceDiscountTemp = $cart->product->getOriginal('price_discounted');
-                    $transactionDetail->price_final = $priceDiscountTemp;
-                }
-                else{
-                    $transactionDetail->price_final = $cart->product->getOriginal('price');
-                }
-
-                $transactionDetail->save();
-            }
-
-            //delete cart from database
-            foreach($carts as $cart){
-                $cart->delete();
-            }
-
-            return redirect()->route('user-payment-list');
-        }
-        catch(\Exception $ex){
-            Utilities::ExceptionLog($ex);
-        }
     }
 
     //payment online failed

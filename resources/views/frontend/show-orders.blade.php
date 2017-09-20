@@ -163,18 +163,20 @@
     <!-- /track modal -->
 
     <script>
-        function trackPopUp(){
-            $("{{ '#btn-track-'. $trx->id }}").html("Loading...");
-            $("{{ '#btn-track-'. $trx->id }}").attr('disabled', true);
-            $.get('{{ route('track', ['id' => $trx->id]) }}', function (data) {
-                $("#modal-track").modal();
-                if(data.success == true) {
-                    $('#track-content').html(data.html);
-                    $("{{ '#btn-track-'. $trx->id }}").removeAttr('disabled');
-                    $("{{ '#btn-track-'. $trx->id }}").html("Track");
-                }
-            });
-        }
+        @if($transactions->count() > 0)
+            function trackPopUp(){
+                $("{{ '#btn-track-'. $trx->id }}").html("Loading...");
+                $("{{ '#btn-track-'. $trx->id }}").attr('disabled', true);
+                $.get('{{ route('track', ['id' => $trx->id]) }}', function (data) {
+                    $("#modal-track").modal();
+                    if(data.success == true) {
+                        $('#track-content').html(data.html);
+                        $("{{ '#btn-track-'. $trx->id }}").removeAttr('disabled');
+                        $("{{ '#btn-track-'. $trx->id }}").html("Track");
+                    }
+                });
+            }
+        @endif
     </script>
 
 @endsection

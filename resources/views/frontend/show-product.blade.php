@@ -2,7 +2,7 @@
 
 @section('body-content')
 
-    <section class="breadcrumb parallax margbot30"></section>
+    <section class="breadcrumb margbot10"></section>
 
     <!-- TOVAR DETAILS -->
     <section class="tovar_details padbot70">
@@ -141,10 +141,11 @@
         {{--</div><!-- //CONTAINER -->--}}
     {{--</section><!-- //NEW ARRIVALS -->--}}
 
-
+    <hr class="container">
     <script>
         var urlLink = '{{route('addCart')}}';
     </script>
+    @include('frontend.partials._modal')
 @endsection
 
-@include('frontend.partials._modal')
+

@@ -62,12 +62,12 @@
                             <p class="checkout_title">PAYMENT METHOD</p>
                             <ul>
                                 <li>
-                                    <input id="ridio1" type="radio" name="shippingRadio" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
+                                    <input id="ridio1" type="radio" name="payment" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
                                     <label for="ridio1"><b>Bank Transfer</b></label>
                                 </li>
 
                                 <li>
-                                    <input id="ridio2" type="radio" name="shippingRadio" hidden value="credit_card" onchange="handleChangePayment(this);" />
+                                    <input id="ridio2" type="radio" name="payment" hidden value="credit_card" onchange="handleChangePayment(this);" />
                                     <label for="ridio2"><b>Credit Card</b></label>
                                 </li>
                             </ul>
@@ -101,7 +101,7 @@
                                     <th style="color:red">Price include admin fee</th>
                                 </tr>
                             </table>
-                            <a class="btn active" onclick="document.getElementById('myForm').submit();" >Pay</a>
+                            <a class="btn btn-primary" onclick="document.getElementById('myForm').submit();" >Pay</a>
                         </div><!-- //REGISTRATION FORM -->
                     </div><!-- //SIDEBAR -->
 
