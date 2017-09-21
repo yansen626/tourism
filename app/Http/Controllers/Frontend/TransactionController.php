@@ -106,11 +106,6 @@ class TransactionController extends Controller
 
     //submit shipping and add data to DB
     public function CheckoutProcess2Submit(Request $request){
-        if (!Auth::check())
-        {
-            return redirect()->route('landing');
-        }
-
         if(empty(Input::get('shippingRadio'))){
             return redirect()->route('checkout2');
         }
@@ -134,10 +129,6 @@ class TransactionController extends Controller
 
     //checkout item, address, shipping and courier, price
     public function CheckoutProcess3(){
-        if (!Auth::check())
-        {
-            return redirect()->route('landing');
-        }
         $user = Auth::user();
         $userId = $user->id;
 
@@ -166,10 +157,6 @@ class TransactionController extends Controller
 
     //select payment method
     public function CheckoutProcess4(){
-        if (!Auth::check())
-        {
-            return redirect()->route('landing');
-        }
         $user = Auth::user();
         $userId = $user->id;
         $carts = Cart::where('user_id', 'like', $userId)->get();
@@ -224,10 +211,6 @@ class TransactionController extends Controller
     //midtrans process
     public function CheckoutProcessMidtrans(Request $request){
 
-        if (!Auth::check())
-        {
-            return redirect()->route('landing');
-        }
         $user = Auth::user();
         $userId = $user->id;
 

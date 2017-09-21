@@ -14,7 +14,7 @@ use Illuminate\Notifications\Notification;
 
 class TransactionNotify extends Notification
 {
-    protected $transactionData;
+    protected $transaction;
     /**
      * undocumented class variable
      *
@@ -26,9 +26,9 @@ class TransactionNotify extends Notification
      *
      * @return void
      */
-    public function __construct($transactionData)
+    public function __construct($transaction)
     {
-        $this->transactionData = $transactionData->transactionDetail;
+        $this->transaction = $transaction;
     }
     /**
      * Get the notification's delivery channels.
@@ -48,12 +48,12 @@ class TransactionNotify extends Notification
      */
     public function toMail($notifiable)
     {
-        $transactionDetail = $this->transactionData;
+        $trx = $this->transaction;
         return (new MailMessage())
-            ->from('forgamingonly626@gmail.com', 'Admin')
+            ->from('admin@lowids.com', 'Admin')
             ->subject('Lowids Transaction')
 //            ->markdown('email.transaction-notification-user', ['transactionData' => $transactionDetail]);
-            ->markdown('email.transaction-notification-user', compact('transactionDetail'));
+            ->markdown('email.transaction-notification-user', compact('trx'));
     }
     /**
      * Get the array representation of the notification.

@@ -75,7 +75,7 @@
                     <table class="vb-container fullpad" style="border-collapse: separate;border-spacing: 18px;padding-left: 0;padding-right: 0;width: 100%;max-width: 570px;background-color: #fff;" width="570" cellspacing="18" cellpadding="0" border="0" bgcolor="#ffffff"><tbody><tr><td class="long-text links-color" style="text-align: left; font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #3f3f3f;" align="left">
                                 <p style="margin: 1em 0px;margin-top: 0px;">Thank you for bought from lowids, these are your items<br></p>
                                 <ul>
-                                    @foreach($transactionDetail as $detail)
+                                    @foreach($transaction->transaction_details as $detail)
                                         <li>{{$detail->name}} ({{$detail->quantity}}) = {{$detail->subtotal_price}}
                                             <br data-mce-bogus="1">
                                         </li>

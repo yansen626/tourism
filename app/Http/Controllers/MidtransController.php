@@ -8,109 +8,110 @@
 
 namespace App\Http\Controllers;
 
-
 use App\libs\Utilities;
-use App\Mail\EmailTransactionNotif;
+use App\libs\Veritrans;
+use App\Mail\EmailTransactionNotifUser;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
-use App\Notifications\TransactionNotify;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use Psr\Http\Message\ServerRequestInterface;
 use Webpatser\Uuid\Uuid;
 
 class MidtransController extends Controller
 {
-    public function notification(ServerRequestInterface $request){
+    public function __construct(){
+        Veritrans::$serverKey = env('MIDTRANS_API_KEY_SANDBOX');
+        Veritrans::$isProduction = false;
+    }
+
+    public function notification(){
         try
         {
-            //$tmp = json_decode($request->getBody());
-            $json = json_decode($request->getBody());
+            $json_result = file_get_contents('php://input');
+            $json = json_decode($json_result);
 
-            Utilities::ExceptionLog($json);
-            Utilities::ExceptionLog($json->order_id);
+            $vt = new Veritrans;
+            $notif = $vt->status($json->order_id);
 
-            $tmp = $json->order_id;
+            Utilities::ExceptionLog($notif->order_id);
 
             $dateTimeNow = Carbon::now('Asia/Jakarta');
-            $trx = Transaction::where('order_id', strval($tmp))->first();
-            //$trx = DB::table('transactions')->where('order_id', 'like', '%' .$tmp. '%')->first();
 
-
-            Utilities::ExceptionLog($trx);
+            $transaction = Transaction::where('order_id', $notif->order_id)->first();
+            Utilities::ExceptionLog($transaction);
 
             if($json->status_code == "200"){
                 if(($json->transaction_status == "capture" || $json->transaction_status =="accept") && $json->fraud_status == "accept"){
-                    //$trx->accept_date = $dateTimeNow->toDateTimeString();
-                    $trx->status_id = 5;
+                    $transaction->status_id = 5;
 
                     // Filter payment type
                     if($json->payment_type == "bank_transfer"){
                         // Filter bank
                         if(!empty($json->permata_va_number)){
-                            $trx->va_bank = "permata";
-                            $trx->va_number = $json->permata_va_number;
+                            $transaction->va_bank = "permata";
+                            $transaction->va_number = $json->permata_va_number;
                         }
                         else if(!empty($json->va_numbers)){
-                            $trx->va_bank = $json->va_numbers->bank;
-                            $trx->va_number = $json->va_numbers->va_number;
+                            $transaction->va_bank = $json->va_numbers->bank;
+                            $transaction->va_number = $json->va_numbers->va_number;
                         }
                     }
                     else if($json->payment_type == "echannel"){
-                        $trx->va_bank = "mandiri";
-                        $trx->bill_key = $json->bill_key;
-                        $trx->biller_code = $json->biller_code;
+                        $transaction->va_bank = "mandiri";
+                        $transaction->bill_key = $json->bill_key;
+                        $transaction->biller_code = $json->biller_code;
                     }
+                    //
+//                    //send email to notify admin new transaction
+//                    $userMail = "hellbardx2@gmail.com";
+//                    $emailBody = new EmailTransactionNotif();
+//                    Mail::to($userMail)->send($emailBody);
 
-                    //send email to notify buyer transaction success
-                    $userMail = $trx->user->email;
-                    $userMail->notify(new TransactionNotify($trx));
-
-                    //send email to notify admin new transaction
-                    $userMail = "yansen626@gmail.com";
-                    $emailBody = new EmailTransactionNotif();
-                    Mail::to($userMail)->send($emailBody);
+                    $emailBody = new EmailTransactionNotifUser($transaction);
+                    Mail::to($transaction->user->email)->send($emailBody);
                 }
+
+                $transaction->modified_on = $dateTimeNow->toDateTimeString();
+                $transaction->save();
             }
             else if($json->status_code == "201"){
                 // Filter payment type
                 if($json->payment_type == "bank_transfer"){
-                    $trx->status_id = 4;
+                    $transaction->status_id = 4;
 
                     // Filter bank
                     if(!empty($json->permata_va_number)){
-                        $trx->va_bank = "permata";
-                        $trx->va_number = $json->permata_va_number;
+                        $transaction->va_bank = "permata";
+                        $transaction->va_number = $json->permata_va_number;
                     }
                     else if(!empty($json->va_numbers)){
-                        $trx->va_bank = $json->va_numbers->bank;
-                        $trx->va_number = $json->va_numbers->va_number;
+                        $transaction->va_bank = $json->va_numbers->bank;
+                        $transaction->va_number = $json->va_numbers->va_number;
                     }
                 }
                 else if($json->payment_type == "echannel"){
-                    $trx->bill_key = $json->bill_key;
-                    $trx->biller_code = $json->biller_code;
+                    $transaction->bill_key = $json->bill_key;
+                    $transaction->biller_code = $json->biller_code;
+                }
+                else if($json->payment_type == "credit_card"){
+                    $transaction->status_id = 11;
                 }
 
-                $trx->status_id = 11;
+                $transaction->modified_on = $dateTimeNow->toDateTimeString();
+                $transaction->save();
             }
             else if($json->status_code == "202"){
-                $trx->status_id = 10;
+                $transaction->status_id = 10;
+                $transaction->modified_on = $dateTimeNow->toDateTimeString();
+                $transaction->save();
             }
             else{
                 // Log error exception here
             }
-
-            $trx->modified_on = $dateTimeNow->toDateTimeString();
-            $trx->save();
         }
         catch (\Exception $ex){
             Utilities::ExceptionLog($ex);
@@ -127,15 +128,18 @@ class MidtransController extends Controller
             $userAddress = Address::where('user_id', $userId)->first();
 
             $totalPrice = 0;
+            $totalWeight = 0;
 
             foreach ($carts as $cart) {
-                //$totalPriceDB = (int)$cart->getOriginal('total_price');
                 $subtotalPrice = $cart->product->getOriginal('price_discounted') * $cart->quantity;
                 $totalPrice += $subtotalPrice;
                 $orderId = $cart->order_id;
                 $deliveryFee = (int)$cart->getOriginal('delivery_fee');
                 $adminFee = (int)$cart->getOriginal('admin_fee');
                 $paymentMethod = $cart->payment_method;
+
+                $subtotalWeight = $cart->product->weight * $cart->quantity;
+                $totalWeight += $subtotalWeight;
             }
             $totalPriceWithDeliveryFeeAdminFee = $totalPrice + $deliveryFee + $adminFee;
 
@@ -149,6 +153,7 @@ class MidtransController extends Controller
                 'payment_method_id' => $payMethod,
                 'total_payment'     => $totalPriceWithDeliveryFeeAdminFee,
                 'total_price'       => $totalPrice,
+                'total_weight'      => $totalWeight,
                 'address_name'      => $userAddress->name,
                 'phone'             => $userData->phone,
                 'province_id'       => $userAddress->province_id,

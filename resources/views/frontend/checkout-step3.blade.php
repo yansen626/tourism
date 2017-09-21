@@ -30,10 +30,10 @@
             <!-- CHECKOUT BLOCK -->
             <div class="checkout_block">
                 <ul class="checkout_nav">
-                    <li class="done_step2">1. Shipping Address</li>
-                    <li class="done_step2">2. Delivery</li>
-                    <li class="done_step">3. Confirm Order</li>
-                    <li class="active_step last">4. Payment</li>
+                    <li class="done_step">1. Shipping Address</li>
+                    <li class="done_step">2. Delivery</li>
+                    <li class="active_step">3. Confirm Order</li>
+                    <li class="last">4. Payment</li>
                 </ul>
             </div><!-- //CHECKOUT BLOCK -->
 
