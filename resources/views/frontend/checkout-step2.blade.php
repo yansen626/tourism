@@ -82,7 +82,7 @@
 
                             {{--<div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>--}}
 
-                            <input type="submit" value="Continue" class="btn  pull-right checkout_block_btn btn-primary">
+                            <input type="submit" value="Continue" class="pull-right btn btn-primary">
 
                         {{--<a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>--}}
                     </div>

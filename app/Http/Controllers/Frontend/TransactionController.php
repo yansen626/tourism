@@ -12,8 +12,8 @@ use App\libs\Midtrans;
 use App\libs\RajaOngkir;
 use App\libs\Utilities;
 use App\Http\Controllers\Controller;
-use App\Mail\EmailTransactionNotif;
-use App\Mail\EmailTransactionNotifUser;
+use App\Mail\NewOrderAdmin;
+use App\Mail\NewOrderCustomer;
 use App\Models\Address;
 use App\Models\Courier;
 use App\Models\Transaction;
@@ -208,40 +208,17 @@ class TransactionController extends Controller
 //        return redirect()->route('checkout4');
 //    }
 
-    //midtrans process
-    public function CheckoutProcessMidtrans(Request $request){
-
-        $user = Auth::user();
-        $userId = $user->id;
-
-        if(empty(Input::get('payment'))){
-            return redirect()->route('checkout4');
-        }
-
-        $enabledPayments = Input::get('payment');
-
-        $adminFee   = (int)$request['selected-fee'];
-
-        //set data to request
-        $transactionDataArr = Midtrans::setRequestData($userId, $adminFee, $enabledPayments);
-
-        //sending to midtrans
-        $redirectUrl = Midtrans::sendRequest($transactionDataArr);
-
-        return redirect($redirectUrl);
-    }
-
     //payment online failed
     public function CheckoutProcessFailed(){
 
-        $transactionDB = Transaction::where('order_id', '=', '59ba09dc171c4')->first();
+//        $transactionDB = Transaction::where('order_id', '=', '59ba09dc171c4')->first();
 //        $userMail = $transactionDB->user;
 //
 //        $userMail->notify(new TransactionNotify($transactionDB));
 
-        $userMail = "yansen626@gmail.com";
-        $emailBody = new EmailTransactionNotifUser($transactionDB);
-        Mail::to($userMail)->send($emailBody);
+//        $userMail = "yansen626@gmail.com";
+//        $emailBody = new NewOrderCustomer($transactionDB);
+//        Mail::to($userMail)->send($emailBody);
 
         return view('frontend.checkout-step4-failed');
     }

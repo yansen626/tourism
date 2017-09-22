@@ -52,7 +52,6 @@
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>Fee</th>
-                                    <th>Type</th>
                                     <th>Status</th>
                                     <th>Option</th>
                                 </tr>
@@ -74,7 +73,6 @@
                                                 -
                                             @endif
                                         </td>
-                                        <td>{{ $payment->type }}</td>
                                         <td>
                                             @if($payment->status_id == 1)
                                                 Active

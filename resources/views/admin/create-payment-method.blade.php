@@ -47,21 +47,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fee<span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" id="fee" name="fee" class="form-control col-md-7 col-xs-12">
-                                    <select name="type" class="form-control col-md-7 col-xs-12">
-                                        <option value="Manual Transfer" selected>Manual Transfer</option>
-                                        <option value="Bank Transfer">Bank Transfer</option>
-                                        <option value="Card Payment">Card Payment</option>
-                                        <option value="Direct Debit">Direct Debit</option>
-                                        <option value="e-Wallet">e-Wallet</option>
-                                        <option value="Over the Counter">Over the Counter</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Fee
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -87,7 +72,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                     <p class="red">Create this master data needs advice from developers</p>
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="submit" class="btn btn-success">Create</button>
                                 </div>
                             </div>
                         </form>

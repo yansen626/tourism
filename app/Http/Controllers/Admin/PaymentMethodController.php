@@ -38,7 +38,6 @@ class PaymentMethodController extends Controller
 
         PaymentMethod::create([
             'description'       => Input::get('description'),
-            'type'              => Input::get('type'),
             'status_id'         => 1
         ]);
 
@@ -62,7 +61,6 @@ class PaymentMethodController extends Controller
         $payment = PaymentMethod::find($id);
 
         $payment->description = Input::get('description');
-        $payment->type = Input::get('type');
 
         if(!empty(Input::get('fee'))){
             $payment->fee = str_replace('.','', Input::get('fee'));

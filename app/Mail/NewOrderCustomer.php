@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: yanse
+ * Date: 18-Sep-17
+ * Time: 11:43 AM
+ */
 
 namespace App\Mail;
 
@@ -7,10 +13,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailTransactionNotif extends Mailable
+
+class NewOrderCustomer extends Mailable
 {
     use Queueable, SerializesModels;
-
 
     /**
      * Create a new message instance.
@@ -19,7 +25,7 @@ class EmailTransactionNotif extends Mailable
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -29,6 +35,8 @@ class EmailTransactionNotif extends Mailable
      */
     public function build()
     {
-        return $this->view('email.transaction-notification-admin');
+        return $this->from('admin@lowids.com')
+                    ->subject('Payment Confirmed')
+                    ->view('email.new-order-customer');
     }
 }

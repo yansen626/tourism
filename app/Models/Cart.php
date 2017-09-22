@@ -39,7 +39,8 @@ class Cart extends Eloquent
 		'quantity' => 'int',
 		'total_price' => 'float',
         'delivery_fee' => 'float',
-        'admin_fee' => 'float'
+        'admin_fee' => 'float',
+        'payment_method' => 'int'
 	];
 
 	protected $fillable = [

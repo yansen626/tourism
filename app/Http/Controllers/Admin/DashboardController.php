@@ -10,11 +10,13 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewOrderAdmin;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Notifications\NewOrder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 

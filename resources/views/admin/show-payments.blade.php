@@ -45,7 +45,7 @@
                                     <tr>
                                         <td>{{ $trx->invoice }}</td>
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
-                                        <td>{{ $trx->payment_method->type }} - {{ $trx->payment_method->description }}</td>
+                                        <td>{{ $trx->payment_method->description }}</td>
                                         <td>{{ $trans->sender_name ?? '-'}}</td>
                                         <td>
                                             @if(!empty($trans))
@@ -72,8 +72,10 @@
                                         <td>
                                             @if($trx->status_id == 3)
                                                 <span style="color: red;">Pending Payment</span>
-                                            @else
+                                            @elseif($trx->status_id == 4)
                                                 <span style="color: orange;">In Verification</span>
+                                            @else
+                                                <span style="color: orange;">Challenge</span>
                                             @endif
                                         </td>
                                         <td>

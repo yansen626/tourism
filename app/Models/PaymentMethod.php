@@ -15,7 +15,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $description
  * @property float $fee
- * @property string $type
  * @property int $status_id
  * 
  * @property \Illuminate\Database\Eloquent\Collection $transactions
@@ -34,7 +33,6 @@ class PaymentMethod extends Eloquent
 	protected $fillable = [
 		'description',
 		'fee',
-        'type',
         'status_id'
 	];
 

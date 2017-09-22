@@ -47,7 +47,7 @@
                                         <td>{{ $idx }}</td>
                                         <td>{{ $trx->invoice }}</td>
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
-                                        <td>{{ $trx->payment_method->type }} - {{ $trx->payment_method->description }}</td>
+                                        <td>{{ $trx->payment_method->description }}</td>
                                         <td>{{ strtoupper($trx->courier) }} {{ $trx->delivery_type }}</td>
                                         <td>Rp {{ $trx->total_price }}</td>
                                         <td>Rp {{ $trx->delivery_fee }}</td>

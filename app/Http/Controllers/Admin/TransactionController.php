@@ -10,11 +10,13 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderAccepted;
 use App\Models\Transaction;
 use App\Models\TransferConfirmation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use GuzzleHttp\Client;
 
@@ -49,6 +51,8 @@ class TransactionController extends Controller
         $trx->status_id = 6;
         $trx->save();
 
+        Mail::to($trx->user->email)->send(new OrderAccepted());
+
         return redirect::route('new-order-list');
     }
 
@@ -68,6 +72,7 @@ class TransactionController extends Controller
         //$transfers = TransferConfirmation::where('status_id', 4)->get();
         $transactions = Transaction::where('status_id', 3)
             ->orWhere('status_id', 4)
+            ->orWhere('status_id', 11)
             ->orderByDesc('created_on')->get();
 
         return View('admin.show-payments', compact('transactions'));
