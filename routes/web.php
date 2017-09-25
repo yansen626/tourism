@@ -56,9 +56,9 @@ Route::post('/checkout2-submit', [
 ]);
 Route::get('checkout-3', 'Frontend\TransactionController@CheckoutProcess3')->name('checkout3');
 Route::get('checkout-4', 'Frontend\TransactionController@CheckoutProcess4')->name('checkout4');
-Route::get('checkout/success/{userId}', 'MidtransController@success')->name('checkoutSuccess');
-Route::get('checkout-failed', 'Frontend\TTraransactionController@CheckoutProcessFailed')->name('checkoutFailed');
-Route::get('checkout-bank', 'Frontend\TransactionController@CheckoutProcessBank')->name('checkoutBank');
+Route::get('checkout-success/{userId}', 'MidtransController@success');
+Route::get('checkout-failed', 'Frontend\TTraransactionController@CheckoutProcessFailed')->name('checkout-failed');
+Route::get('checkout-bank', 'Frontend\TransactionController@CheckoutProcessBank')->name('checkout-bank');
 Route::post('/checkout-bank-submit', [
     'uses' => 'Frontend\TransactionController@CheckoutProcessBankSubmit',
     'as' => 'checkoutBankSubmit'
@@ -71,7 +71,7 @@ Route::post('/checkout-notification', [
     'uses' => 'MidtransController@notification',
     'as' => 'checkoutNotification'
 ]);
-Route::get('checkout/success', 'MidtransController@checkoutSuccess')->name('checkout-success');
+Route::get('checkout/success/{paymentMethod}', 'MidtransController@checkoutSuccess')->name('checkout-success');
 // End Frontend Routing
 
 Route::get('/verif-yemail/{token}', 'Auth\RegisterController@verify');

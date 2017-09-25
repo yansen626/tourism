@@ -127,12 +127,10 @@ class MidtransController extends Controller
         }
     }
 
-    //payment online success
+    // Midtrans payment success redirect for CC payment
     public function success($userId){
-        try{
-            Utilities::ExceptionLog('USER ID = '. $userId);
-
-            //transactions data
+        try
+        {
             $dateTimeNow = Carbon::now('Asia/Jakarta');
             $carts = Cart::where('user_id', $userId)->get();
             $userData = User::find($userId);
@@ -149,21 +147,18 @@ class MidtransController extends Controller
                 $totalPrice += $subtotalPrice;
                 $deliveryFee = (int)$cart->getOriginal('delivery_fee');
                 $adminFee = (int)$cart->getOriginal('admin_fee');
-                $paymentMethod = $cart->payment_method;
 
                 $subtotalWeight = $cart->product->weight * $cart->quantity;
                 $totalWeight += $subtotalWeight;
             }
             $totalPriceWithDeliveryFeeAdminFee = $totalPrice + $deliveryFee + $adminFee;
 
-            $payMethod = 1;
-
             //insert into transactions DB
             $transaction = Transaction::create([
                 'id'                => Uuid::generate(),
                 'user_id'           => $userId,
                 'order_id'          => $orderId,
-                'payment_method_id' => $payMethod,
+                'payment_method_id' => 2,
                 'total_payment'     => $totalPriceWithDeliveryFeeAdminFee,
                 'total_price'       => $totalPrice,
                 'total_weight'      => $totalWeight,
@@ -187,12 +182,6 @@ class MidtransController extends Controller
                 'created_on'        => $dateTimeNow->toDateTimeString(),
                 'created_by'        => $userId
             ]);
-
-            if($paymentMethod == "credit_card"){
-                $transaction->payment_method_id = 2;
-                //$transaction->paid_date = $dateTimeNow->toDateTimeString();
-                $transaction->status_id = 4;
-            }
 
             $transaction->save();
 
@@ -246,7 +235,8 @@ class MidtransController extends Controller
             Session::pull('cartList');
             Session::pull('cartTotal');
 
-            return redirect()->route('checkout-success');
+
+            return redirect()->route('checkout-success', ['paymentMethod' => 'credit_card']);
         }
         catch(\Exception $ex){
             Utilities::ExceptionLog($ex);
@@ -398,7 +388,7 @@ class MidtransController extends Controller
         }
     }
 
-    public function checkoutSuccess(){
-        return View('frontend.checkout-success');
+    public function checkoutSuccess($paymentMethod){
+        return View('frontend.checkout-success', compact('paymentMethod'));
     }
 }
