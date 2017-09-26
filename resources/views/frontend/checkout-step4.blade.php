@@ -14,7 +14,7 @@
             <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart-list') }}" >Back shopping bag<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('cart-list') }}" >Back shopping cart<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -60,6 +60,14 @@
                     <div class="col-lg-9 col-md-9 padbot60">
                         <div class="checkout_delivery clearfix">
                             <p class="checkout_title">PAYMENT METHOD</p>
+                            @if($errors->count() > 0)
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    @foreach($errors->all() as $error)
+                                        <b>{{ $error }}</b>
+                                    @endforeach
+                                </div>
+                            @endif
                             <ul>
                                 <li>
                                     <input id="ridio1" type="radio" name="payment" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
@@ -98,7 +106,7 @@
                                     <td id="grand-total-price">Rp {{$grandTotal}}</td>
                                 </tr>
                                 <tr class="shipping clearfix">
-                                    <th style="color:red">Price include admin fee</th>
+                                    <th style="color:red">Price includes admin fee</th>
                                 </tr>
                             </table>
                             <a class="btn btn-primary" onclick="document.getElementById('myForm').submit();" >Pay</a>

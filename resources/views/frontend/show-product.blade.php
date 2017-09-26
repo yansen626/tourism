@@ -18,11 +18,17 @@
                     <h3><b>other {{$product->category->name}}</b></h3>
 
                     <ul class="tovar_items_small clearfix">
-                        @foreach($recommendedProducts as $recommendedProduct)
+                        @foreach($recommendedProducts as $recProduct)
                             <li class="clearfix">
                                 <img class="tovar_item_small_img" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
-                                <a href="{{ route('product-detail', ['id' => $recommendedProduct->id]) }}" class="tovar_item_small_title">{{$recommendedProduct->name}}</a>
-                                <span class="tovar_item_small_price">Rp {{$recommendedProduct->price}}</span>
+                                <a href="{{ route('product-detail', ['id' => $recProduct->id]) }}" class="tovar_item_small_title">{{$recProduct->name}}</a>
+                                {{--<span class="tovar_item_small_price">Rp {{$recProduct->price}}</span>--}}
+                                @if(!empty($recProduct->discount) || !empty($recProduct->discount_flat))
+                                    <span style="text-decoration: line-through;">Rp {{ $recProduct->price }}</span><br/>
+                                    <p style="color:orange;"><b>Rp {{ $recProduct->price_discounted }}</b></p>
+                                @else
+                                    <span class="tovar_item_small_price">Rp {{$recProduct->price_discounted}}</span>
+                                @endif
                             </li>
                         @endforeach
                     </ul>

@@ -139,42 +139,48 @@
                     <!-- ROW -->
                     <div class="row shop_block">
 
-                    @foreach($products as $product)
-                        <div class="tovar_wrapper col-lg-4 col-md-4 col-sm-6 col-xs-6 col-ss-12 padbot40">
-                            <div class="tovar_item clearfix">
-                                <div class="tovar_img">
-                                    <div class="tovar_img_wrapper">
-                                        @if($product->product_image->count() > 0)
-                                            <img class="img" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
-                                            <img class="img_h" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
-                                        @else
-                                            <img class="img" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
-                                            <img class="img_h" src="{{ URL::asset('frontend_images/tovar/women/1_2.jpg') }}" alt="" />
-                                        @endif
-                                    </div>
-                                    <div class="tovar_item_btns">
-                                        <a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i></a>
-                                        {{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-                                    </div>
-                                </div>
-                                <div class="tovar_description clearfix">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <div class="row">
-                                            <a class="tovar_title" href="{{ route('product-detail', ['id' => $product->id]) }}" >{{ $product->name }}</a>
+                    @if($products->count() > 0)
+                        @foreach($products as $product)
+                            <div class="tovar_wrapper col-lg-4 col-md-4 col-sm-6 col-xs-6 col-ss-12 padbot40">
+                                <div class="tovar_item clearfix">
+                                    <div class="tovar_img">
+                                        <div class="tovar_img_wrapper">
+                                            @if($product->product_image->count() > 0)
+                                                <img class="img" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+                                                <img class="img_h" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+                                            @else
+                                                <img class="img" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
+                                                <img class="img_h" src="{{ URL::asset('frontend_images/tovar/women/1_2.jpg') }}" alt="" />
+                                            @endif
                                         </div>
-                                        @if(!empty($product->discount) || !empty($product->discount_flat))
+                                        <div class="tovar_item_btns">
+                                            <a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i></a>
+                                            {{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
+                                        </div>
+                                    </div>
+                                    <div class="tovar_description clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="row">
-                                                <span class="tovar_price" style="text-decoration: line-through; font-size: 11px;">Rp {{$product->price}}</span>
+                                                <a class="tovar_title" href="{{ route('product-detail', ['id' => $product->id]) }}" >{{ $product->name }}</a>
                                             </div>
-                                        @endif
-                                        <div class="row">
-                                            <span class="tovar_price" style="color: orange;">Rp {{$product->price_discounted}}</span>
+                                            @if(!empty($product->discount) || !empty($product->discount_flat))
+                                                <div class="row">
+                                                    <span class="tovar_price" style="text-decoration: line-through; font-size: 11px;">Rp {{$product->price}}</span>
+                                                </div>
+                                            @endif
+                                            <div class="row">
+                                                <span class="tovar_price" style="color: orange;">Rp {{$product->price_discounted}}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div class="tovar_wrapper col-lg-4 col-md-4 col-sm-6 col-xs-6 col-ss-12 padbot40">
+                            <span>No product found</span>
                         </div>
-                    @endforeach
+                    @endif
                     </div>
                     <!-- //ROW -->
 
@@ -194,6 +200,5 @@
     <script>
         var urlLink = '{{route('addCart')}}';
     </script>
+    @include('frontend.partials._modal')
 @endsection
-
-@include('frontend.partials._modal')

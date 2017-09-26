@@ -93,6 +93,19 @@
                                     , you can check {{ $onGoingPaymentTotal > 1 ? 'their':'its' }} status <a style="color: orange;" href="{{ route('payment-list') }}"><strong>here</strong></a>
                             </div>
                         @endif
+
+                        @if($challengedCcTotal > 0)
+                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                @if($challengedCcTotal > 1)
+                                    There are {{ $challengedCcTotal }} new credit card payments in challenge status
+                                @else
+                                    There is {{ $challengedCcTotal }} new credit card payment in challenge status
+                                @endif
+                                , please confirm manually at Midtrans control panel <a style="color: orange;" href="account.midtrans.com"><strong>here</strong></a>
+                            </div>
+                        @endif
                     </div>
                     <div class="clearfix"></div>
                 </div>

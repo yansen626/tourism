@@ -107,7 +107,7 @@ class TransactionController extends Controller
     //submit shipping and add data to DB
     public function CheckoutProcess2Submit(Request $request){
         if(empty(Input::get('shippingRadio'))){
-            return redirect()->route('checkout2');
+            return redirect()->route('checkout2')->withErrors('Select your delivery agent');
         }
 
         $user = Auth::user();

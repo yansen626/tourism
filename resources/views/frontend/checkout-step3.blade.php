@@ -15,7 +15,7 @@
             <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart-list') }}" >Back shopping bag<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('cart-list') }}" >Back shopping cart<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -64,10 +64,8 @@
 
                             <div class="payment_delivery">
                                 <p class="checkout_title margbot10">Payment and delivery</p>
-
-                                <p><span>Courier:</span> {{$carts[0]->courier->description}}  </p>
-
-                                <p><span>Delivery:</span> {{$carts[0]->deliveryType->description}}</p>
+                                <p>{{ $carts[0]->courier->description }}<br/>
+                                {{ $carts[0]->deliveryType->description }}</p>
                             </div>
                         </div>
 

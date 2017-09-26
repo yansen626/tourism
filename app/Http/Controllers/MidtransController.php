@@ -253,7 +253,7 @@ class MidtransController extends Controller
             $userId = $user->id;
 
             if(empty(Input::get('payment'))){
-                return redirect()->route('checkout4');
+                return redirect()->route('checkout4')->withErrors('Select your payment method');
             }
 
             $enabledPayments = Input::get('payment');

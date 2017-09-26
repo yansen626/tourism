@@ -35,12 +35,14 @@ class DashboardController extends Controller
         $onGoingPaymentTotal = Transaction::where('status_id', 3)
             ->orWhere('status_id',4)
             ->get()->count();
+        $challengedCcTotal = Transaction::where('status_id', 11)->get()->count();
 
         $data =[
             'trxTotal'              => $trxTotal,
             'customerTotal'         => $customerTotal,
             'newOrderTotal'         => $newOrderTotal,
-            'onGoingPaymentTotal'   => $onGoingPaymentTotal
+            'onGoingPaymentTotal'   => $onGoingPaymentTotal,
+            'challengedCcTotal'     => $challengedCcTotal
         ];
 
         return View('admin.dashboard')->with($data);
