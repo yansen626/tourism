@@ -13,7 +13,7 @@
 				<li class="slide1">
 					<div class="container" >
 						<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id:$slider->url }}">
-							<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover; height: 100%;">
+							<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover; height: 100%; border-radius: 5px;">
 								<div class="sale_caption1" >
 									@if(!empty($slider->caption))
 										<p class="title1 captionDelay2 FromTop" style="background-color: rgba(255, 255, 255, 0.5);">{{ $slider->caption }}</p>
@@ -34,7 +34,7 @@
 					<li class="slide1">
 						<div class="container" >
 							<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id:$slider->url }}">
-								<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover; height: 100%;">
+								<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover; height: 100%; border-radius: 5px;">
 									<div class="sale_caption1" >
 										@if(!empty($slider->caption))
 											<p class="title1 captionDelay2 FromTop" style="background-color: rgba(255, 255, 255, 0.5);">{{ $slider->caption }}</p>
@@ -50,13 +50,13 @@
 		<!-- //TOP SECOND SLIDER -->
 	</section><!-- //HOME -->
 
-
 	<!-- TOVAR SECTION -->
-	<section class="tovar_section margbot10">
+	<section class="tovar_section margbot10 desktop">
 
 		<!-- CONTAINER -->
 		<div class="container">
-			{{--<h2>Featured products</h2>--}}
+			<hr>
+			<h2>FEATURED</h2>
 
 			<!-- ROW -->
 			<div class="row margbot10">
@@ -184,10 +184,11 @@
 
 
 	<!-- NEW ARRIVALS -->
-	<section class="new_arrivals padbot50">
+	<section class="new_arrivals">
 
 		<!-- CONTAINER -->
 		<div class="container">
+			<hr>
 			<h2>new arrivals</h2>
 
 			<!-- JCAROUSEL -->
@@ -228,6 +229,8 @@
 
 	<section>
 		<div class="container">
+			<hr>
+			<h2>Category</h2>
 			<div class="list-group category_home_menu">
 				<a href="#" class="list-group-item">
 					<span class="glyphicon glyphicon-camera"></span> Pictures
@@ -294,9 +297,6 @@
 			{{--</div><!-- //JCAROUSEL -->--}}
 		{{--</div><!-- //CONTAINER -->--}}
 	{{--</section><!-- //BRANDS -->--}}
-
-	<hr class="container">
-
 	<script>
         var urlLink = '{{route('addCart')}}';
 	</script>

@@ -210,6 +210,21 @@ header{
     width: 50%;
 }
 
+.logo img{
+    height: 60px;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 480px){
+    .desktop{
+        display: none;
+    }
+
+    .logo img{
+        height: 45px;
+    }
+}
+
 /*.shopping_bag.cart_active .shopping_bag_btn{*/
     /*background: #E5E4D7 !important;*/
 /*}*/

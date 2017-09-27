@@ -25,7 +25,7 @@
 
             <!-- LOGO -->
             <div class="logo text-center">
-                <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/lowids-logo.png') }}" alt="" style="height: 60px;"/></a>
+                <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/lowids-logo.png') }}" alt=""/></a>
             </div><!-- //LOGO -->
 
             <!-- USER MENU -->
