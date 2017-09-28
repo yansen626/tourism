@@ -6,7 +6,8 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="invoice-title">
-                <h2>LOWIDS</h2><h3 class="pull-right">Invoice {{ $trx->invoice }}</h3>
+                <img style="width: 200px;" src="{{ URL::asset('frontend_images/lowids_text_logo.png') }}">
+                <h3 class="pull-right">Invoice {{ $trx->invoice }}</h3>
             </div>
             <hr>
             <div class="row">

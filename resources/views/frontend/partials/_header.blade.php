@@ -25,7 +25,7 @@
 
             <!-- LOGO -->
             <div class="logo text-center">
-                <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/lowids-logo.png') }}" alt=""/></a>
+                <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/lowids_text_logo.png') }}" alt=""/></a>
             </div><!-- //LOGO -->
 
             <!-- USER MENU -->
@@ -135,38 +135,40 @@
                         {{--</li>--}}
                     {{--</ul><!-- //MEGA MENU -->--}}
                 {{--</li>--}}
-                <li><a href="{{ route('landing') }}" >Home</a>
-                </li>
-                @foreach($categories::allCategory() as $category)
-                    <li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>
-                @endforeach
-                {{--<li class="sub-menu"><a href="javascript:void(0);" >Men</a>--}}
-                    {{--<!-- MEGA MENU -->--}}
-                    {{--<ul class="mega_menu megamenu_col2 clearfix">--}}
-                        {{--<li class="col">--}}
-                            {{--<ol>--}}
-                                {{--<li><a href="men.html" >sweaters</a></li>--}}
-                                {{--<li><a href="men.html" >shirts & tops</a></li>--}}
-                                {{--<li><a href="men.html" >knits & tees</a></li>--}}
-                                {{--<li><a href="men.html" >pants</a></li>--}}
-                                {{--<li><a href="men.html" >denim</a></li>--}}
-                                {{--<li><a href="men.html" >dresses</a></li>--}}
-                                {{--<li><a href="men.html" >maternity</a></li>--}}
-                            {{--</ol>--}}
-                        {{--</li>--}}
-                        {{--<li class="col">--}}
-                            {{--<ol>--}}
-                                {{--<li><a href="men.html" >skirts</a></li>--}}
-                                {{--<li><a href="men.html" >shorts</a></li>--}}
-                                {{--<li><a href="men.html" >blazers</a></li>--}}
-                                {{--<li><a href="men.html" >outerwear</a></li>--}}
-                                {{--<li><a href="men.html" >suiting</a></li>--}}
-                                {{--<li><a href="men.html" >swim</a></li>--}}
-                                {{--<li><a href="men.html" >sleepwear</a></li>--}}
-                            {{--</ol>--}}
-                        {{--</li>--}}
-                    {{--</ul><!-- //MEGA MENU -->--}}
+                {{--<li>--}}
+                    {{--<a href="{{ route('landing') }}" >Home</a>--}}
                 {{--</li>--}}
+                {{--@foreach($categories::allCategory() as $category)--}}
+                    {{--<li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>--}}
+                {{--@endforeach--}}
+                <li class="sub-menu"><a href="javascript:void(0);" >Category</a>
+                    <!-- MEGA MENU -->
+                    <ul class="mega_menu megamenu_col2 clearfix">
+                        <li class="col">
+                            <ol>
+                                @foreach($categories::allCategory() as $category)
+                                    <li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>
+                                @endforeach
+                                <li><a href="men.html" >Category 1</a></li>
+                                <li><a href="men.html" >Category 2</a></li>
+                                <li><a href="men.html" >Category 3</a></li>
+                                <li><a href="men.html" >Category 4</a></li>
+                            </ol>
+                        </li>
+                        <li class="col">
+                            <ol>
+                                <li><a href="men.html" >Category 5</a></li>
+                                <li><a href="men.html" >Category 6</a></li>
+                                <li><a href="men.html" >Category 7</a></li>
+                                <li><a href="men.html" >Category 8</a></li>
+                                <li><a href="men.html" >Category 9</a></li>
+                                <li><a href="men.html" >Category 10</a></li>
+                                <li><a href="men.html" >Category 11</a></li>
+                            </ol>
+                        </li>
+                    </ul>
+                    <!-- //MEGA MENU -->
+                </li>
                 {{--<li><a href="shoes.html" >shoes</a></li>--}}
                 {{--<li class="sub-menu"><a href="javascript:void(0);" >Pages</a>--}}
                     {{--<!-- MEGA MENU -->--}}

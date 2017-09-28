@@ -27,19 +27,30 @@ class BannerController extends Controller
         $this->middleware('auth:user_admins');
     }
 
-    public function index(){
-        $banners = Banner::where('type', 1)->get();
+    public function index($type){
+
+        if($type == 'first_banner'){
+            $banners = Banner::where('type', 1)->get();
+        }
+        elseif($type == 'second_banner'){
+            $banners = Banner::where('type', 2)->get();
+        }
 
         return View('admin.show-slider-banners', compact('banners'));
     }
 
-    public function create(){
+    public function create($type){
         $products = Product::all();
 
-        return View('admin.create-slider-banner', compact('products'));
+        $data = [
+            'products'  => $products,
+            'type'      => $type
+        ];
+
+        return View('admin.create-slider-banner')->with($data);
     }
 
-    public function store(Request $request){
+    public function store(Request $request, $type){
         $validator = Validator::make($request->all(),[
             'image'         => 'required|image|mimes:jpeg,jpg,png',
             'caption'       => 'max:100',
@@ -60,7 +71,15 @@ class BannerController extends Controller
         }
 
         $banner = new Banner;
-        $banner->type = 1;
+
+        // Get banner type
+        if($type == 'first_banner'){
+            $banner->type = 1;
+        }
+        elseif($type == 'second_banner'){
+            $banner->type = 2;
+        }
+
         $banner->status_id = 1;
         $banner->created_at = Carbon::now('Asia/Jakarta');
         $banner->created_by = Auth::guard('user_admins')->id();

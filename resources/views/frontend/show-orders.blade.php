@@ -49,7 +49,7 @@
                                     <td>
                                         <div class="panel-group">
                                             <div class="panel panel-default">
-                                                <div class="panel-heading" data-toggle="collapse" href="#order-{{ $idx }}" style="cursor: pointer;">
+                                                <div class="panel-heading table-wrapper" data-toggle="collapse" href="#order-{{ $idx }}" style="cursor: pointer;">
                                                     <a class="invoice-link" href="{{ route('invoice-view', ['id' => $trx->id]) }}"><b>{{ $trx->invoice }}</b></a><br/>
                                                     Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}<br/>
                                                     <b>Status</b><br/>
@@ -93,7 +93,7 @@
                                                     <div class="panel-footer">
                                                         <div class="row">
                                                             <div class="cold-lg-12 col-md-12">
-                                                                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                                <table class="table table-striped table-bordered table-detail" cellspacing="0" width="100%">
                                                                     <thead>
                                                                     <tr>
                                                                         <th>Name</th>

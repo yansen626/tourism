@@ -10,7 +10,7 @@
 
             <div class="col-lg-3 col-md-3 col-sm-6 padbot10 text-center">
                 <a href="{{ route('landing') }}" style="width: 100%;">
-                    <img class="foot_logo_img" src="{{ asset('frontend_images/lowids-logo.png') }}" alt="" />
+                    <img class="foot_logo_img" src="{{ asset('frontend_images/lowids_logo.png') }}" alt="" />
                 </a>
             </div>
 

@@ -1,6 +1,9 @@
 @extends('layouts.frontend-bayu')
 
 @section('body-content')
+
+    <link href="{{ URL::asset('css/frontend/template-btn.css') }}" rel="stylesheet">
+
     <!-- BREADCRUMBS -->
     <section class="breadcrumb women parallax margbot30">
 
@@ -125,7 +128,7 @@
                     <div class="row shop_block">
 
                         @foreach($products as $product)
-                            <div class="tovar_wrapper col-lg-4 col-md-4 col-sm-6 col-xs-6 col-ss-12 padbot40">
+                            <div class="tovar_wrapper col-lg-4 col-md-4 col-sm-6 col-xs-6 col-ss-12">
                                 <div class="tovar_item clearfix">
                                     <div class="tovar_img">
                                         <div class="tovar_img_wrapper">

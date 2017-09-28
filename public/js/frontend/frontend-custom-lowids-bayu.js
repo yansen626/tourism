@@ -8,6 +8,18 @@ $('#order-table').DataTable({
     }
 });
 
+// $('.table-detail').DataTable({
+//     "info": false,
+//     "ordering": false,
+//     "searching": false,
+//     "lengthChange": false,
+//     'responsive': true
+// })
+
+$(".table-wrapper a").click(function(e) {
+    e.stopImmediatePropagation();
+});
+
 $('.input-daterange').datepicker({
     format: "dd/mm/yyyy"
 });

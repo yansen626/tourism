@@ -7,7 +7,7 @@
 	<section id="home" class="padbot0" style="margin-top: 10px;">
 
 		<!-- TOP FIRST SLIDER -->
-		<div class="flexslider top_slider sale_page" style="margin-bottom: 10px;">
+		<div class="flexslider top_slider sale_page first_banner" style="margin-bottom: 10px;">
 			<ul class="slides">
 				@foreach($slideBanners as $slider)
 				<li class="slide1">
@@ -28,7 +28,7 @@
 		</div>
 		<!-- //TOP FIRST SLIDER -->
 		<!-- TOP SECOND SLIDER -->
-		<div class="flexslider top_slider sale_page">
+		<div class="flexslider top_slider sale_page second_banner">
 			<ul class="slides">
 				@foreach($slideBanners as $slider)
 					<li class="slide1">
@@ -51,7 +51,7 @@
 	</section><!-- //HOME -->
 
 	<!-- TOVAR SECTION -->
-	<section class="tovar_section margbot10 desktop">
+	<section class="tovar_section desktop">
 
 		<!-- CONTAINER -->
 		<div class="container">
@@ -63,7 +63,7 @@
 				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
 					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/pewarna.jpg') }}')">
 						<div class="category_img_title">
-							<span>Pewarna</span>
+							<span>Category 1</span>
 						</div>
 					</div>
 				</div>
@@ -80,8 +80,11 @@
 													<img class="img_h" src="{{ asset('frontend_images/example/pewarna.jpg') }}" alt="" />
 												</div>
 												<div class="tovar_item_btns">
-													<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
+                                                    <a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+                                                    <span style="text-decoration: line-through;">Rp 50.000</span><br/>
+                                                    <span style="color:orange;"><b>Rp 90.000</b></span><br/>
+                                                    <a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -98,9 +101,9 @@
 			</div>
 			<div class="row margbot10">
 				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/pewarna.jpg') }}')">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_2.jpg') }}')">
 						<div class="category_img_title">
-							<span>Tofieco Essence & Pasta</span>
+							<span>Category 2</span>
 						</div>
 					</div>
 				</div>
@@ -113,12 +116,14 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img class="img" src="{{ asset('frontend_images/example/pewarna.jpg') }}" alt="" />
-													<img class="img_h" src="{{ asset('frontend_images/example/pewarna.jpg') }}" alt="" />
+													<img class="img" src="{{ asset('frontend_images/example/cat_example_2.jpg') }}" alt="" />
+													<img class="img_h" src="{{ asset('frontend_images/example/cat_example_2.jpg') }}" alt="" />
 												</div>
 												<div class="tovar_item_btns">
-													<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
-													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
+                                                    <a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+                                                    <span style="text-decoration: line-through;">Rp 50.000</span><br/>
+                                                    <span style="color:orange;"><b>Rp 90.000</b></span><br/>
+                                                    <a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -135,9 +140,9 @@
 			</div>
 			<div class="row margbot10">
 				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/pewarna.jpg') }}')">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_3.jpg') }}')">
 						<div class="category_img_title">
-							<span>Rum, Pasta % Essence</span>
+							<span>Category 3</span>
 						</div>
 					</div>
 				</div>
@@ -150,12 +155,14 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img class="img" src="{{ asset('frontend_images/example/pewarna.jpg') }}" alt="" />
-													<img class="img_h" src="{{ asset('frontend_images/example/pewarna.jpg') }}" alt="" />
+													<img class="img" src="{{ asset('frontend_images/example/cat_example_3.jpg') }}" alt="" />
+													<img class="img_h" src="{{ asset('frontend_images/example/cat_example_3.jpg') }}" alt="" />
 												</div>
 												<div class="tovar_item_btns">
-													<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
-													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
+                                                    <a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+                                                    <span style="text-decoration: line-through;">Rp 50.000</span><br/>
+                                                    <span style="color:orange;"><b>Rp 90.000</b></span><br/>
+                                                    <a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -170,15 +177,85 @@
 					</div>
 				</div>
 			</div>
+            <div class="row margbot10">
+                <div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
+                    <div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_4.jpg') }}')">
+                        <div class="category_img_title">
+                            <span>Category 4</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12" style="padding-left: 0;">
+                    <div class="category_wrapper">
+                        <div class="tovar_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
+                            @for($i =0; $i< 4; $i++)
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12">
+                                    <div class="category_product_wrapper">
+                                        <div class="tovar_item">
+                                            <div class="tovar_img">
+                                                <div class="tovar_img_wrapper">
+                                                    <img class="img" src="{{ asset('frontend_images/example/cat_example_4.jpg') }}" alt="" />
+                                                    <img class="img_h" src="{{ asset('frontend_images/example/cat_example_4.jpg') }}" alt="" />
+                                                </div>
+                                                <div class="tovar_item_btns">
+                                                    <a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+                                                    <span style="text-decoration: line-through;">Rp 50.000</span><br/>
+                                                    <span style="color:orange;"><b>Rp 90.000</b></span><br/>
+                                                    <a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+                                                </div>
+                                            </div>
+                                            {{--<div class="tovar_description clearfix">--}}
+                                            {{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
+                                            {{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
+                                            {{--</div>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margbot10">
+                <div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
+                    <div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_5.jpg') }}')">
+                        <div class="category_img_title">
+                            <span>Category 5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12" style="padding-left: 0;">
+                    <div class="category_wrapper">
+                        <div class="tovar_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
+                            @for($i =0; $i< 4; $i++)
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12">
+                                    <div class="category_product_wrapper">
+                                        <div class="tovar_item">
+                                            <div class="tovar_img">
+                                                <div class="tovar_img_wrapper">
+                                                    <img class="img" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+                                                    <img class="img_h" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+                                                </div>
+                                                <div class="tovar_item_btns">
+                                                    <a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+                                                    <span style="text-decoration: line-through;">Rp 50.000</span><br/>
+                                                    <span style="color:orange;"><b>Rp 90.000</b></span><br/>
+                                                    <a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+                                                </div>
+                                            </div>
+                                            {{--<div class="tovar_description clearfix">--}}
+                                            {{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
+                                            {{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
+                                            {{--</div>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<!-- //ROW -->
-
-
-			<!-- ROW -->
-			<div class="row">
-
-
-			</div>
-				<!-- //ROW -->
 		</div><!-- //CONTAINER -->
 	</section><!-- //TOVAR SECTION -->
 
