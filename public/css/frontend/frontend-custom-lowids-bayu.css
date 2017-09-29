@@ -105,7 +105,12 @@ footer h4{
 }
 
 .menu_block {
-    background-color: #81B951;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#148c0e+24,81bf4a+100 */
+    background: #148c0e; /* Old browsers */
+    background: -moz-linear-gradient(top,  #148c0e 24%, #81bf4a 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #148c0e 24%,#81bf4a 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #148c0e 24%,#81bf4a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#148c0e', endColorstr='#81bf4a',GradientType=0 ); /* IE6-9 */
 }
 
 #menu-profile{
@@ -244,6 +249,10 @@ header{
 .category_home_menu{
     float: left;
     width: 50%;
+}
+
+.category_second_column a{
+    border-left: none !important;
 }
 
 /* RESPONSIVE */

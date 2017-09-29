@@ -9,10 +9,10 @@
 		<!-- TOP FIRST SLIDER -->
 		<div class="flexslider top_slider sale_page first_banner" style="margin-bottom: 10px;">
 			<ul class="slides">
-				@foreach($slideBanners as $slider)
+				@foreach($topBanner1st as $slider)
 				<li class="slide1">
 					<div class="container" >
-						<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id:$slider->url }}">
+						<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id : 'http://'. $slider->url }}">
 							<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover; height: 100%; border-radius: 5px;">
 								<div class="sale_caption1" >
 									@if(!empty($slider->caption))
@@ -30,10 +30,10 @@
 		<!-- TOP SECOND SLIDER -->
 		<div class="flexslider top_slider sale_page second_banner">
 			<ul class="slides">
-				@foreach($slideBanners as $slider)
+				@foreach($topBanner2nd as $slider)
 					<li class="slide1">
 						<div class="container" >
-							<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id:$slider->url }}">
+							<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id : 'http://'. $slider->url }}">
 								<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover; height: 100%; border-radius: 5px;">
 									<div class="sale_caption1" >
 										@if(!empty($slider->caption))
@@ -61,7 +61,7 @@
 			<!-- ROW -->
 			<div class="row margbot10">
 				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/pewarna.jpg') }}')">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/pewarna.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
 						<div class="category_img_title">
 							<span>Category 1</span>
 						</div>
@@ -101,7 +101,7 @@
 			</div>
 			<div class="row margbot10">
 				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_2.jpg') }}')">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_2.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
 						<div class="category_img_title">
 							<span>Category 2</span>
 						</div>
@@ -140,7 +140,7 @@
 			</div>
 			<div class="row margbot10">
 				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_3.jpg') }}')">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_3.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
 						<div class="category_img_title">
 							<span>Category 3</span>
 						</div>
@@ -179,7 +179,7 @@
 			</div>
             <div class="row margbot10">
                 <div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-                    <div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_4.jpg') }}')">
+                    <div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_4.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
                         <div class="category_img_title">
                             <span>Category 4</span>
                         </div>
@@ -218,7 +218,7 @@
             </div>
             <div class="row margbot10">
                 <div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-                    <div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_5.jpg') }}')">
+                    <div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_5.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
                         <div class="category_img_title">
                             <span>Category 5</span>
                         </div>
@@ -255,6 +255,162 @@
                     </div>
                 </div>
             </div>
+			<div class="row margbot10">
+				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_5.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
+						<div class="category_img_title">
+							<span>Category 6</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-12" style="padding-left: 0;">
+					<div class="category_wrapper">
+						<div class="tovar_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
+							@for($i =0; $i< 4; $i++)
+								<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12">
+									<div class="category_product_wrapper">
+										<div class="tovar_item">
+											<div class="tovar_img">
+												<div class="tovar_img_wrapper">
+													<img class="img" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+													<img class="img_h" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+												</div>
+												<div class="tovar_item_btns">
+													<a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+													<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+												</div>
+											</div>
+											{{--<div class="tovar_description clearfix">--}}
+											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
+											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
+											{{--</div>--}}
+										</div>
+									</div>
+								</div>
+							@endfor
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row margbot10">
+				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_5.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
+						<div class="category_img_title">
+							<span>Category 7</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-12" style="padding-left: 0;">
+					<div class="category_wrapper">
+						<div class="tovar_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
+							@for($i =0; $i< 4; $i++)
+								<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12">
+									<div class="category_product_wrapper">
+										<div class="tovar_item">
+											<div class="tovar_img">
+												<div class="tovar_img_wrapper">
+													<img class="img" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+													<img class="img_h" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+												</div>
+												<div class="tovar_item_btns">
+													<a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+													<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+												</div>
+											</div>
+											{{--<div class="tovar_description clearfix">--}}
+											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
+											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
+											{{--</div>--}}
+										</div>
+									</div>
+								</div>
+							@endfor
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row margbot10">
+				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_5.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
+						<div class="category_img_title">
+							<span>Category 8</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-12" style="padding-left: 0;">
+					<div class="category_wrapper">
+						<div class="tovar_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
+							@for($i =0; $i< 4; $i++)
+								<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12">
+									<div class="category_product_wrapper">
+										<div class="tovar_item">
+											<div class="tovar_img">
+												<div class="tovar_img_wrapper">
+													<img class="img" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+													<img class="img_h" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+												</div>
+												<div class="tovar_item_btns">
+													<a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+													<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+												</div>
+											</div>
+											{{--<div class="tovar_description clearfix">--}}
+											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
+											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
+											{{--</div>--}}
+										</div>
+									</div>
+								</div>
+							@endfor
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row margbot10">
+				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
+					<div class="category_img" style="background-image: url('{{ asset('frontend_images/example/cat_example_5.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
+						<div class="category_img_title">
+							<span>Category 9</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-12" style="padding-left: 0;">
+					<div class="category_wrapper">
+						<div class="tovar_wrapper" data-appear-top-offset='-100' data-animated='fadeInUp'>
+							@for($i =0; $i< 4; $i++)
+								<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12">
+									<div class="category_product_wrapper">
+										<div class="tovar_item">
+											<div class="tovar_img">
+												<div class="tovar_img_wrapper">
+													<img class="img" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+													<img class="img_h" src="{{ asset('frontend_images/example/cat_example_5.jpg') }}" alt="" />
+												</div>
+												<div class="tovar_item_btns">
+													<a href="javascript:void(0);" class="category_item_title">Product Name Here</a><br/>
+													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+													<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+												</div>
+											</div>
+											{{--<div class="tovar_description clearfix">--}}
+											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
+											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
+											{{--</div>--}}
+										</div>
+									</div>
+								</div>
+							@endfor
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- //ROW -->
 		</div><!-- //CONTAINER -->
 	</section><!-- //TOVAR SECTION -->
@@ -308,33 +464,23 @@
 		<div class="container">
 			<hr>
 			<h2>Category</h2>
-			<div class="list-group category_home_menu">
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-camera"></span> Pictures
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-file"></span> Documents
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-music"></span> Music
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-film"></span> Videos
-				</a>
+
+			<div class="list-group category_home_menu category_first_column">
+				@for($i = 0; $i < $firstColumn; $i++)
+					<a href="#" class="list-group-item">
+						{{ $categories[$i]->name }}
+					</a>
+				@endfor
+				{{--<a href="#" class="list-group-item">--}}
+					{{--<span class="glyphicon glyphicon-film"></span> Videos--}}
+				{{--</a>--}}
 			</div>
-			<div class="list-group category_home_menu">
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-camera"></span> Pictures
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-file"></span> Documents
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-music"></span> Music
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-film"></span> Videos
-				</a>
+			<div class="list-group category_home_menu category_second_column">
+				@for($i = ($categoryTotal - $firstColumn) + 1; $i < $categoryTotal; $i++)
+					<a href="#" class="list-group-item">
+						{{ $categories[$i]->name }}
+					</a>
+				@endfor
 			</div>
 		</div>
 	</section>

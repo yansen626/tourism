@@ -14,6 +14,6 @@ use App\Models\Category;
 class CategoryHeader
 {
     public static function allCategory(){
-        return Category::all();
+        return Category::orderBy('name')->get();
     }
 }

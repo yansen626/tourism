@@ -29,14 +29,19 @@ class BannerController extends Controller
 
     public function index($type){
 
-        if($type == 'first_banner'){
+        if($type == 'top_first_banner'){
             $banners = Banner::where('type', 1)->get();
         }
-        elseif($type == 'second_banner'){
+        elseif($type == 'top_second_banner'){
             $banners = Banner::where('type', 2)->get();
         }
 
-        return View('admin.show-slider-banners', compact('banners'));
+        $data = [
+            'banners'   => $banners,
+            'type'      => $type
+        ];
+
+        return View('admin.show-slider-banners')->with($data);
     }
 
     public function create($type){
@@ -73,10 +78,10 @@ class BannerController extends Controller
         $banner = new Banner;
 
         // Get banner type
-        if($type == 'first_banner'){
+        if($type == 'top_first_banner'){
             $banner->type = 1;
         }
-        elseif($type == 'second_banner'){
+        elseif($type == 'top_second_banner'){
             $banner->type = 2;
         }
 
@@ -96,7 +101,7 @@ class BannerController extends Controller
 
             $filename = 'banner1_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-            $img->save(public_path('storage\banner' . '\\'. $filename));
+            $img->save(public_path('storage/banner/'. $filename));
 
             $banner->image_path = $filename;
         }
@@ -109,16 +114,24 @@ class BannerController extends Controller
 
         $banner->save();
 
-        return redirect::route('slider-banner-list');
+        return redirect::route('slider-banner-list', ['type' => $type]);
     }
 
     public function edit($id){
         $banner = Banner::find($id);
         $products = Product::all();
 
+        if($banner->type == 1){
+            $type = 'top_first_banner';
+        }
+        else{
+            $type = 'top_second_banner';
+        }
+
         $data = [
             'banner'    => $banner,
-            'products'  => $products
+            'products'  => $products,
+            'type'      => $type
         ];
 
         return View('admin.edit-slider-banner')->with($data);
@@ -140,11 +153,16 @@ class BannerController extends Controller
 
         if(Input::get('options') == 'yes'){
             if(Input::get('product') == '-1'){
-                return redirect()->route('slider-banner-create')->withErrors('Please select a product');
+                return back()->withErrors($validator)->withInput()->withErrors('Please select a product');
             }
         }
 
         $banner = Banner::find($id);
+
+        $type = 'top_first_banner';
+        if($banner->type == 2){
+            $type = 'top_second_banner';
+        }
 
         if(Input::get('status') == '0'){
             $banner->status_id = 2;
@@ -177,7 +195,7 @@ class BannerController extends Controller
 
             $filename = 'banner1_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-            $img->save(public_path('storage\banner' . '\\'. $filename));
+            $img->save(public_path('storage/banner/'. $filename));
 
             // Save old banner image
             $oldImgPath = $banner->image_path;
@@ -201,8 +219,9 @@ class BannerController extends Controller
         }
 
         $banner->save();
+        error_log($type);
 
-        return redirect::route('slider-banner-list');
+        return redirect::route('slider-banner-list', ['type' => $type]);
     }
 
     public function delete($id){
@@ -275,7 +294,7 @@ class BannerController extends Controller
 
             $filename = 'banner2_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-            $img->save(public_path('storage\banner' . '\\'. $filename));
+            $img->save(public_path('storage/banner/'. $filename));
 
             // Save old banner image
             $oldImgPath = $banner->image_path;

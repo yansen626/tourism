@@ -74,7 +74,7 @@ Route::post('/checkout-notification', [
 Route::get('checkout/success/{paymentMethod}', 'MidtransController@checkoutSuccess')->name('checkout-success');
 // End Frontend Routing
 
-Route::get('/verif-yemail/{token}', 'Auth\RegisterController@verify');
+Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 
 // User Data
 Route::prefix('user')->group(function(){
@@ -150,21 +150,21 @@ Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDeliv
 Route::get('/track/{id}', 'Admin\TransactionController@track')->name('track');
 
 // Slider Banner
-Route::prefix('/admin/banner/slider')->group(function(){
-    Route::get('/', 'Admin\BannerController@index')->name('slider-banner-list');
-    Route::post('/', 'Admin\BannerController@store');
-    Route::get('/create', 'Admin\BannerController@create')->name('slider-banner-create');
+Route::prefix('/admin/banner')->group(function(){
+    Route::get('/{type}', 'Admin\BannerController@index')->name('slider-banner-list');
+    Route::post('/{type}', 'Admin\BannerController@store');
+    Route::get('/create/{type}', 'Admin\BannerController@create')->name('slider-banner-create');
     Route::get('/edit/{id}', 'Admin\BannerController@edit')->name('slider-banner-edit');
-    Route::post('/{id}', 'Admin\BannerController@update');
+    Route::post('/update/{id}', 'Admin\BannerController@update');
     Route::get('/delete/{id}', 'Admin\BannerController@delete');
 });
 
 // Side Banner
-Route::prefix('/admin/banner/side')->group(function(){
-    Route::get('/', 'Admin\BannerController@sideBannerIndex')->name('side-banner-list');
-    Route::get('/edit/{id}', 'Admin\BannerController@sideBannerEdit')->name('side-banner-edit');
-    Route::post('/{id}', 'Admin\BannerController@sideBannerUpdate');
-});
+//Route::prefix('/admin/banner/side')->group(function(){
+//    Route::get('/', 'Admin\BannerController@sideBannerIndex')->name('side-banner-list');
+//    Route::get('/edit/{id}', 'Admin\BannerController@sideBannerEdit')->name('side-banner-edit');
+//    Route::post('/{id}', 'Admin\BannerController@sideBannerUpdate');
+//});
 
 // Category
 Route::prefix('admin/category')->group(function(){

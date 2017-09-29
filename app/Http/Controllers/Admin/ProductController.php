@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\libs\Utilities;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -41,118 +42,126 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-
-        $validator = Validator::make($request->all(),[
-            'category'              => 'required|option_not_default',
-            'name'                  => 'required',
-            'price'                 => 'required',
-            'weight'                => 'required',
-            'qty'                   => 'required',
-            'product-featured'      => 'required|image|mimes:jpeg,jpg,png'
-        ],[
-            'option_not_default'    => 'Select a category'
-        ]);
-
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-        else{
-            $price = $request->input('price');
-            $priceDouble = (double) str_replace('.','', $price);
-            $weight = (double) str_replace('.','', Input::get('weight'));
-
-            $dateTimeNow = Carbon::now('Asia/Jakarta');
-
-            $product = Product::create([
-                'id'            => Uuid::generate(),
-                'category_id'   => Input::get('category'),
-                'name'          => Input::get('name'),
-                'price'         => $priceDouble,
-                'weight'        => $weight,
-                'quantity'      => Input::get('qty'),
-                'created_on'    => $dateTimeNow->toDateTimeString(),
-                'status_id'     => 1
+        try{
+            $validator = Validator::make($request->all(),[
+                'category'              => 'required|option_not_default',
+                'name'                  => 'required',
+                'price'                 => 'required',
+                'weight'                => 'required',
+                'qty'                   => 'required',
+                'product-featured'      => 'required|image|mimes:jpeg,jpg,png'
+            ],[
+                'option_not_default'    => 'Select a category'
             ]);
 
-            if(Input::get('options') == 'percent'){
-                $discountPercent = (double) Input::get('discount-percent');
-                $product->discount = $discountPercent;
-
-                $discountAmount = $priceDouble / 100 * $discountPercent;
-                $product->price_discounted = $priceDouble - $discountAmount;
-            }
-            else if(Input::get('options') == 'flat'){
-                $discountFlat = (double) str_replace('.','', Input::get('discount-flat'));
-                $product->discount_flat = $discountFlat;
-
-                $product->price_discounted = $priceDouble - $discountFlat;
+            if ($validator->fails()) {
+                $this->throwValidationException(
+                    $request, $validator
+                );
             }
             else{
-                $product->price_discounted = $priceDouble;
-            }
+                $price = $request->input('price');
+                $priceDouble = (double) str_replace('.','', $price);
+                $weight = (double) str_replace('.','', Input::get('weight'));
 
-            if(!empty(Input::get('description'))){
-                $product->description = Input::get('description');
-            }
+                $dateTimeNow = Carbon::now('Asia/Jakarta');
 
-            $product->save();
-            $savedId = $product->id;
-
-            if(!empty($request->file('product-featured'))){
-                $img = Image::make($request->file('product-featured'));
-
-                // Get image extension
-                $extStr = $img->mime();
-                $ext = explode('/', $extStr, 2);
-
-                $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
-
-                $img->save(public_path('storage\product' . '\\'. $filename));
-
-                $productImgFeatured = ProductImage::create([
-                    'product_id'    => $savedId,
-                    'path'          => $filename,
-                    'featured'      => 1
+                $product = Product::create([
+                    'id'            => Uuid::generate(),
+                    'category_id'   => Input::get('category'),
+                    'name'          => Input::get('name'),
+                    'price'         => $priceDouble,
+                    'weight'        => $weight,
+                    'quantity'      => Input::get('qty'),
+                    'created_on'    => $dateTimeNow->toDateTimeString(),
+                    'status_id'     => 1
                 ]);
 
-                $productImgFeatured->save();
-            }
+                if(Input::get('options') == 'percent'){
+                    $discountPercent = (double) Input::get('discount-percent');
+                    $product->discount = $discountPercent;
 
-            if(!empty($request->file('product-photos'))){
-                $idx = 1;
-                foreach($request->file('product-photos') as $img){
-                    error_log('index: '. $idx);
-                    $photo = Image::make($img);
+                    $discountAmount = $priceDouble / 100 * $discountPercent;
+                    $product->price_discounted = $priceDouble - $discountAmount;
+                }
+                else if(Input::get('options') == 'flat'){
+                    $discountFlat = (double) str_replace('.','', Input::get('discount-flat'));
+                    $product->discount_flat = $discountFlat;
+
+                    $product->price_discounted = $priceDouble - $discountFlat;
+                }
+                else{
+                    $product->price_discounted = $priceDouble;
+                }
+
+                if(!empty(Input::get('description'))){
+                    $product->description = Input::get('description');
+                }
+
+                $product->save();
+                $savedId = $product->id;
+
+                if(!empty($request->file('product-featured'))){
+                    $img = Image::make($request->file('product-featured'));
 
                     // Get image extension
-                    $extStr = $photo->mime();
+                    $extStr = $img->mime();
                     $ext = explode('/', $extStr, 2);
 
-                    $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
+                    $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
+                    $img->save(public_path('storage/product/'. $filename));
 
-                    $photo->save(public_path('storage\product'. '\\'. $filename));
-
-                    $productPhoto = ProductImage::create([
+                    $productImgFeatured = ProductImage::create([
                         'product_id'    => $savedId,
                         'path'          => $filename,
-                        'featured'      => 0
+                        'featured'      => 1
                     ]);
 
-                    $productPhoto->save();
-                    $idx++;
+                    $productImgFeatured->save();
                 }
+
+                if(!empty($request->file('product-photos'))){
+                    $idx = 1;
+                    foreach($request->file('product-photos') as $img){
+                        error_log('index: '. $idx);
+                        $photo = Image::make($img);
+
+                        // Get image extension
+                        $extStr = $photo->mime();
+                        $ext = explode('/', $extStr, 2);
+
+                        $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
+
+
+                        $photo->save(public_path('storage/product/'. $filename));
+
+                        $productPhoto = ProductImage::create([
+                            'product_id'    => $savedId,
+                            'path'          => $filename,
+                            'featured'      => 0
+                        ]);
+
+                        $productPhoto->save();
+                        $idx++;
+                    }
+                }
+                return redirect::route('product-list');
             }
-            return redirect::route('product-list');
         }
+        catch(\Exception $ex){
+            Utilities::ExceptionLog($ex);
+        }
+
     }
 
     public function edit($id){
         $product = Product::findorFail($id);
 
-        $imgFeatured = $product->product_image()->where('featured', 1)->first()->path;
+        $imgFeatured = null;
+        if($product->product_image->count() > 0){
+            $imgFeatured = $product->product_image()->where('featured', 1)->first()->path;
+        }
         $imgPhotos = $product->product_image()->where('featured', 0)->get();
         $categories = Category::all();
 
@@ -168,161 +177,172 @@ class ProductController extends Controller
 
     public function update(Request $request, $id){
 
-        $validator = Validator::make($request->all(),[
-            'category'              => 'required|option_not_default',
-            'name'                  => 'required',
-            'price'                 => 'required',
-            'weight'                => 'required',
-            'qty'                   => 'required'
-        ],[
-            'option_not_default'    => 'Select a category'
-        ]);
+        try{
+            $validator = Validator::make($request->all(),[
+                'category'              => 'required|option_not_default',
+                'name'                  => 'required',
+                'price'                 => 'required',
+                'weight'                => 'required',
+                'qty'                   => 'required'
+            ],[
+                'option_not_default'    => 'Select a category'
+            ]);
 
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-        else{
-            $product = Product::find($id);
-            $product->name = Input::get('name');
-            $product->category_id = Input::get('category');
-
-            $status = Input::get('status');
-            $product->status_id = $status === '1' ? 1 : 2;
-
-            $price = $request->input('price');
-            $priceDouble = (double) str_replace('.','', $price);
-            $weight = (double) str_replace('.','', Input::get('weight'));
-
-            $product->price = $priceDouble;
-            $product->weight = $weight;
-            $product->quantity = Input::get('qty');
-
-            if(Input::get('options') == 'percent'){
-                $discountPercent = (double) Input::get('discount-percent');
-                $product->discount = $discountPercent;
-
-                $discountAmount = $priceDouble / 100 * $discountPercent;
-                $product->price_discounted = $priceDouble - $discountAmount;
-
-                // Set other null
-                $product->discount_flat = null;
+            if ($validator->fails()) {
+                $this->throwValidationException(
+                    $request, $validator
+                );
             }
-            else if(Input::get('options') == 'flat'){
-                $discountFlat = (double) str_replace('.','', Input::get('discount-flat'));
-                $product->discount_flat = $discountFlat;
+            else{
+                $product = Product::find($id);
+                $product->name = Input::get('name');
+                $product->category_id = Input::get('category');
 
-                $product->price_discounted = $priceDouble - $discountFlat;
+                $status = Input::get('status');
+                $product->status_id = $status === '1' ? 1 : 2;
 
-                // Set other null
-                $product->discount_flat = null;
-            }
-            else if(Input::get('options' == 'none')){
-                // Set all null
-                $product->discount = null;
-                $product->discount_flat = null;
-                $product->price_discounted = $priceDouble;
-            }
+                $price = $request->input('price');
+                $priceDouble = (double) str_replace('.','', $price);
+                $weight = (double) str_replace('.','', Input::get('weight'));
 
-            if(!empty(Input::get('description'))){
-                $product->description = Input::get('description');
-            }else{
-                $product->description = null;
-            }
+                $product->price = $priceDouble;
+                $product->weight = $weight;
+                $product->quantity = Input::get('qty');
 
-            $product->save();
+                if(Input::get('options') == 'percent'){
+                    $discountPercent = (double) Input::get('discount-percent');
+                    $product->discount = $discountPercent;
 
-            // Image handling
-            $savedId = $product->id;
+                    $discountAmount = $priceDouble / 100 * $discountPercent;
+                    $product->price_discounted = $priceDouble - $discountAmount;
 
-            if(!empty(Input::get('img_featured_changed') && Input::get('img_featured_changed') === 'new')){
-                // Change old value of featured image
-                $currentImgFeatured = $product->product_image()->where('featured',1)->first();
-                $currentImgFeatured->featured = 0;
-                $currentImgFeatured->save();
+                    // Set other null
+                    $product->discount_flat = null;
+                }
+                else if(Input::get('options') == 'flat'){
+                    $discountFlat = (double) str_replace('.','', Input::get('discount-flat'));
+                    $product->discount_flat = $discountFlat;
 
-                $img = Image::make($request->file('product-featured'));
+                    $product->price_discounted = $priceDouble - $discountFlat;
 
-                // Get image extension
-                $extStr = $img->mime();
-                $ext = explode('/', $extStr, 2);
+                    // Set other null
+                    $product->discount_flat = null;
+                }
+                else if(Input::get('options' == 'none')){
+                    // Set all null
+                    $product->discount = null;
+                    $product->discount_flat = null;
+                    $product->price_discounted = $priceDouble;
+                }
 
-                $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
+                if(!empty(Input::get('description'))){
+                    $product->description = Input::get('description');
+                }else{
+                    $product->description = null;
+                }
 
-                $img->save(public_path('storage\product' . '\\'. $filename));
+                $product->save();
 
-                $productImgFeatured = ProductImage::create([
-                    'product_id'    => $savedId,
-                    'path'          => $filename,
-                    'featured'      => 1
-                ]);
+                // Image handling
+                $savedId = $product->id;
 
-                $productImgFeatured->save();
-            }
+                if(!empty(Input::get('img_featured_changed') && Input::get('img_featured_changed') === 'new')){
+                    // Change old value of featured image
 
-            error_log("Deleted: ". Input::get('deleted_img_id'));
+                    if($product->product_image->count() > 0){
+                        $currentImgFeatured = $product->product_image()->where('featured',1)->first();
+                        $currentImgFeatured->featured = 0;
+                        $currentImgFeatured->save();
+                    }
 
-            // Delete product images
-            if(!empty(Input::get('deleted_img_id'))){
-                $deletedIdTmp = Input::get('deleted_img_id');
+                    $img = Image::make($request->file('product-featured'));
 
-                if(strpos($deletedIdTmp,',')){
-                    $deletedIdList = explode(',', $deletedIdTmp);
-                    foreach($deletedIdList as $deletedId){
-                        $productImage = ProductImage::find($deletedId);
+                    // Get image extension
+                    $extStr = $img->mime();
+                    $ext = explode('/', $extStr, 2);
 
-                        $deletedPath = storage_path('app/public/product/'. $productImage->path);
-                        if(file_exists($deletedPath)) unlink($deletedPath);
+                    $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
+                    $img->save(public_path('storage/product/'. $filename));
+
+                    $productImgFeatured = ProductImage::create([
+                        'product_id'    => $savedId,
+                        'path'          => $filename,
+                        'featured'      => 1
+                    ]);
+
+                    $productImgFeatured->save();
+                }
+
+                error_log("Deleted: ". Input::get('deleted_img_id'));
+
+                // Delete product images
+                if(!empty(Input::get('deleted_img_id'))){
+                    $deletedIdTmp = Input::get('deleted_img_id');
+
+                    if(strpos($deletedIdTmp,',')){
+                        $deletedIdList = explode(',', $deletedIdTmp);
+                        foreach($deletedIdList as $deletedId){
+                            $productImage = ProductImage::find($deletedId);
+
+                            $deletedPath = storage_path('app/public/product/'. $productImage->path);
+                            if(file_exists($deletedPath)) unlink($deletedPath);
+
+                            $productImage->delete();
+                        }
+                    }
+                    else{
+                        $productImage = ProductImage::find($deletedIdTmp);
                         $productImage->delete();
                     }
                 }
-                else{
-                    $productImage = ProductImage::find($deletedIdTmp);
-                    $productImage->delete();
+
+                // Change featured value of existing product images
+                if(!empty(Input::get('img_featured_changed') && Input::get('img_featured_changed') != 'new')){
+                    // Change old value of featured image
+
+                    if($product->product_image->count() > 0){
+                        $currentImgFeatured = $product->product_image()->where('featured',1)->first();
+                        $currentImgFeatured->featured = 0;
+                        $currentImgFeatured->save();
+                    }
+
+                    $image = ProductImage::find(Input::get('img_featured_changed'));
+                    $image->featured = 1;
+                    $image->save();
                 }
-            }
 
-            // Change featured value of existing product images
-            if(!empty(Input::get('img_featured_changed') && Input::get('img_featured_changed') != 'new')){
-                // Change old value of featured image
-                $currentImgFeatured = $product->product_image()->where('featured',1)->first();
-                $currentImgFeatured->featured = 0;
-                $currentImgFeatured->save();
+                if(!empty($request->file('product-photos'))){
+                    $idx = 1;
+                    foreach($request->file('product-photos') as $img){
+                        error_log('index: '. $idx);
+                        $photo = Image::make($img);
 
-                $image = ProductImage::find(Input::get('img_featured_changed'));
-                $image->featured = 1;
-                $image->save();
-            }
+                        // Get image extension
+                        $extStr = $photo->mime();
+                        $ext = explode('/', $extStr, 2);
 
-            if(!empty($request->file('product-photos'))){
-                $idx = 1;
-                foreach($request->file('product-photos') as $img){
-                    error_log('index: '. $idx);
-                    $photo = Image::make($img);
-
-                    // Get image extension
-                    $extStr = $photo->mime();
-                    $ext = explode('/', $extStr, 2);
-
-                    $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
+                        $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
 
 
-                    $photo->save(public_path('storage\product'. '\\'. $filename));
+                        $photo->save(public_path('storage/product/'. $filename));
 
-                    $productPhoto = ProductImage::create([
-                        'product_id'    => $savedId,
-                        'path'          => $filename,
-                        'featured'      => 0
-                    ]);
+                        $productPhoto = ProductImage::create([
+                            'product_id'    => $savedId,
+                            'path'          => $filename,
+                            'featured'      => 0
+                        ]);
 
-                    $productPhoto->save();
-                    $idx++;
+                        $productPhoto->save();
+                        $idx++;
+                    }
                 }
-            }
 
-            return redirect::route('product-list');
+                return redirect::route('product-list');
+            }
+        }
+        catch(\Exception $ex){
+            Utilities::ExceptionLog($ex);
         }
     }
 }

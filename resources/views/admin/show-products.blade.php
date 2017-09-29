@@ -101,7 +101,9 @@
                                             {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
                                         </td>
                                         <td width="15%">
-                                            <img width="100%" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}">
+                                            @if($product->product_image->count() > 0)
+                                                <img width="100%" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}">
+                                            @endif
                                         </td>
                                         <td>
                                             @if($product->status_id == 1)

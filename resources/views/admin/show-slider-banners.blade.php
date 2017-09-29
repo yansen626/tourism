@@ -24,7 +24,7 @@
                     <div class="x_title">
                         <h2>Slider Banner List</h2>
                         <div class="nav navbar-right">
-                            <a href="{{ route('slider-banner-create') }}" class="btn btn-app">
+                            <a href="{{ route('slider-banner-create', ['type' => $type]) }}" class="btn btn-app">
                                 <i class="fa fa-plus"></i> Add
                             </a>
                         </div>
@@ -96,8 +96,8 @@
                                     {{ \Carbon\Carbon::parse($banner->created_at)->format('j F y')}}
                                 </td>
                                 <td>
-                                    <a href="/admin/banner/slider/edit/{{ $banner->id }}" class="btn btn-primary">Edit</a>
-                                    <a href="/admin/banner/slider/delete/{{ $banner->id }}" class="btn btn-danger">Delete</a>
+                                    <a href="/admin/banner/edit/{{ $banner->id }}" class="btn btn-primary">Edit</a>
+                                    <a href="/admin/banner/delete/{{ $banner->id }}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @php ($idx++)

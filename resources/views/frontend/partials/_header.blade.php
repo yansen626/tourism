@@ -144,26 +144,31 @@
                 <li class="sub-menu"><a href="javascript:void(0);" >Category</a>
                     <!-- MEGA MENU -->
                     <ul class="mega_menu megamenu_col2 clearfix">
+                        <?php
+                            $categoryAll = $categories::allCategory();
+                            $categoryTotal = $categoryAll->count();
+                            if($categoryTotal % 2 == 1){
+                                $first = ($categoryTotal + 1) / 2;
+                            }
+                            else{
+                                $first = $categoryTotal / 2;
+                            }
+                        ?>
                         <li class="col">
                             <ol>
-                                @foreach($categories::allCategory() as $category)
-                                    <li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>
-                                @endforeach
-                                <li><a href="men.html" >Category 1</a></li>
-                                <li><a href="men.html" >Category 2</a></li>
-                                <li><a href="men.html" >Category 3</a></li>
-                                <li><a href="men.html" >Category 4</a></li>
+                                {{--@foreach($categories::allCategory() as $category)--}}
+                                    {{--<li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>--}}
+                                {{--@endforeach--}}
+                                @for($i = 0; $i < $first; $i++)
+                                        <li><a href="{{ route('products', ['categoryId' => $categoryAll[$i]->id, 'categoryName' => $categoryAll[$i]->name]) }}" >{{ $categoryAll[$i]->name }}</a></li>
+                                @endfor
                             </ol>
                         </li>
                         <li class="col">
                             <ol>
-                                <li><a href="men.html" >Category 5</a></li>
-                                <li><a href="men.html" >Category 6</a></li>
-                                <li><a href="men.html" >Category 7</a></li>
-                                <li><a href="men.html" >Category 8</a></li>
-                                <li><a href="men.html" >Category 9</a></li>
-                                <li><a href="men.html" >Category 10</a></li>
-                                <li><a href="men.html" >Category 11</a></li>
+                                @for($i = ($categoryTotal - $first) + 1; $i < $categoryTotal; $i++)
+                                    <li><a href="{{ route('products', ['categoryId' => $categoryAll[$i]->id, 'categoryName' => $categoryAll[$i]->name]) }}" >{{ $categoryAll[$i]->name }}</a></li>
+                                @endfor
                             </ol>
                         </li>
                     </ul>

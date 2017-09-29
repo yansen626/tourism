@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Http\Request;
@@ -16,10 +17,17 @@ class HomeController extends Controller
     public function Home(Request $request){
         $recentProducts = Product::orderby('created_on', 'desc')->take(10)->get();
         $featuredProducts = Product::inRandomOrder()->take(6)->get();
-        $slideBanners = Banner::where('type', 1)->get();
-        $banner1st = Banner::where('type',2)->get()->first();
-        $banner2nd = Banner::where('type',3)->get()->first();
-        $banner3rd = Banner::where('type',4)->get()->first();
+        $topBanner1st = Banner::where('type', 1)->get();
+        $topBanner2nd = Banner::where('type',2)->get();
+        $categories = Category::orderBy('name')->get();
+        $categoryTotal = $categories->count();
+
+        if($categoryTotal % 2 == 1){
+            $firstColumn = ($categoryTotal + 1) / 2;
+        }
+        else{
+            $firstColumn = $categoryTotal / 2;
+        }
 
         if (Auth::check())
         {
@@ -40,11 +48,12 @@ class HomeController extends Controller
         $data = [
             'recentProducts'    => $recentProducts,
             'featuredProducts'  => $featuredProducts,
-            'slideBanners'      => $slideBanners,
+            'topBanner1st'      => $topBanner1st,
+            'topBanner2nd'      => $topBanner2nd,
             'userId'            => $userId,
-            'banner1st'         => $banner1st,
-            'banner2nd'         => $banner2nd,
-            'banner3rd'         => $banner3rd
+            'categories'        => $categories,
+            'categoryTotal'     => $categoryTotal,
+            'firstColumn'       => $firstColumn
         ];
 
         return View('frontend.home')->with($data);

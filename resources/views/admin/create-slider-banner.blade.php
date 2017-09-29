@@ -109,7 +109,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <a href="{{ route('slider-banner-list') }}" class="btn btn-primary">Cancel</a>
+                                    <a href="{{ route('slider-banner-list', ['type' => $type]) }}" class="btn btn-primary">Cancel</a>
                                     <button id="send" type="submit" class="btn btn-success">Create</button>
                                 </div>
                             </div>
