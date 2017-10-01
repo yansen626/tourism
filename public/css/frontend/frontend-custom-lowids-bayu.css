@@ -227,7 +227,7 @@ header{
     font-weight: bold;
 }
 
-.tovar_item{
+.category_product_wrapper .tovar_item{
     position: relative;
     height: 200px;
     top:  50%;
@@ -240,6 +240,10 @@ header{
 
 .tovar_img{
     border-radius: 4px;
+}
+
+.tovar_description{
+    height: 100px;
 }
 
 .sale_caption1{

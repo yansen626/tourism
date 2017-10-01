@@ -53,13 +53,13 @@
                                     <th>Category</th>
                                     <th>Weight</th>
                                     <th>Normal Price</th>
-                                    <th>Discount</th>
-                                    <th>Flat Discount</th>
-                                    <th>Final Price</th>
                                     <th>Stock</th>
                                     <th>Created Date</th>
                                     <th>Featured Photo</th>
                                     <th>Status</th>
+                                    <th>Discount</th>
+                                    <th>Flat Discount</th>
+                                    <th>Final Price</th>
                                     <th>Option</th>
                                 </tr>
                                 </thead>
@@ -72,6 +72,24 @@
                                         <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->weight }} gr</td>
                                         <td>Rp {{ $product->price}}</td>
+                                        <td>
+                                            {{ $product->quantity }}
+                                        </td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
+                                        </td>
+                                        <td>
+                                            @if($product->product_image->count() > 0)
+                                                <img style="height: 150px;" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}">
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($product->status_id == 1)
+                                                Active
+                                            @else
+                                                Inactive
+                                            @endif
+                                        </td>
                                         <td>
                                             @if(!empty($product->discount))
                                                 {{ $product->discount}}%
@@ -92,24 +110,6 @@
                                                 Rp {{$product->price_discounted}}
                                             @else
                                                 -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $product->quantity }}
-                                        </td>
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
-                                        </td>
-                                        <td width="15%">
-                                            @if($product->product_image->count() > 0)
-                                                <img width="100%" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}">
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($product->status_id == 1)
-                                                Active
-                                            @else
-                                                Inactive
                                             @endif
                                         </td>
                                         <td>

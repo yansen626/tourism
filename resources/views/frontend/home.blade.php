@@ -34,7 +34,7 @@
 					<li class="slide1">
 						<div class="container" >
 							<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id : 'http://'. $slider->url }}">
-								<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: cover; height: 100%; border-radius: 5px;">
+								<div style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}'); background-size: contain; height: 100%; border-radius: 5px;">
 									<div class="sale_caption1" >
 										@if(!empty($slider->caption))
 											<p class="title1 captionDelay2 FromTop" style="background-color: rgba(255, 255, 255, 0.5);">{{ $slider->caption }}</p>
@@ -467,7 +467,7 @@
 
 			<div class="list-group category_home_menu category_first_column">
 				@for($i = 0; $i < $firstColumn; $i++)
-					<a href="#" class="list-group-item">
+					<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item">
 						{{ $categories[$i]->name }}
 					</a>
 				@endfor
@@ -477,7 +477,7 @@
 			</div>
 			<div class="list-group category_home_menu category_second_column">
 				@for($i = ($categoryTotal - $firstColumn) + 1; $i < $categoryTotal; $i++)
-					<a href="#" class="list-group-item">
+					<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item">
 						{{ $categories[$i]->name }}
 					</a>
 				@endfor

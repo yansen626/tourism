@@ -60,6 +60,9 @@ class ProductsController extends Controller
                 $products->orderBy('name');
             }
         }
+        else{
+            $products->orderByDesc('created_on');
+        }
 
         $productCount = $products->count();
         $products = $products->paginate(9);

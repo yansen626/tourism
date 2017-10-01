@@ -55,9 +55,10 @@ class ProductController extends Controller
             ]);
 
             if ($validator->fails()) {
-                $this->throwValidationException(
-                    $request, $validator
-                );
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
             }
             else{
                 $price = $request->input('price');
@@ -110,7 +111,7 @@ class ProductController extends Controller
 
                     $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-                    $img->save(public_path('storage/product/'. $filename));
+                    $img->save(public_path('storage/product/'. $filename), 60);
 
                     $productImgFeatured = ProductImage::create([
                         'product_id'    => $savedId,
@@ -134,7 +135,7 @@ class ProductController extends Controller
                         $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
 
 
-                        $photo->save(public_path('storage/product/'. $filename));
+                        $photo->save(public_path('storage/product/'. $filename), 60);
 
                         $productPhoto = ProductImage::create([
                             'product_id'    => $savedId,
@@ -189,9 +190,10 @@ class ProductController extends Controller
             ]);
 
             if ($validator->fails()) {
-                $this->throwValidationException(
-                    $request, $validator
-                );
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
             }
             else{
                 $product = Product::find($id);
@@ -263,7 +265,7 @@ class ProductController extends Controller
 
                     $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-                    $img->save(public_path('storage/product/'. $filename));
+                    $img->save(public_path('storage/product/'. $filename), 60);
 
                     $productImgFeatured = ProductImage::create([
                         'product_id'    => $savedId,
@@ -292,7 +294,12 @@ class ProductController extends Controller
                         }
                     }
                     else{
+
                         $productImage = ProductImage::find($deletedIdTmp);
+
+                        $deletedPath = storage_path('app/public/product/'. $productImage->path);
+                        if(file_exists($deletedPath)) unlink($deletedPath);
+
                         $productImage->delete();
                     }
                 }
@@ -325,7 +332,7 @@ class ProductController extends Controller
                         $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
 
 
-                        $photo->save(public_path('storage/product/'. $filename));
+                        $photo->save(public_path('storage/product/'. $filename), 60);
 
                         $productPhoto = ProductImage::create([
                             'product_id'    => $savedId,
