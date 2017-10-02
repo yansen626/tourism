@@ -109,7 +109,10 @@ class BannerController extends Controller
         if(Input::get('options') == 'yes'){
             $banner->product_id = Input::get('product');
         }else{
-            if(!empty(Input::get('url'))) $banner->url = Input::get('url');
+            if(!empty(Input::get('url'))) {
+                $formattedUrl = preg_replace('#^https?://#', '', Input::get('url'));
+                $banner->url = $formattedUrl;
+            }
         }
 
         $banner->save();
@@ -213,7 +216,8 @@ class BannerController extends Controller
             $banner->url = null;
         }else{
             if(!empty(Input::get('url'))){
-                $banner->url = Input::get('url');
+                $formattedUrl = preg_replace('#^https?://#', '', Input::get('url'));
+                $banner->url = $formattedUrl;
                 $banner->product_id = null;
             }
         }
@@ -236,33 +240,33 @@ class BannerController extends Controller
         return redirect::route('slider-banner-list');
     }
 
-    public function sideBannerIndex(){
+    public function topBannerIndex(){
         $banner1st = Banner::where('type',2)->get()->first();
         $banner2nd = Banner::where('type',3)->get()->first();
         $banner3rd = Banner::where('type',4)->get()->first();
+        $banner4th = Banner::where('type',4)->get()->first();
 
         $data = [
-            'banner1st'    => $banner1st,
-            'banner2nd'    => $banner2nd,
-            'banner3rd'    => $banner3rd
+            'banner1st'     => $banner1st,
+            'banner2nd'     => $banner2nd,
+            'banner3rd'     => $banner3rd,
+            'banner4th'     => $banner4th
         ];
 
-        return View('admin.show-side-banners')->with($data);
+        return View('admin.show-top-banners')->with($data);
     }
 
-    public function sideBannerEdit($id){
+    public function topBannerEdit($id){
         $banner = Banner::find($id);
-        $products = Product::all();
 
         $data = [
-            'banner'    => $banner,
-            'products'  => $products
+            'banner'    => $banner
         ];
 
-        return View('admin.edit-side-banner')->with($data);
+        return View('admin.edit-top-banner')->with($data);
     }
 
-    public function sideBannerUpdate(Request $request, $id){
+    public function topBannerUpdate(Request $request, $id){
         $validator = Validator::make($request->all(),[
             'image'         => 'mimes:jpeg,jpg,png',
             'url'           => 'max:50'
@@ -274,16 +278,13 @@ class BannerController extends Controller
             );
         }
 
-        if(Input::get('options') == 'yes'){
-            if(Input::get('product') == '-1'){
-                return redirect()->route('slider-banner-create')->withErrors('Please select a product');
-            }
-        }
-
         $banner = Banner::find($id);
 
         $banner->updated_at = Carbon::now('Asia/Jakarta');
         $banner->updated_by = Auth::guard('user_admins')->id();
+
+        $formattedUrl = preg_replace('#^https?://#', '', Input::get('url'));
+        $banner->url = $formattedUrl;
 
         if(!empty($request->file('image'))){
             $img = Image::make($request->file('image'));
@@ -297,28 +298,20 @@ class BannerController extends Controller
             $img->save(public_path('storage/banner/'. $filename));
 
             // Save old banner image
-            $oldImgPath = $banner->image_path;
+            if(!empty($banner->image_path)){
+                $oldImgPath = $banner->image_path;
+
+                // Delete old banner image
+                $deletedPath = storage_path('app/public/banner/'. $oldImgPath);
+                if(file_exists($deletedPath)) unlink($deletedPath);
+            }
 
             // Set new banner image
             $banner->image_path = $filename;
-
-            // Delete old banner image
-            $deletedPath = storage_path('app/public/banner/'. $oldImgPath);
-            if(file_exists($deletedPath)) unlink($deletedPath);
-        }
-
-        if(Input::get('options') == 'yes'){
-            $banner->product_id = Input::get('product');
-            $banner->url = null;
-        }else{
-            if(!empty(Input::get('url'))){
-                $banner->url = Input::get('url');
-                $banner->product_id = null;
-            }
         }
 
         $banner->save();
 
-        return redirect::route('side-banner-list');
+        return redirect::route('top-banner-list');
     }
 }

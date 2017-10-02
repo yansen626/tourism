@@ -95,11 +95,11 @@
                             <li>Information</li>
                         </ul>
                         <div class="box visible">
-                            <p>{!! nl2br($product->description) !!}</p>
-                        </div>
-                        <div class="box">
                             @php( $weightVal = floatval($product->weight / 1000) )
                             Weight: {{ number_format((float) $weightVal, 2, ',', '') }} Kg
+                        </div>
+                        <div class="box">
+                            <p>{!! nl2br($product->description) !!}</p>
                         </div>
                     </div><!-- //TOVAR INFORMATION -->
                 </div><!-- //TOVAR DETAILS WRAPPER -->

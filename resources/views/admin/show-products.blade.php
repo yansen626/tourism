@@ -45,6 +45,51 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+                            <form class="form-inline" style="margin-bottom: 10px;">
+                                <div class="form-group">
+                                    <label>Category:</label>
+                                    <select id="filter-category" class="form-control" onchange="filterCategory(this)">
+
+                                        @if(empty($filterCategory))
+                                            <option value='0' selected>All</option>
+                                        @else
+                                            <option value='0'>All</option>
+                                        @endif
+
+                                        @foreach($categories as $category)
+                                            @if(!empty($filterCategory) && $filterCategory == strval($category->id))
+                                                <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                            @else
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endif
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status:</label>
+                                    <select id="filter-status" class="form-control" onchange="filterStatus(this)">
+                                        @if(empty($filterStatus))
+                                            <option value='0' selected>All</option>
+                                        @else
+                                            <option value='0'>All</option>
+                                        @endif
+
+                                        @if(!empty($filterStatus) && $filterStatus == '1')
+                                            <option value='1' selected>Published</option>
+                                        @else
+                                            <option value='1'>Published</option>
+                                        @endif
+
+                                        @if(!empty($filterStatus) && $filterStatus == '2')
+                                            <option value='2' selected>Unpublished</option>
+                                        @else
+                                            <option value='2'>Unpublished</option>
+                                        @endif
+
+                                    </select>
+                                </div>
+                            </form>
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -85,9 +130,9 @@
                                         </td>
                                         <td>
                                             @if($product->status_id == 1)
-                                                Active
+                                                Published
                                             @else
-                                                Inactive
+                                                Unpublished
                                             @endif
                                         </td>
                                         <td>
@@ -129,5 +174,37 @@
         </div>
     </div>
     <!-- /page content -->
+
+    <script>
+        function filterCategory(e){
+            // Get existing status filter
+            var status = $("#filter-status option:selected").val();
+
+            // Get category filter value
+            var category = e.value;
+
+            var url = "/admin/product?category=" + category;
+            if(status !== '0'){
+                url += "&status=" + status;
+            }
+
+            window.location = url;
+        }
+
+        function filterStatus(e){
+            // Get existing category filter
+            var category = $("#filter-category option:selected").val();
+
+            // Get status filter value
+            var status = e.value;
+
+            var url = "/admin/product?status=" + status;
+            if(category !== '0'){
+                url += "&category=" + category;
+            }
+
+            window.location = url;
+        }
+    </script>
 
 @endsection

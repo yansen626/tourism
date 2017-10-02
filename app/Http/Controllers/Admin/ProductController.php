@@ -30,9 +30,39 @@ class ProductController extends Controller
 }
 
     public function index(){
-        $products = Product::all()->sortByDesc('created_on');
+        $products = null;
 
-        return View('admin.show-products', compact('products'));
+        if(!empty(request()->category) && !empty(request()->status)){
+            $products = Product::where('category_id', request()->category)
+                ->where('status_id', request()->status)
+                ->orderByDesc('created_on')
+                ->get();
+        }
+        else if(!empty(request()->category) && empty(request()->status)){
+            $products = Product::where('category_id', request()->category)
+                ->orderByDesc('created_on')
+                ->get();
+        }
+        else if(empty(request()->category) && !empty(request()->status)){
+            $products = Product::where('status_id', intval(request()->status))
+                ->orderByDesc('created_on')
+                ->get();
+        }
+        else if(empty(request()->category && empty(request()->status))){
+            $products = Product::all()->sortByDesc('created_on');
+        }
+
+        // Get all categories
+        $categories = Category::all();
+
+        $data = [
+            'products'          => $products,
+            'categories'        => $categories,
+            'filterCategory'    => request()->category ?? null,
+            'filterStatus'      => request()->status ?? null,
+        ];
+
+        return View('admin.show-products')->with($data);
     }
 
     public function create(){
@@ -111,7 +141,7 @@ class ProductController extends Controller
 
                     $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-                    $img->save(public_path('storage/product/'. $filename), 60);
+                    $img->save(public_path('storage/product/'. $filename), 75);
 
                     $productImgFeatured = ProductImage::create([
                         'product_id'    => $savedId,
@@ -265,7 +295,7 @@ class ProductController extends Controller
 
                     $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-                    $img->save(public_path('storage/product/'. $filename), 60);
+                    $img->save(public_path('storage/product/'. $filename), 75);
 
                     $productImgFeatured = ProductImage::create([
                         'product_id'    => $savedId,

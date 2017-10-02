@@ -259,6 +259,32 @@ header{
     border-left: none !important;
 }
 
+.tovar_img_wrapper img{
+    position: relative !important;
+}
+
+.tovar_item .tovar_img_wrapper .img_h, .tovar_item:hover .tovar_img_wrapper .img{
+    opacity: 0.5 !important;
+}
+
+.top_banner{
+    background: no-repeat center;
+    background-size: cover;
+    height: 150px;
+    border-radius: 2px;
+}
+
+.top_sale_banners a.banner{
+    border-radius: 3px;
+}
+
+.slider_background_image{
+    background: no-repeat center;
+    background-size: cover;
+    height: 100%;
+    border-radius: 3px;
+}
+
 /* RESPONSIVE */
 @media screen and (max-width: 480px){
     .desktop{

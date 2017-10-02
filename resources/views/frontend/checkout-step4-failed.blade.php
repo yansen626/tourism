@@ -37,7 +37,7 @@
 
                 <div class="checkout_payment clearfix">
                     <div class="payment_method padbot70">
-                        <h3 class="checkout_title">Payment Failed <br> please Checkout again</h3>
+                        <h3 class="checkout_title">Payment Failed <br> please checkout again</h3>
 
                         <div class="col-md-6">
                             <div class="clear"></div>

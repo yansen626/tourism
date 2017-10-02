@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Mail\DeliveryConfirm;
 use App\Mail\OrderAccepted;
 use App\Models\Transaction;
 use App\Models\TransferConfirmation;
@@ -112,6 +113,8 @@ class TransactionController extends Controller
         $trx->tracking_code = Input::get('tracking-code');
         $trx->status_id = 9;
         $trx->save();
+
+        Mail::to($trx->user->email)->send(new DeliveryConfirm(Input::get('tracking-code')));
 
         return redirect::route('delivery-list');
     }

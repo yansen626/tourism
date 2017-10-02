@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Mail\DeliveryConfirm;
 use App\Mail\NewOrderAdmin;
 use App\Models\Transaction;
 use App\Models\User;
@@ -28,6 +29,8 @@ class DashboardController extends Controller
     }
 
     public function index(){
+        Mail::to('hellbardx2@gmail.com')->send(new DeliveryConfirm('WAYBILLASDF'));
+
         $trxTotal = Transaction::where('status_id', 8)->get()->count();
         $customerTotal = User::where('status_id',1)->get()->count();
 

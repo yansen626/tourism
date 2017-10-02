@@ -30,7 +30,7 @@ Route::post('/register', 'Auth\RegisterController@create');
 
 Route::get('/', 'Frontend\HomeController@Home')->name('home');*/
 
-//product
+// Product
 Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsController@products')->name('products');
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
 Route::get('search/{key}', 'Frontend\ProductsController@search')->name('product-search');
@@ -57,7 +57,7 @@ Route::post('/checkout2-submit', [
 Route::get('checkout-3', 'Frontend\TransactionController@CheckoutProcess3')->name('checkout3');
 Route::get('checkout-4', 'Frontend\TransactionController@CheckoutProcess4')->name('checkout4');
 Route::get('checkout-success/{userId}', 'MidtransController@success');
-Route::get('checkout-failed', 'Frontend\TTraransactionController@CheckoutProcessFailed')->name('checkout-failed');
+Route::get('checkout-failed', 'Frontend\TraransactionController@CheckoutProcessFailed')->name('checkout-failed');
 Route::get('checkout-bank', 'Frontend\TransactionController@CheckoutProcessBank')->name('checkout-bank');
 Route::post('/checkout-bank-submit', [
     'uses' => 'Frontend\TransactionController@CheckoutProcessBankSubmit',
@@ -150,7 +150,7 @@ Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDeliv
 Route::get('/track/{id}', 'Admin\TransactionController@track')->name('track');
 
 // Slider Banner
-Route::prefix('/admin/banner')->group(function(){
+Route::prefix('/admin/banner/slider')->group(function(){
     Route::get('/{type}', 'Admin\BannerController@index')->name('slider-banner-list');
     Route::post('/{type}', 'Admin\BannerController@store');
     Route::get('/create/{type}', 'Admin\BannerController@create')->name('slider-banner-create');
@@ -159,12 +159,12 @@ Route::prefix('/admin/banner')->group(function(){
     Route::get('/delete/{id}', 'Admin\BannerController@delete');
 });
 
-// Side Banner
-//Route::prefix('/admin/banner/side')->group(function(){
-//    Route::get('/', 'Admin\BannerController@sideBannerIndex')->name('side-banner-list');
-//    Route::get('/edit/{id}', 'Admin\BannerController@sideBannerEdit')->name('side-banner-edit');
-//    Route::post('/{id}', 'Admin\BannerController@sideBannerUpdate');
-//});
+// Top Banner
+Route::prefix('/admin/banner/top')->group(function(){
+    Route::get('/', 'Admin\BannerController@topBannerIndex')->name('top-banner-list');
+    Route::get('/edit/{id}', 'Admin\BannerController@topBannerEdit')->name('top-banner-edit');
+    Route::post('/update/{id}', 'Admin\BannerController@topBannerUpdate');
+});
 
 // Category
 Route::prefix('admin/category')->group(function(){
