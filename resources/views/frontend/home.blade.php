@@ -127,16 +127,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat1Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat1Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat1Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-                                                    <a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-                                                    <span style="text-decoration: line-through;">Rp 50.000</span><br/>
-                                                    <span style="color:orange;"><b>Rp 90.000</b></span><br/>
-                                                    {{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat1Products[$i]))
+															<a href="{{ route('product-detail', ['id' => $cat1Products[$i]->id]) }}" class="category_item_title">{{ $cat1Products[$i]->name }}</a><br/>
+														@if(!empty($cat1Products[$i]->discount) || !empty($cat1Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat1Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat1Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat1Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat1Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -170,16 +185,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat2Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat2Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat2Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat2Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat2Products[$i]->id]) }}" class="category_item_title">{{ $cat1Products[$i]->name }}</a><br/>
+														@if(!empty($cat2Products[$i]->discount) || !empty($cat2Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat2Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat2Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat2Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat2Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -213,16 +243,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat3Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat3Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat3Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat3Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat3Products[$i]->id]) }}" class="category_item_title">{{ $cat3Products[$i]->name }}</a><br/>
+														@if(!empty($cat3Products[$i]->discount) || !empty($cat3Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat3Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat3Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat3Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat3Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -256,16 +301,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat4Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat4Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat4Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat4Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat4Products[$i]->id]) }}" class="category_item_title">{{ $cat4Products[$i]->name }}</a><br/>
+														@if(!empty($cat4Products[$i]->discount) || !empty($cat4Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat4Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat4Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat4Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat4Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -299,16 +359,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat5Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat5Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat5Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat5Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat5Products[$i]->id]) }}" class="category_item_title">{{ $cat5Products[$i]->name }}</a><br/>
+														@if(!empty($cat5Products[$i]->discount) || !empty($cat5Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat5Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat5Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat5Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat5Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -342,16 +417,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat6Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat6Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat6Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat6Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat6Products[$i]->id]) }}" class="category_item_title">{{ $cat6Products[$i]->name }}</a><br/>
+														@if(!empty($cat6Products[$i]->discount) || !empty($cat6Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat6Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat6Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat6Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat6Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -385,16 +475,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat7Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat7Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat7Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat7Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat7Products[$i]->id]) }}" class="category_item_title">{{ $cat7Products[$i]->name }}</a><br/>
+														@if(!empty($cat7Products[$i]->discount) || !empty($cat7Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat1Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat7Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat7Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat7Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -428,16 +533,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat8Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat8Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat8Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat8Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat8Products[$i]->id]) }}" class="category_item_title">{{ $cat8Products[$i]->name }}</a><br/>
+														@if(!empty($cat8Products[$i]->discount) || !empty($cat8Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat8Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat8Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat8Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat8Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -471,16 +591,31 @@
 										<div class="tovar_item">
 											<div class="tovar_img">
 												<div class="tovar_img_wrapper">
-													<img style="height: 191px;" class="img" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
-													<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/2324f910-a5b1-11e7-9535-6902e91fbce6_20170930020947_0.jpeg') }}" alt="" />
+													@if(!empty($cat9Products[$i]))
+														<img style="height: 191px;" class="img" src="{{ asset('storage/product/'. $cat9Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('storage/product/'. $cat9Products[$i]->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+													@else
+														<img style="height: 191px;" class="img" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+														<img style="height: 191px;" class="img_h" src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" />
+													@endif
 												</div>
 												<div class="tovar_item_btns">
 													{{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
-													<a href="{{ route('product-detail', ['id' => '2324f910-a5b1-11e7-9535-6902e91fbce6']) }}" class="category_item_title">Tofieco Vanilla</a><br/>
-													<span style="text-decoration: line-through;">Rp 50.000</span><br/>
-													<span style="color:orange;"><b>Rp 90.000</b></span><br/>
-													{{--<a class="add_bag" href="#" onclick="addToCart('{{ $featuredProducts[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>--}}
-													<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@if(!empty($cat9Products[$i]))
+														<a href="{{ route('product-detail', ['id' => $cat9Products[$i]->id]) }}" class="category_item_title">{{ $cat9Products[$i]->name }}</a><br/>
+														@if(!empty($cat9Products[$i]->discount) || !empty($cat9Products[$i]->discount_flat))
+															<span class="price-number" style="text-decoration: line-through;">Rp {{ $cat9Products[$i]->price }}</span><br/>
+															<span class="price-number"><b>Rp {{ $cat9Products[$i]->price_discounted }}</b></span><br/>
+														@else
+															<span class="price-number"><b>Rp {{ $cat9Products[$i]->price_discounted }}</b></span><br/>
+														@endif
+														<a class="add_bag" href="#" onclick="addToCart('{{ $cat9Products[$i]->id }}'); return false;"><i class="fa fa-shopping-cart"></i></a>
+													@else
+														<a href="#" class="category_item_title">Product Name Here</a><br/>
+														<span style="text-decoration: line-through;">Rp 50.000</span><br/>
+														<span style="color:orange;"><b>Rp 90.000</b></span><br/>
+														<a class="add_bag" href="#"><i class="fa fa-shopping-cart"></i></a>
+													@endif
 												</div>
 											</div>
 											{{--<div class="tovar_description clearfix">--}}
@@ -551,19 +686,41 @@
 
 			<div class="list-group category_home_menu category_first_column">
 				@for($i = 0; $i < $firstColumn; $i++)
-					<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item">
-						{{ $categories[$i]->name }}
-					</a>
+					@if($i % 2 == 1)
+						<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item odd">
+							<div class="inner_category_list">
+								{{ $categories[$i]->name }}
+							</div>
+						</a>
+					@else
+						<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item even">
+							<div class="inner_category_list">
+								{{ $categories[$i]->name }}
+							</div>
+						</a>
+					@endif
 				@endfor
 				{{--<a href="#" class="list-group-item">--}}
 					{{--<span class="glyphicon glyphicon-film"></span> Videos--}}
 				{{--</a>--}}
 			</div>
 			<div class="list-group category_home_menu category_second_column">
+				@php( $idx = 0 )
 				@for($i = ($categoryTotal - $firstColumn) + 1; $i < $categoryTotal; $i++)
-					<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item">
-						{{ $categories[$i]->name }}
-					</a>
+					@if($idx % 2 == 1)
+						<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item odd">
+							<div class="inner_category_list">
+								{{ $categories[$i]->name }}
+							</div>
+						</a>
+					@else
+						<a href="{{ route('products', ['categoryId' => $categories[$i]->id, 'categoryName' => $categories[$i]->name]) }}" class="list-group-item even">
+							<div class="inner_category_list">
+								{{ $categories[$i]->name }}
+							</div>
+						</a>
+					@endif
+					@php( $idx++ )
 				@endfor
 			</div>
 		</div>

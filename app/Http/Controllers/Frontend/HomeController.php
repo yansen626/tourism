@@ -25,6 +25,25 @@ class HomeController extends Controller
         $categories = Category::orderBy('name')->get();
         $categoryTotal = $categories->count();
 
+        $cat1Products = Product::where('category_id',3)
+            ->inRandomOrder()->take(4)->get();
+        $cat2Products = Product::where('category_id',8)
+            ->inRandomOrder()->take(4)->get();
+        $cat3Products = Product::where('category_id',13)
+            ->inRandomOrder()->take(4)->get();
+        $cat4Products = Product::where('category_id',4)
+            ->inRandomOrder()->take(4)->get();
+        $cat5Products = Product::where('category_id',1)
+            ->inRandomOrder()->take(4)->get();
+        $cat6Products = Product::where('category_id',19)
+            ->inRandomOrder()->take(4)->get();
+        $cat7Products = Product::where('category_id',23)
+            ->inRandomOrder()->take(4)->get();
+        $cat8Products = Product::where('category_id',12)
+            ->inRandomOrder()->take(4)->get();
+        $cat9Products = Product::where('category_id',25)
+            ->inRandomOrder()->take(4)->get();
+
         if($categoryTotal % 2 == 1){
             $firstColumn = ($categoryTotal + 1) / 2;
         }
@@ -59,7 +78,8 @@ class HomeController extends Controller
             'userId'            => $userId,
             'categories'        => $categories,
             'categoryTotal'     => $categoryTotal,
-            'firstColumn'       => $firstColumn
+            'firstColumn'       => $firstColumn,
+            'cat1Products'      => $cat1Products
         ];
 
         return View('frontend.home')->with($data);
