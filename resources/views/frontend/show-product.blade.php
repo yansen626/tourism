@@ -91,16 +91,15 @@
                     <!-- TOVAR INFORMATION -->
                     <div class="tovar_information">
                         <ul class="tabs clearfix">
-                            <li class="current">Details</li>
-                            <li>Information</li>
+                            <li class="current">Description</li>
+                            {{--<li>Information</li>--}}
                         </ul>
                         <div class="box visible">
                             @php( $weightVal = floatval($product->weight / 1000) )
-                            Weight: {{ number_format((float) $weightVal, 2, ',', '') }} Kg
-                        </div>
-                        <div class="box">
+                            <p>Weight: {{ number_format((float) $weightVal, 2, ',', '') }} Kg</p>
                             <p>{!! nl2br($product->description) !!}</p>
                         </div>
+                        {{--<div class="box"></div>--}}
                     </div><!-- //TOVAR INFORMATION -->
                 </div><!-- //TOVAR DETAILS WRAPPER -->
             </div><!-- //ROW -->

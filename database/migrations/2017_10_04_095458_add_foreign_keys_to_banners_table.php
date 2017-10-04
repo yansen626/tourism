@@ -15,6 +15,7 @@ class AddForeignKeysToBannersTable extends Migration {
 		Schema::table('banners', function(Blueprint $table)
 		{
 			$table->foreign('created_by', 'FK_banners_created_by_user_admins')->references('id')->on('user_admins')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('gallery_id', 'FK_banners_gallery_id_galleries')->references('id')->on('galleries')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('product_id', 'FK_banners_product_id_products')->references('id')->on('products')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('status_id', 'FK_banners_status_id_statuses')->references('id')->on('statuses')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('updated_by', 'FK_banners_updated_by_user_admins')->references('id')->on('user_admins')->onUpdate('NO ACTION')->onDelete('NO ACTION');
@@ -32,6 +33,7 @@ class AddForeignKeysToBannersTable extends Migration {
 		Schema::table('banners', function(Blueprint $table)
 		{
 			$table->dropForeign('FK_banners_created_by_user_admins');
+			$table->dropForeign('FK_banners_gallery_id_galleries');
 			$table->dropForeign('FK_banners_product_id_products');
 			$table->dropForeign('FK_banners_status_id_statuses');
 			$table->dropForeign('FK_banners_updated_by_user_admins');

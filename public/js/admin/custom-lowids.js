@@ -30,7 +30,7 @@ else{
     });
 }
 
-var sliderImgPath = $("#image-edit").attr('data-slider-image');
+var sliderImgPath = $("#image-edit").attr('data-image');
 if(sliderImgPath != ''){
     $("#image-edit").fileinput({
         initialPreview:[sliderImgPath],

@@ -17,8 +17,7 @@ class CreatePaymentMethodsTable extends Migration {
 			$table->integer('id', true);
 			$table->string('description', 50);
 			$table->float('fee', 10, 0)->nullable();
-			$table->string('type', 20)->nullable();
-			$table->integer('status_id')->default(1)->index('FK_payment_methods_status_id_statuses_idx');
+			$table->integer('status_id')->default(1)->index('FK_payment_methods_status_id_statuses_idx_idx');
 		});
 	}
 

@@ -28,6 +28,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\UserAdmin $user_admin
  * @property \App\Models\Product $product
  * @property \App\Models\Status $status
+ * @property \App\Models\Gallery $gallery
  *
  * @package App\Models
  */
@@ -37,7 +38,8 @@ class Banner extends Eloquent
 
 	protected $casts = [
 		'type' => 'int',
-		'status_id' => 'int'
+		'status_id' => 'int',
+		'gallery_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -49,7 +51,8 @@ class Banner extends Eloquent
 		'sub_caption',
 		'status_id',
 		'created_by',
-		'updated_by'
+		'updated_by',
+        'gallery_id'
 	];
 
     public function user_admin_created_by()
@@ -71,4 +74,8 @@ class Banner extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Status::class);
 	}
+
+	public function gallery(){
+        return $this->belongsTo(Gallery::class);
+    }
 }

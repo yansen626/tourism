@@ -125,7 +125,7 @@
                                         </td>
                                         <td>
                                             @if($product->product_image->count() > 0)
-                                                <img style="height: 150px;" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}">
+                                                <img style="height: 150px;" src="{{ asset('storage/product/'. $product->product_image()->where('featured', 1)->first()->path) }}">
                                             @endif
                                         </td>
                                         <td>

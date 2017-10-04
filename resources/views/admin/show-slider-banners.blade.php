@@ -96,8 +96,8 @@
                                     {{ \Carbon\Carbon::parse($banner->created_at)->format('j F y')}}
                                 </td>
                                 <td>
-                                    <a href="/admin/banner/edit/{{ $banner->id }}" class="btn btn-primary">Edit</a>
-                                    <a href="/admin/banner/delete/{{ $banner->id }}" class="btn btn-danger">Delete</a>
+                                    <a href="/admin/banner/slider/edit/{{ $banner->id }}" class="btn btn-primary">Edit</a>
+                                    <a href="/admin/banner/slider/delete/{{ $banner->id }}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @php ($idx++)

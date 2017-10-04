@@ -175,6 +175,25 @@ Route::prefix('admin/category')->group(function(){
     Route::post('/{id}', 'Admin\CategoryController@update');
 });
 
+// Gallery
+Route::prefix('admin/gallery')->group(function(){
+    Route::get('/', 'Admin\GalleryController@index')->name('gallery-list');
+    Route::post('/save', 'Admin\GalleryController@store');
+    Route::get('/create', 'Admin\GalleryController@create')->name('gallery-create');
+    Route::get('/edit/{id}', 'Admin\GalleryController@edit')->name('gallery-edit');
+    Route::post('/update/{id}', 'Admin\GalleryController@update');
+});
+
+// Gallery Image
+Route::prefix('admin/gallery')->group(function(){
+    Route::get('/{galleryId}/image', 'Admin\GalleryController@imageIndex')->name('gallery-image-list');
+    Route::post('/{galleryId}/store', 'Admin\GalleryController@imageStore');
+    Route::get('/{galleryId}/create', 'Admin\GalleryController@imageCreate')->name('gallery-image-create');
+    Route::get('/{galleryId}/edit/{id}', 'Admin\GalleryController@imageEdit')->name('gallery-image-edit');
+    Route::post('/{galleryId}/update/{id}', 'Admin\GalleryController@imageUpdate');
+    Route::get('/{galleryId}/delete/{id}', 'Admin\GalleryController@imageDelete')->name('gallery-image-delete');
+});
+
 // Paymentmethods
 Route::prefix('admin/paymentmethods')->group(function(){
     Route::get('/', 'Admin\PaymentMethodController@index')->name('payment-method-show');

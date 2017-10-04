@@ -29,8 +29,6 @@ class DashboardController extends Controller
     }
 
     public function index(){
-        Mail::to('hellbardx2@gmail.com')->send(new DeliveryConfirm('WAYBILLASDF'));
-
         $trxTotal = Transaction::where('status_id', 8)->get()->count();
         $customerTotal = User::where('status_id',1)->get()->count();
 

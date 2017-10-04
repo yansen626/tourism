@@ -21,6 +21,10 @@ class CreateCartsTable extends Migration {
 			$table->float('total_price', 10, 0)->nullable();
 			$table->integer('courier_id')->nullable()->index('FK_carts_courier_id_couriers_idx');
 			$table->integer('delivery_type_id')->nullable()->index('FK_carts_delivery_type_id_delivery_types_idx');
+			$table->float('delivery_fee', 10, 0)->nullable();
+			$table->float('admin_fee', 10, 0)->nullable();
+			$table->string('order_id', 36)->nullable();
+			$table->string('payment_method', 45)->nullable();
 		});
 	}
 

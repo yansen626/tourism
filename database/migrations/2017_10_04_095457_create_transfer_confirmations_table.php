@@ -16,7 +16,7 @@ class CreateTransferConfirmationsTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('user_id', 36)->nullable()->index('FK_transfer_confirmations_user_id_users_idx');
-			$table->string('trx_id', 36)->nullable()->index('FK_transfer_confirmations_trx_id_transactions_idx');
+			$table->string('transaction_id', 36)->nullable()->index('FK_transfer_confirmations_trx_id_transactions_idx');
 			$table->string('receiver_bank', 30)->nullable();
 			$table->float('transfer_amount', 10, 0)->nullable();
 			$table->string('sender_name', 50)->nullable();

@@ -14,7 +14,7 @@ class AddForeignKeysToPaymentMethodsTable extends Migration {
 	{
 		Schema::table('payment_methods', function(Blueprint $table)
 		{
-			$table->foreign('status_id', 'FK_payment_methods_status_id_statuses')->references('id')->on('statuses')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('status_id', 'FK_payment_methods_status_id_statuses_idx')->references('id')->on('statuses')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 
@@ -28,7 +28,7 @@ class AddForeignKeysToPaymentMethodsTable extends Migration {
 	{
 		Schema::table('payment_methods', function(Blueprint $table)
 		{
-			$table->dropForeign('FK_payment_methods_status_id_statuses');
+			$table->dropForeign('FK_payment_methods_status_id_statuses_idx');
 		});
 	}
 

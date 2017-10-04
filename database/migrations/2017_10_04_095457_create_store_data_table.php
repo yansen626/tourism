@@ -20,6 +20,7 @@ class CreateStoreDataTable extends Migration {
 			$table->integer('city_id')->nullable();
 			$table->integer('subdistrict_id')->nullable();
 			$table->string('subdistrict_name', 45)->nullable();
+			$table->string('postal_code', 10)->nullable();
 		});
 	}
 

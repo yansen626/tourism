@@ -14,7 +14,7 @@ class CreateBannersTable extends Migration {
 	{
 		Schema::create('banners', function(Blueprint $table)
 		{
-			$table->integer('id')->primary();
+			$table->integer('id', true);
 			$table->string('product_id', 36)->nullable()->index('FK_banners_product_id_products_idx');
 			$table->integer('type')->nullable();
 			$table->string('image_path', 191)->nullable();
@@ -25,6 +25,7 @@ class CreateBannersTable extends Migration {
 			$table->timestamps();
 			$table->string('created_by', 36)->nullable()->index('FK_banners_created_by_user_admins_idx');
 			$table->string('updated_by', 36)->nullable()->index('FK_banners_updated_by_user_admins_idx');
+			$table->integer('gallery_id')->nullable()->index('FK_banners_gallery_id_galleries_idx');
 		});
 	}
 

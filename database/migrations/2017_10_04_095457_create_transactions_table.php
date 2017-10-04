@@ -17,7 +17,12 @@ class CreateTransactionsTable extends Migration {
 			$table->string('id', 36)->primary();
 			$table->string('user_id', 36)->index('FK_transactions_user_id_users_idx');
 			$table->integer('payment_method_id')->index('FK_transactions_payment_method_id_payment_methods_idx');
+			$table->string('va_bank', 20)->nullable();
+			$table->string('va_number', 30)->nullable();
+			$table->string('bill_key', 30)->nullable();
+			$table->string('biller_code', 30)->nullable();
 			$table->string('invoice', 30)->nullable();
+			$table->string('order_id', 36)->nullable();
 			$table->integer('payment_code')->nullable();
 			$table->float('total_payment', 10, 0)->nullable();
 			$table->float('total_price', 10, 0)->nullable();
@@ -39,6 +44,8 @@ class CreateTransactionsTable extends Migration {
 			$table->string('delivery_type_code', 20)->nullable();
 			$table->float('delivery_fee', 10, 0)->nullable();
 			$table->float('admin_fee', 10, 0)->nullable();
+			$table->dateTime('paid_date')->nullable();
+			$table->dateTime('accept_date')->nullable();
 			$table->dateTime('delivery_date')->nullable();
 			$table->dateTime('finish_date')->nullable();
 			$table->text('reject_note')->nullable();
