@@ -26,6 +26,7 @@
 
                         @if(count($errors))
                             <div class="form-group">
+                                <div class="col-md-3 col-sm-3 col-xs-12"></div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 alert alert-danger alert-dismissible fade in" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                     </button>

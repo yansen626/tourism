@@ -50,14 +50,22 @@
                     </li>
                     <li><a><i class="fa fa-edit"></i> Banner <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            {{--<li><a>Slider Banner<span class="fa fa-chevron-down"></span></a>--}}
-                                {{--<ul class="nav child_menu">--}}
-                                    {{--<li class="sub-menu"><a href="{{ route('slider-banner-list') }}">Show</a></li>--}}
-                                    {{--<li><a href="{{ route('slider-banner-create') }}">Create</a></li>--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                            <li><a href="{{ route('slider-banner-list', ['type'  => 'top_first_banner']) }}">Slider Banner</a></li>
+                            <li><a>Slider Banner<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li class="sub-menu"><a href="{{ route('slider-banner-list', ['type'  => 'top_first_banner']) }}">Show</a></li>
+                                    <li><a href="{{ route('slider-banner-create', ['type'  => 'top_first_banner']) }}">Create</a></li>
+                                </ul>
+                            </li>
+                            {{--<li><a href="{{ route('slider-banner-list', ['type'  => 'top_first_banner']) }}">Slider Banner</a></li>--}}
                             <li><a href="{{ route('top-banner-list') }}">Top Banner</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-picture-o"></i> Gallery <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+
+                            {{--<li><a href="{{ route('slider-banner-list', ['type'  => 'top_first_banner']) }}">Slider Banner</a></li>--}}
+                            <li><a href="{{ route('gallery-list') }}">Show</a></li>
+                            <li><a href="{{ route('gallery-create') }}">Create</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-shopping-cart"></i> Transaction <span class="fa fa-chevron-down"></span></a>

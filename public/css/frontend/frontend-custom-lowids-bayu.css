@@ -1,3 +1,25 @@
+/* Custom Font */
+@font-face {
+    font-family: 'aucoinextbolregular';
+    src: url('../fonts/aucoinextbol-webfont.woff2') format('woff2'),
+    url('../fonts/aucoinextbol-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.logo-caption h3{
+    font-family: aucoinextbolregular;
+    color: #6E452C;
+    margin: 0 !important;
+}
+
+.logo-caption{
+    padding-top: 12px;
+    margin-left: 5px;
+    float: left;
+}
+
 .invoice-link{
     color: #42b549;
 }
@@ -81,19 +103,22 @@ footer{
 }
 
 .foot_logo_img{
-    height: 110px;
+    height: 90px;
     max-width: 100%;
 }
 
 .foot_phone span{
     color: #000000;
     font-weight: 900;
-    line-height: 26px;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .foot_mail a{
     color: #000000 !important;
+}
+
+.foot_address{
+    border-bottom: none;
 }
 
 footer h4{
@@ -105,12 +130,12 @@ footer h4{
 }
 
 .menu_block {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#148c0e+24,81bf4a+100 */
-    background: #148c0e; /* Old browsers */
-    background: -moz-linear-gradient(top,  #148c0e 24%, #81bf4a 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #148c0e 24%,#81bf4a 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #148c0e 24%,#81bf4a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#148c0e', endColorstr='#81bf4a',GradientType=0 ); /* IE6-9 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4d9600+0,8ac657+100 */
+    background: #4d9600; /* Old browsers */
+    background: -moz-linear-gradient(top,  #4d9600 0%, #8ac657 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #4d9600 0%,#8ac657 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #4d9600 0%,#8ac657 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4d9600', endColorstr='#8ac657',GradientType=0 ); /* IE6-9 */
 }
 
 #menu-profile{
@@ -328,6 +353,9 @@ header{
     border-right: 2px solid #ccc !important;
 }
 
+.ws_play{
+    display: none;
+}
 
 /* RESPONSIVE */
 @media screen and (max-width: 479px){
@@ -354,6 +382,10 @@ header{
 
     .my_account_block .login{
         float: left !important;
+    }
+
+    .logo-caption{
+        display: none;
     }
 }
 

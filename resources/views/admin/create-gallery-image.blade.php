@@ -26,6 +26,7 @@
 
                         @if(count($errors))
                             <div class="form-group">
+                                <div class="col-md-3 col-sm-3 col-xs-12"></div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 alert alert-danger alert-dismissible fade in" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                     </button>
@@ -55,12 +56,16 @@
                                 {!! Form::file('image', array('id' => 'image', 'class' => 'file-loading')) !!}
                             </div>
                         </div>
+
+                        {{ Form::hidden('flag', '', array('id' => 'flag')) }}
+
                         <div class="ln_solid"></div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <a href="{{ route('gallery-image-list',['galleryId' => $gallery->id]) }}" class="btn btn-primary">Cancel</a>
-                                <button type="submit" class="btn btn-success">Upload</button>
+                                <button type="submit" class="btn btn-success" onclick="imageSubmit('default')">Upload</button>
+                                <button type="submit" class="btn btn-success" onclick="imageSubmit('again')">Upload and create again</button>
                             </div>
                         </div>
 
@@ -70,6 +75,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function imageSubmit(flag){
+            $("#flag").val(flag);
+            return true;
+        }
+    </script>
 
     <!-- footer -->
     @include('admin.partials._footer')

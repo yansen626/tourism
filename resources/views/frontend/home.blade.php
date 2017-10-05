@@ -11,41 +11,80 @@
 			<div class="row">
 				<div class="top_sale_banners center">
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-ss-12">
-						<a class="banner nobord margbot10" href="{{ 'http://'. $banner1st->url }}" >
-							@if(!empty($banner1st->image_path))
-								<img src="{{ asset('storage/banner/'. $banner1st->image_path) }}" alt="" style="border-radius: 3px;"/>
-							@else
-								<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
-							@endif
-						</a>
+						@if(!empty($banner1st->gallery_id))
+							<a class="banner nobord margbot10" href="{{ route('frontend-gallery-show', ['id' => $banner1st->gallery_id]) }}" >
+								@if(!empty($banner1st->image_path))
+									<img src="{{ asset('storage/banner/'. $banner1st->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@else
+							<a class="banner nobord margbot10" href="{{ 'http://'. $banner1st->url }}" >
+								@if(!empty($banner1st->image_path))
+									<img src="{{ asset('storage/banner/'. $banner1st->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@endif
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-ss-12">
-						<a class="banner nobord margbot10" href="{{ 'http://'. $banner2nd->url }}" >
-							@if(!empty($banner2nd->image_path))
-								<img src="{{ asset('storage/banner/'. $banner2nd->image_path) }}" alt="" style="border-radius: 3px;"/>
-							@else
-								<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
-							@endif
-						</a>
+						@if(!empty($banner2nd->gallery_id))
+							<a class="banner nobord margbot10" href="{{ route('frontend-gallery-show', ['id' => $banner2nd->gallery_id]) }}" >
+								@if(!empty($banner2nd->image_path))
+									<img src="{{ asset('storage/banner/'. $banner2nd->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@else
+							<a class="banner nobord margbot10" href="{{ 'http://'. $banner2nd->url }}" >
+								@if(!empty($banner2nd->image_path))
+									<img src="{{ asset('storage/banner/'. $banner2nd->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@endif
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-ss-12">
-						<a class="banner nobord margbot10" href="{{ 'http://'. $banner3rd->url }}" >
-							@if(!empty($banner3rd->image_path))
-								<img src="{{ asset('storage/banner/'. $banner3rd->image_path) }}" alt="" style="border-radius: 3px;"/>
-							@else
-								<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
-							@endif
-						</a>
+						@if(!empty($banner3rd->gallery_id))
+							<a class="banner nobord margbot10" href="{{ route('frontend-gallery-show', ['id' => $banner3rd->gallery_id]) }}" >
+								@if(!empty($banner3rd->image_path))
+									<img src="{{ asset('storage/banner/'. $banner3rd->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@else
+							<a class="banner nobord margbot10" href="{{ 'http://'. $banner3rd->url }}" >
+								@if(!empty($banner3rd->image_path))
+									<img src="{{ asset('storage/banner/'. $banner3rd->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@endif
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-ss-12">
-						<a class="banner nobord margbot10" href="{{ 'http://'. $banner4th
-						->url }}" >
-							@if(!empty($banner4th->image_path))
-								<img src="{{ asset('storage/banner/'. $banner4th->image_path) }}" alt="" style="border-radius: 3px;"/>
-							@else
-								<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
-							@endif
-						</a>
+						@if(!empty($banner4th->gallery_id))
+							<a class="banner nobord margbot10" href="{{ route('frontend-gallery-show', ['id' => $banner4th->gallery_id]) }}" >
+								@if(!empty($banner4th->image_path))
+									<img src="{{ asset('storage/banner/'. $banner4th->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@else
+							<a class="banner nobord margbot10" href="{{ 'http://'. $banner4th->url }}" >
+								@if(!empty($banner4th->image_path))
+									<img src="{{ asset('storage/banner/'. $banner4th->image_path) }}" alt="" style="border-radius: 3px;"/>
+								@else
+									<img src="{{ asset('frontend_images/tovar/banner17.jpg') }}" alt="" style="border-radius: 3px;"/>
+								@endif
+							</a>
+						@endif
 					</div>
 				</div>
 			</div><!-- //ROW -->
@@ -79,9 +118,21 @@
 		<div class="flexslider top_slider sale_page second_banner">
 			<ul class="slides">
 				@foreach($sliderBanners as $slider)
+					<?php
+						$bannerUrl = "";
+						if(!empty($slider->product_id) && empty($slider->gallery_id)){
+						    $bannerUrl = route('product-detail', ['id' => $slider->product_id]);
+						}
+						elseif(empty($slider->product_id) && !empty($slider->gallery_id)){
+                            $bannerUrl = route('frontend-gallery-show', ['id' => $slider->gallery_id]);
+						}
+						else{
+                            $bannerUrl = 'http://'. $slider->url;
+						}
+					?>
 					<li class="slide1">
 						<div class="container" >
-							<a href="{{ $slider->product_id ? 'product-detail/'. $slider->product_id : 'http://'. $slider->url }}">
+							<a href="{{ $bannerUrl }}">
 								<div class="slider_background_image" style="background-image: url('{{ asset('storage/banner/'. $slider->image_path) }}');">
 									<div class="sale_caption1" >
 										@if(!empty($slider->caption))

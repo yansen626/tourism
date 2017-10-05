@@ -47,6 +47,9 @@ Route::post('/edit-cart', [
     'as' => 'editCart'
 ]);
 
+// Gallery
+Route::get('gallery/{id}', 'Frontend\GalleryController@index')->name('frontend-gallery-show');
+
 // Payment
 Route::get('checkout-1', 'Frontend\TransactionController@CheckoutProcess1')->name('checkout');
 Route::get('checkout-2', 'Frontend\TransactionController@CheckoutProcess2')->name('checkout2');
@@ -182,6 +185,7 @@ Route::prefix('admin/gallery')->group(function(){
     Route::get('/create', 'Admin\GalleryController@create')->name('gallery-create');
     Route::get('/edit/{id}', 'Admin\GalleryController@edit')->name('gallery-edit');
     Route::post('/update/{id}', 'Admin\GalleryController@update');
+    Route::get('/delete/{id}', 'Admin\GalleryController@delete');
 });
 
 // Gallery Image

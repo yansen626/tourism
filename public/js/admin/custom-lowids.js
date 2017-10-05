@@ -168,18 +168,37 @@ function deleteImageEdit(id){
 }
 
 // Banner
-$("#prod-no-opt").change(function(){
-    $("#product-select").hide(300);
+$("#link-no-opt").change(function(){
     $("#banner-url-input").show(300);
-    $("#product").removeAttr('required');
+    $("#gallery-select").hide(300);
     $("#url").attr('required', true);
+    $("#gallery").removeAttr('required');
+
+    if($('#product-select').length > 0){
+        $("#product-select").hide(300);
+        $("#product").removeAttr('required');
+    }
 });
 
-$("#prod-yes-opt").change(function(){
+$("#link-product-opt").change(function(){
     $("#product-select").show(300);
+    $("#gallery-select").hide(300);
     $("#banner-url-input").hide(300);
     $("#product").attr('required', true);
+    $("#gallery").removeAttr('required');
     $("#url").removeAttr('required');
+});
+
+$("#link-gallery-opt").change(function(){
+    $("#gallery-select").show(300);
+    $("#banner-url-input").hide(300);
+    $("#gallery").attr('required', true);
+    $("#url").removeAttr('required');
+
+    if($('#product-select').length > 0){
+        $("#product-select").hide(300);
+        $("#product").removeAttr('required');
+    }
 });
 
 // New Order
@@ -210,6 +229,18 @@ function modalPop(id, mode, url){
     else if(mode === "cancel"){
         var title = "Warning";
         var content = "Are you sure you want to delete?"
+        var yes = "Delete"
+
+        $("#small-modal-yes").attr("class","btn btn-danger");
+        $("#small-modal-title").html(title);
+        $("#small-modal-body").html(content);
+        $("#small-modal-yes").html(yes);
+        $("#small-modal-yes").attr('href', url + id);
+        $("#small-modal").modal();
+    }
+    else if(mode === "gallery"){
+        var title = "Warning";
+        var content = "Are you sure you want to completely delete gallery and all related images?"
         var yes = "Delete"
 
         $("#small-modal-yes").attr("class","btn btn-danger");

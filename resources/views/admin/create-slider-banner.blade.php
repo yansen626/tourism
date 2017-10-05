@@ -47,12 +47,16 @@
                             {{ csrf_field() }}
 
                             @if($errors->count() > 0)
-                                <div class="item form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12" style="color: red;">
-                                        @foreach($errors->all() as $error)
-                                            {{ $error }}<br/>
-                                        @endforeach
+                                <div class="form-group">
+                                    <div class="col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            @foreach($errors->all() as $error)
+                                                {{ $error }}<br/>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                             @endif
@@ -73,15 +77,18 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Link to Product
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Link to Product or Gallery
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="btn-group" data-toggle="buttons">
                                         <label class="btn btn-default active">
-                                            <input type="radio" name="options" value="no" id="prod-no-opt" checked> No
+                                            <input type="radio" name="options" value="no" id="link-no-opt" checked> No
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="radio" name="options" value="yes" id="prod-yes-opt"> Yes
+                                            <input type="radio" name="options" value="link-product" id="link-product-opt"> Product
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="options" value="link-gallery" id="link-gallery-opt"> Gallery
                                         </label>
                                     </div>
                                 </div>
@@ -92,8 +99,23 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="product" name="product" class="form-control" style="width: 100%">
                                         <option value="-1">Select a product</option>
+
                                         @foreach($products as $product)
                                             <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="gallery-select" class="item form-group" style="display: none;">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Choose Gallery
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select id="gallery" name="gallery" class="form-control" style="width: 100%">
+                                        <option value="-1">Select a product</option>
+
+                                        @foreach($galleries as $gallery)
+                                            <option value="{{ $gallery->id }}">{{ $gallery->name }}</option>
                                         @endforeach
 
                                     </select>

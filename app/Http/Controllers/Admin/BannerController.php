@@ -11,6 +11,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Gallery;
+use App\Models\GalleryImage;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,9 +48,11 @@ class BannerController extends Controller
 
     public function create($type){
         $products = Product::all();
+        $galleries = Gallery::all();
 
         $data = [
             'products'  => $products,
+            'galleries' => $galleries,
             'type'      => $type
         ];
 
@@ -69,9 +73,19 @@ class BannerController extends Controller
             );
         }
 
-        if(Input::get('options') == 'yes'){
+        if(Input::get('options') == 'link-product'){
             if(Input::get('product') == '-1'){
                 return redirect()->route('slider-banner-create')->withErrors('Please select a product');
+            }
+        }
+        else if(Input::get('options') == 'link-gallery'){
+            if(Input::get('gallery') == '-1'){
+                return redirect()->route('slider-banner-create')->withErrors('Please select a gallery');
+            }
+            else{
+                if(GalleryImage::where('gallery_id', Input::get('gallery'))->count() == 0){
+                    return redirect()->back()->withErrors('Selected gallery is empty');
+                }
             }
         }
 
@@ -99,16 +113,20 @@ class BannerController extends Controller
             $extStr = $img->mime();
             $ext = explode('/', $extStr, 2);
 
-            $filename = 'banner1_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
+            $filename = 'banner0_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '.'. $ext[1];
 
             $img->save(public_path('storage/banner/'. $filename));
 
             $banner->image_path = $filename;
         }
 
-        if(Input::get('options') == 'yes'){
+        if(Input::get('options') == 'link-product'){
             $banner->product_id = Input::get('product');
-        }else{
+        }
+        else if(Input::get('options') == 'link-gallery'){
+            $banner->gallery_id = Input::get('gallery');
+        }
+        else{
             if(!empty(Input::get('url'))) {
                 $formattedUrl = preg_replace('#^https?://#', '', Input::get('url'));
                 $banner->url = $formattedUrl;
@@ -123,6 +141,7 @@ class BannerController extends Controller
     public function edit($id){
         $banner = Banner::find($id);
         $products = Product::all();
+        $galleries = Gallery::all();
 
         if($banner->type == 1){
             $type = 'top_first_banner';
@@ -132,9 +151,10 @@ class BannerController extends Controller
         }
 
         $data = [
-            'banner'    => $banner,
-            'products'  => $products,
-            'type'      => $type
+            'banner'        => $banner,
+            'products'      => $products,
+            'galleries'     => $galleries,
+            'type'          => $type
         ];
 
         return View('admin.edit-slider-banner')->with($data);
@@ -154,9 +174,19 @@ class BannerController extends Controller
             );
         }
 
-        if(Input::get('options') == 'yes'){
+        if(Input::get('options') == 'link-product'){
             if(Input::get('product') == '-1'){
-                return back()->withErrors($validator)->withInput()->withErrors('Please select a product');
+                return redirect()->back()->withErrors('Please select a product');
+            }
+        }
+        else if(Input::get('options') == 'link-gallery'){
+            if(Input::get('gallery') == '-1'){
+                return redirect()->back()->withErrors('Please select a gallery');
+            }
+            else{
+                if(GalleryImage::where('gallery_id', Input::get('gallery'))->count() == 0){
+                    return redirect()->back()->withErrors('Selected gallery is empty');
+                }
             }
         }
 
@@ -196,7 +226,7 @@ class BannerController extends Controller
             $extStr = $img->mime();
             $ext = explode('/', $extStr, 2);
 
-            $filename = 'banner1_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
+            $filename = 'banner'. $id. '_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
             $img->save(public_path('storage/banner/'. $filename));
 
@@ -211,14 +241,22 @@ class BannerController extends Controller
             if(file_exists($deletedPath)) unlink($deletedPath);
         }
 
-        if(Input::get('options') == 'yes'){
+        if(Input::get('options') == 'link-product'){
             $banner->product_id = Input::get('product');
             $banner->url = null;
-        }else{
-            if(!empty(Input::get('url'))){
+            $banner->gallery_id = null;
+        }
+        else if(Input::get('options') == 'link-gallery'){
+            $banner->gallery_id = Input::get('gallery');
+            $banner->product_id = null;
+            $banner->url = null;
+        }
+        else{
+            if(!empty(Input::get('url'))) {
                 $formattedUrl = preg_replace('#^https?://#', '', Input::get('url'));
                 $banner->url = $formattedUrl;
                 $banner->product_id = null;
+                $banner->gallery_id = null;
             }
         }
 
@@ -244,7 +282,7 @@ class BannerController extends Controller
         $banner1st = Banner::where('type',2)->get()->first();
         $banner2nd = Banner::where('type',3)->get()->first();
         $banner3rd = Banner::where('type',4)->get()->first();
-        $banner4th = Banner::where('type',4)->get()->first();
+        $banner4th = Banner::where('type',5)->get()->first();
 
         $data = [
             'banner1st'     => $banner1st,
@@ -258,9 +296,11 @@ class BannerController extends Controller
 
     public function topBannerEdit($id){
         $banner = Banner::find($id);
+        $galleries = Gallery::all();
 
         $data = [
-            'banner'    => $banner
+            'banner'    => $banner,
+            'galleries' => $galleries
         ];
 
         return View('admin.edit-top-banner')->with($data);
@@ -278,13 +318,31 @@ class BannerController extends Controller
             );
         }
 
+        else if(Input::get('options') == 'link-gallery'){
+            if(Input::get('gallery') == '-1'){
+                return redirect()->back()->withErrors('Please select a gallery');
+            }
+            else{
+                if(GalleryImage::where('gallery_id', Input::get('gallery'))->count() == 0){
+                    return redirect()->back()->withErrors('Selected gallery is empty');
+                }
+            }
+        }
+
         $banner = Banner::find($id);
 
         $banner->updated_at = Carbon::now('Asia/Jakarta');
         $banner->updated_by = Auth::guard('user_admins')->id();
 
-        $formattedUrl = preg_replace('#^https?://#', '', Input::get('url'));
-        $banner->url = $formattedUrl;
+        if(Input::get('options') == 'link-gallery'){
+            $banner->gallery_id = Input::get('gallery');
+            $banner->url = null;
+        }
+        else{
+            $formattedUrl = preg_replace('#^https?://#', '', Input::get('url'));
+            $banner->url = $formattedUrl;
+            $banner->gallery_id = null;
+        }
 
         if(!empty($request->file('image'))){
             $img = Image::make($request->file('image'));
@@ -293,7 +351,7 @@ class BannerController extends Controller
             $extStr = $img->mime();
             $ext = explode('/', $extStr, 2);
 
-            $filename = 'banner2_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
+            $filename = 'banner'. $id. '_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '.'. $ext[1];
 
             $img->save(public_path('storage/banner/'. $filename));
 

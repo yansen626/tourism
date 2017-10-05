@@ -24,6 +24,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $created_by
  * @property \Carbon\Carbon $updated_at
  * @property string $updated_by
+ * @property int $gallery_id
  * 
  * @property \App\Models\UserAdmin $user_admin
  * @property \App\Models\Product $product

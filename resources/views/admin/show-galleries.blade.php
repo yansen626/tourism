@@ -30,6 +30,17 @@
 
                         </div>
                         <div class="x_content">
+
+                            @if($errors->count() > 0)
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    @foreach($errors->all() as $error)
+                                        {{ $error }}<br/>
+                                    @endforeach
+                                </div>
+                            @endif
+
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -37,7 +48,7 @@
                                     <th>Name</th>
                                     <th>Assigned Banner</th>
                                     <th>Status</th>
-                                    <th width="10%">Option</th>
+                                    <th width="20%">Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -45,7 +56,7 @@
                                 @foreach($galleries as $gallery)
                                     <tr>
                                         <td>{{$idx}}</td>
-                                        <td><a href="{{ route('gallery-image-list', ['$galleryId' => $gallery->id]) }}">{{$gallery->name}}</a></td>
+                                        <td><a class="table-url" href="{{ route('gallery-image-list', ['galleryId' => $gallery->id]) }}">{{ $gallery->name }}</a></td>
                                         <td>
                                             @php( $bannerGallery = $banners->where('gallery_id', $gallery->id)->first() )
                                             @if(!empty($bannerGallery))
@@ -67,6 +78,8 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('gallery-edit', ['id' => $gallery->id]) }}" class="btn btn-default">Edit</a>
+                                            <a href="{{ route('gallery-image-list', ['galleryId' => $gallery->id]) }}" class="btn btn-primary">Detail</a>
+                                            <a onclick="modalPop('{{ $gallery->id }}', 'gallery', '/admin/gallery/delete/')" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                     @php( $idx++ )
@@ -80,6 +93,10 @@
         </div>
     </div>
     <!-- /page content -->
+
+    <!-- small modal -->
+    @include('admin.partials._small_modal')
+    <!--/small modal -->
 
     <!-- footer -->
     @include('admin.partials._footer')

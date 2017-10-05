@@ -34,3 +34,13 @@
     right: 0;
     left: 0;
 }
+
+.table-url{
+    text-decoration: underline;
+    color: #00A000;
+}
+
+.table-url:hover{
+    text-decoration: underline;
+    color: #337ab7;
+}

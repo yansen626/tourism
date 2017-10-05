@@ -29,6 +29,10 @@
                 <a href="{{ route('landing') }}" ><img src="{{ URL::asset('frontend_images/lowids_text_logo.png') }}" alt=""/></a>
             </div><!-- //LOGO -->
 
+            <div class="logo-caption text-center">
+                &nbsp;<h3>Bahan Kue</h3>
+            </div>
+
             <!-- USER MENU -->
             <div class="shopping_bag">
                 <a class="shopping_bag_btn" id="menu-profile" href="javascript:void(0);"><i class="fa fa-user"></i><p></p></a>

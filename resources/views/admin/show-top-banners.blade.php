@@ -34,15 +34,18 @@
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th width="5%">No</th>
                                 <th>Position</th>
                                 <th>Image</th>
-                                <th>URL</th>
-                                <th>Last Update Date</th>
+                                <th>Link</th>
+                                <th>Assigned Banner</th>
+                                <th width="15%">Last Update Date</th>
                                 <th>Option</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
+                                <td>1</td>
                                 <td>First</td>
                                 <td>
                                     @if(!empty($banner1st->image_path))
@@ -52,7 +55,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $banner1st->url }}
+                                    @if(!empty($banner1st->url))
+                                        {{ $banner1st->url }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(!empty($banner1st->gallery_id))
+                                        <a class="table-url" href="{{ route('gallery-image-list', ['galleryId' => $banner1st->gallery->id]) }}">{{ $banner1st->gallery->name }}</a>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($banner1st->updated_at)->format('j F y')}}
@@ -62,6 +76,7 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>2</td>
                                 <td>Second</td>
                                 <td>
                                     @if(!empty($banner2nd->image_path))
@@ -71,7 +86,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $banner2nd->url }}
+                                    @if(!empty($banner2nd->url))
+                                        {{ $banner2nd->url }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(!empty($banner2nd->gallery_id))
+                                        <a class="table-url" href="{{ route('gallery-image-list', ['galleryId' => $banner2nd->gallery->id]) }}">{{ $banner2nd->gallery->name }}</a>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($banner2nd->updated_at)->format('j F y')}}
@@ -81,6 +107,7 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>3</td>
                                 <td>Third</td>
                                 <td width="15%">
                                     @if(!empty($banner3rd->image_path))
@@ -90,7 +117,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $banner3rd->url }}
+                                    @if(!empty($banner3rd->url))
+                                        {{ $banner3rd->url }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(!empty($banner3rd->gallery_id))
+                                        <a class="table-url" href="{{ route('gallery-image-list', ['galleryId' => $banner3rd->gallery->id]) }}">{{ $banner3rd->gallery->name }}</a>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($banner3rd->updated_at)->format('j F y')}}
@@ -100,6 +138,7 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>4</td>
                                 <td>Fourth</td>
                                 <td width="15%">
                                     @if(!empty($banner4th->image_path))
@@ -109,7 +148,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $banner4th->url }}
+                                    @if(!empty($banner4th->url))
+                                        {{ $banner4th->url }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(!empty($banner4th->gallery_id))
+                                        <a class="table-url" href="{{ route('gallery-image-list', ['galleryId' => $banner4th->gallery->id]) }}">{{ $banner4th->gallery->name }}</a>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($banner4th->updated_at)->format('j F y')}}

@@ -60,7 +60,7 @@ class GalleryController extends Controller
             'created_by'    => $user->id
         ]);
 
-        return redirect()->route('gallery-list');
+        return redirect()->route('gallery-image-list', ['galleryId' => $gallery->id]);
     }
 
     public function edit($id){
@@ -92,6 +92,31 @@ class GalleryController extends Controller
         $gallery->updated_by = $user->id;
         $gallery->updated_at = $dateTimeNow->toDateTimeString();
         $gallery->save();
+
+        return redirect()->route('gallery-list');
+    }
+
+    public function delete($id){
+        if(Banner::where('gallery_id', $id)->count() > 0){
+            return redirect()->back()->withErrors('Please unassign gallery form banners first!');
+        }
+
+        $images = GalleryImage::where('gallery_id', $id)->get();
+
+        if($images->count() > 0){
+            foreach($images as $image){
+                // Delete image file
+                $deletedPath = storage_path('app/public/gallery/'. $image->file_name);
+                if(file_exists($deletedPath)) unlink($deletedPath);
+
+                // Delete record
+                $image->delete();
+            }
+        }
+
+        // Delete gallery record
+        $gallery = Gallery::find($id);
+        $gallery->delete();
 
         return redirect()->route('gallery-list');
     }
@@ -139,7 +164,7 @@ class GalleryController extends Controller
         $extStr = $img->mime();
         $ext = explode('/', $extStr, 2);
 
-        $filename = $galleryId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). $ext[1];
+        $filename = $galleryId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '.'. $ext[1];
 
         $img->save(public_path('storage/gallery/'. $filename));
 
@@ -149,7 +174,13 @@ class GalleryController extends Controller
             'position'      => Input::get('position')
         ]);
 
-        return redirect()->route('gallery-image-list',['galleryId' => $galleryId]);
+        if(Input::get('flag') == 'default'){
+            return redirect()->route('gallery-image-list',['galleryId' => $galleryId]);
+        }
+        else{
+            return redirect()->route('gallery-image-create',['galleryId' => $galleryId]);
+        }
+
     }
 
     public function imageEdit($galleryId, $id){
@@ -187,7 +218,7 @@ class GalleryController extends Controller
             $extStr = $img->mime();
             $ext = explode('/', $extStr, 2);
 
-            $filename = $galleryId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). $ext[1];
+            $filename = $galleryId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '.'. $ext[1];
 
             $img->save(public_path('storage/gallery/'. $filename));
 

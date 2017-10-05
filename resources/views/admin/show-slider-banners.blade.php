@@ -37,9 +37,9 @@
                                 <th>No</th>
                                 <th>Image</th>
                                 <th>Caption</th>
-                                <th>Sub Caption</th>
                                 <th>Product Name</th>
-                                <th>URL</th>
+                                <th>Link</th>
+                                <th>Assigned Gallery</th>
                                 <th>Status</th>
                                 <th>Created Date</th>
                                 <th>Option</th>
@@ -51,18 +51,11 @@
                             <tr>
                                 <td>{{ $idx }}</td>
                                 <td width="15%">
-                                    <img width="100%" src="{{ asset('storage\banner\\'. $banner->image_path) }}">
+                                    <img width="100%" src="{{ asset('storage/banner/'. $banner->image_path) }}">
                                 </td>
                                 <td>
                                     @if(!empty($banner->caption))
                                         {{ $banner->caption}}
-                                    @else
-                                        -
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(!empty($banner->sub_caption))
-                                        {{ $banner->sub_caption}}
                                     @else
                                         -
                                     @endif
@@ -76,13 +69,20 @@
                                 </td>
                                 <td>
                                     @if(!empty($banner->product_id))
-                                        Same as product url
+                                        Same as product url link
                                     @else
                                         @if(!empty($banner->url))
                                         {{ $banner->url }}
                                         @else
                                         -
                                         @endif
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(!empty($banner->gallery_id))
+                                        <a class="table-url" href="{{ route('gallery-image-list', ['galleryId' => $banner->gallery->id]) }}">{{ $banner->gallery->name }}</a>
+                                    @else
+                                        -
                                     @endif
                                 </td>
                                 <td>
