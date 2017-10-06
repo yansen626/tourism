@@ -30,7 +30,7 @@
             </div><!-- //LOGO -->
 
             <div class="logo-caption text-center">
-                &nbsp;<h3>Bahan Kue</h3>
+                &nbsp;<h3 style="text-transform: capitalize;">Bahan Kue</h3>
             </div>
 
             <!-- USER MENU -->

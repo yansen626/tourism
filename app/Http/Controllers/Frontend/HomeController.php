@@ -15,9 +15,14 @@ class HomeController extends Controller
 {
     //
     public function Home(Request $request){
-        $recentProducts = Product::orderby('created_on', 'desc')->take(10)->get();
-        $featuredProducts = Product::inRandomOrder()->take(6)->get();
-        $sliderBanners = Banner::where('type', 1)->get();
+        $recentProducts = Product::where('status_id', 1)
+            ->where('quantity','>',0)
+            ->orderByDesc('created_on')
+            ->take(10)
+            ->get();
+        $sliderBanners = Banner::where('type', 1)
+            ->where('status_id', 1)
+            ->get();
         $banner1st = Banner::where('type',2)->first();
         $banner2nd = Banner::where('type',3)->first();
         $banner3rd = Banner::where('type',4)->first();
@@ -26,22 +31,40 @@ class HomeController extends Controller
         $categoryTotal = $categories->count();
 
         $cat1Products = Product::where('category_id',3)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat2Products = Product::where('category_id',8)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat3Products = Product::where('category_id',13)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat4Products = Product::where('category_id',4)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat5Products = Product::where('category_id',1)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat6Products = Product::where('category_id',19)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat7Products = Product::where('category_id',23)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat8Products = Product::where('category_id',12)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat9Products = Product::where('category_id',25)
+            ->where('quantity','>',0)
+            ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
 
         if($categoryTotal % 2 == 1){
@@ -69,7 +92,6 @@ class HomeController extends Controller
 
         $data = [
             'recentProducts'    => $recentProducts,
-            'featuredProducts'  => $featuredProducts,
             'sliderBanners'     => $sliderBanners,
             'banner1st'         => $banner1st,
             'banner2nd'         => $banner2nd,
@@ -79,7 +101,15 @@ class HomeController extends Controller
             'categories'        => $categories,
             'categoryTotal'     => $categoryTotal,
             'firstColumn'       => $firstColumn,
-            'cat1Products'      => $cat1Products
+            'cat1Products'      => $cat1Products,
+            'cat2Products'      => $cat2Products,
+            'cat3Products'      => $cat3Products,
+            'cat4Products'      => $cat4Products,
+            'cat5Products'      => $cat5Products,
+            'cat6Products'      => $cat6Products,
+            'cat7Products'      => $cat7Products,
+            'cat8Products'      => $cat8Products,
+            'cat9Products'      => $cat9Products
         ];
 
         return View('frontend.home')->with($data);

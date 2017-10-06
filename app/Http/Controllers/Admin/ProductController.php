@@ -260,7 +260,7 @@ class ProductController extends Controller
                     // Set other null
                     $product->discount_flat = null;
                 }
-                else if(Input::get('options' == 'none')){
+                else if(Input::get('options') == 'none'){
                     // Set all null
                     $product->discount = null;
                     $product->discount_flat = null;
@@ -269,7 +269,8 @@ class ProductController extends Controller
 
                 if(!empty(Input::get('description'))){
                     $product->description = Input::get('description');
-                }else{
+                }
+                else{
                     $product->description = null;
                 }
 

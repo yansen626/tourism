@@ -125,7 +125,7 @@
 
                             @if(!empty($banner->gallery_id))
                                 <div id="banner-url-input" class="item form-group" style="display: none;">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">URL
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">URL Link
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input id="url" name="url" class="form-control col-md-7 col-xs-12">
@@ -133,7 +133,7 @@
                                 </div>
                             @else
                                 <div id="banner-url-input" class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">URL
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">URL Link
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input id="url" name="url" class="form-control col-md-7 col-xs-12" required>

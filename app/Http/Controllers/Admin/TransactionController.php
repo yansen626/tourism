@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\DeliveryConfirm;
 use App\Mail\OrderAccepted;
+use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\TransferConfirmation;
 use Carbon\Carbon;
@@ -65,6 +66,14 @@ class TransactionController extends Controller
             $trx->reject_note = Input::get('reject-reason');
         }
         $trx->save();
+
+        // Return product stock
+        $products = Product::all();
+        foreach($trx->transaction_details as $detail){
+            $product = $products->where('id', $detail->product_id)->first();
+            $product->quantity += 1;
+            $product->save();
+        }
 
         return redirect::route('new-order-list');
     }

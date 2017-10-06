@@ -175,7 +175,15 @@ class TransactionController extends Controller
         $totalPrice = number_format($totalPrice, 0, ",", ".");
         $shipping = number_format($shipping, 0, ",", ".");
         $grandTotal = number_format($grandTotal, 0, ",", ".");
-        return view('frontend.checkout-step4', compact('totalPrice', 'shipping', 'grandTotal'));
+
+        $data = [
+            'totalPrice'    => $totalPrice,
+            'shipping'      => $shipping,
+            'grandTotal'    => $grandTotal,
+            'ex'            => request()->ex
+        ];
+
+        return view('frontend.checkout-step4')->with($data);
     }
 
 //    //bank transfer

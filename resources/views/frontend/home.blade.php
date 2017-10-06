@@ -205,10 +205,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -263,10 +259,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -321,10 +313,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -335,10 +323,10 @@
 			</div>
 			<div class="row margbot10">
 				<div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0;">
-					<a href="{{ route('products', ['categoryId' => 4, 'categoryName' => 'Essence' ]) }}">
+					<a href="{{ route('products', ['categoryId' => 4, 'categoryName' => 'Flavor' ]) }}">
 						<div class="category_img" style="background-image: url('{{ asset('frontend_images/category/essence.jpg') }}')" data-appear-top-offset='-100' data-animated='fadeInUp'>
 							<div class="category_img_title">
-								<span>Essence</span>
+								<span>Flavor</span>
 							</div>
 						</div>
 					</a>
@@ -379,10 +367,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -437,10 +421,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -495,10 +475,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -553,10 +529,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -611,10 +583,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>
@@ -669,10 +637,6 @@
 													@endif
 												</div>
 											</div>
-											{{--<div class="tovar_description clearfix">--}}
-											{{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $featuredProducts[$i]->id]) }}" >{{ $featuredProducts[$i]->name }}</a>--}}
-											{{--<span class="tovar_price">{{ $featuredProducts[$i]->price }}</span>--}}
-											{{--</div>--}}
 										</div>
 									</div>
 								</div>

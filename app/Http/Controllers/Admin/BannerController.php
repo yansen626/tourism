@@ -47,7 +47,7 @@ class BannerController extends Controller
     }
 
     public function create($type){
-        $products = Product::all();
+        $products = Product::where('status_id', 1)->get();
         $galleries = Gallery::all();
 
         $data = [
@@ -140,8 +140,8 @@ class BannerController extends Controller
 
     public function edit($id){
         $banner = Banner::find($id);
-        $products = Product::all();
-        $galleries = Gallery::all();
+        $products = Product::where('status_id', 1)->get();
+        $galleries = Gallery::where('status_id', 1)->get();
 
         if($banner->type == 1){
             $type = 'top_first_banner';
@@ -296,7 +296,7 @@ class BannerController extends Controller
 
     public function topBannerEdit($id){
         $banner = Banner::find($id);
-        $galleries = Gallery::all();
+        $galleries = $galleries = Gallery::where('status_id', 1)->get();
 
         $data = [
             'banner'    => $banner,

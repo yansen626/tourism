@@ -48,6 +48,12 @@ class CartController
             $userId = $user->id;
 
             $productId   = $request['product_id'];
+
+            $product = Product::find($productId);
+            if($product->quantity == 0){
+                return response()->json(['success' => false, 'error' => 'stock']);
+            }
+
             $alreadyInCart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
             if($alreadyInCart){
                 $cart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
@@ -59,7 +65,7 @@ class CartController
                 $cart->save();
             }
             else{
-                $product = Product::find($productId);
+
 
                 Cart::Create([
                     'product_id' => $productId,

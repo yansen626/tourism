@@ -5,17 +5,17 @@
     <link href="{{ URL::asset('css/frontend/template-btn.css') }}" rel="stylesheet">
 
     <!-- BREADCRUMBS -->
-    <section class="breadcrumb women parallax margbot30">
+    <section class="breadcrumb women margbot30">
 
         <!-- CONTAINER -->
         <div class="container">
-            <h2>{{$selectedCategory->name}}</h2>
+            <h2 style="color: #d3d3d3">{{$selectedCategory->name}}</h2>
         </div><!-- //CONTAINER -->
     </section><!-- //BREADCRUMBS -->
 
 
     <!-- SHOP BLOCK -->
-    <section class="shop">
+    <section class="shop product-list">
 
         <!-- CONTAINER -->
         <div class="container">
@@ -117,10 +117,11 @@
                         <!-- //TOVAR FILTER -->
 
                         <!-- PRODUC SIZE -->
-                        <div id="toggle-sizes">
-                            <a class="view_box active" href="javascript:void(0);"><i class="fa fa-th-large"></i></a>
-                            <a class="view_full" href="javascript:void(0);"><i class="fa fa-th-list"></i></a>
-                        </div><!-- //PRODUC SIZE -->
+                        {{--<div id="toggle-sizes">--}}
+                            {{--<a class="view_box active" href="javascript:void(0);"><i class="fa fa-th-large"></i></a>--}}
+                            {{--<a class="view_full" href="javascript:void(0);"><i class="fa fa-th-list"></i></a>--}}
+                        {{--</div>--}}
+                        <!-- //PRODUC SIZE -->
                     </div><!-- //SORTING TOVAR PANEL -->
 
 

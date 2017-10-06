@@ -20,7 +20,7 @@ class ProductsController extends Controller
         $products = Product::where('status_id', '=', 1);
 
         if($categoryId > 0){
-            $products = $products->where([['category_id', '=', $categoryId], ['status_id', '=', 1]]);
+            $products = $products->where([['category_id', '=', $categoryId], ['status_id', '=', 1], ['quantity', '>', 0]]);
             $selectedCategory = Category::find($categoryId);
         }
         else
@@ -86,7 +86,11 @@ class ProductsController extends Controller
     public function ProductShow($id){
         $product = Product::find($id);
         $photos = $product->product_image()->where('featured',0)->get();
-        $recommendedProducts = Product::where('category_id', '=', $product->category_id)->inRandomOrder()->take(6)->get();
+        $recommendedProducts = Product::where('category_id', '=', $product->category_id)
+            ->where('status_id',1)
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
 
         $data =[
             'product'               => $product,

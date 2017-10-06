@@ -106,6 +106,19 @@
                                 , please confirm manually at Midtrans control panel <a style="color: orange;" href="account.midtrans.com"><strong>here</strong></a>
                             </div>
                         @endif
+
+                        @if($deliveryReqTotal > 0)
+                            <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                @if($deliveryReqTotal > 1)
+                                    There are {{ $deliveryReqTotal }} transaction delivery requests
+                                @else
+                                    There is {{ $deliveryReqTotal }} transaction delivery request
+                                @endif
+                                , please take a look <a style="color: dodgerblue;" href="{{ route('delivery-list') }}"><strong>here</strong></a>
+                            </div>
+                        @endif
                     </div>
                     <div class="clearfix"></div>
                 </div>

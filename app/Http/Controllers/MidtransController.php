@@ -15,12 +15,14 @@ use App\Mail\NewOrderAdmin;
 use App\Mail\NewOrderCustomer;
 use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -40,24 +42,72 @@ class MidtransController extends Controller
             $json_result = file_get_contents('php://input');
             $json = json_decode($json_result);
 
-            Utilities::ExceptionLog($json);
+//            Utilities::ExceptionLog($json);
 
             $vt = new Veritrans;
             $notif = $vt->status($json->order_id);
 
-            Utilities::ExceptionLog('ORDER ID = '. $notif->order_id);
+//            Utilities::ExceptionLog('ORDER ID = '. $notif->order_id);
+            $orderid = $notif->order_id;
 
-            $dateTimeNow = Carbon::now('Asia/Jakarta');
 
-            $transaction = Transaction::where('order_id', $notif->order_id)->first();
-            Utilities::ExceptionLog($transaction);
+            DB::transaction(function() use ($orderid, $json){
 
-            if($json->status_code == "200"){
-                if(($json->transaction_status == "capture" || $json->transaction_status =="accept") && $json->fraud_status == "accept"){
-                    $transaction->status_id = 5;
+                Utilities::ExceptionLog($json);
+                Utilities::ExceptionLog($orderid);
 
+                $dateTimeNow = Carbon::now('Asia/Jakarta');
+
+                if($json->status_code == "200"){
+                    if(($json->transaction_status == "capture" || $json->transaction_status =="accept") && $json->fraud_status == "accept"){
+                        $transaction = Transaction::where('order_id', $orderid)->first();
+                        $transaction->status_id = 5;
+
+                        // Filter payment type
+                        if($json->payment_type == "bank_transfer"){
+                            // Filter bank
+                            if(!empty($json->permata_va_number)){
+                                $transaction->va_bank = "permata";
+                                $transaction->va_number = $json->permata_va_number;
+                            }
+                            else if(!empty($json->va_numbers)){
+                                $transaction->va_bank = $json->va_numbers[0]->bank;
+                                $transaction->va_number = $json->va_numbers[0]->va_number;
+                            }
+                        }
+                        else if($json->payment_type == "echannel"){
+                            $transaction->va_bank = "mandiri";
+                            $transaction->bill_key = $json->bill_key;
+                            $transaction->biller_code = $json->biller_code;
+                        }
+                        //
+//                    //send email to notify admin new transaction
+//                    $userMail = "hellbardx2@gmail.com";
+//                    $emailBody = new NewOrderAdmin();
+//                    Mail::to($userMail)->send($emailBody);
+
+                        //$emailBody = new NewOrderCustomer($transaction);
+                        Mail::to($transaction->user->email)->send(new NewOrderCustomer());
+                        Mail::to('admin@lowids.com')->send(new NewOrderAdmin());
+
+                            // Decrease product stock
+                        $products = Product::all();
+                        foreach($transaction->transaction_details as $detail){
+                            $product = $products->where('id', $detail->product_id)->first();
+                            $product->quantity -= 1;
+                            $product->save();
+                        }
+                    }
+
+                    $transaction->modified_on = $dateTimeNow->toDateTimeString();
+                    $transaction->save();
+                }
+                else if($json->status_code == "201"){
                     // Filter payment type
                     if($json->payment_type == "bank_transfer"){
+                        $transaction = Transaction::where('order_id', $orderid)->first();
+                        $transaction->status_id = 4;
+
                         // Filter bank
                         if(!empty($json->permata_va_number)){
                             $transaction->va_bank = "permata";
@@ -69,58 +119,28 @@ class MidtransController extends Controller
                         }
                     }
                     else if($json->payment_type == "echannel"){
-                        $transaction->va_bank = "mandiri";
+                        $transaction = Transaction::where('order_id', $orderid)->first();
                         $transaction->bill_key = $json->bill_key;
                         $transaction->biller_code = $json->biller_code;
                     }
-                    //
-//                    //send email to notify admin new transaction
-//                    $userMail = "hellbardx2@gmail.com";
-//                    $emailBody = new NewOrderAdmin();
-//                    Mail::to($userMail)->send($emailBody);
-
-                    //$emailBody = new NewOrderCustomer($transaction);
-                    Mail::to($transaction->user->email)->send(new NewOrderCustomer());
-                    Mail::to('admin@lowids.com')->send(new NewOrderAdmin());
-                }
-
-                $transaction->modified_on = $dateTimeNow->toDateTimeString();
-                $transaction->save();
-            }
-            else if($json->status_code == "201"){
-                // Filter payment type
-                if($json->payment_type == "bank_transfer"){
-                    $transaction->status_id = 4;
-
-                    // Filter bank
-                    if(!empty($json->permata_va_number)){
-                        $transaction->va_bank = "permata";
-                        $transaction->va_number = $json->permata_va_number;
+                    else if($json->payment_type == "credit_card"){
+                        $transaction = Transaction::where('order_id', $orderid)->first();
+                        $transaction->status_id = 11;
                     }
-                    else if(!empty($json->va_numbers)){
-                        $transaction->va_bank = $json->va_numbers[0]->bank;
-                        $transaction->va_number = $json->va_numbers[0]->va_number;
-                    }
-                }
-                else if($json->payment_type == "echannel"){
-                    $transaction->bill_key = $json->bill_key;
-                    $transaction->biller_code = $json->biller_code;
-                }
-                else if($json->payment_type == "credit_card"){
-                    $transaction->status_id = 11;
-                }
 
-                $transaction->modified_on = $dateTimeNow->toDateTimeString();
-                $transaction->save();
-            }
-            else if($json->status_code == "202"){
-                $transaction->status_id = 10;
-                $transaction->modified_on = $dateTimeNow->toDateTimeString();
-                $transaction->save();
-            }
-            else{
-                // Log error exception here
-            }
+                    $transaction->modified_on = $dateTimeNow->toDateTimeString();
+                    $transaction->save();
+                }
+                else if($json->status_code == "202"){
+                    $transaction = Transaction::where('order_id', $orderid)->first();
+                    $transaction->status_id = 10;
+                    $transaction->modified_on = $dateTimeNow->toDateTimeString();
+                    $transaction->save();
+                }
+                else{
+                    // Log error exception here
+                }
+            }, 5);
         }
         catch (\Exception $ex){
             Utilities::ExceptionLog($ex);
@@ -264,6 +284,14 @@ class MidtransController extends Controller
             $orderId = uniqid();
 
             $carts = Cart::where('user_id', $userId)->get();
+
+            // Check final stock
+            foreach($carts as $cart){
+                if($cart->product->quantity == 0){
+                    return redirect()->route('checkout4', ['ex' => 'stock']);
+                }
+            }
+
             foreach($carts as $cart){
                 $cart->payment_method = $enabledPayments == 'credit_card'? 2:1;
                 $cart->admin_fee = $adminFee;

@@ -15,10 +15,14 @@ function addToCart(productId){
         success : function(response){
             if(response.success === true){
                 $("#add-cart-modal").modal()
-            }else{
+            }
+            else{
                 if(response.error === "login"){
                     var redirect = window.location.href;
                     window.location = "/login?redirect=" + redirect;
+                }
+                else{
+                    alert("Out of Stock");
                 }
             }
         },

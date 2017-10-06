@@ -110,7 +110,7 @@
                                             </label>
                                         @elseif(!empty($product->discount_flat))
                                             <label class="btn btn-default">
-                                                <input type="radio" name="options" value="none" id="disc-none-opt" checked> No Discount
+                                                <input type="radio" name="options" value="none" id="disc-none-opt"> No Discount
                                             </label>
                                             <label class="btn btn-default">
                                                 <input type="radio" name="options" value="percent" id="disc-percent-opt"> Percentage

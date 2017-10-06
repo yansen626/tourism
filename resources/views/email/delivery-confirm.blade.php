@@ -89,7 +89,7 @@
                             <td align="left" class="long-text links-color" style="text-align: left; font-size: 14px; font-family: Verdana, Geneva, sans-serif; color: #3f3f3f;">
                                 <p style="margin: 1em 0px;margin-bottom: 0px;margin-top: 0px;text-align: center;" data-mce-style="text-align: center;">Lowids has shipped your purchases<br/>
                                     Waybill: {{ $waybill }}<br/>
-                                    Check your order status <span style="color: rgb(129, 185, 81);" data-mce-style="color: #81b951;"><strong><a title="here" href="http://lowids.com/purchase/order" style="color: #81b951;text-decoration: underline;" data-mce-style="color: #81b951;">here</a></strong></span>
+                                    Check your order status <span style="color: rgb(129, 185, 81);" data-mce-style="color: #81b951;"><strong><a title="here" href="http://lowids.com/purchase/history" style="color: #81b951;text-decoration: underline;" data-mce-style="color: #81b951;">here</a></strong></span>
                                 </p>
                             </td>
                         </tr>

@@ -68,6 +68,14 @@
                                     @endforeach
                                 </div>
                             @endif
+
+                            @if(!empty($ex))
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        One of your products is out of stock, return to shopping cart <a class="custom-link" href="{{ route('cart-list') }}" >here</a>
+                                </div>
+                            @endif
+
                             <ul>
                                 <li>
                                     <input id="ridio1" type="radio" name="payment" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
