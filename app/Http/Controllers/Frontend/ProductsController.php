@@ -20,7 +20,7 @@ class ProductsController extends Controller
         $products = Product::where('status_id', '=', 1);
 
         if($categoryId > 0){
-            $products = $products->where([['category_id', '=', $categoryId], ['status_id', '=', 1], ['quantity', '>', 0]]);
+            $products = $products->where([['category_id', '=', $categoryId], ['status_id', '=', 1]]);
             $selectedCategory = Category::find($categoryId);
         }
         else
