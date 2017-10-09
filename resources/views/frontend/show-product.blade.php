@@ -98,6 +98,25 @@
 
                             </div>
 
+                            @if($weight->count() > 0)
+                                <div class="tovar_color_select">
+                                    <p>Select Package</p>
+                                    <select id="select-color" class="basic">
+                                        @foreach($weights as $weight)
+                                            <?php
+                                                $isKg = false;
+                                                $tmpWeight = floatval($weight);
+                                                if($tmpWeight > 1000){
+                                                    $tmpWeight = $tmpWeight / 1000;
+                                                    $isKg = true;
+                                                }
+                                            ?>
+                                            <option value="{{ $weight->id }}">{{ strval($tmpWeight) }} {{ $isKg ? 'Kg' : 'Gr' }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
                             @if($colors->count() > 0)
                                 <div class="tovar_color_select">
                                     <p>Select Color</p>

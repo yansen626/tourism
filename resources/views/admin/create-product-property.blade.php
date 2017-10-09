@@ -41,10 +41,18 @@
 
                         <div class="form-group">
                             <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                <label for="name">Description <span class="required">*</span></label>
+                                @if($propertyName == 'weight')
+                                    <label for="name">Weight in Gram <span class="required">*</span></label>
+                                @else
+                                    <label for="name">Description <span class="required">*</span></label>
+                                @endif
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
+                                @if($propertyName == 'weight')
+                                    <input type="number" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
+                                @else
+                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
+                                @endif
                             </div>
                         </div>
                         <div class="ln_solid"></div>

@@ -117,6 +117,7 @@
                                             <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">Edit</a><br/>
                                             <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'color']) }}" class="btn btn-default">Set Color</a><br/>
                                             <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'size']) }}" class="btn btn-default">Set Size</a>
+                                            <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'weight']) }}" class="btn btn-default">Set Size</a>
                                         </td>
                                         <td>{{ $product->name}}</td>
                                         <td>{{ $product->category->name }}</td>

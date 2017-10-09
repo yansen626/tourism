@@ -45,8 +45,14 @@
                                 @php( $idx = 1 )
                                 @foreach($properties as $property)
                                     <tr>
-                                        <td>{{$idx}}</td>
-                                        <td>{{$property->description}}</td>
+                                        <td>{{ $idx }}</td>
+                                        <td>
+                                            @if($propertyName == 'weight')
+                                                {{ $property->description }} Gr
+                                            @else
+                                                {{ $property->description }}
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{ route('product-property-edit', ['id' => $property->id]) }}" class="btn btn-default">Edit</a>
                                             <a href="{{ route('product-property-delete', ['id' => $property->id]) }}" class="btn btn-danger">Delete</a>

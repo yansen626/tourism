@@ -76,7 +76,7 @@ if($('#qty').length > 0){
     });
 }
 
-// Set Color & Size
+// Set Color & Size & Weight
 $(".add-more-color").click(function(){
     var html = $(".copy-color").html();
     $(".after-add-more-color").after(html);
@@ -109,6 +109,14 @@ $("#size-no-opt").change(function(){
 
 $("#size-yes-opt").change(function(){
     $("#input-group-size").show(300);
+});
+
+$("#weight-no-opt").change(function(){
+    $("#input-group-weight").hide(300);
+});
+
+$("#weight-yes-opt").change(function(){
+    $("#input-group-weight").show(300);
 });
 
 // Others

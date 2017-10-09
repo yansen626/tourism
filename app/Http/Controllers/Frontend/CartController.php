@@ -67,6 +67,11 @@ class CartController
                 $note .= 'size='. $size->description;
             }
 
+            if(!empty(Input::get('weight'))){
+                $weight = ProductProperty::find(Input::get('weight'));
+//                $note .= 'weight='. $weight->description;
+            }
+
             $alreadyInCart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
             if($alreadyInCart){
                 $cart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();

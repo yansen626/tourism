@@ -157,6 +157,18 @@ class ProductController extends Controller
                     }
                 }
 
+                if(Input::get('weight-options') == 'yes'){
+                    foreach(Input::get('weight') as $weightOpt){
+                        if(!empty($size)){
+                            ProductProperty::create([
+                                'product_id'    => $savedId,
+                                'name'          => 'weight',
+                                'description'   => $weightOpt
+                            ]);
+                        }
+                    }
+                }
+
                 if(!empty($request->file('product-featured'))){
                     $img = Image::make($request->file('product-featured'));
 

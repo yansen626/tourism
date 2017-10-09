@@ -54,7 +54,7 @@
                                     <div class="cart-image" style="background-image: url('{{ asset('storage/product/'. $cart->product->product_image()->where('featured', 1)->first()->path) }}')"></div>
                                 </td>
                                 <td class="product-name">
-                                    <a href="{{ route('product-detail', ['id' => $cart->Product->id]) }}"> {{ $cart->Product->name }}</a>
+                                    <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}"> {{ $cart->product->name }}</a>
                                     <ul class="variation">
                                         <li class="variation-Color">Category: <span>{{$cart->Product->Category->name}}</span></li>
                                         @if(!empty($cart->note))
