@@ -23,6 +23,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $admin_fee
  * @property string $order_id
  * @property int $payment_method
+ * @property string $note
  *
  * @property \App\Models\Product $product
  * @property \App\Models\User $user
@@ -53,7 +54,8 @@ class Cart extends Eloquent
         'delivery_fee',
         'admin_fee',
         'order_id',
-        'payment_method'
+        'payment_method',
+        'note'
 	];
 
 	public function product()

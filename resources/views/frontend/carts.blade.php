@@ -57,6 +57,15 @@
                                     <a href="{{ route('product-detail', ['id' => $cart->Product->id]) }}"> {{ $cart->Product->name }}</a>
                                     <ul class="variation">
                                         <li class="variation-Color">Category: <span>{{$cart->Product->Category->name}}</span></li>
+                                        @if(!empty($cart->note))
+                                            @php( $notes = explode(';', $cart->note, 2) )
+                                            @foreach($notes as $note)
+                                                @if(!empty($note))
+                                                    @php( $property = explode('=', $note, 2) )
+                                                    <li class="variation-Color"><span>{{ $property[0] }}: {{ $property[1] }}</span></li>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </td>
                                 <td class="product-price">Rp. {{$cart->product->price_discounted}}</td>

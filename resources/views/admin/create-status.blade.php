@@ -24,16 +24,6 @@
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/status">
                             {{ csrf_field() }}
 
-                            <div class="form-group">
-                                <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    <label for="description">Description <span class="required">*</span></label>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="ln_solid"></div>
-
                             @if(count($errors))
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 alert alert-danger alert-dismissible fade in" role="alert">
@@ -47,6 +37,16 @@
                                     </div>
                                 </div>
                             @endif
+
+                            <div class="form-group">
+                                <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    <label for="description">Description <span class="required">*</span></label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

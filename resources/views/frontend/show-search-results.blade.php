@@ -3,8 +3,10 @@
 @extends('layouts.frontend-bayu')
 
 @section('body-content')
+    <link href="{{ URL::asset('css/frontend/template-btn.css') }}" rel="stylesheet">
+
     <!-- BREADCRUMBS -->
-    <section class="breadcrumb women parallax margbot30" style="background-color: #2c2c2c;">
+    <section class="breadcrumb women margbot30" style="background-color: #2c2c2c;">
 
         <!-- CONTAINER -->
         <div class="container">

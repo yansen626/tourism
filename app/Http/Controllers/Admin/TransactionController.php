@@ -68,12 +68,12 @@ class TransactionController extends Controller
         $trx->save();
 
         // Return product stock
-        $products = Product::all();
-        foreach($trx->transaction_details as $detail){
-            $product = $products->where('id', $detail->product_id)->first();
-            $product->quantity += 1;
-            $product->save();
-        }
+//        $products = Product::all();
+//        foreach($trx->transaction_details as $detail){
+//            $product = $products->where('id', $detail->product_id)->first();
+//            $product->quantity += 1;
+//            $product->save();
+//        }
 
         return redirect::route('new-order-list');
     }

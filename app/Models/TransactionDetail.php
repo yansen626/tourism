@@ -27,6 +27,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_on
  * @property string $modified_by
  * @property \Carbon\Carbon $modified_on
+ * @property string $note
  * 
  * @property \App\Models\Product $product
  * @property \App\Models\Transaction $transaction
@@ -68,7 +69,8 @@ class TransactionDetail extends Eloquent
 		'created_by',
 		'created_on',
 		'modified_by',
-		'modified_on'
+		'modified_on',
+		'note'
 	];
 
 	public function product()

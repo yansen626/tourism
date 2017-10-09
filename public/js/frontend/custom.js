@@ -1,12 +1,23 @@
 $('#example').DataTable();
 
 function addToCart(productId){
+    var color = '';
+    if($('#select-color').length > 0){
+        color = $('#select-color').val();
+    }
+    var size = '';
+    if($('#select-size').length > 0){
+        size = $('#select-size').val();
+    }
+
     $.ajax({
         url     : urlLink,
         method  : 'POST',
         data    : {
             // _token: CSRF_TOKEN,
-            product_id  : productId
+            product_id  : productId,
+            color : color,
+            size:  size
         },
         headers:
         {

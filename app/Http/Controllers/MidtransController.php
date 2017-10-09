@@ -90,13 +90,13 @@ class MidtransController extends Controller
                         Mail::to($transaction->user->email)->send(new NewOrderCustomer());
                         Mail::to('admin@lowids.com')->send(new NewOrderAdmin());
 
-                            // Decrease product stock
-                        $products = Product::all();
-                        foreach($transaction->transaction_details as $detail){
-                            $product = $products->where('id', $detail->product_id)->first();
-                            $product->quantity -= 1;
-                            $product->save();
-                        }
+                          // Decrease product stock
+//                        $products = Product::all();
+//                        foreach($transaction->transaction_details as $detail){
+//                            $product = $products->where('id', $detail->product_id)->first();
+//                            $product->quantity -= 1;
+//                            $product->save();
+//                        }
                     }
 
                     $transaction->modified_on = $dateTimeNow->toDateTimeString();
@@ -242,6 +242,10 @@ class MidtransController extends Controller
                     $transactionDetail->price_final = $cart->product->getOriginal('price');
                 }
 
+                if(!empty($cart->note)){
+                    $transactionDetail->note = $cart->note;
+                }
+
                 $transactionDetail->save();
             }
 
@@ -286,11 +290,11 @@ class MidtransController extends Controller
             $carts = Cart::where('user_id', $userId)->get();
 
             // Check final stock
-            foreach($carts as $cart){
-                if($cart->product->quantity == 0){
-                    return redirect()->route('checkout4', ['ex' => 'stock']);
-                }
-            }
+//            foreach($carts as $cart){
+//                if($cart->product->quantity == 0){
+//                    return redirect()->route('checkout4', ['ex' => 'stock']);
+//                }
+//            }
 
             foreach($carts as $cart){
                 $cart->payment_method = $enabledPayments == 'credit_card'? 2:1;
@@ -387,6 +391,10 @@ class MidtransController extends Controller
                     }
                     else{
                         $transactionDetail->price_final = $cart->product->getOriginal('price');
+                    }
+
+                    if(!empty($cart->note)){
+                        $transactionDetail->note = $cart->note;
                     }
 
                     $transactionDetail->save();

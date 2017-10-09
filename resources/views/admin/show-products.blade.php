@@ -94,6 +94,7 @@
                                 <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Option</th>
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Weight</th>
@@ -105,7 +106,6 @@
                                     <th>Discount</th>
                                     <th>Flat Discount</th>
                                     <th>Final Price</th>
-                                    <th>Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -113,6 +113,11 @@
                                 @foreach($products as $product)
                                     <tr>
                                         <td>{{ $idx}}</td>
+                                        <td>
+                                            <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">Edit</a><br/>
+                                            <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'color']) }}" class="btn btn-default">Set Color</a><br/>
+                                            <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'size']) }}" class="btn btn-default">Set Size</a>
+                                        </td>
                                         <td>{{ $product->name}}</td>
                                         <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->weight }} gr</td>
@@ -156,9 +161,6 @@
                                             @else
                                                 -
                                             @endif
-                                        </td>
-                                        <td>
-                                            <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">Edit</a>
                                         </td>
                                     </tr>
                                     @php ($idx++)

@@ -138,6 +138,16 @@ Route::prefix('/admin/product')->group(function (){
     Route::post('/{id}', 'Admin\ProductController@update');
 });
 
+// Product Property
+Route::prefix('/admin/product')->group(function (){
+    Route::get('/{productId}/{name}', 'Admin\ProductPropertyController@index')->name('product-property-list');
+    Route::get('/{productId}/{name}/create', 'Admin\ProductPropertyController@create')->name('product-property-create');
+    Route::post('/{productId}/{name}/store', 'Admin\ProductPropertyController@store');
+    Route::get('/property/edit/{id}', 'Admin\ProductPropertyController@edit')->name('product-property-edit');
+    Route::post('/property/update/{id}', 'Admin\ProductPropertyController@update');
+    Route::get('/property/delete/{id}', 'Admin\ProductPropertyController@delete')->name('product-property-delete');
+});
+
 // Transaction
 Route::prefix('admin/transaction')->group(function(){
     Route::get('/', 'Admin\TransactionController@index')->name('transaction-list');

@@ -14,6 +14,7 @@ use App\libs\Utilities;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductProperty;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -25,9 +26,9 @@ use Webpatser\Uuid\Uuid;
 class ProductController extends Controller
 {
     public function __construct()
-{
-    $this->middleware('auth:user_admins');
-}
+    {
+        $this->middleware('auth:user_admins');
+    }
 
     public function index(){
         $products = null;
@@ -78,7 +79,6 @@ class ProductController extends Controller
                 'name'                  => 'required',
                 'price'                 => 'required',
                 'weight'                => 'required',
-                'qty'                   => 'required',
                 'product-featured'      => 'required|image|mimes:jpeg,jpg,png'
             ],[
                 'option_not_default'    => 'Select a category'
@@ -103,7 +103,7 @@ class ProductController extends Controller
                     'name'          => Input::get('name'),
                     'price'         => $priceDouble,
                     'weight'        => $weight,
-                    'quantity'      => Input::get('qty'),
+                    'quantity'      => 0,
                     'created_on'    => $dateTimeNow->toDateTimeString(),
                     'status_id'     => 1
                 ]);
@@ -131,6 +131,31 @@ class ProductController extends Controller
 
                 $product->save();
                 $savedId = $product->id;
+
+                // Check color & size
+                if(Input::get('color-options') == 'yes'){
+                    foreach(Input::get('color') as $color){
+                        if(!empty($color)){
+                            ProductProperty::create([
+                                'product_id'    => $savedId,
+                                'name'          => 'color',
+                                'description'   => $color
+                            ]);
+                        }
+                    }
+                }
+
+                if(Input::get('size-options') == 'yes'){
+                    foreach(Input::get('size') as $size){
+                        if(!empty($size)){
+                            ProductProperty::create([
+                                'product_id'    => $savedId,
+                                'name'          => 'size',
+                                'description'   => $size
+                            ]);
+                        }
+                    }
+                }
 
                 if(!empty($request->file('product-featured'))){
                     $img = Image::make($request->file('product-featured'));

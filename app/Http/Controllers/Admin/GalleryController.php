@@ -22,6 +22,11 @@ use Intervention\Image\Facades\Image;
 
 class GalleryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:user_admins');
+    }
+
     public function index(){
         $galleries = Gallery::all();
         $banners = Banner::all();

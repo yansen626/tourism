@@ -27,8 +27,8 @@ class Midtrans
             $itemArr = [];
             foreach($carts as $cart){
                 $price = $cart->product->getOriginal('price_discounted');
-                $totalPriceDB = $cart->getOriginal('total_price');
-                $totalPrice += $totalPriceDB;
+                $totalPriceOri = $price * $cart->quantity;
+                $totalPrice += $totalPriceOri;
 
                 //set item detail
                 $arrItem = [];

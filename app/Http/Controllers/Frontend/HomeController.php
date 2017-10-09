@@ -15,11 +15,18 @@ class HomeController extends Controller
 {
     //
     public function Home(Request $request){
+
+//        $recentProducts = Product::where('status_id', 1)
+//            ->where('quantity','>',0)
+//            ->orderByDesc('created_on')
+//            ->take(10)
+//            ->get();
+
         $recentProducts = Product::where('status_id', 1)
-            ->where('quantity','>',0)
             ->orderByDesc('created_on')
             ->take(10)
             ->get();
+
         $sliderBanners = Banner::where('type', 1)
             ->where('status_id', 1)
             ->get();
@@ -31,39 +38,30 @@ class HomeController extends Controller
         $categoryTotal = $categories->count();
 
         $cat1Products = Product::where('category_id',3)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat2Products = Product::where('category_id',8)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat3Products = Product::where('category_id',13)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat4Products = Product::where('category_id',4)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat5Products = Product::where('category_id',1)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat6Products = Product::where('category_id',19)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat7Products = Product::where('category_id',23)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat8Products = Product::where('category_id',12)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
         $cat9Products = Product::where('category_id',25)
-            ->where('quantity','>',0)
             ->where('status_id', 1)
             ->inRandomOrder()->take(4)->get();
 

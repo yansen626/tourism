@@ -73,23 +73,58 @@
                             <div class="tovar_article">&nbsp;</div>
                             <div class="clearfix tovar_brend_price">
                                 <div class="pull-left tovar_brend">&nbsp;</div>
-                                @if($product->quantity == 0)
-                                    <div class="pull-right tovar_view_price" style="color: red;">Out of Stock!</div>
+
+                                {{--@if($product->quantity == 0)--}}
+                                    {{--<div class="pull-right tovar_view_price" style="color: red;">Out of Stock!</div>--}}
+                                {{--@else--}}
+                                    {{--@if(!empty($product->discount) || !empty($product->discount_flat))--}}
+                                        {{--<div class="pull-right" style="font-size: 20px;">--}}
+                                            {{--<span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>--}}
+                                            {{--<p style="color:orange;"><b>Rp {{ $product->price_discounted }}</b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>--}}
+                                        {{--</div>--}}
+                                    {{--@else--}}
+                                        {{--<div class="pull-right tovar_view_price">Rp {{ $product->price }}</div>--}}
+                                    {{--@endif--}}
+                                {{--@endif--}}
+
+                                @if(!empty($product->discount) || !empty($product->discount_flat))
+                                    <div class="pull-right" style="font-size: 20px;">
+                                        <span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>
+                                        <p style="color:orange;"><b>Rp {{ $product->price_discounted }}</b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
+                                    </div>
                                 @else
-                                    @if(!empty($product->discount) || !empty($product->discount_flat))
-                                        <div class="pull-right" style="font-size: 20px;">
-                                            <span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>
-                                            <p style="color:orange;"><b>Rp {{ $product->price_discounted }}</b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
-                                        </div>
-                                    @else
-                                        <div class="pull-right tovar_view_price">Rp {{ $product->price }}</div>
-                                    @endif
+                                    <div class="pull-right tovar_view_price">Rp {{ $product->price }}</div>
                                 @endif
+
                             </div>
+
+                            @if($colors->count() > 0)
+                                <div class="tovar_color_select">
+                                    <p>Select Color</p>
+                                    <select id="select-color" class="basic">
+                                        @foreach($colors as $color)
+                                            <option value="{{ $color->id }}">{{ ucwords($color->description) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            @if($sizes->count() > 0)
+                                <div class="tovar_color_select">
+                                    <p>Select Size</p>
+                                    <select id="select-size" class="basic">
+                                        @foreach($sizes as $size)
+                                            <option value="{{ $size->id }}">{{ ucwords($size->description) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
                             <div class="tovar_view_btn">
-                                @if($product->quantity > 0)
-                                    <div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>
-                                @endif
+                                {{--@if($product->quantity > 0)--}}
+                                    {{--<div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>--}}
+                                {{--@endif--}}
+                                <div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>
                             </div>
                         </div>
                     </div><!-- //CLEARFIX -->

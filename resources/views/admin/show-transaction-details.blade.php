@@ -72,7 +72,7 @@
                                         <b>Status:</b><br/>
                                         @if($transaction->status_id == 3)
                                             <b>New Order</b>
-                                        @if($transaction->status_id == 4)
+                                        @elseif($transaction->status_id == 4)
                                             <b>Payment Verification</b>
                                         @elseif($transaction->status_id == 5)
                                             <b>Payment Confirmed</b>
@@ -123,7 +123,19 @@
                                                 @foreach($transaction->transaction_details as $detail)
                                                     <tr>
                                                         <td>{{ $idx }}</td>
-                                                        <td>{{ $detail->name }}</td>
+                                                        <td>
+                                                            {{ $detail->name }}
+                                                            @if(!empty($detail->note))
+                                                                @php( $notes = explode(';', $detail->note, 2) )
+                                                                @foreach($notes as $note)
+                                                                    @if(!empty($note))
+                                                                        @php( $property = explode('=', $note, 2) )
+                                                                        <br/>
+                                                                        {{ $property[0] }}: {{ $property[1] }}
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
                                                         <td>{{ $detail->product->category->name }}</td>
                                                         <td>{{ $detail->weight }} Gr</td>
                                                         <td>{{ $detail->price_basic }}</td>

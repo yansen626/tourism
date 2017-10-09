@@ -76,6 +76,41 @@ if($('#qty').length > 0){
     });
 }
 
+// Set Color & Size
+$(".add-more-color").click(function(){
+    var html = $(".copy-color").html();
+    $(".after-add-more-color").after(html);
+});
+
+$("body").on("click",".remove-color",function(){
+    $(this).parents(".control-group-color").remove();
+});
+
+$(".add-more-size").click(function(){
+    var html = $(".copy-size").html();
+    $(".after-add-more-size").after(html);
+});
+
+$("body").on("click",".remove-size",function(){
+    $(this).parents(".control-group-size").remove();
+});
+
+$("#color-no-opt").change(function(){
+    $("#input-group-color").hide(300);
+});
+
+$("#color-yes-opt").change(function(){
+    $("#input-group-color").show(300);
+});
+
+$("#size-no-opt").change(function(){
+    $("#input-group-size").hide(300);
+});
+
+$("#size-yes-opt").change(function(){
+    $("#input-group-size").show(300);
+});
+
 // Others
 $("#disc-none-opt").change(function(){
     $("#disc-percent").hide(300);

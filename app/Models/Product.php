@@ -31,6 +31,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\Status $status
  * @property \Illuminate\Database\Eloquent\Collection $carts
  * @property \Illuminate\Database\Eloquent\Collection $transaction_details
+ * @property \Illuminate\Database\Eloquent\Collection $product_properties
  *
  * @package App\Models
  */
@@ -95,6 +96,11 @@ class Product extends Eloquent
 
     public function product_image(){
 	    return $this->hasMany(\App\Models\ProductImage::class);
+    }
+
+    public function product_properties()
+    {
+        return $this->hasMany(\App\Models\ProductProperty::class);
     }
 
 	public function getPriceAttribute(){

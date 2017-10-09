@@ -188,7 +188,7 @@ header{
     z-index: 9999;
 }
 
-/* Product Detail Carousel */
+/* Product Detail */
 #carousel1 .slides li,
 #carousel2 .slides li{
     height: auto !important;
@@ -202,6 +202,10 @@ header{
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
     background-color: #81B951;
     border-color: #81B951;
+}
+
+.tovar_view_description div.fancy-select div.trigger{
+    width: 150px !important;
 }
 
 /* HOME PAGE */
@@ -414,6 +418,10 @@ header{
     }
 
     .logo-caption{
+        display: none;
+    }
+
+    .widget_categories{
         display: none;
     }
 }

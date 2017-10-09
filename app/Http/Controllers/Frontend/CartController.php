@@ -12,7 +12,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\ProductProperty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,8 +52,19 @@ class CartController
             $productId   = $request['product_id'];
 
             $product = Product::find($productId);
-            if($product->quantity == 0){
-                return response()->json(['success' => false, 'error' => 'stock']);
+//            if($product->quantity == 0){
+//                return response()->json(['success' => false, 'error' => 'stock']);
+//            }
+
+            $note = "";
+            if(!empty(Input::get('color'))){
+                $color = ProductProperty::find(Input::get('color'));
+                $note .= 'color='. $color->description. ';';
+            }
+
+            if(!empty(Input::get('size'))){
+                $size = ProductProperty::find(Input::get('size'));
+                $note .= 'size='. $size->description;
             }
 
             $alreadyInCart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->first();
@@ -62,17 +75,21 @@ class CartController
                 $cart->quantity = $newQuantity;
                 $cart->total_price = $newQuantity * $cart->product->getOriginal('price_discounted');
 
+                if(!empty($note)) $cart->note = $note;
+
                 $cart->save();
             }
             else{
-
-
-                Cart::Create([
+                $cart = Cart::Create([
                     'product_id' => $productId,
                     'user_id' => $userId,
                     'quantity' => 1,
                     'total_price' => $product->getOriginal('price_discounted')
                 ]);
+
+                if(!empty($note)) $cart->note = $note;
+
+                $cart->save();
             }
 
             //edit session data

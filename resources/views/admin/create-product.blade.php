@@ -42,6 +42,21 @@
                         {!! Form::open(array('action' => 'Admin\ProductController@store', 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
                         {{ csrf_field() }}
 
+                            @if(count($errors))
+                                <div class="form-group">
+                                    <div class="col-md-3 col-sm-3 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 alert alert-danger alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <ul>
+                                            @foreach($errors->all() as $error)
+                                                <li> {{ $error }} </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Name <span class="required">*</span>
                                 </label>
@@ -49,18 +64,6 @@
                                     <input id="name" class="form-control col-md-7 col-xs-12"  name="name" required="required" type="text">
                                 </div>
                             </div>
-
-                            @if ($errors->has('name'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('name') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Category <span class="required">*</span>
                                 </label>
@@ -75,18 +78,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            @if ($errors->has('category'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('category') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" >Price <span class="required">*</span>
                                 </label>
@@ -94,18 +85,6 @@
                                     <input id="price" name="price" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-
-                            @if ($errors->has('price'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('price') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Discount
                                 </label>
@@ -137,29 +116,6 @@
                                     <input id="discount-flat" name="discount-flat" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-
-                            @if ($errors->has('discount-percent'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('discount-percent') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
-                            @if ($errors->has('discount-flat'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('discount-flat') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram <span class="required">*</span>
                                 </label>
@@ -167,37 +123,13 @@
                                     <input id="weight" name="weight" required class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
-
-                            @if ($errors->has('weight'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('weight') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
-                            <div class="item form-group" >
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="qty" name="qty" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-
-                            @if ($errors->has('qty'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('qty') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
+                            {{--<div class="item form-group" >--}}
+                                {{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Stock--}}
+                                {{--</label>--}}
+                                {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
+                                    {{--<input id="qty" name="qty" class="form-control col-md-7 col-xs-12">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 0;">Featured Photo <span class="required">*</span><br/>
                                     <span style="color: red;">recommended image ratio 3:4 or exact 270x370 pixel</span>
@@ -207,16 +139,6 @@
                                     {!! Form::file('product-featured', array('id' => 'product-featured', 'class' => 'file-loading')) !!}
                                 </div>
                             </div>
-                            @if ($errors->has('product-featured'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('product-featured') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 0;">Add More Photos<br/>
                                     <span style="color: red;">recommended image ratio 3:4 or exact 270x370 pixel</span>
@@ -225,16 +147,91 @@
                                     {!! Form::file('product-photos[]', array('id' => 'product-photos', 'class' => 'file-loading', 'multiple' )) !!}
                                 </div>
                             </div>
-                            @if ($errors->has('product-photos'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Color
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default active">
+                                            <input type="radio" name="color-options" value="no" id="color-no-opt" checked> No
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="color-options" value="yes" id="color-yes-opt"> Yes
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="input-group-color" style="display: none;">
+                                <div class="item form-group control-group-color after-add-more-color">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('product-photos') }}
+                                        <div class="input-group">
+                                            <input name="color[]" class="form-control" placeholder="Color">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-success add-more-color" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+
+                                <div class="copy-color hide">
+                                    <div class="item form-group control-group-color">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="input-group">
+                                                <input name="color[]" class="form-control" placeholder="Color">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-danger remove-color" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Size
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default active">
+                                            <input type="radio" name="size-options" value="no" id="size-no-opt" checked> No
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="size-options" value="yes" id="size-yes-opt"> Yes
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="input-group-size" style="display: none;">
+                                <div class="item form-group control-group-size after-add-more-size">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="input-group">
+                                            <input name="size[]" class="form-control" placeholder="Size">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="copy-size hide">
+                                    <div class="item form-group control-group-size">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="input-group">
+                                                <input name="size[]" class="form-control" placeholder="Size">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description
                                 </label>
