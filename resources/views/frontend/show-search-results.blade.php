@@ -148,15 +148,17 @@
                                     <div class="tovar_img">
                                         <div class="tovar_img_wrapper">
                                             @if($product->product_image->count() > 0)
-                                                <img class="img" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
-                                                <img class="img_h" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+                                                <a href="{{ route('product-detail', ['id' => $product->id]) }}" >
+                                                    <img class="img" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+                                                    <img class="img_h" src="{{ asset('storage\product\\'. $product->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+                                                </a>
                                             @else
                                                 <img class="img" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
                                                 <img class="img_h" src="{{ URL::asset('frontend_images/tovar/women/1_2.jpg') }}" alt="" />
                                             @endif
                                         </div>
                                         <div class="tovar_item_btns">
-                                            <a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i></a>
+                                            {{--<a class="add_bag" href="javascript:void(0);" onclick="addToCart('{{ $product->id }}')"><i class="fa fa-shopping-cart"></i></a>--}}
                                             {{--<a class="add_lovelist" href="javascript:void(0);" ><i class="fa fa-heart"></i></a>--}}
                                         </div>
                                     </div>

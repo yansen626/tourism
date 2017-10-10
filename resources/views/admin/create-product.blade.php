@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- SET COLOR OPTIONS /-->
+                        <!-- SET //COLOR OPTIONS -->
 
                         <!-- SET SIZE OPTIONS -->
                         <div class="item form-group">
@@ -212,9 +212,15 @@
                         <div id="input-group-size" style="display: none;">
                             <div class="item form-group control-group-size after-add-more-size">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="input-group">
-                                        <input name="size[]" class="form-control" placeholder="Size">
+                                <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <input name="size[]" class="form-control" placeholder="Size">
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <div class="input-group price-format">
+                                        <input name="size-price[]" class="form-control" placeholder="Price">
                                         <div class="input-group-btn">
                                             <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
                                         </div>
@@ -224,9 +230,15 @@
                             <div class="copy-size hide">
                                 <div class="item form-group control-group-size">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="input-group">
-                                            <input name="size[]" class="form-control" placeholder="Size">
+                                    <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <input name="size[]" class="form-control" placeholder="Size">
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="input-group price-format">
+                                            <input name="size-price[]" class="form-control" placeholder="Price">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
                                             </div>
@@ -235,7 +247,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- SET SIZE OPTIONS /-->
+                        <!-- //SET SIZE OPTIONS -->
 
                         <!-- SET WEIGHT OPTIONS -->
                         <div class="item form-group">
@@ -256,9 +268,12 @@
                         <div id="input-group-weight" style="display: none;">
                             <div class="item form-group control-group-weight after-add-more-weight">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="input-group">
-                                        <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <div class="input-group price-format">
+                                        <input name="weight-price[]" class="form-control" placeholder="Price">
                                         <div class="input-group-btn">
                                             <button class="btn btn-success add-more-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
                                         </div>
@@ -269,9 +284,12 @@
                             <div class="copy-weight hide">
                                 <div class="item form-group control-group-weight">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="input-group">
-                                            <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="input-group price-format">
+                                            <input name="weight-price[]" class="form-control" placeholder="Price">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger remove-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
                                             </div>
@@ -280,7 +298,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- SET WEIGHT OPTIONS /-->
+                        <!-- //SET WEIGHT OPTIONS -->
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description

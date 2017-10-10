@@ -146,14 +146,29 @@ class ProductController extends Controller
                 }
 
                 if(Input::get('size-options') == 'yes'){
+                    $idx = 0;
+                    $sizePrice = Input::get('size-price');
+                    $sizeWeight = Input::get('size-weight');
                     foreach(Input::get('size') as $size){
                         if(!empty($size)){
-                            ProductProperty::create([
+                            $propertySize = ProductProperty::create([
                                 'product_id'    => $savedId,
                                 'name'          => 'size',
                                 'description'   => $size
                             ]);
+
+                            if(!empty($sizePrice[$idx])){
+                                $propertyPriceDouble = (double) str_replace('.','', $sizePrice[$idx]);
+                                $propertySize->price = $propertyPriceDouble;
+                            }
+
+                            if(!empty($sizeWeight[$idx])){
+                                $propertySize->weight = $sizeWeight[$idx];
+                            }
+
+                            $propertySize->save();
                         }
+                        $idx++;
                     }
                 }
 

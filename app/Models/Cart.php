@@ -24,6 +24,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $order_id
  * @property int $payment_method
  * @property string $note
+ * @property int $weight_option
  *
  * @property \App\Models\Product $product
  * @property \App\Models\User $user
@@ -55,7 +56,9 @@ class Cart extends Eloquent
         'admin_fee',
         'order_id',
         'payment_method',
-        'note'
+        'note',
+        'weight_option',
+        'size_option'
 	];
 
 	public function product()

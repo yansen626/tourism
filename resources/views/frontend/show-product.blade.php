@@ -20,7 +20,9 @@
                     <ul class="tovar_items_small clearfix">
                         @foreach($recommendedProducts as $recProduct)
                             <li class="clearfix">
-                                <img class="tovar_item_small_img" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />
+                                <a href="{{ route('product-detail', ['id' => $recProduct->id]) }}">
+                                    <img class="tovar_item_small_img" src="{{ URL::asset('storage\product\\'. $recProduct->product_image()->where('featured', 1)->first()->path) }}" alt="" />
+                                </a>
                                 <a href="{{ route('product-detail', ['id' => $recProduct->id]) }}" class="tovar_item_small_title">{{$recProduct->name}}</a>
                                 {{--<span class="tovar_item_small_price">Rp {{$recProduct->price}}</span>--}}
                                 @if(!empty($recProduct->discount) || !empty($recProduct->discount_flat))
@@ -98,24 +100,6 @@
 
                             </div>
 
-                            @if($weight->count() > 0)
-                                <div class="tovar_color_select">
-                                    <p>Select Package</p>
-                                    <select id="select-color" class="basic">
-                                        @foreach($weights as $weight)
-                                            <?php
-                                                $isKg = false;
-                                                $tmpWeight = floatval($weight);
-                                                if($tmpWeight > 1000){
-                                                    $tmpWeight = $tmpWeight / 1000;
-                                                    $isKg = true;
-                                                }
-                                            ?>
-                                            <option value="{{ $weight->id }}">{{ strval($tmpWeight) }} {{ $isKg ? 'Kg' : 'Gr' }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
 
                             @if($colors->count() > 0)
                                 <div class="tovar_color_select">

@@ -89,10 +89,25 @@ $("body").on("click",".remove-color",function(){
 $(".add-more-size").click(function(){
     var html = $(".copy-size").html();
     $(".after-add-more-size").after(html);
+
+    numberFormat = AutoNumeric.multiple('.price-format > input', {
+        decimalCharacter: ',',
+        digitGroupSeparator: '.',
+        decimalPlaces: 0
+    });
 });
 
 $("body").on("click",".remove-size",function(){
     $(this).parents(".control-group-size").remove();
+});
+
+$(".add-more-weight").click(function(){
+    var html = $(".copy-weight").html();
+    $(".after-add-more-weight").after(html);
+});
+
+$("body").on("click",".remove-weight",function(){
+    $(this).parents(".control-group-weight").remove();
 });
 
 $("#color-no-opt").change(function(){
