@@ -42,9 +42,9 @@
                         <div class="form-group">
                             <div class="control-label col-md-3 col-sm-3 col-xs-12">
                                 @if($propertyName == 'weight')
-                                    <label for="name">Weight in Gram <span class="required">*</span></label>
+                                    <label for="name">Weight in Gram </label>
                                 @else
-                                    <label for="name">Description <span class="required">*</span></label>
+                                    <label for="name">Description </label>
                                 @endif
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -55,6 +55,26 @@
                                 @endif
                             </div>
                         </div>
+
+                        @if($propertyName == 'size')
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight (Optional)
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12 price-format">
+                                    <input id="size-weight" name="size-weigh" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($propertyName == 'size' || $propertyName == 'weight')
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price {{ $propertyName == 'size' ? '(Optional)' : '' }}
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12 price-format">
+                                    <input id="price" name="price" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                        @endif
                         <div class="ln_solid"></div>
 
                         <div class="form-group">

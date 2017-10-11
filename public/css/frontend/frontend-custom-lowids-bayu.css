@@ -204,8 +204,12 @@ header{
     border-color: #81B951;
 }
 
-.tovar_view_description div.fancy-select div.trigger{
-    width: 150px !important;
+.selection-weight div.fancy-select div.trigger{
+    width: 250px !important;
+}
+
+.selection-size div.fancy-select div.trigger{
+    width: 300px !important;
 }
 
 /* HOME PAGE */

@@ -101,7 +101,8 @@ class ProductsController extends Controller
             'photos'                => $photos,
             'recommendedProducts'   => $recommendedProducts,
             'colors'                => $colors,
-            'sizes'                 => $sizes
+            'sizes'                 => $sizes,
+            'weights'               => $weights
         ];
 
         return View('frontend.show-product')->with($data);

@@ -41,12 +41,40 @@
 
                         <div class="form-group">
                             <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                <label for="name">Description <span class="required">*</span></label>
+                                @if($property->name == 'weight')
+                                    <label for="name">Weight in Gram </label>
+                                @else
+                                    <label for="name">Description </label>
+                                @endif
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $property->description }}">
+                                @if($property->name == 'weight')
+                                    <input type="number" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $property->description }}">
+                                @else
+                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $property->description }}">
+                                @endif
                             </div>
                         </div>
+
+                        @if($property->name == 'size')
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram (Optional)
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="size-weight" name="size-weigh" class="form-control col-md-7 col-xs-12" value="{{ $property->weight}}">
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($property->name == 'size' || $propertyName == 'weight')
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price {{ $property->name == 'size' ? '(Optional)' : '' }}
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12 price-format">
+                                    <input id="price" name="price" class="form-control col-md-7 col-xs-12" value="{{ $property->getOriginal('price') }}">
+                                </div>
+                            </div>
+                        @endif
                         <div class="ln_solid"></div>
 
                         <div class="form-group">

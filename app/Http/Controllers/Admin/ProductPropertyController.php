@@ -48,9 +48,18 @@ class ProductPropertyController extends Controller
     }
 
     public function store(Request $request, $productId, $name){
-        $validator = Validator::make($request->all(),[
-            'description'                 => 'required|max:50',
-        ]);
+
+        if($name == 'weight'){
+            $validator = Validator::make($request->all(),[
+                'description'       => 'required|max:50',
+                'price'             => 'required'
+            ]);
+        }
+        else{
+            $validator = Validator::make($request->all(),[
+                'description'       => 'required|max:50'
+            ]);
+        }
 
         if ($validator->fails()) {
             return redirect()
@@ -59,11 +68,24 @@ class ProductPropertyController extends Controller
                 ->withInput();
         }
 
-        ProductProperty::create([
+        $property = ProductProperty::create([
             'product_id'    => $productId,
             'name'          => $name,
             'description'   => Input::get('description')
         ]);
+
+        if($name != 'color'){
+            if(!empty(Input::get('weight'))){
+                $property->weight = Input::get('weight');
+            }
+
+            if(!empty(Input::get('price'))){
+                $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
+                $property->price = $propertyPriceDouble;
+            }
+
+            $property->save();
+        }
 
         return redirect()->route('product-property-list',['productId' => $productId, 'name' => $name]);
     }
@@ -75,9 +97,19 @@ class ProductPropertyController extends Controller
     }
 
     public function update(Request $request, $id){
-        $validator = Validator::make($request->all(),[
-            'description'                 => 'required|max:50',
-        ]);
+        $property = ProductProperty::find($id);
+
+        if($property->name == 'weight'){
+            $validator = Validator::make($request->all(),[
+                'description'       => 'required|max:50',
+                'price'             => 'required'
+            ]);
+        }
+        else{
+            $validator = Validator::make($request->all(),[
+                'description'       => 'required|max:50'
+            ]);
+        }
 
         if ($validator->fails()) {
             return redirect()
@@ -86,8 +118,19 @@ class ProductPropertyController extends Controller
                 ->withInput();
         }
 
-        $property = ProductProperty::find($id);
         $property->description = Input::get('description');
+
+        if($property->name != 'color'){
+            if(!empty(Input::get('weight'))){
+                $property->weight = Input::get('weight');
+            }
+
+            if(!empty(Input::get('price'))){
+                $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
+                $property->price = $propertyPriceDouble;
+            }
+        }
+
         $property->save();
 
         return redirect()->route('product-property-list',['productId' => $property->product_id, 'name' => $property->name]);

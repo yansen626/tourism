@@ -93,7 +93,10 @@ class ProductController extends Controller
             else{
                 $price = $request->input('price');
                 $priceDouble = (double) str_replace('.','', $price);
-                $weight = (double) str_replace('.','', Input::get('weight'));
+                $weightStr = str_replace('.','', Input::get('weight-primary'));
+                $weight = floatval($weightStr);
+
+                dd($weight);
 
                 $dateTimeNow = Carbon::now('Asia/Jakarta');
 
@@ -174,12 +177,20 @@ class ProductController extends Controller
 
                 if(Input::get('weight-options') == 'yes'){
                     foreach(Input::get('weight') as $weightOpt){
-                        if(!empty($size)){
-                            ProductProperty::create([
+                        $idx = 0;
+                        $weightPrice = Input::get('weight-price');
+                        if(!empty($weightOpt)){
+                            $propertyWeight = ProductProperty::create([
                                 'product_id'    => $savedId,
                                 'name'          => 'weight',
                                 'description'   => $weightOpt
                             ]);
+
+                            if(!empty($weightPrice[$idx])){
+                                $propertyPriceDouble = (double) str_replace('.','', $weightPrice[$idx]);
+                                $propertyWeight->price = $propertyPriceDouble;
+                                $propertyWeight->save();
+                            }
                         }
                     }
                 }

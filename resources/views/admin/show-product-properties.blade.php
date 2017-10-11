@@ -38,6 +38,12 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Description</th>
+                                    @if($propertyName == 'size')
+                                        <th>Weight</th>
+                                    @endif
+                                    @if($propertyName != 'color')
+                                        <th>Price</th>
+                                    @endif
                                     <th>Option</th>
                                 </tr>
                                 </thead>
@@ -53,6 +59,13 @@
                                                 {{ $property->description }}
                                             @endif
                                         </td>
+                                        @if($propertyName == 'size')
+                                            @php( $weightVal = floatval($property->weight / 1000) )
+                                            <td>{{ $weightVal }} Kg</td>
+                                        @endif
+                                        @if($propertyName != 'color')
+                                            <td>{{ $property->price ? 'Rp '. $property->price : '-' }}</td>
+                                        @endif
                                         <td>
                                             <a href="{{ route('product-property-edit', ['id' => $property->id]) }}" class="btn btn-default">Edit</a>
                                             <a href="{{ route('product-property-delete', ['id' => $property->id]) }}" class="btn btn-danger">Delete</a>

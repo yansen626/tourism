@@ -154,3 +154,26 @@ function addCommas(nStr) {
     }
     return "Rp " + x1 + x2;
 }
+
+// SELECTIONS IN PRODUCT DETAIL
+function onchangeWeight(e){
+    var price = e.options[e.selectedIndex].getAttribute('data-price');
+    $('#price-label').html("Rp " + price);
+}
+
+function onchangeSize(e){
+    var obj = e.options[e.selectedIndex];
+    if(obj.hasAttribute("data-price")){
+        var price = obj.getAttribute('data-price');
+        if(price !== '0'){
+            $('#price-label').html("Rp " + price);
+        }
+    }
+
+    if(obj.hasAttribute("data-weight")){
+        var weight = obj.getAttribute('data-weight');
+        if(weight !== 0){
+            $('#weight-label').html("Weight: " + weight + " Kg");
+        }
+    }
+}

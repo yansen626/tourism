@@ -44,4 +44,10 @@ class ProductProperty extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Product::class);
 	}
+
+	public function getPriceAttribute(){
+        if(!empty($this->attributes['price'])){
+            return number_format($this->attributes['price'], 0, ",", ".");
+        }
+    }
 }

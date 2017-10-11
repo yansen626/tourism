@@ -89,17 +89,33 @@
                                     {{--@endif--}}
                                 {{--@endif--}}
 
-                                @if(!empty($product->discount) || !empty($product->discount_flat))
+                                    @if(!empty($product->discount) || !empty($product->discount_flat))
                                     <div class="pull-right" style="font-size: 20px;">
                                         <span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>
-                                        <p style="color:orange;"><b>Rp {{ $product->price_discounted }}</b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
+                                        <p style="color:orange;"><b><span id="price-label">Rp {{ $product->price_discounted }}</span></b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
                                     </div>
                                 @else
-                                    <div class="pull-right tovar_view_price">Rp {{ $product->price }}</div>
+                                    <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
                                 @endif
 
                             </div>
 
+                            @if($weights->count() > 0)
+                                <div class="tovar_color_select selection-weight">
+                                    <p>Select Weight</p>
+                                    <select id="select-weight" class="basic" onchange="onchangeWeight(this)">
+                                        @php( $productWeight = $product->weight / 1000 )
+                                        <option data-price="{{ $product->price_discounted }}" value="0">{{ $productWeight }} Kg - Rp {{ $product->price_discounted }}</option>
+                                        @foreach($weights as $weight)
+                                            <?php
+                                                $weightNumber = floatval($weight->description);
+                                                $weightNumber = $weightNumber / 1000;
+                                            ?>
+                                            <option data-price="{{ $weight->price }}" value="{{ $weight->id }}">{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
 
                             @if($colors->count() > 0)
                                 <div class="tovar_color_select">
@@ -113,11 +129,25 @@
                             @endif
 
                             @if($sizes->count() > 0)
-                                <div class="tovar_color_select">
+                                <div class="tovar_color_select selection-size">
                                     <p>Select Size</p>
-                                    <select id="select-size" class="basic">
+                                    <select id="select-size" class="basic" onchange="onchangeSize(this)">
+                                        @php( $productWeight = $product->weight / 1000 )
+                                        <option data-price="{{ $product->price_discounted }}" data-weight="{{ $productWeight }}" value="0">Normal - Rp {{ $product->price_discounted }} - {{ $productWeight }} Kg</option>
                                         @foreach($sizes as $size)
-                                            <option value="{{ $size->id }}">{{ ucwords($size->description) }}</option>
+                                            <?php
+                                                $content = ucwords($size->description);
+                                                if(!empty($size->price)){
+                                                    $content .= ' - Rp '. $size->price;
+                                                }
+
+                                                $weightVal = 0;
+                                                if(!empty($size->weight)){
+                                                    $weightVal = floatval($size->weight / 1000);
+                                                    $content .= ' - '. $weightVal. ' Kg';
+                                                }
+                                            ?>
+                                            <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $weightVal != 0 ?  $weightVal. ' Kg' : 0 }}" value="{{ $size->id }}">{{ $content }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -140,7 +170,7 @@
                         </ul>
                         <div class="box visible">
                             @php( $weightVal = floatval($product->weight / 1000) )
-                            <p>Weight: {{ number_format((float) $weightVal, 2, ',', '') }} Kg</p>
+                            <p><b><span id="weight-label">Weight: {{ $weightVal }} Kg</span></b></p>
                             <p>{!! nl2br($product->description) !!}</p>
                         </div>
                         {{--<div class="box"></div>--}}
