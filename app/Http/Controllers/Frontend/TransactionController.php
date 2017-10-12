@@ -81,7 +81,21 @@ class TransactionController extends Controller
         $totalWeight = 0;
         $carts = Cart::where('user_id', 'like', $id)->get();
         foreach($carts as $cart){
-            $totalWeight += ($cart->product->weight * $cart->quantity);
+            if(!empty($cart->weight_option)){
+                $weight = $cart->product->product_properties()->where('name','=','weight')
+                    ->where('description', $cart->weight_option)
+                    ->first();
+
+                if(!empty($weight->price)){
+                    $totalWeight += (intval($weight->description) * $cart->quantity);
+                }
+                else{
+                    $totalWeight += ($cart->product->weight * $cart->quantity);
+                }
+            }
+            else{
+                $totalWeight += ($cart->product->weight * $cart->quantity);
+            }
         }
 
         //rajaongkir process

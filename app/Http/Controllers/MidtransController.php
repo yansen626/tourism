@@ -163,12 +163,65 @@ class MidtransController extends Controller
             $orderId = \request()->order_id;
 
             foreach ($carts as $cart) {
-                $subtotalPrice = $cart->product->getOriginal('price_discounted') * $cart->quantity;
+                if(!empty($cart->size_option) && empty($cart->weight_option)){
+                    $size = $cart->product->product_properties()->where('name','=','size')
+                        ->where('description', $cart->size_option)
+                        ->first();
+
+                    if(!empty($size->price)){
+                        $price = $size->getOriginal('price');
+
+                        if($cart->getOriginal('price') != $size->getOriginal('price')){
+                            $cart->price = $size->getOriginal('price');
+                            $cart->save();
+                        }
+                    }
+                    else{
+                        $price = $cart->product->getOriginal('price_discounted');
+                    }
+
+                    $weight = $cart->product->weight;
+                }
+                elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                    $weightProperty = $cart->product->product_properties()->where('name','=','weight')
+                        ->where('description', $cart->weight_option)
+                        ->first();
+
+                    if(!empty($weightProperty->price)){
+                        $price = $weightProperty->getOriginal('price');
+
+                        if($cart->getOriginal('price') != $weightProperty->getOriginal('price')){
+                            $cart->price = $weightProperty->getOriginal('price');
+                            $cart->save();
+                        }
+                    }
+                    else{
+                        $price = $weightProperty->product->getOriginal('price_discounted');
+                    }
+
+                    if(!empty($weightProperty->price)){
+                        $weight = (intval($weightProperty->description) * $cart->quantity);
+                    }
+                    else{
+                        $weight = ($cart->product->weight * $cart->quantity);
+                    }
+                }
+                else{
+                    $price = $cart->product->getOriginal('price_discounted');
+                    $weight = $cart->product->weight;
+                }
+
+                $subtotalPrice = $price * $cart->quantity;
+                if($cart->getOriginal('total_price') != $subtotalPrice){
+                    $cart->total_price = $subtotalPrice;
+                    $cart->save();
+                }
+
                 $totalPrice += $subtotalPrice;
                 $deliveryFee = (int)$cart->getOriginal('delivery_fee');
                 $adminFee = (int)$cart->getOriginal('admin_fee');
 
-                $subtotalWeight = $cart->product->weight * $cart->quantity;
+                $subtotalWeight = $weight * $cart->quantity;
                 $totalWeight += $subtotalWeight;
             }
             $totalPriceWithDeliveryFeeAdminFee = $totalPrice + $deliveryFee + $adminFee;
@@ -226,20 +279,34 @@ class MidtransController extends Controller
                     'created_by'        => $userId
                 ]);
 
-                if (!empty ($cart->Product->discount)) {
-                    $discountTemp = $cart->product->getOriginal('discount');
-                    $transactionDetail->discount = $discountTemp;
+                // Check Weight & Size Option
+                if(!empty($cart->size_option) && empty($cart->weight_option)){
+                    $transactionDetail->size_option = $cart->size_option;
+                    $transactionDetail->size_option_price = $cart->getOriginal('price');
+                    $transactionDetail->price_final = $cart->getOriginal('price');
                 }
-                if (!empty ($cart->product->discount_flat)) {
-                    $discountFlatTemp = $cart->product->getOriginal('discount_flat');
-                    $transactionDetail->discount_flat = $discountFlatTemp;
-                }
-                if (!empty ($cart->product->price_discounted)){
-                    $priceDiscountTemp = $cart->product->getOriginal('price_discounted');
-                    $transactionDetail->price_final = $priceDiscountTemp;
+                elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                    $transactionDetail->weight_option = $cart->weight_option;
+                    $transactionDetail->weight_option_price = $cart->getOriginal('price');
+                    $transactionDetail->price_final = $cart->getOriginal('price');
+                    $transactionDetail->weight = $cart->weight_option;
                 }
                 else{
-                    $transactionDetail->price_final = $cart->product->getOriginal('price');
+                    if (!empty ($cart->product->discount)) {
+                        $discountTemp = $cart->product->getOriginal('discount');
+                        $transactionDetail->discount = $discountTemp;
+                    }
+                    if (!empty ($cart->product->discount_flat)) {
+                        $discountFlatTemp = $cart->product->getOriginal('discount_flat');
+                        $transactionDetail->discount_flat = $discountFlatTemp;
+                    }
+                    if (!empty ($cart->product->price_discounted)){
+                        $priceDiscountTemp = $cart->product->getOriginal('price_discounted');
+                        $transactionDetail->price_final = $priceDiscountTemp;
+                    }
+                    else{
+                        $transactionDetail->price_final = $cart->product->getOriginal('price');
+                    }
                 }
 
                 if(!empty($cart->note)){
@@ -315,12 +382,65 @@ class MidtransController extends Controller
                 $totalWeight = 0;
 
                 foreach ($carts as $cart) {
-                    $subtotalPrice = $cart->product->getOriginal('price_discounted') * $cart->quantity;
+                    if(!empty($cart->size_option) && empty($cart->weight_option)){
+                        $size = $cart->product->product_properties()->where('name','=','size')
+                            ->where('description', $cart->size_option)
+                            ->first();
+
+                        if(!empty($size->price)){
+                            $price = $size->getOriginal('price');
+
+                            if($cart->getOriginal('price') != $size->getOriginal('price')){
+                                $cart->price = $size->getOriginal('price');
+                                $cart->save();
+                            }
+                        }
+                        else{
+                            $price = $cart->product->getOriginal('price_discounted');
+                        }
+
+                        $weight = $cart->product->weight;
+                    }
+                    elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                        $weightProperty = $cart->product->product_properties()->where('name','=','weight')
+                            ->where('description', $cart->weight_option)
+                            ->first();
+
+                        if(!empty($weightProperty->price)){
+                            $price = $weightProperty->getOriginal('price');
+
+                            if($cart->getOriginal('price') != $weightProperty->getOriginal('price')){
+                                $cart->price = $weightProperty->getOriginal('price');
+                                $cart->save();
+                            }
+                        }
+                        else{
+                            $price = $weightProperty->product->getOriginal('price_discounted');
+                        }
+
+                        if(!empty($weightProperty->price)){
+                            $weight = (intval($weightProperty->description) * $cart->quantity);
+                        }
+                        else{
+                            $weight = ($cart->product->weight * $cart->quantity);
+                        }
+                    }
+                    else{
+                        $price = $cart->product->getOriginal('price_discounted');
+                        $weight = $cart->product->weight;
+                    }
+
+                    $subtotalPrice = $price * $cart->quantity;
+                    if($cart->getOriginal('total_price') != $subtotalPrice){
+                        $cart->total_price = $subtotalPrice;
+                        $cart->save();
+                    }
+
                     $totalPrice += $subtotalPrice;
                     $deliveryFee = (int)$cart->getOriginal('delivery_fee');
                     $adminFee = (int)$cart->getOriginal('admin_fee');
 
-                    $subtotalWeight = $cart->product->weight * $cart->quantity;
+                    $subtotalWeight = $weight * $cart->quantity;
                     $totalWeight += $subtotalWeight;
                 }
                 $totalPriceWithDeliveryFeeAdminFee = $totalPrice + $deliveryFee + $adminFee;
@@ -377,20 +497,34 @@ class MidtransController extends Controller
                         'created_by'        => $userId
                     ]);
 
-                    if (!empty ($cart->Product->discount)) {
-                        $discountTemp = $cart->product->getOriginal('discount');
-                        $transactionDetail->discount = $discountTemp;
+                    // Check Weight & Size Option
+                    if(!empty($cart->size_option) && empty($cart->weight_option)){
+                        $transactionDetail->size_option = $cart->size_option;
+                        $transactionDetail->size_option_price = $cart->getOriginal('price');
+                        $transactionDetail->price_final = $cart->getOriginal('price');
                     }
-                    if (!empty ($cart->product->discount_flat)) {
-                        $discountFlatTemp = $cart->product->getOriginal('discount_flat');
-                        $transactionDetail->discount_flat = $discountFlatTemp;
-                    }
-                    if (!empty ($cart->product->price_discounted)){
-                        $priceDiscountTemp = $cart->product->getOriginal('price_discounted');
-                        $transactionDetail->price_final = $priceDiscountTemp;
+                    elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                        $transactionDetail->weight_option = $cart->weight_option;
+                        $transactionDetail->weight_option_price = $cart->getOriginal('price');
+                        $transactionDetail->price_final = $cart->getOriginal('price');
+                        $transactionDetail->weight = $cart->weight_option;
                     }
                     else{
-                        $transactionDetail->price_final = $cart->product->getOriginal('price');
+                        if (!empty ($cart->product->discount)) {
+                            $discountTemp = $cart->product->getOriginal('discount');
+                            $transactionDetail->discount = $discountTemp;
+                        }
+                        if (!empty ($cart->product->discount_flat)) {
+                            $discountFlatTemp = $cart->product->getOriginal('discount_flat');
+                            $transactionDetail->discount_flat = $discountFlatTemp;
+                        }
+                        if (!empty ($cart->product->price_discounted)){
+                            $priceDiscountTemp = $cart->product->getOriginal('price_discounted');
+                            $transactionDetail->price_final = $priceDiscountTemp;
+                        }
+                        else{
+                            $transactionDetail->price_final = $cart->product->getOriginal('price');
+                        }
                     }
 
                     if(!empty($cart->note)){

@@ -24,7 +24,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <table id="datatable-payments" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>Invoice</th>
@@ -34,7 +34,7 @@
                                     <th>Transfer Amount</th>
                                     <th>Total Payment</th>
                                     <th>Transfer Date</th>
-                                    <th>Confirm Date</th>
+                                    <th>Transaction Date</th>
                                     <th>Status</th>
                                     <th>Option</th>
                                 </tr>
@@ -63,8 +63,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if(!empty($trans->created_on))
-                                                {{ \Carbon\Carbon::parse($trans->created_on)->format('j M Y G:i:s') }}
+                                            @if(!empty($trx->created_on))
+                                                {{ \Carbon\Carbon::parse($trx->created_on)->format('j M Y G:i:s') }}
                                             @else
                                                 -
                                             @endif

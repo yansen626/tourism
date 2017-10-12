@@ -77,8 +77,6 @@ class ProductController extends Controller
             $validator = Validator::make($request->all(),[
                 'category'              => 'required|option_not_default',
                 'name'                  => 'required',
-                'price'                 => 'required',
-                'weight'                => 'required',
                 'product-featured'      => 'required|image|mimes:jpeg,jpg,png'
             ],[
                 'option_not_default'    => 'Select a category'
@@ -90,13 +88,92 @@ class ProductController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             }
+
+            // Validation of no options selected
+            if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'no'){
+                $validator = Validator::make($request->all(),[
+                    'price'     => 'required',
+                    'weight'    => 'required'
+                ]);
+
+                if ($validator->fails()) {
+                    return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+                }
+            }
+            // Validation of size options
+            else if((Input::get('size-options') == 'yes') && Input::get('weight-options') == 'no'){
+                $validator = Validator::make($request->all(),[
+                    'weight'    => 'required'
+                ]);
+
+                if ($validator->fails()) {
+                    return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+                }
+
+                // Check size content
+                $isValid = true;
+                $sizes = Input::get('size');
+                if(!empty($sizes)){
+                    $idx = 0;
+                    foreach($sizes as $size){
+                        if($idx != count($sizes) - 1)
+                            if(empty($size)) $isValid = false;
+                        $idx++;
+                    }
+                }
+                else{
+                    $isValid = false;
+                }
+
+                if(!$isValid){
+                    return redirect()->back()->withErrors('Size property is required!', 'default')->withInput($request->all());
+                }
+            }
+            // Validation of weight options
+            else if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'yes'){
+                // Check weight content
+                $isValid = true;
+                $weights = Input::get('weight');
+                $weightPrice = Input::get('weight-price');
+                if(!empty($weights)){
+                    $idx = 0;
+                    foreach($weights as $weight){
+                        if($idx != count($weights - 1)){
+                            if(empty($weight)) $isValid = false;
+                            if(empty($weightPrice[$idx])) $isValid = false;
+                        }
+                        $idx++;
+                    }
+                }
+                else{
+                    $isValid = false;
+                }
+
+                if(!$isValid){
+                    return redirect()->back()->withErrors('Weight property is required!', 'default')->withInput($request->all());
+                }
+            }
+
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
             else{
+                dd("complete");
+
                 $price = $request->input('price');
                 $priceDouble = (double) str_replace('.','', $price);
                 $weightStr = str_replace('.','', Input::get('weight-primary'));
                 $weight = floatval($weightStr);
 
-                dd($weight);
 
                 $dateTimeNow = Carbon::now('Asia/Jakarta');
 
@@ -151,7 +228,7 @@ class ProductController extends Controller
                 if(Input::get('size-options') == 'yes'){
                     $idx = 0;
                     $sizePrice = Input::get('size-price');
-                    $sizeWeight = Input::get('size-weight');
+//                    $sizeWeight = Input::get('size-weight');
                     foreach(Input::get('size') as $size){
                         if(!empty($size)){
                             $propertySize = ProductProperty::create([
@@ -165,9 +242,9 @@ class ProductController extends Controller
                                 $propertySize->price = $propertyPriceDouble;
                             }
 
-                            if(!empty($sizeWeight[$idx])){
-                                $propertySize->weight = $sizeWeight[$idx];
-                            }
+//                            if(!empty($sizeWeight[$idx])){
+//                                $propertySize->weight = $sizeWeight[$idx];
+//                            }
 
                             $propertySize->save();
                         }
@@ -246,7 +323,6 @@ class ProductController extends Controller
         catch(\Exception $ex){
             Utilities::ExceptionLog($ex);
         }
-
     }
 
     public function edit($id){

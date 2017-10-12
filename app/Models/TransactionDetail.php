@@ -29,9 +29,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $modified_on
  * @property string $note
  * @property int $weight_option
- * @property float $weight_price
+ * @property float $weight_option_price
  * @property string $size_option
- * @property float $size_price
+ * @property float $size_option_price
  * 
  * @property \App\Models\Product $product
  * @property \App\Models\Transaction $transaction
@@ -52,8 +52,8 @@ class TransactionDetail extends Eloquent
 		'discount_flat' => 'float',
 		'weight' => 'int',
         'weight_option' => 'int',
-		'weight_price' => 'float',
-		'size_price' => 'float'
+		'weight_option_price' => 'float',
+		'size_option_price' => 'float'
 	];
 
 	protected $dates = [
@@ -79,9 +79,9 @@ class TransactionDetail extends Eloquent
 		'modified_on',
 		'note',
         'weight_option',
-        'weight_price',
+        'weight_option_price',
         'size_option',
-        'size_price'
+        'size_option_price'
 	];
 
 	public function product()

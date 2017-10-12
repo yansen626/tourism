@@ -76,8 +76,17 @@
                                     <li class="clearfix">
                                         {{--<img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />--}}
                                         <div class="cart-image-header" style="background-image: url('{{ asset('storage/product/'. $cart->product->product_image()->where('featured', 1)->first()->path) }}')"></div>
-                                        <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}" class="cart_item_title">{{ $cart->product->name }}</a>
-                                        <span class="cart_item_price">Rp {{ $cart->product->price_discounted }}</span>
+                                        <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}" class="cart_item_title">
+                                            @if(!empty($cart->size_option) && empty($cart->weight_option))
+                                                {{ $cart->product->name }} - {{ $cart->size_option }}
+                                            @elseif(empty($cart->size_option) && !empty($cart->weight_option))
+                                                @php( $weightVal = floatval(floatval($cart->weight_option) / 1000)  )
+                                                {{ $cart->product->name }} - {{ $weightVal }} Kg
+                                            @else
+                                                {{ $cart->product->name }}
+                                            @endif
+                                        </a>
+                                        <span class="cart_item_price">Rp {{ $cart->price }}</span>
                                     </li>
                                 @endforeach
                             </ul>

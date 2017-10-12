@@ -26,7 +26,34 @@ class Midtrans
             //item_details
             $itemArr = [];
             foreach($carts as $cart){
-                $price = $cart->product->getOriginal('price_discounted');
+                if(!empty($cart->size_option) && empty($cart->weight_option)){
+                    $size = $cart->product->product_properties()->where('name','=','size')
+                        ->where('description', $cart->size_option)
+                        ->first();
+
+                    if(!empty($size->price)){
+                        $price = $size->getOriginal('price');
+                    }
+                    else{
+                        $price = $cart->product->getOriginal('price_discounted');
+                    }
+                }
+                elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                    $weight = $cart->product->product_properties()->where('name','=','weight')
+                        ->where('description', $cart->weight_option)
+                        ->first();
+
+                    if(!empty($weight->price)){
+                        $price = $weight->getOriginal('price');
+                    }
+                    else{
+                        $price = $cart->product->getOriginal('price_discounted');
+                    }
+                }
+                else{
+                    $price = $cart->product->getOriginal('price_discounted');
+                }
+
                 $totalPriceOri = $price * $cart->quantity;
                 $totalPrice += $totalPriceOri;
 

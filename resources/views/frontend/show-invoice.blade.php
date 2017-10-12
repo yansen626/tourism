@@ -70,7 +70,16 @@
                             <tbody>
                             @foreach($trx->transaction_details as $detail)
                                 <tr>
-                                    <td>{{ $detail->name }}</td>
+                                    <td>
+                                        @if(!empty($detail->size_option) && empty($detail->weight_option))
+                                            {{ $detail->name }} - {{ $detail->size_otion }}
+                                        @elseif(empty($detail->size_option) && !empty($detail->weight_option))
+                                            @php( $weightVal = floatval(floatval($detail->weight_option) / 1000) )
+                                            {{ $detail->name }} - {{ $weightVal }} Kg
+                                        @else
+                                            {{ $detail->name }}
+                                        @endif
+                                    </td>
                                     <td class="text-center">Rp {{ $detail->price_final }}</td>
                                     <td class="text-center">{{ $detail->quantity }}</td>
                                     <td class="text-right">Rp {{ $detail->subtotal_price }}</td>

@@ -124,7 +124,16 @@
                                                     <tr>
                                                         <td>{{ $idx }}</td>
                                                         <td>
-                                                            {{ $detail->name }}
+
+                                                            @if(!empty($detail->size_option) && empty($detail->weight_option))
+                                                                {{ $detail->name }} - {{ $detail->size_option }}
+                                                            @elseif(empty($detail->size_option) && !empty($detail->weight_option))
+                                                                @php( $weightVal = floatval(floatval($detail->weight_option) / 1000) )
+                                                                {{ $detail->name }} - {{ $weightVal }} Kg
+                                                            @else
+                                                                {{ $detail->name }}
+                                                            @endif
+
                                                             @if(!empty($detail->note))
                                                                 @php( $notes = explode(';', $detail->note, 2) )
                                                                 @foreach($notes as $note)
@@ -135,6 +144,7 @@
                                                                     @endif
                                                                 @endforeach
                                                             @endif
+
                                                         </td>
                                                         <td>{{ $detail->product->category->name }}</td>
                                                         <td>{{ $detail->weight }} Gr</td>

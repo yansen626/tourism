@@ -58,14 +58,14 @@
                         @endif
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Name <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Product Name
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="name" class="form-control col-md-7 col-xs-12"  name="name" required="required" type="text">
+                                <input id="name" class="form-control col-md-7 col-xs-12"  name="name" required="required" type="text" value="{{ \Illuminate\Support\Facades\Input::old('name') }}">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Category <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Category
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select id="category" name="category" class="form-control col-md-7 col-xs-7">
@@ -78,14 +78,125 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" >Price <span class="required">*</span>
+
+                        <!-- SET SIZE OPTIONS -->
+                        <div id="form-size-option" class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Size
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default active">
+                                        <input type="radio" name="size-options" value="no" id="size-no-opt" checked> No
+                                    </label>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="size-options" value="yes" id="size-yes-opt"> Yes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="input-group-size" style="display: none;">
+                            <div class="item form-group control-group-size after-add-more-size">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <input name="size[]" class="form-control" placeholder="Size (Primary)">
+                                </div>
+                                {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
+                                {{--<input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">--}}
+                                {{--</div>--}}
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <div class="input-group price-format">
+                                        <input name="size-price[]" class="form-control" placeholder="Price (Primary)">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="copy-size hide">
+                                <div class="item form-group control-group-size">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <input name="size[]" class="form-control" placeholder="Size">
+                                    </div>
+                                    {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
+                                    {{--<input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">--}}
+                                    {{--</div>--}}
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="input-group price-format-after">
+                                            <input name="size-price[]" class="form-control" placeholder="Price">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //SET SIZE OPTIONS -->
+
+                        <!-- SET WEIGHT OPTIONS -->
+                        <div id="form-weight-option" class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Weight in Gram
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default active">
+                                        <input type="radio" name="weight-options" value="no" id="weight-no-opt" checked> No
+                                    </label>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="weight-options" value="yes" id="weight-yes-opt"> Yes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="input-group-weight" style="display: none;">
+                            <div class="item form-group control-group-weight after-add-more-weight">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram (Primary)">
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <div class="input-group price-format">
+                                        <input name="weight-price[]" class="form-control" placeholder="Price (Primary)">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-success add-more-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="copy-weight hide">
+                                <div class="item form-group control-group-weight">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="input-group price-format-after">
+                                            <input name="weight-price[]" class="form-control" placeholder="Price">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-danger remove-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //SET WEIGHT OPTIONS -->
+
+                        <!-- SET PRICE -->
+                        <div id="form-price-section" class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" >Price
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 price-format">
                                 <input id="price" name="price" required class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-                        <div class="item form-group">
+                        <!-- //SET PRICE -->
+
+                        <!-- SET DISCOUNT -->
+                        <div id="form-discount-section" class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Discount
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -102,6 +213,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div id="disc-percent" class="item form-group" style="display: none;">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Discount Percentage
                             </label>
@@ -116,22 +228,20 @@
                                 <input id="discount-flat" name="discount-flat" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram <span class="required">*</span>
+                        <!-- //SET DISCOUNT -->
+
+                        <!-- SET WEIGHT -->
+                        <div id="form-weight-section" class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
                             </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12 price-format">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="weight-primary" name="weight-primary" required class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-                        {{--<div class="item form-group" >--}}
-                            {{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Stock--}}
-                            {{--</label>--}}
-                            {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
-                                {{--<input id="qty" name="qty" class="form-control col-md-7 col-xs-12">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <!-- //SET WEIGHT -->
+
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 0;">Featured Photo <span class="required">*</span><br/>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" style="padding-top: 0;">Featured Photo <br/>
                                 <span style="color: red;">recommended image ratio 3:4 or exact 270x370 pixel</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -192,113 +302,6 @@
                             </div>
                         </div>
                         <!-- SET //COLOR OPTIONS -->
-
-                        <!-- SET SIZE OPTIONS -->
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Size
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-default active">
-                                        <input type="radio" name="size-options" value="no" id="size-no-opt" checked> No
-                                    </label>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="size-options" value="yes" id="size-yes-opt"> Yes
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="input-group-size" style="display: none;">
-                            <div class="item form-group control-group-size after-add-more-size">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                <div class="col-md-3 col-sm-4 col-xs-6">
-                                    <input name="size[]" class="form-control" placeholder="Size">
-                                </div>
-                                <div class="col-md-3 col-sm-4 col-xs-6">
-                                    <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">
-                                </div>
-                                <div class="col-md-3 col-sm-4 col-xs-6">
-                                    <div class="input-group price-format">
-                                        <input name="size-price[]" class="form-control" placeholder="Price">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="copy-size hide">
-                                <div class="item form-group control-group-size">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                    <div class="col-md-3 col-sm-4 col-xs-12">
-                                        <input name="size[]" class="form-control" placeholder="Size">
-                                    </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
-                                        <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">
-                                    </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
-                                        <div class="input-group price-format">
-                                            <input name="size-price[]" class="form-control" placeholder="Price">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- //SET SIZE OPTIONS -->
-
-                        <!-- SET WEIGHT OPTIONS -->
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Weight in Gram
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-default active">
-                                        <input type="radio" name="weight-options" value="no" id="weight-no-opt" checked> No
-                                    </label>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="weight-options" value="yes" id="weight-yes-opt"> Yes
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="input-group-weight" style="display: none;">
-                            <div class="item form-group control-group-weight after-add-more-weight">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
-                                    <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
-                                    <div class="input-group price-format">
-                                        <input name="weight-price[]" class="form-control" placeholder="Price">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-success add-more-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="copy-weight hide">
-                                <div class="item form-group control-group-weight">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                    <div class="col-md-3 col-sm-3 col-xs-6">
-                                        <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-6">
-                                        <div class="input-group price-format">
-                                            <input name="weight-price[]" class="form-control" placeholder="Price">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-danger remove-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- //SET WEIGHT OPTIONS -->
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description

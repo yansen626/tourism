@@ -54,7 +54,16 @@
                                     <div class="cart-image" style="background-image: url('{{ asset('storage/product/'. $cart->product->product_image()->where('featured', 1)->first()->path) }}')"></div>
                                 </td>
                                 <td class="product-name">
-                                    <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}"> {{ $cart->product->name }}</a>
+                                    <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}">
+                                        @if(!empty($cart->size_option) && empty($cart->weight_option))
+                                            {{ $cart->product->name }} - {{ $cart->size_option }}
+                                        @elseif(empty($cart->size_option) && !empty($cart->weight_option))
+                                            @php( $weightVal = floatval(floatval($cart->weight_option) / 1000)  )
+                                            {{ $cart->product->name }} - {{ $weightVal }} Kg
+                                        @else
+                                            {{ $cart->product->name }}
+                                        @endif
+                                    </a>
                                     <ul class="variation">
                                         <li class="variation-Color">Category: <span>{{$cart->Product->Category->name}}</span></li>
                                         @if(!empty($cart->note))
@@ -68,11 +77,11 @@
                                         @endif
                                     </ul>
                                 </td>
-                                <td class="product-price">Rp. {{$cart->product->price_discounted}}</td>
+                                <td class="product-price">Rp. {{ $cart->price }}</td>
                                 <td class="product-quantity">
-                                    <input type="text" id="{{$qtyId}}" value="{{$cart->quantity}}" style="width:50%" onkeyup="editCartQuantity('{{ $cart->id }}')"/>
+                                    <input type="text" id="{{ $qtyId }}" value="{{ $cart->quantity }}" style="width:50%" onkeyup="editCartQuantity('{{ $cart->id }}')"/>
                                 </td>
-                                <td class="product-subtotal" id="{{$productTotalId}}">Rp. {{$cart->total_price}}</td>
+                                <td class="product-subtotal" id="{{ $productTotalId }}">Rp. {{ $cart->total_price }}</td>
                                 <td class="product-remove"><a href="{{ route('delete-cart', ['cartId' => $cart->id]) }}"><i>X</i></a></td>
                             </tr>
                         @endforeach
@@ -92,7 +101,7 @@
                         <table class="bag_total">
                             <tr class="cart-subtotal clearfix">
                                 <th>Sub total</th>
-                                <td id="sub-total-price">Rp. {{$totalPrice}}</td>
+                                <td id="sub-total-price">Rp. {{ $totalPrice }}</td>
                             </tr>
                             <tr class="shipping clearfix">
                                 <th>SHIPPING</th>
@@ -100,7 +109,7 @@
                             </tr>
                             <tr class="total clearfix">
                                 <th>Total</th>
-                                <td id="total-price">Rp. {{$totalPrice}}</td>
+                                <td id="total-price">Rp. {{ $totalPrice }}</td>
                             </tr>
                         </table>
 

@@ -75,9 +75,9 @@ class ProductPropertyController extends Controller
         ]);
 
         if($name != 'color'){
-            if(!empty(Input::get('weight'))){
-                $property->weight = Input::get('weight');
-            }
+//            if(!empty(Input::get('weight'))){
+//                $property->weight = Input::get('weight');
+//            }
 
             if(!empty(Input::get('price'))){
                 $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
@@ -121,9 +121,9 @@ class ProductPropertyController extends Controller
         $property->description = Input::get('description');
 
         if($property->name != 'color'){
-            if(!empty(Input::get('weight'))){
-                $property->weight = Input::get('weight');
-            }
+//            if(!empty(Input::get('weight'))){
+//                $property->weight = Input::get('weight');
+//            }
 
             if(!empty(Input::get('price'))){
                 $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
