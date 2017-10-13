@@ -1,4 +1,13 @@
-$("#datatable-payments").DataTable({
+$("#datatable-global").DataTable({
+    "responsive": {
+        details: {
+            display: $.fn.dataTable.Responsive.display.childRowImmediate,
+            type: ''
+        }
+    }
+})
+
+$("#datatable-payment").DataTable({
     "order": [[7, 'desc']],
     "responsive": {
         details: {
@@ -100,11 +109,14 @@ $(".add-more-size").click(function(){
     var html = $(".copy-size").html();
     $(".after-add-more-size").after(html);
 
-    numberFormat = AutoNumeric.multiple('.price-format-after > input', {
-        decimalCharacter: ',',
-        digitGroupSeparator: '.',
-        decimalPlaces: 0
-    });
+
+    // numberFormat = AutoNumeric.multiple('.price-format-after > input', {
+    //     decimalCharacter: ',',
+    //     digitGroupSeparator: '.',
+    //     decimalPlaces: 0
+    // });
+
+
 });
 
 $("body").on("click",".remove-size",function(){
@@ -115,11 +127,11 @@ $(".add-more-weight").click(function(){
     var html = $(".copy-weight").html();
     $(".after-add-more-weight").after(html);
 
-    numberFormat = AutoNumeric.multiple('.price-format-after > input', {
-        decimalCharacter: ',',
-        digitGroupSeparator: '.',
-        decimalPlaces: 0
-    });
+    // numberFormat = AutoNumeric.multiple('.price-format-after > input', {
+    //     decimalCharacter: ',',
+    //     digitGroupSeparator: '.',
+    //     decimalPlaces: 0
+    // });
 });
 
 $("body").on("click",".remove-weight",function(){
@@ -148,6 +160,21 @@ $("#size-yes-opt").change(function(){
     $("#form-price-section").hide(300);
     $("#form-discount-section").hide(300);
     $("#form-weight-option").hide(300);
+
+    // Hide discount sections
+    $("#form-discount-section").hide(300);
+    $("#disc-percent").hide(300);
+    $("#disc-flat").hide(300);
+    $("#discount-percent").removeAttr('required');
+    $("#discount-flat").removeAttr('required');
+
+    // Reset discount buttons
+    $("#disc-percent-opt").removeAttr('checked');
+    $("#disc-percent-opt").parent('label').removeClass('active');
+    $("#disc-flat-opt").removeAttr('checked');
+    $("#disc-flat-opt").parent('label').removeClass('active');
+    $("#disc-none-opt").attr('checked', true);
+    $("#disc-none-opt").parent('label').addClass('active');
 });
 
 $("#weight-no-opt").change(function(){
@@ -166,8 +193,23 @@ $("#weight-yes-opt").change(function(){
     $("#form-price-section").hide(300);
     $("#weight").removeAttr('required');
     $("#form-weight-section").hide(300);
-    $("#form-discount-section").hide(300);
     $("#form-size-option").hide(300);
+
+    // Hide discount sections
+    $("#form-discount-section").hide(300);
+    $("#disc-percent").hide(300);
+    $("#disc-flat").hide(300);
+    $("#discount-percent").removeAttr('required');
+    $("#discount-flat").removeAttr('required');
+
+    // Reset discount buttons
+    $("#disc-percent-opt").removeAttr('checked');
+    $("#disc-percent-opt").parent('label').removeClass('active');
+    $("#disc-flat-opt").removeAttr('checked');
+    $("#disc-flat-opt").parent('label').removeClass('active');
+    $("#disc-none-opt").attr('checked', true);
+    $("#disc-none-opt").parent('label').addClass('active');
+
 });
 
 // Others
@@ -335,6 +377,18 @@ function modalPop(id, mode, url){
     else if(mode === "gallery"){
         var title = "Warning";
         var content = "Are you sure you want to completely delete gallery and all related images?"
+        var yes = "Delete"
+
+        $("#small-modal-yes").attr("class","btn btn-danger");
+        $("#small-modal-title").html(title);
+        $("#small-modal-body").html(content);
+        $("#small-modal-yes").html(yes);
+        $("#small-modal-yes").attr('href', url + id);
+        $("#small-modal").modal();
+    }
+    else if(mode === "property-delete"){
+        var title = "Warning";
+        var content = "Are you sure you want to delete selected product property?"
         var yes = "Delete"
 
         $("#small-modal-yes").attr("class","btn btn-danger");

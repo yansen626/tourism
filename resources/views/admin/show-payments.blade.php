@@ -24,7 +24,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <table id="datatable-payments" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <table id="datatable-payment" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>Invoice</th>
@@ -43,7 +43,7 @@
                                 @foreach($transactions as $trx)
                                     @php( $trans = $trx->transfer_confirmation()->first())
                                     <tr>
-                                        <td>{{ $trx->invoice }}</td>
+                                        <td><a href="{{ route('admin-invoice', ['trxId' => $trx->id]) }}">{{ $trx->invoice }}</a></td>
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
                                         <td>{{ $trx->payment_method->description }}</td>
                                         <td>{{ $trans->sender_name ?? '-'}}</td>
@@ -100,5 +100,9 @@
     <!-- small modal -->
     @include('admin.partials._small_modal')
     <!-- /small modal -->
+
+    <!-- footer -->
+    @include('admin.partials._footer')
+    <!-- /footer -->
 
 @endsection

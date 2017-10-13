@@ -68,13 +68,39 @@
 
                         @if($propertyName == 'size' || $propertyName == 'weight')
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price {{ $propertyName == 'size' ? '(Optional)' : '' }}
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 price-format">
                                     <input id="price" name="price" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                         @endif
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Make Primary
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @if($propertyName == 'size' && $sizeProperties->count() == 0)
+                                    <span style="color: orange;">Anda baru membuat property Size produk untuk pertama kalinya, maka property ini akan menjadi yang data paling utama</span>
+                                @endif
+
+                                @if($propertyName == 'weight' && $weightProperties->count() == 0)
+                                    <span style="color: orange;">Anda baru membuat property Weight produk untuk pertama kalinya, maka property ini akan menjadi yang data paling utama</span>
+                                @endif
+
+                                @if(($propertyName == 'size' && $sizeProperties->count() > 0) || ( $propertyName == 'weight' && $weightProperties->count() > 0))
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-default active">
+                                                <input type="radio" name="primary" value="no" id="primary-no-opt" checked> No
+                                            </label>
+                                            <label class="btn btn-default">
+                                                <input type="radio" name="primary" value="yes" id="primary-yes-opt"> Yes
+                                            </label>
+                                        </div>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="ln_solid"></div>
 
                         <div class="form-group">

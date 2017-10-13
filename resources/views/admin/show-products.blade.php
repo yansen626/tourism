@@ -90,7 +90,7 @@
                                     </select>
                                 </div>
                             </form>
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <table id="datatable-global" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>No</th>
@@ -102,10 +102,11 @@
                                     <th>Stock</th>
                                     <th>Created Date</th>
                                     <th>Featured Photo</th>
-                                    <th>Status</th>
                                     <th>Discount</th>
                                     <th>Flat Discount</th>
                                     <th>Final Price</th>
+                                    <th>Primary Property</th>
+                                    <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,8 +117,21 @@
                                         <td>
                                             <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">Edit</a><br/>
                                             <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'color']) }}" class="btn btn-default">Set Color</a><br/>
-                                            <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'size']) }}" class="btn btn-default">Set Size</a><br/>
-                                            <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'weight']) }}" class="btn btn-default">Set Weight</a>
+                                            @if(($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0) ||
+                                                ($product->product_properties()->where('name', '=', 'size')->count() > 0 &&
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0))
+
+                                                <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'size']) }}" class="btn btn-default">Set Size</a><br/>
+                                            @endif
+
+                                            @if(($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0) ||
+                                                ($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'weight')->count() > 0))
+
+                                                <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'weight']) }}" class="btn btn-default">Set Weight</a>
+                                            @endif
                                         </td>
                                         <td>{{ $product->name}}</td>
                                         <td>{{ $product->category->name }}</td>
@@ -132,13 +146,6 @@
                                         <td>
                                             @if($product->product_image->count() > 0)
                                                 <img style="height: 150px;" src="{{ asset('storage/product/'. $product->product_image()->where('featured', 1)->first()->path) }}">
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($product->status_id == 1)
-                                                Published
-                                            @else
-                                                Unpublished
                                             @endif
                                         </td>
                                         <td>
@@ -161,6 +168,28 @@
                                                 Rp {{$product->price_discounted}}
                                             @else
                                                 -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($product->product_properties()->where('name', '=', 'size')->count() > 0)
+                                                Size: {{ $product->product_properties()->where('name', '=', 'size')->where('primary', 1)->first()->description }}<br/>
+                                            @endif
+
+                                            @if($product->product_properties()->where('name', '=', 'weight')->count() > 0)
+                                                @php( $weightTmp = $product->product_properties()->where('name', '=', 'weight')->where('primary', 1)->first()->description )
+                                                @php( $weightVal = floatval(floatval($weightTmp) / 1000) )
+                                                Weight: {{ $weightVal }} Kg<br/>
+                                            @endif
+
+                                            @if($product->product_properties()->where('name', '=', 'color')->count() > 0)
+                                                Color: {{ $product->product_properties()->where('name', '=', 'color')->where('primary', 1)->first()->description }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($product->status_id == 1)
+                                                Published
+                                            @else
+                                                Unpublished
                                             @endif
                                         </td>
                                     </tr>

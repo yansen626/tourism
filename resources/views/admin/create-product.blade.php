@@ -81,7 +81,7 @@
 
                         <!-- SET SIZE OPTIONS -->
                         <div id="form-size-option" class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Size
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Size Option
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="btn-group" data-toggle="buttons">
@@ -104,7 +104,7 @@
                                 {{--<input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">--}}
                                 {{--</div>--}}
                                 <div class="col-md-3 col-sm-3 col-xs-6">
-                                    <div class="input-group price-format">
+                                    <div class="input-group">
                                         <input name="size-price[]" class="form-control" placeholder="Price (Primary)">
                                         <div class="input-group-btn">
                                             <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
@@ -122,7 +122,7 @@
                                     {{--<input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">--}}
                                     {{--</div>--}}
                                     <div class="col-md-3 col-sm-3 col-xs-6">
-                                        <div class="input-group price-format-after">
+                                        <div class="input-group">
                                             <input name="size-price[]" class="form-control" placeholder="Price">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
@@ -136,7 +136,7 @@
 
                         <!-- SET WEIGHT OPTIONS -->
                         <div id="form-weight-option" class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Weight in Gram
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Weight Option
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="btn-group" data-toggle="buttons">
@@ -157,7 +157,7 @@
                                     <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram (Primary)">
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-6">
-                                    <div class="input-group price-format">
+                                    <div class="input-group">
                                         <input name="weight-price[]" class="form-control" placeholder="Price (Primary)">
                                         <div class="input-group-btn">
                                             <button class="btn btn-success add-more-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
@@ -173,7 +173,7 @@
                                         <input type="number" name="weight[]" class="form-control" placeholder="Weight in Gram">
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-6">
-                                        <div class="input-group price-format-after">
+                                        <div class="input-group">
                                             <input name="weight-price[]" class="form-control" placeholder="Price">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger remove-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
@@ -260,7 +260,7 @@
 
                         <!-- SET COLOR OPTIONS -->
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Color
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Color Option
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="btn-group" data-toggle="buttons">

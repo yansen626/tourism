@@ -39,9 +39,20 @@ class ProductPropertyController extends Controller
     public function create($productId, $name){
         $product = Product::find($productId);
 
+        // Get product properties
+        $weightProperties = ProductProperty::where('product_id', $productId)
+            ->where('name', '=', 'weight')
+            ->get();
+
+        $sizeProperties = ProductProperty::where('product_id', $productId)
+            ->where('name', '=', 'size')
+            ->get();
+
         $data = [
-            'product'       => $product,
-            'propertyName'  => $name
+            'product'           => $product,
+            'propertyName'      => $name,
+            'weightProperties'  => $weightProperties,
+            'sizeProperties'    => $sizeProperties
         ];
 
         return View('admin.create-product-property')->with($data);
@@ -75,17 +86,68 @@ class ProductPropertyController extends Controller
         ]);
 
         if($name != 'color'){
-//            if(!empty(Input::get('weight'))){
-//                $property->weight = Input::get('weight');
-//            }
-
+            // Check property price attribute
             if(!empty(Input::get('price'))){
                 $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
                 $property->price = $propertyPriceDouble;
             }
-
-            $property->save();
         }
+
+        // Check primary
+        $properties = ProductProperty::where('product_id', $productId)
+            ->where('name', $name)
+            ->get();
+        // Check if property added is the first one or not
+        if($properties->count() == 1){
+            $property->primary = 1;
+
+            if($name != 'color' && !empty(Input::get('price'))){
+                // Change product data
+                $product = Product::find($productId);
+                $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
+                $product->price = $propertyPriceDouble;
+                $product->discount = null;
+                $product->discount_flat = null;
+                $product->price_discounted = $propertyPriceDouble;
+
+                if($name == 'weight') $product->weight = intval(Input::get('description'));
+
+                $product->save();
+            }
+        }
+        else{
+            if(Input::get('primary') == 'yes'){
+                $property->primary = 1;
+
+                // Change product data
+                $product = Product::find($productId);
+                $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
+                $product->price = $propertyPriceDouble;
+                $product->discount = null;
+                $product->discount_flat = null;
+                $product->price_discounted = $propertyPriceDouble;
+
+                if($name == 'weight') $product->weight = intval(Input::get('description'));
+
+                $product->save();
+
+                // Check existing primary property
+                $primaryProperty = ProductProperty::where('product_id', $productId)
+                    ->where('name', $name)
+                    ->where('primary', 1)
+                    ->first();
+
+                if(!empty($primaryProperty)){
+                    $primaryProperty->primary = 0;
+                    $primaryProperty->save();
+                }
+            }
+            else{
+                $property->primary = 0;
+            }
+        }
+
+        $property->save();
 
         return redirect()->route('product-property-list',['productId' => $productId, 'name' => $name]);
     }
@@ -121,14 +183,41 @@ class ProductPropertyController extends Controller
         $property->description = Input::get('description');
 
         if($property->name != 'color'){
-//            if(!empty(Input::get('weight'))){
-//                $property->weight = Input::get('weight');
-//            }
-
             if(!empty(Input::get('price'))){
                 $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
                 $property->price = $propertyPriceDouble;
             }
+        }
+
+        // Check primary
+        if($property->primary == 0 && Input::get('primary') == 'yes'){
+            $property->primary = 1;
+
+            // Change product data
+            $product = Product::find($property->product_id);
+            $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
+            $product->price = $propertyPriceDouble;
+            $product->discount = null;
+            $product->discount_flat = null;
+            $product->price_discounted = $propertyPriceDouble;
+
+            if($property->name == 'weight') $product->weight = intval(Input::get('description'));
+
+            $product->save();
+
+            // Check existing primary property
+            $primaryProperty = ProductProperty::where('product_id', $property->product_id)
+                ->where('name', $property->name)
+                ->where('primary', 1)
+                ->first();
+
+            if(!empty($primaryProperty)){
+                $primaryProperty->primary = 0;
+                $primaryProperty->save();
+            }
+        }
+        else{
+            $property->primary = 0;
         }
 
         $property->save();

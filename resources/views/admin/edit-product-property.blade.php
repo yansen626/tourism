@@ -56,25 +56,43 @@
                             </div>
                         </div>
 
-                        @if($property->name == 'size')
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram (Optional)
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="size-weight" name="size-weigh" class="form-control col-md-7 col-xs-12" value="{{ $property->weight}}">
-                                </div>
-                            </div>
-                        @endif
+                        {{--@if($property->name == 'size')--}}
+                            {{--<div class="item form-group">--}}
+                                {{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram (Optional)--}}
+                                {{--</label>--}}
+                                {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
+                                    {{--<input id="size-weight" name="size-weigh" class="form-control col-md-7 col-xs-12" value="{{ $property->weight}}">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
 
-                        @if($property->name == 'size' || $propertyName == 'weight')
+                        @if($property->name == 'size' || $property->name == 'weight')
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price {{ $property->name == 'size' ? '(Optional)' : '' }}
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 price-format">
                                     <input id="price" name="price" class="form-control col-md-7 col-xs-12" value="{{ $property->getOriginal('price') }}">
                                 </div>
                             </div>
                         @endif
+
+                        @if($property->primary == 0)
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Make Primary
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default active">
+                                            <input type="radio" name="primary" value="no" id="primary-no-opt" checked> No
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="primary" value="yes" id="primary-yes-opt"> Yes
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="ln_solid"></div>
 
                         <div class="form-group">

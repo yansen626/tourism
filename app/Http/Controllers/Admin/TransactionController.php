@@ -155,4 +155,10 @@ class TransactionController extends Controller
             return response()->json( array('success' => true, 'html' => $returnHtml) );
         }
     }
+
+    public function invoice($trxId){
+        $trx = Transaction::find($trxId);
+
+        return View('frontend.show-invoice', compact('trx'));
+    }
 }

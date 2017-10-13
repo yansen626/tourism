@@ -20,7 +20,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             @include('admin.partials._success')
-                            <h2>{{ ucwords($propertyName) }} List of {{ $product->name }}</h2>
+                            <h2>{{ ucwords($propertyName) }} Property List of {{ $product->name }}</h2>
                             <div class="nav navbar-right">
                                 <a href="{{ route('product-property-create', ['productId' => $product->id, 'name' => $propertyName]) }}" class="btn btn-app">
                                     <i class="fa fa-plus"></i> Add
@@ -33,7 +33,7 @@
 
                         </div>
                         <div class="x_content">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <table id="datatable-global" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>No</th>
@@ -44,6 +44,7 @@
                                     @if($propertyName != 'color')
                                         <th>Price</th>
                                     @endif
+                                    <th>Primay</th>
                                     <th>Option</th>
                                 </tr>
                                 </thead>
@@ -67,8 +68,11 @@
                                             <td>{{ $property->price ? 'Rp '. $property->price : '-' }}</td>
                                         @endif
                                         <td>
+                                            {{ $property->primary == 1 ? 'Yes' : 'No' }}
+                                        </td>
+                                        <td>
                                             <a href="{{ route('product-property-edit', ['id' => $property->id]) }}" class="btn btn-default">Edit</a>
-                                            <a href="{{ route('product-property-delete', ['id' => $property->id]) }}" class="btn btn-danger">Delete</a>
+                                            <a onclick="modalPop('{{ $property->id }}', 'property-delete', 'admin/product/property/delete/' )"  class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                     @php( $idx++ )
@@ -82,6 +86,10 @@
         </div>
     </div>
     <!-- /page content -->
+
+    <!-- small modal -->
+    @include('admin.partials._small_modal')
+    <!-- /small modal -->
 
     <!-- footer -->
     @include('admin.partials._footer')

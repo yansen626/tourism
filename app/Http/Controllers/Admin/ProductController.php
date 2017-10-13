@@ -116,7 +116,7 @@ class ProductController extends Controller
                         ->withInput();
                 }
 
-                // Check size content
+                // Validate size option array
                 $isValid = true;
                 $sizes = Input::get('size');
                 if(!empty($sizes)){
@@ -137,14 +137,15 @@ class ProductController extends Controller
             }
             // Validation of weight options
             else if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'yes'){
-                // Check weight content
+
+                // Validate weight option array
                 $isValid = true;
                 $weights = Input::get('weight');
                 $weightPrice = Input::get('weight-price');
                 if(!empty($weights)){
                     $idx = 0;
                     foreach($weights as $weight){
-                        if($idx != count($weights - 1)){
+                        if($idx != count($weights) - 1){
                             if(empty($weight)) $isValid = false;
                             if(empty($weightPrice[$idx])) $isValid = false;
                         }
@@ -167,8 +168,6 @@ class ProductController extends Controller
                     ->withInput();
             }
             else{
-                dd("complete");
-
                 $price = $request->input('price');
                 $priceDouble = (double) str_replace('.','', $price);
                 $weightStr = str_replace('.','', Input::get('weight-primary'));
@@ -214,14 +213,25 @@ class ProductController extends Controller
 
                 // Check color & size
                 if(Input::get('color-options') == 'yes'){
+                    $idx = 0;
                     foreach(Input::get('color') as $color){
                         if(!empty($color)){
-                            ProductProperty::create([
+                            $propertyColor = ProductProperty::create([
                                 'product_id'    => $savedId,
                                 'name'          => 'color',
                                 'description'   => $color
                             ]);
+
+                            if($idx == 0){
+                                $propertyColor->primary = 1;
+                            }
+                            else{
+                                $propertyColor->primary = 0;
+                            }
+
+                            $propertyColor->save();
                         }
+                        $idx++;
                     }
                 }
 
@@ -238,8 +248,21 @@ class ProductController extends Controller
                             ]);
 
                             if(!empty($sizePrice[$idx])){
-                                $propertyPriceDouble = (double) str_replace('.','', $sizePrice[$idx]);
-                                $propertySize->price = $propertyPriceDouble;
+//                                $propertyPriceDouble = (double) str_replace('.','', $sizePrice[$idx]);
+                                $propertySize->price = $sizePrice[$idx];
+
+                                if($idx == 0){
+                                    $product->price = $sizePrice[$idx];
+                                    $product->price_discounted = $sizePrice[$idx];
+                                    $product->save();
+                                }
+                            }
+
+                            if($idx == 0){
+                                $propertySize->primary = 1;
+                            }
+                            else{
+                                $propertySize->primary = 0;
                             }
 
 //                            if(!empty($sizeWeight[$idx])){
@@ -253,9 +276,9 @@ class ProductController extends Controller
                 }
 
                 if(Input::get('weight-options') == 'yes'){
+                    $idx = 0;
+                    $weightPrice = Input::get('weight-price');
                     foreach(Input::get('weight') as $weightOpt){
-                        $idx = 0;
-                        $weightPrice = Input::get('weight-price');
                         if(!empty($weightOpt)){
                             $propertyWeight = ProductProperty::create([
                                 'product_id'    => $savedId,
@@ -264,11 +287,32 @@ class ProductController extends Controller
                             ]);
 
                             if(!empty($weightPrice[$idx])){
-                                $propertyPriceDouble = (double) str_replace('.','', $weightPrice[$idx]);
-                                $propertyWeight->price = $propertyPriceDouble;
-                                $propertyWeight->save();
+//                                $propertyPriceDouble = (double) str_replace('.','', $weightPrice[$idx]);
+                                $propertyWeight->price = $weightPrice[$idx];
+
+
+                                if($idx == 0){
+                                    $product->price = $weightPrice[$idx];
+                                    $product->price_discounted = $weightPrice[$idx];
+                                    $product->save();
+                                }
                             }
+
+                            if($idx == 0){
+                                $propertyWeight->primary = 1;
+                                $product->weight = $weightOpt;
+                                $product->save();
+                            }
+                            else{
+                                $propertyWeight->primary = 0;
+                            }
+
+                            $propertyWeight->save();
                         }
+
+                        error_log('index = '. $idx);
+
+                        $idx++;
                     }
                 }
 
@@ -335,28 +379,63 @@ class ProductController extends Controller
         $imgPhotos = $product->product_image()->where('featured', 0)->get();
         $categories = Category::all();
 
+        // Get product properties
+        $weightProperties = ProductProperty::where('product_id', $id)
+            ->where('name', '=', 'weight')
+            ->get();
+
+        $sizeProperties = ProductProperty::where('product_id', $id)
+            ->where('name', '=', 'size')
+            ->get();
+
         $data = [
-            'product'       => $product,
-            'imgFeatured'   => $imgFeatured,
-            'imgPhotos'     => $imgPhotos,
-            'categories'    => $categories
+            'product'           => $product,
+            'imgFeatured'       => $imgFeatured,
+            'imgPhotos'         => $imgPhotos,
+            'categories'        => $categories,
+            'weightProperties'  => $weightProperties,
+            'sizeProperties'    => $sizeProperties
         ];
 
         return view('admin.edit-product')->with($data);
     }
 
     public function update(Request $request, $id){
-
         try{
-            $validator = Validator::make($request->all(),[
-                'category'              => 'required|option_not_default',
-                'name'                  => 'required',
-                'price'                 => 'required',
-                'weight'                => 'required',
-                'qty'                   => 'required'
-            ],[
-                'option_not_default'    => 'Select a category'
-            ]);
+            $product = Product::find($id);
+
+            if($product->product_properties()->where('name', '=', 'size')->count() > 0 &&
+                $product->product_properties()->where('name', '=', 'weight')->count() == 0){
+
+                $validator = Validator::make($request->all(),[
+                    'category'              => 'required|option_not_default',
+                    'name'                  => 'required',
+                    'weight'                => 'required',
+                ],[
+                    'option_not_default'    => 'Select a category'
+                ]);
+            }
+            else if($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
+                $product->product_properties()->where('name', '=', 'weight')->count() > 0){
+
+                $validator = Validator::make($request->all(),[
+                    'category'              => 'required|option_not_default',
+                    'name'                  => 'required'
+                ],[
+                    'option_not_default'    => 'Select a category'
+                ]);
+            }
+            else{
+                $validator = Validator::make($request->all(),[
+                    'category'              => 'required|option_not_default',
+                    'name'                  => 'required',
+                    'price'                 => 'required',
+                    'weight'                => 'required',
+                ],[
+                    'option_not_default'    => 'Select a category'
+                ]);
+            }
+
 
             if ($validator->fails()) {
                 return redirect()
@@ -365,52 +444,63 @@ class ProductController extends Controller
                     ->withInput();
             }
             else{
-                $product = Product::find($id);
+
                 $product->name = Input::get('name');
                 $product->category_id = Input::get('category');
 
                 $status = Input::get('status');
                 $product->status_id = $status === '1' ? 1 : 2;
 
+                // Check property
+                $sizeProperties = $product->product_properties()->where('name', '=', 'size')->get();
+                $weightProperties = $product->product_properties()->where('name', '=', 'weight')->get();
+
                 $price = $request->input('price');
                 $priceDouble = (double) str_replace('.','', $price);
                 $weight = (double) str_replace('.','', Input::get('weight'));
 
-                $product->price = $priceDouble;
-                $product->weight = $weight;
-                $product->quantity = Input::get('qty');
+                if($sizeProperties->count() == 0 && $weightProperties->count() == 0){
+                    $product->price = $priceDouble;
+//                  $product->weight = $weight;
+//                  $product->quantity = Input::get('qty');
 
-                if(Input::get('options') == 'percent'){
-                    $discountPercent = (double) Input::get('discount-percent');
-                    $product->discount = $discountPercent;
+                    if(Input::get('options') == 'percent'){
+                        $discountPercent = (double) Input::get('discount-percent');
+                        $product->discount = $discountPercent;
 
-                    $discountAmount = $priceDouble / 100 * $discountPercent;
-                    $product->price_discounted = $priceDouble - $discountAmount;
+                        $discountAmount = $priceDouble / 100 * $discountPercent;
+                        $product->price_discounted = $priceDouble - $discountAmount;
 
-                    // Set other null
-                    $product->discount_flat = null;
+                        // Set other null
+                        $product->discount_flat = null;
+                    }
+                    else if(Input::get('options') == 'flat'){
+                        $discountFlat = (double) str_replace('.','', Input::get('discount-flat'));
+                        $product->discount_flat = $discountFlat;
+
+                        $product->price_discounted = $priceDouble - $discountFlat;
+
+                        // Set other null
+                        $product->discount_flat = null;
+                    }
+                    else if(Input::get('options') == 'none'){
+                        // Set all null
+                        $product->discount = null;
+                        $product->discount_flat = null;
+                        $product->price_discounted = $priceDouble;
+                    }
+
+                    if(!empty(Input::get('description'))){
+                        $product->description = Input::get('description');
+                    }
+                    else{
+                        $product->description = null;
+                    }
                 }
-                else if(Input::get('options') == 'flat'){
-                    $discountFlat = (double) str_replace('.','', Input::get('discount-flat'));
-                    $product->discount_flat = $discountFlat;
 
-                    $product->price_discounted = $priceDouble - $discountFlat;
-
-                    // Set other null
-                    $product->discount_flat = null;
-                }
-                else if(Input::get('options') == 'none'){
-                    // Set all null
-                    $product->discount = null;
-                    $product->discount_flat = null;
-                    $product->price_discounted = $priceDouble;
-                }
-
-                if(!empty(Input::get('description'))){
-                    $product->description = Input::get('description');
-                }
-                else{
-                    $product->description = null;
+                if(($sizeProperties->count() > 0 && $weightProperties->count() == 0) ||
+                    ($sizeProperties->count() == 0 && $weightProperties->count() == 0)){
+                    $product->weight = $weight;
                 }
 
                 $product->save();
