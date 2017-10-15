@@ -10,6 +10,11 @@ function addToCart(productId){
         size = $('#select-size').val();
     }
 
+    var weight = '';
+    if($('#select-weight').length > 0){
+        weight = $('#select-weight').val();
+    }
+
     $.ajax({
         url     : urlLink,
         method  : 'POST',
@@ -17,7 +22,8 @@ function addToCart(productId){
             // _token: CSRF_TOKEN,
             product_id  : productId,
             color : color,
-            size:  size
+            size:  size,
+            weight: weight
         },
         headers:
         {
@@ -159,6 +165,11 @@ function addCommas(nStr) {
 function onchangeWeight(e){
     var price = e.options[e.selectedIndex].getAttribute('data-price');
     $('#price-label').html("Rp " + price);
+
+    var weight = e.options[e.selectedIndex].getAttribute('data-weight');
+    if(weight !== 0){
+        $('#weight-label').html("Weight: " + weight + " Kg");
+    }
 }
 
 function onchangeSize(e){
@@ -167,13 +178,6 @@ function onchangeSize(e){
         var price = obj.getAttribute('data-price');
         if(price !== '0'){
             $('#price-label').html("Rp " + price);
-        }
-    }
-
-    if(obj.hasAttribute("data-weight")){
-        var weight = obj.getAttribute('data-weight');
-        if(weight !== 0){
-            $('#weight-label').html("Weight: " + weight + " Kg");
         }
     }
 }

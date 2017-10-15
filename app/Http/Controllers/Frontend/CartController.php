@@ -142,13 +142,13 @@ class CartController
                             'product_id'    => $productId,
                             'user_id'       => $userId,
                             'quantity'      => 1,
-                            'weight-option' => $weight->description
+                            'weight_option' => $weight->description
                         ]);
 
                         // Check price
                         if(!empty($weight->price)){
-                            $cartCreate->price = $weight->price;
-                            $cartCreate->total_price = $weight->price;
+                            $cartCreate->price = $weight->getOriginal('price');
+                            $cartCreate->total_price = $weight->getOriginal('price');
                         }
                         else{
                             $cartCreate->price = $product->getOriginal('price_discounted');
@@ -200,6 +200,9 @@ class CartController
                     'price'         => $product->getOriginal('price_discounted'),
                     'total_price'   => $product->getOriginal('price_discounted')
                 ]);
+
+                error_log('size = '. Input::get('size'));
+                error_log('weight = '. Input::get('weight'));
 
                 if(!empty(Input::get('size')) && Input::get('size') != '0'){
                     $size = ProductProperty::find(Input::get('size'));

@@ -119,11 +119,14 @@ class ProductController extends Controller
                 // Validate size option array
                 $isValid = true;
                 $sizes = Input::get('size');
+                $sizePrice = Input::get('size-price');
                 if(!empty($sizes)){
                     $idx = 0;
                     foreach($sizes as $size){
-                        if($idx != count($sizes) - 1)
+                        if($idx != count($sizes) - 1){
                             if(empty($size)) $isValid = false;
+                            if(empty($sizePrice[$idx])) $isValid = false;
+                        }
                         $idx++;
                     }
                 }

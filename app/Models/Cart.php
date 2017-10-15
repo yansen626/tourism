@@ -26,7 +26,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $payment_method
  * @property string $note
  * @property int $weight_option
- * @property int $size_option
+ * @property string $size_option
  *
  * @property \App\Models\Product $product
  * @property \App\Models\User $user

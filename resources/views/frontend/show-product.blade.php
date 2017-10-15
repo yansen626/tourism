@@ -110,9 +110,9 @@
                                                 $weightNumber = $weightNumber / 1000;
                                             ?>
                                             @if($weight->primary == 1)
-                                                <option data-price="{{ $weight->price }}" value="{{ $weight->id }}" selected>{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
+                                                <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" value="{{ $weight->id }}" selected>{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
                                             @else
-                                                <option data-price="{{ $weight->price }}" value="{{ $weight->id }}">{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
+                                                <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" value="{{ $weight->id }}">{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -146,9 +146,9 @@
                                                 }
                                             ?>
                                             @if($size->primary == 1)
-                                                <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $weightVal != 0 ?  $weightVal. ' Kg' : 0 }}" value="{{ $size->id }}" selected>{{ $content }}</option>
+                                                <option data-price="{{ $size->price ? $size->price : 0 }}"  value="{{ $size->id }}" selected>{{ $content }}</option>
                                             @else
-                                                <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $weightVal != 0 ?  $weightVal. ' Kg' : 0 }}" value="{{ $size->id }}">{{ $content }}</option>
+                                                <option data-price="{{ $size->price ? $size->price : 0 }}"  value="{{ $size->id }}">{{ $content }}</option>
                                             @endif
 
                                         @endforeach
