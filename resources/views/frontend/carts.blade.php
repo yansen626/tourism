@@ -55,11 +55,13 @@
                                 </td>
                                 <td class="product-name">
                                     <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}">
-                                        @if(!empty($cart->size_option) && empty($cart->weight_option))
+                                        @if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->size_option))
                                             {{ $cart->product->name }} - {{ $cart->size_option }}
-                                        @elseif(empty($cart->size_option) && !empty($cart->weight_option))
+                                        @elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->size_option))
                                             @php( $weightVal = floatval(floatval($cart->weight_option) / 1000)  )
                                             {{ $cart->product->name }} - {{ $weightVal }} Kg
+                                        @elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option))
+                                            {{ $cart->product->name }} - {{ $cart->qty_option }}
                                         @else
                                             {{ $cart->product->name }}
                                         @endif

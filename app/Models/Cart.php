@@ -27,6 +27,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $note
  * @property int $weight_option
  * @property string $size_option
+ * @property string $qty_option
  *
  * @property \App\Models\Product $product
  * @property \App\Models\User $user
@@ -63,7 +64,8 @@ class Cart extends Eloquent
         'payment_method',
         'note',
         'weight_option',
-        'size_option'
+        'size_option',
+        'qty_option'
 	];
 
 	public function product()
@@ -88,6 +90,7 @@ class Cart extends Eloquent
     {
         return $this->belongsTo(\App\Models\Courier::class);
     }
+
     public function deliveryType()
     {
         return $this->belongsTo(\App\Models\DeliveryType::class);

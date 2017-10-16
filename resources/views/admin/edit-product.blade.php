@@ -67,22 +67,26 @@
                                 </div>
                             </div>
 
-                            @if($weightProperties->count() > 0 || $sizeProperties->count() > 0)
+                            @if($weightProperties->count() > 0 || $sizeProperties->count() > 0 || $qtyProperties->count() > 0)
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         @if($weightProperties->count() > 0)
-                                            <b><span style="color: orange;">This product has weight properties, you can edit them </span><a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'weight']) }}">here</a></b>
+                                            <b><span style="color: orange;">This product has Weight properties, you can edit them </span><a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'weight']) }}">here</a></b>
                                         @endif
 
                                         @if($sizeProperties->count() > 0)
-                                            <b><span style="color: orange;">This product has size properties, you can edit them </span><a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'size']) }}">here</a></b>
+                                            <b><span style="color: orange;">This product has Size properties, you can edit them </span><a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'size']) }}">here</a></b>
+                                        @endif
+
+                                        @if($qtyProperties->count() > 0)
+                                            <b><span style="color: orange;">This product has Quantity properties, you can edit them </span><a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'qty']) }}">here</a></b>
                                         @endif
                                     </div>
                                 </div>
                             @endif
 
-                            @if($weightProperties->count() == 0 && $sizeProperties->count() == 0)
+                            @if($weightProperties->count() == 0 && $sizeProperties->count() == 0 && $qtyProperties->count() == 0)
                                 <!-- SET PRICE -->
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" >Price
@@ -188,7 +192,7 @@
                                 <!-- //SET DISCOUNT -->
                             @endif
 
-                            @if($weightProperties->count() == 0)
+                            @if($weightProperties->count() == 0 && $qtyProperties->count() == 0)
                                 <!-- SET WEIGHT -->
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram <span class="required">*</span>
@@ -217,17 +221,6 @@
                                     {!! Form::file('product-featured', array('id' => 'product-featured', 'class' => 'file-loading', 'data-image-featured-path' => asset('storage/product/'. $imgFeatured))) !!}
                                 </div>
                             </div>
-
-                            @if ($errors->has('product-featured'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('product-featured') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
 
                             @if(!$imgPhotos->isEmpty())
                                 <div class="item form-group">
@@ -262,16 +255,6 @@
                                 </div>
                             </div>
 
-                            @if ($errors->has('product-photos'))
-                                <div class="form-group">
-                                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('product-photos') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Status <span class="required">*</span>
                                 </label>
@@ -281,6 +264,7 @@
                                         @if($product->status_id == 1)
                                             <option value="1" selected>Publish</option>
                                             <option value="0">Unpublish</option>
+                                            <option value="2">Delete</option>
                                         @else
                                             <option value="1">Publish</option>
                                             <option value="0" selected>Unpublish</option>

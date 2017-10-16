@@ -77,11 +77,13 @@
                                         {{--<img class="cart_item_product" src="{{ URL::asset('frontend_images/tovar/women/1.jpg') }}" alt="" />--}}
                                         <div class="cart-image-header" style="background-image: url('{{ asset('storage/product/'. $cart->product->product_image()->where('featured', 1)->first()->path) }}')"></div>
                                         <a href="{{ route('product-detail', ['id' => $cart->product->id]) }}" class="cart_item_title">
-                                            @if(!empty($cart->size_option) && empty($cart->weight_option))
+                                            @if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->size_option))
                                                 {{ $cart->product->name }} - {{ $cart->size_option }}
-                                            @elseif(empty($cart->size_option) && !empty($cart->weight_option))
+                                            @elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->size_option))
                                                 @php( $weightVal = floatval(floatval($cart->weight_option) / 1000)  )
                                                 {{ $cart->product->name }} - {{ $weightVal }} Kg
+                                            @elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option))
+                                                {{ $cart->product->name }} - {{ $cart->qty_option }}
                                             @else
                                                 {{ $cart->product->name }}
                                             @endif

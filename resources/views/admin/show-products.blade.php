@@ -99,7 +99,7 @@
                                     <th>Category</th>
                                     <th>Weight</th>
                                     <th>Normal Price</th>
-                                    <th>Stock</th>
+                                    {{--<th>Stock</th>--}}
                                     <th>Created Date</th>
                                     <th>Featured Photo</th>
                                     <th>Discount</th>
@@ -118,28 +118,43 @@
                                             <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">Edit</a><br/>
                                             <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'color']) }}" class="btn btn-default">Set Color</a><br/>
                                             @if(($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
-                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0) ||
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'qty')->count() == 0) ||
                                                 ($product->product_properties()->where('name', '=', 'size')->count() > 0 &&
-                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0))
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'qty')->count() == 0))
 
                                                 <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'size']) }}" class="btn btn-default">Set Size</a><br/>
                                             @endif
 
                                             @if(($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
-                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0) ||
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'qty')->count() == 0) ||
                                                 ($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
-                                                $product->product_properties()->where('name', '=', 'weight')->count() > 0))
+                                                $product->product_properties()->where('name', '=', 'weight')->count() > 0 &&
+                                                $product->product_properties()->where('name', '=', 'qty')->count() == 0))
 
                                                 <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'weight']) }}" class="btn btn-default">Set Weight</a>
                                             @endif
+
+                                            @if(($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'qty')->count() == 0) ||
+                                                ($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'weight')->count() == 0 &&
+                                                $product->product_properties()->where('name', '=', 'qty')->count() > 0))
+
+                                                <a href="{{ route('product-property-list', ['productId' => $product->id, 'name' => 'qty']) }}" class="btn btn-default">Set Quantity</a>
+                                            @endif
+
                                         </td>
                                         <td>{{ $product->name}}</td>
                                         <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->weight }} gr</td>
                                         <td>Rp {{ $product->price}}</td>
-                                        <td>
-                                            {{ $product->quantity }}
-                                        </td>
+                                        {{--<td>--}}
+                                            {{--{{ $product->quantity }}--}}
+                                        {{--</td>--}}
                                         <td>
                                             {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
                                         </td>
@@ -179,6 +194,10 @@
                                                 @php( $weightTmp = $product->product_properties()->where('name', '=', 'weight')->where('primary', 1)->first()->description )
                                                 @php( $weightVal = floatval(floatval($weightTmp) / 1000) )
                                                 Weight: {{ $weightVal }} Kg<br/>
+                                            @endif
+
+                                            @if($product->product_properties()->where('name', '=', 'qty')->count() > 0)
+                                                Quantity: {{ $product->product_properties()->where('name', '=', 'qty')->where('primary', 1)->first()->description }}<br/>
                                             @endif
 
                                             @if($product->product_properties()->where('name', '=', 'color')->count() > 0)

@@ -11,10 +11,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\libs\Utilities;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductProperty;
+use App\Models\TransactionDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -90,7 +92,7 @@ class ProductController extends Controller
             }
 
             // Validation of no options selected
-            if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'no'){
+            if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'no' && Input::get('qty-options') == 'no'){
                 $validator = Validator::make($request->all(),[
                     'price'     => 'required',
                     'weight'    => 'required'
@@ -104,7 +106,7 @@ class ProductController extends Controller
                 }
             }
             // Validation of size options
-            else if((Input::get('size-options') == 'yes') && Input::get('weight-options') == 'no'){
+            else if((Input::get('size-options') == 'yes') && Input::get('weight-options') == 'no' && Input::get('qty-options') == 'no'){
                 $validator = Validator::make($request->all(),[
                     'weight'    => 'required'
                 ]);
@@ -139,7 +141,7 @@ class ProductController extends Controller
                 }
             }
             // Validation of weight options
-            else if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'yes'){
+            else if(Input::get('size-options') == 'no' && Input::get('weight-options') == 'yes' && Input::get('qty-options') == 'no'){
 
                 // Validate weight option array
                 $isValid = true;
@@ -161,6 +163,33 @@ class ProductController extends Controller
 
                 if(!$isValid){
                     return redirect()->back()->withErrors('Weight property is required!', 'default')->withInput($request->all());
+                }
+            }
+            // Validation of qty options
+            else if(Input::get('size-options') == 'no' && Input::get('weight-options') == 'no' && Input::get('qty-options') == 'yes'){
+
+                // Validate qty option array
+                $isValid = true;
+                $qtys = Input::get('qty');
+                $qtyPrice = Input::get('qty-price');
+                $qtyWeight = Input::get('qty-weight');
+                if(!empty($qtys)){
+                    $idx = 0;
+                    foreach($qtys as $qty){
+                        if($idx != count($qtys) - 1){
+                            if(empty($qty)) $isValid = false;
+                            if(empty($qtyPrice[$idx])) $isValid = false;
+                            if(empty($qtyWeight[$idx])) $isValid = false;
+                        }
+                        $idx++;
+                    }
+                }
+                else{
+                    $isValid = false;
+                }
+
+                if(!$isValid){
+                    return redirect()->back()->withErrors('Quantity property is required!', 'default')->withInput($request->all());
                 }
             }
 
@@ -319,6 +348,48 @@ class ProductController extends Controller
                     }
                 }
 
+                if(Input::get('qty-options') == 'yes'){
+                    $idx = 0;
+                    $qtyPrice = Input::get('qty-price');
+                    $qtyWeight = Input::get('qty-weight');
+                    foreach(Input::get('qty') as $qty){
+                        if(!empty($qty)){
+                            $propertyQty = ProductProperty::create([
+                                'product_id'    => $savedId,
+                                'name'          => 'qty',
+                                'description'   => $qty
+                            ]);
+
+                            if(!empty($qtyPrice[$idx])){
+                                $propertyQty->price = $qtyPrice[$idx];
+
+
+                                if($idx == 0){
+                                    $product->price = $qtyPrice[$idx];
+                                    $product->price_discounted = $qtyPrice[$idx];
+                                    $product->save();
+                                }
+                            }
+
+                            if(!empty($qtyWeight[$idx])){
+                                $propertyQty->weight = $qtyWeight[$idx];
+                                $product->weight = $qtyWeight[$idx];
+                                $product->save();
+                            }
+
+                            if($idx == 0){
+                                $propertyQty->primary = 1;
+                            }
+                            else{
+                                $propertyQty->primary = 0;
+                            }
+
+                            $propertyQty->save();
+                        }
+                        $idx++;
+                    }
+                }
+
                 if(!empty($request->file('product-featured'))){
                     $img = Image::make($request->file('product-featured'));
 
@@ -391,13 +462,19 @@ class ProductController extends Controller
             ->where('name', '=', 'size')
             ->get();
 
+        $qtyProperties = ProductProperty::where('product_id', $id)
+            ->where('name', '=', 'qty')
+            ->get();
+
+
         $data = [
             'product'           => $product,
             'imgFeatured'       => $imgFeatured,
             'imgPhotos'         => $imgPhotos,
             'categories'        => $categories,
             'weightProperties'  => $weightProperties,
-            'sizeProperties'    => $sizeProperties
+            'sizeProperties'    => $sizeProperties,
+            'qtyProperties'     => $qtyProperties
         ];
 
         return view('admin.edit-product')->with($data);
@@ -406,6 +483,50 @@ class ProductController extends Controller
     public function update(Request $request, $id){
         try{
             $product = Product::find($id);
+
+            // Check delete
+            if(Input::get('status') == '2'){
+                // Check transaction
+                $trxDetails = TransactionDetail::where('product_id', $id)->get();
+                if($trxDetails->count() > 0){
+                    return redirect()
+                        ->back()
+                        ->withErrors("Product cannot be deleted")
+                        ->withInput();
+                }
+
+                // Check cart
+                $carts = Cart::where('product_id', $id)->get();
+
+                if($carts->count() > 0){
+                    foreach($carts as $cart){
+                        $cart->delete();
+                    }
+                }
+
+                $images = ProductImage::where('product_id', $id)->get();
+
+                if($images->count() > 0){
+                    foreach($images as $img){
+                        $deletedPath = storage_path('app/public/product/'. $img->path);
+                        if(file_exists($deletedPath)) unlink($deletedPath);
+
+                        $img->delete();
+                    }
+                }
+
+                $properties = ProductProperty::where('product_id', $id)->get();
+
+                if($properties->count() > 0){
+                    foreach($properties as $property){
+                        $property->delete();
+                    }
+                }
+
+                $product->delete();
+
+                return redirect::route('product-list');
+            }
 
             if($product->product_properties()->where('name', '=', 'size')->count() > 0 &&
                 $product->product_properties()->where('name', '=', 'weight')->count() == 0){

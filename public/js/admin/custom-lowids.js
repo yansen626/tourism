@@ -108,15 +108,6 @@ $("body").on("click",".remove-color",function(){
 $(".add-more-size").click(function(){
     var html = $(".copy-size").html();
     $(".after-add-more-size").after(html);
-
-
-    // numberFormat = AutoNumeric.multiple('.price-format-after > input', {
-    //     decimalCharacter: ',',
-    //     digitGroupSeparator: '.',
-    //     decimalPlaces: 0
-    // });
-
-
 });
 
 $("body").on("click",".remove-size",function(){
@@ -126,16 +117,19 @@ $("body").on("click",".remove-size",function(){
 $(".add-more-weight").click(function(){
     var html = $(".copy-weight").html();
     $(".after-add-more-weight").after(html);
-
-    // numberFormat = AutoNumeric.multiple('.price-format-after > input', {
-    //     decimalCharacter: ',',
-    //     digitGroupSeparator: '.',
-    //     decimalPlaces: 0
-    // });
 });
 
 $("body").on("click",".remove-weight",function(){
     $(this).parents(".control-group-weight").remove();
+});
+
+$(".add-more-qty").click(function(){
+    var html = $(".copy-qty").html();
+    $(".after-add-more-qty").after(html);
+});
+
+$("body").on("click",".remove-qty",function(){
+    $(this).parents(".control-group-qty").remove();
 });
 
 $("#color-no-opt").change(function(){
@@ -152,6 +146,7 @@ $("#size-no-opt").change(function(){
     $("#form-price-section").show(300);
     $("#form-discount-section").show(300);
     $("#form-weight-option").show(300);
+    $("#form-qty-option").show(300);
 });
 
 $("#size-yes-opt").change(function(){
@@ -160,6 +155,7 @@ $("#size-yes-opt").change(function(){
     $("#form-price-section").hide(300);
     $("#form-discount-section").hide(300);
     $("#form-weight-option").hide(300);
+    $("#form-qty-option").hide(300);
 
     // Hide discount sections
     $("#form-discount-section").hide(300);
@@ -185,6 +181,7 @@ $("#weight-no-opt").change(function(){
     $("#form-weight-section").show(300);
     $("#form-discount-section").show(300);
     $("#form-size-option").show(300);
+    $("#form-qty-option").show(300);
 });
 
 $("#weight-yes-opt").change(function(){
@@ -193,6 +190,42 @@ $("#weight-yes-opt").change(function(){
     $("#form-price-section").hide(300);
     $("#weight").removeAttr('required');
     $("#form-weight-section").hide(300);
+    $("#form-size-option").hide(300);
+    $("#form-qty-option").hide(300);
+
+    // Hide discount sections
+    $("#form-discount-section").hide(300);
+    $("#disc-percent").hide(300);
+    $("#disc-flat").hide(300);
+    $("#discount-percent").removeAttr('required');
+    $("#discount-flat").removeAttr('required');
+
+    // Reset discount buttons
+    $("#disc-percent-opt").removeAttr('checked');
+    $("#disc-percent-opt").parent('label').removeClass('active');
+    $("#disc-flat-opt").removeAttr('checked');
+    $("#disc-flat-opt").parent('label').removeClass('active');
+    $("#disc-none-opt").attr('checked', true);
+    $("#disc-none-opt").parent('label').addClass('active');
+});
+
+$("#qty-no-opt").change(function(){
+    $("#input-group-qty").hide(300);
+    $("#price").attr('required', true);
+    $("#form-price-section").show(300);
+    $("#weight").attr('required',true);
+    $("#form-discount-section").show(300);
+    $("#form-weight-option").show(300);
+    $("#form-size-option").show(300);
+});
+
+$("#qty-yes-opt").change(function(){
+    $("#input-group-qty").show(300);
+    $("#price").removeAttr('required');
+    $("#form-price-section").hide(300);
+    $("#weight").removeAttr('required');
+    $("#form-weight-section").hide(300);
+    $("#form-weight-option").hide(300);
     $("#form-size-option").hide(300);
 
     // Hide discount sections
@@ -209,7 +242,6 @@ $("#weight-yes-opt").change(function(){
     $("#disc-flat-opt").parent('label').removeClass('active');
     $("#disc-none-opt").attr('checked', true);
     $("#disc-none-opt").parent('label').addClass('active');
-
 });
 
 // Others

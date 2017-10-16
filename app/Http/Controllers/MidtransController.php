@@ -163,7 +163,7 @@ class MidtransController extends Controller
             $orderId = \request()->order_id;
 
             foreach ($carts as $cart) {
-                if(!empty($cart->size_option) && empty($cart->weight_option)){
+                if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
                     $size = $cart->product->product_properties()->where('name','=','size')
                         ->where('description', $cart->size_option)
                         ->first();
@@ -182,7 +182,7 @@ class MidtransController extends Controller
 
                     $weight = $cart->product->weight;
                 }
-                elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                     $weightProperty = $cart->product->product_properties()->where('name','=','weight')
                         ->where('description', $cart->weight_option)
                         ->first();
@@ -205,6 +205,25 @@ class MidtransController extends Controller
                     else{
                         $weight = ($cart->product->weight * $cart->quantity);
                     }
+                }
+                elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option)){
+                    $qtyProperty = $cart->product->product_properties()->where('name','=','qty')
+                        ->where('description', $cart->qty_option)
+                        ->first();
+
+                    if(!empty($qtyProperty->price)){
+                        $price = $qtyProperty->getOriginal('price');
+
+                        if($cart->getOriginal('price') != $qtyProperty->getOriginal('price')){
+                            $cart->price = $qtyProperty->getOriginal('price');
+                            $cart->save();
+                        }
+                    }
+                    else{
+                        $price = $qtyProperty->product->getOriginal('price_discounted');
+                    }
+
+                    $weight = $qtyProperty->weight * $cart->quantity;
                 }
                 else{
                     $price = $cart->product->getOriginal('price_discounted');
@@ -279,17 +298,28 @@ class MidtransController extends Controller
                     'created_by'        => $userId
                 ]);
 
-                // Check Weight & Size Option
-                if(!empty($cart->size_option) && empty($cart->weight_option)){
+                // Check Property Option
+                if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
                     $transactionDetail->size_option = $cart->size_option;
                     $transactionDetail->size_option_price = $cart->getOriginal('price');
                     $transactionDetail->price_final = $cart->getOriginal('price');
                 }
-                elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                     $transactionDetail->weight_option = $cart->weight_option;
                     $transactionDetail->weight_option_price = $cart->getOriginal('price');
                     $transactionDetail->price_final = $cart->getOriginal('price');
                     $transactionDetail->weight = $cart->weight_option;
+                }
+                elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option)){
+                    $transactionDetail->qty_option = $cart->qty_option;
+                    $transactionDetail->qty_option_price = $cart->getOriginal('price');
+                    $transactionDetail->price_final = $cart->getOriginal('price');
+
+                    $qty = $cart->product->product_properties()->where('name','=','qty')
+                        ->where('description', $cart->qty_option)
+                        ->first();
+
+                    $transactionDetail->weight = $qty->weight;
                 }
                 else{
                     if (!empty ($cart->product->discount)) {
@@ -382,7 +412,7 @@ class MidtransController extends Controller
                 $totalWeight = 0;
 
                 foreach ($carts as $cart) {
-                    if(!empty($cart->size_option) && empty($cart->weight_option)){
+                    if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
                         $size = $cart->product->product_properties()->where('name','=','size')
                             ->where('description', $cart->size_option)
                             ->first();
@@ -401,7 +431,7 @@ class MidtransController extends Controller
 
                         $weight = $cart->product->weight;
                     }
-                    elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                    elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                         $weightProperty = $cart->product->product_properties()->where('name','=','weight')
                             ->where('description', $cart->weight_option)
                             ->first();
@@ -418,12 +448,26 @@ class MidtransController extends Controller
                             $price = $weightProperty->product->getOriginal('price_discounted');
                         }
 
-                        if(!empty($weightProperty->price)){
-                            $weight = (intval($weightProperty->description) * $cart->quantity);
+                        $weight = (intval($weightProperty->description) * $cart->quantity);
+                    }
+                    elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option)){
+                        $qtyProperty = $cart->product->product_properties()->where('name','=','qty')
+                            ->where('description', $cart->qty_option)
+                            ->first();
+
+                        if(!empty($qtyProperty->price)){
+                            $price = $qtyProperty->getOriginal('price');
+
+                            if($cart->getOriginal('price') != $qtyProperty->getOriginal('price')){
+                                $cart->price = $qtyProperty->getOriginal('price');
+                                $cart->save();
+                            }
                         }
                         else{
-                            $weight = ($cart->product->weight * $cart->quantity);
+                            $price = $qtyProperty->product->getOriginal('price_discounted');
                         }
+
+                        $weight = $qtyProperty->weight * $cart->quantity;
                     }
                     else{
                         $price = $cart->product->getOriginal('price_discounted');
@@ -497,17 +541,28 @@ class MidtransController extends Controller
                         'created_by'        => $userId
                     ]);
 
-                    // Check Weight & Size Option
-                    if(!empty($cart->size_option) && empty($cart->weight_option)){
+                    // Check Property Option
+                    if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
                         $transactionDetail->size_option = $cart->size_option;
                         $transactionDetail->size_option_price = $cart->getOriginal('price');
                         $transactionDetail->price_final = $cart->getOriginal('price');
                     }
-                    elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                    elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                         $transactionDetail->weight_option = $cart->weight_option;
                         $transactionDetail->weight_option_price = $cart->getOriginal('price');
                         $transactionDetail->price_final = $cart->getOriginal('price');
                         $transactionDetail->weight = $cart->weight_option;
+                    }
+                    elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option)){
+                        $transactionDetail->qty_option = $cart->qty_option;
+                        $transactionDetail->qty_option_price = $cart->getOriginal('price');
+                        $transactionDetail->price_final = $cart->getOriginal('price');
+
+                        $qty = $cart->product->product_properties()->where('name','=','qty')
+                            ->where('description', $cart->qty_option)
+                            ->first();
+
+                        $transactionDetail->weight = $qty->weight;
                     }
                     else{
                         if (!empty ($cart->product->discount)) {

@@ -15,6 +15,11 @@ function addToCart(productId){
         weight = $('#select-weight').val();
     }
 
+    var qty = '';
+    if($('#select-qty').length > 0){
+        qty = $('#select-qty').val();
+    }
+
     $.ajax({
         url     : urlLink,
         method  : 'POST',
@@ -23,7 +28,8 @@ function addToCart(productId){
             product_id  : productId,
             color : color,
             size:  size,
-            weight: weight
+            weight: weight,
+            qty: qty
         },
         headers:
         {
@@ -162,6 +168,16 @@ function addCommas(nStr) {
 }
 
 // SELECTIONS IN PRODUCT DETAIL
+function onchangeSize(e){
+    var obj = e.options[e.selectedIndex];
+    if(obj.hasAttribute("data-price")){
+        var price = obj.getAttribute('data-price');
+        if(price !== '0'){
+            $('#price-label').html("Rp " + price);
+        }
+    }
+}
+
 function onchangeWeight(e){
     var price = e.options[e.selectedIndex].getAttribute('data-price');
     $('#price-label').html("Rp " + price);
@@ -172,12 +188,18 @@ function onchangeWeight(e){
     }
 }
 
-function onchangeSize(e){
-    var obj = e.options[e.selectedIndex];
-    if(obj.hasAttribute("data-price")){
-        var price = obj.getAttribute('data-price');
-        if(price !== '0'){
-            $('#price-label').html("Rp " + price);
-        }
+function onchangeQty(e){
+    var price = e.options[e.selectedIndex].getAttribute('data-price');
+    $('#price-label').html("Rp " + price);
+
+    var weight = e.options[e.selectedIndex].getAttribute('data-weight');
+    if(weight !== 0){
+        $('#weight-label').html("Weight: " + weight + " Kg");
     }
+}
+// END SELECTIOn
+
+function loginRedirect(){
+    var redirect = window.location.href;
+    window.location = "/login?redirect=" + redirect;
 }

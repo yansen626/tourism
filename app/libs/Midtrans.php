@@ -26,7 +26,7 @@ class Midtrans
             //item_details
             $itemArr = [];
             foreach($carts as $cart){
-                if(!empty($cart->size_option) && empty($cart->weight_option)){
+                if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
                     $size = $cart->product->product_properties()->where('name','=','size')
                         ->where('description', $cart->size_option)
                         ->first();
@@ -38,13 +38,25 @@ class Midtrans
                         $price = $cart->product->getOriginal('price_discounted');
                     }
                 }
-                elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+                elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                     $weight = $cart->product->product_properties()->where('name','=','weight')
                         ->where('description', $cart->weight_option)
                         ->first();
 
                     if(!empty($weight->price)){
                         $price = $weight->getOriginal('price');
+                    }
+                    else{
+                        $price = $cart->product->getOriginal('price_discounted');
+                    }
+                }
+                elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option)){
+                    $qty = $cart->product->product_properties()->where('name','=','qty')
+                        ->where('description', $cart->qty_option)
+                        ->first();
+
+                    if(!empty($qty->price)){
+                        $price = $qty->getOriginal('price');
                     }
                     else{
                         $price = $cart->product->getOriginal('price_discounted');

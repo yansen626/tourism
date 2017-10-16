@@ -81,17 +81,19 @@ class TransactionController extends Controller
         $totalWeight = 0;
         $carts = Cart::where('user_id', 'like', $id)->get();
         foreach($carts as $cart){
-            if(!empty($cart->weight_option)){
+            if(!empty($cart->weight_option) && empty($cart->qty_option)){
                 $weight = $cart->product->product_properties()->where('name','=','weight')
                     ->where('description', $cart->weight_option)
                     ->first();
 
-                if(!empty($weight->price)){
-                    $totalWeight += (intval($weight->description) * $cart->quantity);
-                }
-                else{
-                    $totalWeight += ($cart->product->weight * $cart->quantity);
-                }
+                $totalWeight += (intval($weight->description) * $cart->quantity);
+            }
+            elseif(empty($cart->weight_option) && !empty($cart->qty_option)){
+                $qty = $cart->product->product_properties()->where('name','=','qty')
+                    ->where('description', $cart->qty_option)
+                    ->first();
+
+                $totalWeight += (intval($qty->weight) * $cart->quantity);
             }
             else{
                 $totalWeight += ($cart->product->weight * $cart->quantity);

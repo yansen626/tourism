@@ -38,9 +38,9 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Description</th>
-                                    {{--@if($propertyName == 'size')--}}
-                                        {{--<th>Weight</th>--}}
-                                    {{--@endif--}}
+                                    @if($propertyName == 'qty')
+                                        <th>Weight</th>
+                                    @endif
                                     @if($propertyName != 'color')
                                         <th>Price</th>
                                     @endif
@@ -60,10 +60,10 @@
                                                 {{ $property->description }}
                                             @endif
                                         </td>
-                                        {{--@if($propertyName == 'size')--}}
-                                            {{--@php( $weightVal = floatval($property->weight / 1000) )--}}
-                                            {{--<td>{{ $weightVal }} Kg</td>--}}
-                                        {{--@endif--}}
+                                        @if($propertyName == 'qty')
+                                            @php( $weightVal = floatval($property->weight / 1000) )
+                                            <td>{{ $weightVal }} Kg</td>
+                                        @endif
                                         @if($propertyName != 'color')
                                             <td>{{ $property->price ? 'Rp '. $property->price : '-' }}</td>
                                         @endif

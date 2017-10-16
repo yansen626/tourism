@@ -32,6 +32,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $weight_option_price
  * @property string $size_option
  * @property float $size_option_price
+ * @property string $qty_option
+ * @property float $qty_option_price
  * 
  * @property \App\Models\Product $product
  * @property \App\Models\Transaction $transaction
@@ -53,7 +55,8 @@ class TransactionDetail extends Eloquent
 		'weight' => 'int',
         'weight_option' => 'int',
 		'weight_option_price' => 'float',
-		'size_option_price' => 'float'
+		'size_option_price' => 'float',
+		'qty_option_price' => 'float'
 	];
 
 	protected $dates = [
@@ -81,7 +84,9 @@ class TransactionDetail extends Eloquent
         'weight_option',
         'weight_option_price',
         'size_option',
-        'size_option_price'
+        'size_option_price',
+        'qty_option',
+        'qty_option_price'
 	];
 
 	public function product()

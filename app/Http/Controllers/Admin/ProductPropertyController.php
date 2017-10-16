@@ -48,11 +48,16 @@ class ProductPropertyController extends Controller
             ->where('name', '=', 'size')
             ->get();
 
+        $qtyProperties = ProductProperty::where('product_id', $productId)
+            ->where('name', '=', 'qty')
+            ->get();
+
         $data = [
             'product'           => $product,
             'propertyName'      => $name,
             'weightProperties'  => $weightProperties,
-            'sizeProperties'    => $sizeProperties
+            'sizeProperties'    => $sizeProperties,
+            'qtyProperties'     => $qtyProperties
         ];
 
         return View('admin.create-product-property')->with($data);
@@ -66,11 +71,18 @@ class ProductPropertyController extends Controller
                 'price'             => 'required'
             ]);
         }
+        elseif($name == 'qty'){
+            $validator = Validator::make($request->all(),[
+                'description'       => 'required|max:50',
+                'qty-weight'        => 'required'
+            ]);
+        }
         else{
             $validator = Validator::make($request->all(),[
                 'description'       => 'required|max:50'
             ]);
         }
+
 
         if ($validator->fails()) {
             return redirect()
@@ -111,6 +123,7 @@ class ProductPropertyController extends Controller
                 $product->price_discounted = $propertyPriceDouble;
 
                 if($name == 'weight') $product->weight = intval(Input::get('description'));
+                if($name == 'qty') $product->weight = Input::get('qty-weight');
 
                 $product->save();
             }
@@ -128,6 +141,7 @@ class ProductPropertyController extends Controller
                 $product->price_discounted = $propertyPriceDouble;
 
                 if($name == 'weight') $product->weight = intval(Input::get('description'));
+                if($name == 'qty') $product->weight = Input::get('qty-weight');
 
                 $product->save();
 
@@ -167,6 +181,12 @@ class ProductPropertyController extends Controller
                 'price'             => 'required'
             ]);
         }
+        elseif($property->name == 'qty'){
+            $validator = Validator::make($request->all(),[
+                'description'       => 'required|max:50',
+                'qty-weight'        => 'required'
+            ]);
+        }
         else{
             $validator = Validator::make($request->all(),[
                 'description'       => 'required|max:50'
@@ -187,6 +207,10 @@ class ProductPropertyController extends Controller
                 $propertyPriceDouble = (double) str_replace('.','', Input::get('price'));
                 $property->price = $propertyPriceDouble;
             }
+
+            if(!empty(Input::get('qty-weight'))){
+                $property->weight = Input::get('qty-weight');
+            }
         }
 
         // Check primary
@@ -202,6 +226,7 @@ class ProductPropertyController extends Controller
             $product->price_discounted = $propertyPriceDouble;
 
             if($property->name == 'weight') $product->weight = intval(Input::get('description'));
+            if($property->name == 'qty') $product->weight = Input::get('qty-weight');
 
             $product->save();
 

@@ -42,6 +42,9 @@ class CartController
     //
     public function AddToCart(Request $request){
         try{
+            error_log('size = '. Input::get('size'));
+            error_log('weight = '. Input::get('weight'));
+            error_log('qty = '. Input::get('qty'));
             if (!Auth::check()){
                 return response()->json(['success' => false, 'error' => 'login']);
             }
@@ -113,6 +116,7 @@ class CartController
                         $cartCreate->save();
                     }
                 }
+                // Get weight selection
                 elseif(!empty(Input::get('weight')) && Input::get('weight') != '0'){
                     $weight = $product->product_properties()->where('id', Input::get('weight'))
                         ->first();
@@ -160,9 +164,58 @@ class CartController
                         $cartCreate->save();
                     }
                 }
+                // Get qty selection
+                elseif(!empty(Input::get('qty')) && Input::get('qty') != '0'){
+                    $qty = $product->product_properties()->where('id', Input::get('qty'))
+                        ->first();
+                    $cart = $cart->where('qty_option', $qty->description)->first();
+
+                    // Check if cart has the same selected product property or not
+                    if(!empty($cart)){
+                        $newQuantity = $cart->quantity + 1;
+                        $cart->quantity = $newQuantity;
+
+                        // Check price
+                        if(!empty($qty->price)){
+                            $cart->price = $qty->getOriginal('price');
+                            $cart->total_price = $newQuantity * $qty->getOriginal('price');
+                        }
+                        else{
+                            $cart->price = $product->getOriginal('price_discounted');
+                            $cart->total_price = $newQuantity * $product->getOriginal('price_discounted');
+                        }
+
+                        if(!empty($note)) $cart->note = $note;
+
+                        $cart->save();
+                    }
+                    else{
+                        $cartCreate = Cart::Create([
+                            'product_id'    => $productId,
+                            'user_id'       => $userId,
+                            'quantity'      => 1,
+                            'qty_option'    => $qty->description
+                        ]);
+
+                        // Check price
+                        if(!empty($qty->price)){
+                            $cartCreate->price = $qty->getOriginal('price');
+                            $cartCreate->total_price = $qty->getOriginal('price');
+                        }
+                        else{
+                            $cartCreate->price = $product->getOriginal('price_discounted');
+                            $cartCreate->total_price = $product->getOriginal('price_discounted');
+                        }
+
+                        if(!empty($note)) $cartCreate->note = $note;
+
+                        $cartCreate->save();
+                    }
+                }
                 else{
                     $cart = $cart->whereNull('weight_option')
                         ->whereNull('size_option')
+                        ->whereNull('qty_option')
                         ->first();
 
                     // Check if cart does not have any selected product property or not
@@ -209,20 +262,24 @@ class CartController
 
                     $cart->size_option = $size->description;
 
-                    if(!empty($size->price)){
-                        $cart->price = $size->getOriginal('price');
-                        $cart->total_price = $size->getOriginal('price');
-                    }
+                    $cart->price = $size->getOriginal('price');
+                    $cart->total_price = $size->getOriginal('price');
                 }
                 elseif(!empty(Input::get('weight')) && Input::get('weight') != '0'){
                     $weight = ProductProperty::find(Input::get('weight'));
 
                     $cart->weight_option = $weight->description;
 
-                    if(!empty($weight->price)){
-                        $cart->price = $weight->getOriginal('price');
-                        $cart->total_price = $weight->getOriginal('price');
-                    }
+                    $cart->price = $weight->getOriginal('price');
+                    $cart->total_price = $weight->getOriginal('price');
+                }
+                elseif(!empty(Input::get('qty')) && Input::get('qty') != '0'){
+                    $qty = ProductProperty::find(Input::get('qty'));
+
+                    $cart->qty_option = $qty->description;
+
+                    $cart->price = $qty->getOriginal('price');
+                    $cart->total_price = $qty->getOriginal('price');
                 }
 
                 if(!empty($note)) $cart->note = $note;
@@ -277,7 +334,7 @@ class CartController
 
         //$price = $CartDB->getOriginal('total_price') / $CartDB->quantity;
         $price = 0;
-        if(!empty($cart->size_option) && empty($cart->weight_option)){
+        if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
             $size = $cart->product->product_properties()->where('name','=','size')
                 ->where('description', $cart->size_option)
                 ->first();
@@ -296,7 +353,7 @@ class CartController
                 $price = $cart->product->getOriginal('price_discounted');
             }
         }
-        elseif(empty($cart->size_option) && !empty($cart->weight_option)){
+        elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
             $weight = $cart->product->product_properties()->where('name','=','weight')
                 ->where('description', $cart->weight_option)
                 ->first();
@@ -310,6 +367,22 @@ class CartController
 
             if(!empty($weight->price)){
                 $price = $weight->getOriginal('price');
+            }
+        }
+        elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option)){
+            $qty = $cart->product->product_properties()->where('name','=','qty')
+                ->where('description', $cart->qty_option)
+                ->first();
+
+            if(empty($qty)){
+                return response()->json([
+                    'success'       => false,
+                    'exception'     => 'property'
+                ]);
+            }
+
+            if(!empty($qty->price)){
+                $price = $qty->getOriginal('price');
             }
         }
         else{

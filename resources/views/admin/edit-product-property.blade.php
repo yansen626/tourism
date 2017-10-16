@@ -56,17 +56,17 @@
                             </div>
                         </div>
 
-                        {{--@if($property->name == 'size')--}}
-                            {{--<div class="item form-group">--}}
-                                {{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram (Optional)--}}
-                                {{--</label>--}}
-                                {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
-                                    {{--<input id="size-weight" name="size-weigh" class="form-control col-md-7 col-xs-12" value="{{ $property->weight}}">--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
+                        @if($property->name == 'qty')
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="number" id="qty-weight" name="qty-weight" class="form-control col-md-7 col-xs-12"  value="{{ $property->weight }}" required>
+                                </div>
+                            </div>
+                        @endif
 
-                        @if($property->name == 'size' || $property->name == 'weight')
+                        @if($property->name == 'size' || $property->name == 'weight' || $property->name == 'qty')
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Price
                                 </label>

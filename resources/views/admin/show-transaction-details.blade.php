@@ -46,6 +46,15 @@
                                         <td><b>:</b></td>
                                         <td>Rp {{ $transaction->delivery_fee }}</td>
                                     </tr>
+
+                                    @if(!empty($transaction->admin_fee))
+                                        <tr>
+                                            <td><b>Admin Fee</b></td>
+                                            <td><b>:</b></td>
+                                            <td>Rp {{ $transaction->admin_fee }}</td>
+                                        </tr>
+                                    @endif
+
                                     <tr>
                                         <td><b>Total Payment</b></td>
                                         <td><b>:</b></td>
@@ -125,11 +134,13 @@
                                                         <td>{{ $idx }}</td>
                                                         <td>
 
-                                                            @if(!empty($detail->size_option) && empty($detail->weight_option))
+                                                            @if(!empty($detail->size_option) && empty($detail->weight_option) && empty($detail->qty_option))
                                                                 {{ $detail->name }} - {{ $detail->size_option }}
-                                                            @elseif(empty($detail->size_option) && !empty($detail->weight_option))
+                                                            @elseif(empty($detail->size_option) && !empty($detail->weight_option) && empty($detail->qty_option))
                                                                 @php( $weightVal = floatval(floatval($detail->weight_option) / 1000) )
                                                                 {{ $detail->name }} - {{ $weightVal }} Kg
+                                                            @elseif(empty($detail->size_option) && empty($detail->weight_option) && !empty($detail->qty_option))
+                                                                {{ $detail->name }} - {{ $detail->qty_option }}
                                                             @else
                                                                 {{ $detail->name }}
                                                             @endif

@@ -56,17 +56,17 @@
                             </div>
                         </div>
 
-                        {{--@if($propertyName == 'size')--}}
-                            {{--<div class="item form-group">--}}
-                                {{--<label class="control-label col-md-3 col-sm-3 col-xs-12">Weight (Optional)--}}
-                                {{--</label>--}}
-                                {{--<div class="col-md-6 col-sm-6 col-xs-12 price-format">--}}
-                                    {{--<input id="size-weight" name="size-weigh" class="form-control col-md-7 col-xs-12">--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
+                        @if($propertyName == 'qty')
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="number" id="qty-weight" name="qty-weight" class="form-control col-md-7 col-xs-12" required>
+                                </div>
+                            </div>
+                        @endif
 
-                        @if($propertyName == 'size' || $propertyName == 'weight')
+                        @if($propertyName == 'size' || $propertyName == 'weight' || $property->name == 'qty')
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Price
                                 </label>
@@ -88,7 +88,13 @@
                                     <span style="color: orange;">Anda baru membuat property Weight produk untuk pertama kalinya, maka property ini akan menjadi yang data paling utama</span>
                                 @endif
 
-                                @if(($propertyName == 'size' && $sizeProperties->count() > 0) || ( $propertyName == 'weight' && $weightProperties->count() > 0))
+                                @if($propertyName == 'qty' && $qtyProperties->count() == 0)
+                                    <span style="color: orange;">Anda baru membuat property Quantity produk untuk pertama kalinya, maka property ini akan menjadi yang data paling utama</span>
+                                @endif
+
+                                @if(($propertyName == 'size' && $sizeProperties->count() > 0) ||
+                                ( $propertyName == 'weight' && $weightProperties->count() > 0) ||
+                                ( $propertyName == 'qty' && $qtyProperties->count() > 0))
                                         <div class="btn-group" data-toggle="buttons">
                                             <label class="btn btn-default active">
                                                 <input type="radio" name="primary" value="no" id="primary-no-opt" checked> No

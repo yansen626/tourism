@@ -212,6 +212,10 @@ header{
     width: 300px !important;
 }
 
+.selection-qty div.fancy-select div.trigger{
+    width: 300px !important;
+}
+
 /* HOME PAGE */
 /*.flexslider.top_slider .slides li{*/
     /*height: 150px;*/

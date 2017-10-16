@@ -105,7 +105,7 @@
                                 {{--</div>--}}
                                 <div class="col-md-3 col-sm-3 col-xs-6">
                                     <div class="input-group">
-                                        <input name="size-price[]" class="form-control" placeholder="Price (Primary)">
+                                        <input type="number" name="size-price[]" class="form-control" placeholder="Price (Primary)">
                                         <div class="input-group-btn">
                                             <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
                                         </div>
@@ -123,7 +123,7 @@
                                     {{--</div>--}}
                                     <div class="col-md-3 col-sm-3 col-xs-6">
                                         <div class="input-group">
-                                            <input name="size-price[]" class="form-control" placeholder="Price">
+                                            <inpu type="number"t name="size-price[]" class="form-control" placeholder="Price">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
                                             </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-6">
                                     <div class="input-group">
-                                        <input name="weight-price[]" class="form-control" placeholder="Price (Primary)">
+                                        <input type="number" name="weight-price[]" class="form-control" placeholder="Price (Primary)">
                                         <div class="input-group-btn">
                                             <button class="btn btn-success add-more-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
                                         </div>
@@ -174,7 +174,7 @@
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-6">
                                         <div class="input-group">
-                                            <input name="weight-price[]" class="form-control" placeholder="Price">
+                                            <input type="number" name="weight-price[]" class="form-control" placeholder="Price">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger remove-weight" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
                                             </div>
@@ -184,6 +184,61 @@
                             </div>
                         </div>
                         <!-- //SET WEIGHT OPTIONS -->
+
+                        <!-- SET QTY OPTIONS -->
+                        <div id="form-qty-option" class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Set Quantity Option
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default active">
+                                        <input type="radio" name="qty-options" value="no" id="qty-no-opt" checked> No
+                                    </label>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="qty-options" value="yes" id="qty-yes-opt"> Yes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="input-group-qty" style="display: none;">
+                            <div class="item form-group control-group-qty after-add-more-qty">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <input name="qty[]" class="form-control" placeholder="Quantity (Primary): 20 pieces, 1 box, etc">
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6">
+                                <input type="number" name="qty-weight[]" class="form-control" placeholder="Weight in Gram (Primary)">
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <div class="input-group">
+                                        <input type="number" name="qty-price[]" class="form-control" placeholder="Price (Primary)">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-success add-more-qty" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="copy-qty hide">
+                                <div class="item form-group control-group-qty">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <input name="qty[]" class="form-control" placeholder="Quantity: 20 pieces, 1 box, etc">
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <input type="number" name="qty-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="input-group">
+                                            <input type="number" name="qty-price[]" class="form-control" placeholder="Price">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-danger remove-qty" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //SET QTY OPTIONS -->
 
                         <!-- SET PRICE -->
                         <div id="form-price-section" class="item form-group">

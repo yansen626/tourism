@@ -95,6 +95,7 @@ class ProductsController extends Controller
         $colors = $product->product_properties()->where('name','color')->get();
         $sizes = $product->product_properties()->where('name','size')->get();
         $weights = $product->product_properties()->where('name','weight')->get();
+        $qtys = $product->product_properties()->where('name','qty')->get();
 
         $data =[
             'product'               => $product,
@@ -102,7 +103,8 @@ class ProductsController extends Controller
             'recommendedProducts'   => $recommendedProducts,
             'colors'                => $colors,
             'sizes'                 => $sizes,
-            'weights'               => $weights
+            'weights'               => $weights,
+            'qtys'                  => $qtys
         ];
 
         return View('frontend.show-product')->with($data);
