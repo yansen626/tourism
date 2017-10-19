@@ -9,7 +9,7 @@
 
             <div class="my_account_block clearfix">
                 <div>
-                    <h2>Add Address</h2>
+                    <h2>Edit Address</h2>
 
                     @foreach($errors->all() as $error)
                         <h5 style="color: red;"> {{ $error }} </h5>
@@ -26,7 +26,10 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('user-address-update') }}">
                         {{ csrf_field() }}
 
+                        <label>Address Name:</label>
                         <input type="text" name="name" placeholder="Address Name" value="{{ $addr->name }}"/>
+
+                        <label>Province:</label>
                         <select id="province" name="province_id" onchange="checkCities()">
                             @foreach($provinces as $province)
                                 @if($province->id == $addr->province_id)
@@ -37,27 +40,39 @@
                             @endforeach
                         </select>
 
+                        <label>City:</label>
                         <select id="city" name="city_id" onchange="getSubdistrict()">
-                            <option value="0">Select City!!</option>
+                            <option value="-1">Select City</option>
                             @foreach($cities as $city)
-                                @if($city->city_id == $addr->city_id)
-                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}">{{$city->name}}</option>
+                                @if($city->id == $addr->city_id)
+                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}" selected>{{$city->name}}</option>
                                     @else
-                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}" hidden>{{$city->name}}</option>
+                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}">{{$city->name}}</option>
                                 @endif
                             @endforeach
                         </select>
-                        <select id="subdistrict" name="subdistrict_id" style="display: none;">
-                            @foreach($subdistricts as $subdistrict)
-                                @if($subdistrict->subdistrict_id == $option->subdistrict_id)
-                                    <option value="{{ $subdistrict->subdistrict_id }}" selected>{{ $subdistrict->subdistrict_name }}</option>
-                                @else
-                                    <option value="{{ $subdistrict->subdistrict_id }}">{{ $subdistrict->subdistrict_name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
+
+                        <div id="subdistrict-section">
+                            <label>Subdistrict:</label>
+                            <select id="subdistrict" name="subdistrict_id">
+                                @foreach($subdistricts as $subdistrict)
+                                    @if($subdistrict->subdistrict_id == $addr->subdistrict_id)
+                                        <option value="{{ $subdistrict->subdistrict_id }},{{ $subdistrict->subdistrict_name }}" selected>{{ $subdistrict->subdistrict_name }}</option>
+                                    @else
+                                        <option value="{{ $subdistrict->subdistrict_id }},{{ $subdistrict->subdistrict_name }}">{{ $subdistrict->subdistrict_name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <label>Detail:</label>
                         <textarea name="detail" cols="50" rows="10" placeholder="Address Details">{{ $addr->detail }}</textarea>
+
+                        <label>Postal Code:</label>
                         <input type="number" name="postal_code" placeholder="Postal Code" value="{{ $addr->postal_code }}"/>
+
+                        {{ Form::hidden('redirect', $redirect, array('id' => 'redirect')) }}
+
                         <div class="center"><input type="submit" value="Submit"></div>
                     </form>
                 </div>
@@ -72,28 +87,33 @@
         {
             var provinceId = $("#province option:selected").val();
 
-            $("#city > option").each(function()
-            {
-                // Add $(this).val() to your list
-                var test = $.parseJSON(this.value.replace(/'/g, '"'));
-                if(test.province_id != provinceId){
-                    $(this).hide();
-                }
-                else if(test.province_id == provinceId){
-                    $(this).show();
-                }
-            });
-            $('#city').children('option:enabled').eq(0).prop('selected',true);
+            if(provinceId != '-1'){
+                $("#city").show();
+                $("#subdistrict-section").hide();
+                $("#city > option").each(function()
+                {
+                    // Add $(this).val() to your list
+                    var test = $.parseJSON(this.value.replace(/'/g, '"'));
+                    if(test.province_id != provinceId){
+                        $(this).hide();
+                    }
+                    else if(test.province_id == provinceId){
+                        $(this).show();
+                    }
+                });
+                $('#city').children('option:enabled').eq(0).prop('selected',true);
+            }
+
         }
 
         function getSubdistrict(){
             var cityId = $("#city option:selected").val();
             var tmp = $.parseJSON(cityId.replace(/'/g, '"'));
-            $('#subdistrict').hide();
+            $('#subdistrict-section').hide();
             $.get('/rajaongkir/subdistrict/' + tmp.city_id, function (data) {
                 if(data.success == true) {
                     $('#subdistrict').html(data.html);
-                    $('#subdistrict').show();
+                    $('#subdistrict-section').show();
                 }
             });
         }

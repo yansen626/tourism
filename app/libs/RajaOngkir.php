@@ -9,6 +9,7 @@
 namespace App\libs;
 
 
+use App\Models\Transaction;
 use GuzzleHttp\Client;
 
 class RajaOngkir
@@ -73,6 +74,35 @@ class RajaOngkir
             $collect = json_decode($request->getBody());
 
             return $collect;
+        }
+    }
+
+    public static function getWaybill($trxId){
+        $trx = Transaction::find($trxId);
+
+        $client = new Client([
+            'base_uri' => 'https://pro.rajaongkir.com/api/waybill',
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'key' => env('RAJAONGKIR_API_KEY')
+            ],
+        ]);
+
+        $request = $client->request('POST', 'https://pro.rajaongkir.com/api/waybill', [
+            'form_params' => [
+                'waybill' => $trx->tracking_code,
+                'courier' => $trx->courier_code,
+            ]
+        ]);
+
+        if($request->getStatusCode() == 200){
+            $collect = json_decode($request->getBody());
+
+            return $collect;
+        }
+        else{
+            return null;
         }
     }
 }

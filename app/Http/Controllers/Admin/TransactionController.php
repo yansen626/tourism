@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\libs\RajaOngkir;
 use App\Mail\DeliveryConfirm;
 use App\Mail\OrderAccepted;
 use App\Models\Product;
@@ -126,34 +127,6 @@ class TransactionController extends Controller
         Mail::to($trx->user->email)->send(new DeliveryConfirm(Input::get('tracking-code')));
 
         return redirect::route('delivery-list');
-    }
-
-    public function track($id){
-        $trx = Transaction::find($id);
-
-        $client = new Client([
-            'base_uri' => 'https://pro.rajaongkir.com/api/waybill',
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'key' => env('RAJAONGKIR_API_KEY')
-            ],
-        ]);
-
-        $request = $client->request('POST', 'https://pro.rajaongkir.com/api/waybill', [
-            'form_params' => [
-                'waybill' => $trx->tracking_code,
-                'courier' => $trx->courier_code,
-            ]
-        ]);
-
-        if($request->getStatusCode() == 200){
-            $collect = json_decode($request->getBody());
-
-            $returnHtml = View('admin.partials._show-tracks',['collect' => $collect])->render();
-
-            return response()->json( array('success' => true, 'html' => $returnHtml) );
-        }
     }
 
     public function invoice($trxId){

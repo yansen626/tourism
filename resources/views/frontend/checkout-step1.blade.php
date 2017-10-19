@@ -45,7 +45,7 @@
                                     <span>{{$Addressdata->detail}} <br/>
                                     Kecamatan {{$Addressdata->subdistrict_name}} <br/> Kota/Kabupaten {{$Addressdata->city_name}},
                                         <br/>Provinsi {{$Addressdata->province_name}}, {{$Addressdata->postal_code}}</span>
-                                    <a class="btn btn-primary" href="{{Route('user-address-edit')}}" >Edit Address</a>
+                                    <a class="btn btn-primary" href="{{ route('user-address-edit', ['redirect' => 'checkout']) }}" >Edit Address</a>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-6 padbot30" data-appear-top-offset='-100' data-animated='fadeInRight'>
@@ -55,12 +55,12 @@
 
                             <div class="clear"></div>
 
-                            <a class="btn btn-primary pull-right" href="{{route ('checkout2')}}" >Continue</a>
+                            <a class="btn btn-primary pull-right" href="{{ route ('checkout2') }}" >Continue</a>
                     @else
                         <div style="text-align: center;">
                             <h3><b>Add address</b></h3>
                             <br >
-                            <a class="btn btn-primary" href="{{route ('user-address-create')}}" >Add Address</a>
+                            <a class="btn btn-primary" href="{{ route ('user-address-create') }}" >Add Address</a>
                         </div>
                     @endif
 

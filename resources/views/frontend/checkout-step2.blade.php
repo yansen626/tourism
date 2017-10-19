@@ -49,13 +49,13 @@
                         <ul>
                             @for($i=0; $i<4; $i++)
                                 @php( $liID = "ridio".$i )
-                                @php( $price = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
+                                @php( $price = $resultCollection[$deliveryTypes[$i]->courier->code."-".$deliveryTypes[$i]->code] )
                                 @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
                                 @php( $price = number_format($price, 0, ",", ".") )
 
                                 <li>
                                     <input id="{{$liID}}" type="radio" name="shippingRadio" hidden value="{{$valueRadio}}"/>
-                                    <label for="{{$liID}}">{{$deliveryTypes[$i]->Courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp {{ $price }}</b>
+                                    <label for="{{$liID}}">{{$deliveryTypes[$i]->courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp {{ $price }}</b>
                                         {{--@if($deliveryTypes[$i]->courier_id == 1)--}}
                                             {{--<img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />--}}
                                         {{--@elseif ($deliveryTypes[$i]->courier_id == 2)--}}
@@ -70,7 +70,7 @@
                             @for($i=4; $i<8; $i++)
                                 @php( $liID = "ridio".$i )
                                 @php( $liID = "ridio".$i )
-                                @php( $price = $resultCollection[$deliveryTypes[$i]->Courier->code."-".$deliveryTypes[$i]->code] )
+                                @php( $price = $resultCollection[$deliveryTypes[$i]->courier->code."-".$deliveryTypes[$i]->code] )
                                 @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
                                 @php( $price = number_format($asdf, 0, ",", ".") )
                                 <ul>

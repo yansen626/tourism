@@ -160,7 +160,7 @@ Route::get('/admin/payment', 'Admin\TransactionController@payment')->name('payme
 Route::get('/admin/payment/confirm/{id}', 'Admin\TransactionController@confirmPayment')->name('payment-confirm');
 Route::get('/admin/delivery', 'Admin\TransactionController@deliveryRequest')->name('delivery-list');
 Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDelivery')->name('delivery-confirm');
-Route::get('/track/{id}', 'Admin\TransactionController@track')->name('track');
+Route::get('/track/{id}', 'RajaOngkirController@track')->name('track');
 Route::get('/invoice/{trxId}', 'Admin\TransactionController@invoice')->name('admin-invoice');
 
 // Slider Banner
