@@ -80,7 +80,8 @@
                                                             </div>
                                                             <div class="col-lg-3 col-md-3">
                                                                 <b>Weight</b><br/>
-                                                                {{ $trx->total_weight }} Gr
+                                                                @php( $totalWeightVal = floatval($trx->total_weight / 1000) )
+                                                                {{ $totalWeightVal }} Kg
                                                             </div>
                                                             <div class="col-lg-3 col-md-3">
                                                                 <b>Delivery Fee</b><br/>
@@ -111,8 +112,22 @@
                                                                     <tbody>
                                                                     @foreach($trx->transaction_details as $detail)
                                                                         <tr>
-                                                                            <td>{{ $detail->name }}</td>
-                                                                            <td>{{ $detail->weight }} Gr</td>
+                                                                            <td>
+                                                                                @if(!empty($detail->size_option) && empty($detail->weight_option) && empty($detail->qty_option))
+                                                                                    {{ $detail->name }} - {{ $detail->size_option }}
+                                                                                @elseif(empty($detail->size_option) && !empty($detail->weight_option) && empty($detail->qty_option))
+                                                                                    @php( $weightVal = floatval(floatval($detail->weight_option) / 1000) )
+                                                                                    {{ $detail->name }} - {{ $weightVal }} Kg
+                                                                                @elseif(empty($detail->size_option) && empty($detail->weight_option) && !empty($detail->qty_option))
+                                                                                    {{ $detail->name }} - {{ $detail->qty_option }}
+                                                                                @else
+                                                                                    {{ $detail->name }}
+                                                                                @endif
+                                                                            </td>
+                                                                            <td>
+                                                                                @php( $weightVal = floatval($detail->weight / 1000) )
+                                                                                {{ $weightVal }} Kg
+                                                                            </td>
                                                                             <td>Rp {{ $detail->price_final }}</td>
                                                                             <td class="text-center">{{ $detail->quantity }}</td>
                                                                             <td>Rp {{ $detail->subtotal_price }}</td>
