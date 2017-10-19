@@ -50,6 +50,8 @@ class MidtransController extends Controller
 //            Utilities::ExceptionLog('ORDER ID = '. $notif->order_id);
             $orderid = $notif->order_id;
 
+            sleep(10);
+
 
             DB::transaction(function() use ($orderid, $json){
 
@@ -59,7 +61,7 @@ class MidtransController extends Controller
                 $dateTimeNow = Carbon::now('Asia/Jakarta');
 
                 if($json->status_code == "200"){
-                    if(($json->transaction_status == "capture" || $json->transaction_status =="accept") && $json->fraud_status == "accept"){
+                    if(($json->transaction_status == "capture" || $json->transaction_status == "accept") && $json->fraud_status == "accept"){
                         $transaction = Transaction::where('order_id', $orderid)->first();
                         $transaction->status_id = 5;
 
