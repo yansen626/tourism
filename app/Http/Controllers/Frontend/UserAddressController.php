@@ -118,7 +118,18 @@ class UserAddressController extends Controller
         $provinces = Province::all();
         $cities = City::all();
 
-        return view('frontend.user-address-create', compact('provinces', 'cities'));
+        $redirect = 'default';
+        if(!empty(request()->redirect)){
+            $redirect = 'checkout';
+        }
+
+        $data = [
+            'provinces'     => $provinces,
+            'cities'        => $cities,
+            'redirect'      => $redirect
+        ];
+
+        return view('frontend.user-address-create')->with($data);
     }
 
     public function store(Request $request)
@@ -167,6 +178,10 @@ class UserAddressController extends Controller
         $data->status_id = 1;
 
         $data->save();
+
+        if(!empty(Input::get('redirect')) && Input::get('redirect') == 'checkout'){
+            return redirect()->route('checkout');
+        }
 
         Session::flash('message', 'Success Creating Address!!!');
 

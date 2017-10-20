@@ -91,9 +91,9 @@ Route::prefix('user')->group(function(){
 //User Address
 Route::prefix('user/address')->group(function(){
     Route::get('/create', 'Frontend\UserAddressController@create')->name('user-address-create');
-    Route::post('/create', 'Frontend\UserAddressController@store')->name('user-address-store');
+    Route::post('/create/save', 'Frontend\UserAddressController@store')->name('user-address-store');
     Route::get('/edit', 'Frontend\UserAddressController@edit')->name('user-address-edit');
-    Route::post('/edit', 'Frontend\UserAddressController@update')->name('user-address-update');
+    Route::post('/edit/update', 'Frontend\UserAddressController@update')->name('user-address-update');
 });
 
 // Purchasing

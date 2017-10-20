@@ -48,6 +48,9 @@
                         </select>
                         <textarea name="detail" cols="50" rows="10" placeholder="Address Details"></textarea>
                         <input type="text" name="postal_code" placeholder="Postal Code"/>
+
+                        {{ Form::hidden('redirect', $redirect, array('id' => 'redirect')) }}
+
                         <div class="center"><input type="submit" value="Submit"></div>
                     </form>
                 </div>

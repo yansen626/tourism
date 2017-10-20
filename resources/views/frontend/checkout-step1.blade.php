@@ -60,7 +60,7 @@
                         <div style="text-align: center;">
                             <h3><b>Add address</b></h3>
                             <br >
-                            <a class="btn btn-primary" href="{{ route ('user-address-create') }}" >Add Address</a>
+                            <a class="btn btn-primary" href="{{ route ('user-address-create', ['redirect' => 'checkout']) }}" >Add Address</a>
                         </div>
                     @endif
 
