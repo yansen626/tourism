@@ -9,7 +9,7 @@
 
         <!-- CONTAINER -->
         <div class="container">
-            <h2 style="color: #d3d3d3">{{$selectedCategory->name}}</h2>
+            <h2 style="color: #6D6D6D">{{$selectedCategory->name}}</h2>
         </div><!-- //CONTAINER -->
     </section><!-- //BREADCRUMBS -->
 

@@ -9,6 +9,9 @@
 
     <title>Lowids | Admin</title>
 
+    <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
+
     <!-- Bootstrap -->
     <link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
     <!-- bootstrap-file-input -->

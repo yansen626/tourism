@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}">
-
+    <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
 
     <!-- CSS -->
     <link href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" rel="stylesheet">
