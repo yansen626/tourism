@@ -529,7 +529,8 @@ class ProductController extends Controller
             }
 
             if($product->product_properties()->where('name', '=', 'size')->count() > 0 &&
-                $product->product_properties()->where('name', '=', 'weight')->count() == 0){
+                $product->product_properties()->where('name', '=', 'weight')->count() == 0 &&
+                $product->product_properties()->where('name', '=', 'qty')->count() == 0){
 
                 $validator = Validator::make($request->all(),[
                     'category'              => 'required|option_not_default',
@@ -540,7 +541,19 @@ class ProductController extends Controller
                 ]);
             }
             else if($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
-                $product->product_properties()->where('name', '=', 'weight')->count() > 0){
+                $product->product_properties()->where('name', '=', 'weight')->count() > 0 &&
+                $product->product_properties()->where('name', '=', 'qty')->count() == 0){
+
+                $validator = Validator::make($request->all(),[
+                    'category'              => 'required|option_not_default',
+                    'name'                  => 'required'
+                ],[
+                    'option_not_default'    => 'Select a category'
+                ]);
+            }
+            else if($product->product_properties()->where('name', '=', 'size')->count() == 0 &&
+                $product->product_properties()->where('name', '=', 'weight')->count() == 0 &&
+                $product->product_properties()->where('name', '=', 'qty')->count() > 0){
 
                 $validator = Validator::make($request->all(),[
                     'category'              => 'required|option_not_default',

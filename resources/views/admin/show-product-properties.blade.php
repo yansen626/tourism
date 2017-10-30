@@ -72,7 +72,9 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('product-property-edit', ['id' => $property->id]) }}" class="btn btn-default">Edit</a>
-                                            <a onclick="modalPop('{{ $property->id }}', 'property-delete', '/admin/product/property/delete/' )"  class="btn btn-danger">Delete</a>
+                                            @if($property->primary != 1)
+                                                <a onclick="modalPop('{{ $property->id }}', 'property-delete', '/admin/product/property/delete/' )"  class="btn btn-danger">Delete</a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @php( $idx++ )

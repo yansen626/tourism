@@ -49,9 +49,9 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 @if($property->name == 'weight')
-                                    <input type="number" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $property->description }}">
+                                    <input type="number" id="description" name="description" required class="form-control col-md-7 col-xs-12" value="{{ $property->description }}">
                                 @else
-                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $property->description }}">
+                                    <input type="text" id="description" name="description" required class="form-control col-md-7 col-xs-12" value="{{ $property->description }}">
                                 @endif
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Price
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 price-format">
-                                    <input id="price" name="price" class="form-control col-md-7 col-xs-12" value="{{ $property->getOriginal('price') }}">
+                                    <input id="price" name="price" class="form-control col-md-7 col-xs-12" value="{{ $property->getOriginal('price') }}" required>
                                 </div>
                             </div>
                         @endif
