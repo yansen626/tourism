@@ -157,6 +157,7 @@ Route::get('/admin/neworder', 'Admin\TransactionController@newOrder')->name('new
 Route::get('/admin/neworder/accept/{id}', 'Admin\TransactionController@acceptOrder')->name('new-order-accept');
 Route::post('/admin/neworder/reject', 'Admin\TransactionController@rejectOrder')->name('new-order-accept');
 Route::get('/admin/payment', 'Admin\TransactionController@payment')->name('payment-list');
+Route::get('/admin/payment/cancel/{id}', 'Admin\TransactionController@cancelPayment');
 Route::get('/admin/payment/confirm/{id}', 'Admin\TransactionController@confirmPayment')->name('payment-confirm');
 Route::get('/admin/delivery', 'Admin\TransactionController@deliveryRequest')->name('delivery-list');
 Route::post('/admin/delivery/confirm', 'Admin\TransactionController@confirmDelivery')->name('delivery-confirm');

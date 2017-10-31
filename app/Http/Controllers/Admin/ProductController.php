@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Webpatser\Uuid\Uuid;
@@ -435,6 +436,9 @@ class ProductController extends Controller
                         $idx++;
                     }
                 }
+
+                Session::flash('message', 'New product '. $product->name. ' has been successfully created!');
+
                 return redirect::route('product-list');
             }
         }
@@ -486,6 +490,8 @@ class ProductController extends Controller
 
             // Check delete
             if(Input::get('status') == '2'){
+                $oldName = $product->name;
+
                 // Check transaction
                 $trxDetails = TransactionDetail::where('product_id', $id)->get();
                 if($trxDetails->count() > 0){
@@ -524,6 +530,8 @@ class ProductController extends Controller
                 }
 
                 $product->delete();
+
+                Session::flash('message', 'Product '. $oldName. ' has been deleted!');
 
                 return redirect::route('product-list');
             }
@@ -673,7 +681,7 @@ class ProductController extends Controller
                     $productImgFeatured->save();
                 }
 
-                error_log("Deleted: ". Input::get('deleted_img_id'));
+//                error_log("Deleted: ". Input::get('deleted_img_id'));
 
                 // Delete product images
                 if(!empty(Input::get('deleted_img_id'))){
@@ -741,6 +749,8 @@ class ProductController extends Controller
                         $idx++;
                     }
                 }
+
+                Session::flash('message', 'Product '. $product->name. ' has been saved!');
 
                 return redirect::route('product-list');
             }

@@ -36,6 +36,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
+                            @include('admin.partials._success')
                             <h2>Product List</h2>
                             <div class="nav navbar-right">
                                 <a href="{{ route('product-create') }}" class="btn btn-app">

@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\ProductProperty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class ProductPropertyController extends Controller
@@ -163,6 +164,8 @@ class ProductPropertyController extends Controller
 
         $property->save();
 
+        Session::flash('message', 'New product '. $property->name. ' property has been successfully created!');
+
         return redirect()->route('product-property-list',['productId' => $productId, 'name' => $name]);
     }
 
@@ -244,12 +247,17 @@ class ProductPropertyController extends Controller
 
         $product->save();
 
+        Session::flash('message', 'Product '. $property->name. ' property has been saved!');
+
         return redirect()->route('product-property-list',['productId' => $property->product_id, 'name' => $property->name]);
     }
 
     public function delete($id){
         $property = ProductProperty::find($id);
+        $oldProperty = $property->name;
         $property->delete();
+
+        Session::flash('message', 'Product '. $oldProperty. ' property has been deleted!');
 
         return redirect()->route('product-property-list',['productId' => $property->product_id, 'name' => $property->name]);
     }

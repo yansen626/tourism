@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Session;
 
 class TransactionController extends Controller
 {
@@ -56,6 +57,8 @@ class TransactionController extends Controller
 
         Mail::to($trx->user->email)->send(new OrderAccepted());
 
+        Session::flash('message', 'New order has been successfully accepted!');
+
         return redirect::route('new-order-list');
     }
 
@@ -75,6 +78,8 @@ class TransactionController extends Controller
 //            $product->quantity += 1;
 //            $product->save();
 //        }
+
+        Session::flash('message', 'New order has been rejected!');
 
         return redirect::route('new-order-list');
     }
@@ -99,6 +104,8 @@ class TransactionController extends Controller
         $trx->status_id = 5;
         $trx->save();
 
+        Session::flash('message', 'Payment has been successfully confirmed!');
+
         return redirect::route('payment-list');
     }
 
@@ -107,6 +114,8 @@ class TransactionController extends Controller
         $trx->status_id = 10;
         $trx->finish_date = Carbon::now('Asia/Jakarta')->toDateTimeString();
         $trx->save();
+
+        Session::flash('message', 'Payment has been cancelled!');
 
         return redirect::route('payment-list');
     }
@@ -125,6 +134,8 @@ class TransactionController extends Controller
         $trx->save();
 
         Mail::to($trx->user->email)->send(new DeliveryConfirm(Input::get('tracking-code')));
+
+        Session::flash('message', 'Delivery way bill has been successfully submitted!');
 
         return redirect::route('delivery-list');
     }

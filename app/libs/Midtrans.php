@@ -117,7 +117,7 @@ class Midtrans
             // e-wallet =
             // direct debit = mandiri_clickpay, cimb_clicks, bri_epay, bca_klikpay
 
-//      $vtWebArr = array_add($vtWebArr, 'enabled_payments', ['credit_card', 'mandiri_clickpay', 'cimb_clicks', 'bca_klikpay', 'bri_epay', 'echannel','permata_va','bca_va','other_va']);
+            // $vtWebArr = array_add($vtWebArr, 'enabled_payments', ['credit_card', 'mandiri_clickpay', 'cimb_clicks', 'bca_klikpay', 'bri_epay', 'echannel','permata_va','bca_va','other_va']);
             $hostUrl = env('SERVER_HOST_URL');
 
             $vtWebArr = array_add($vtWebArr, 'enabled_payments', [$enabledPayments]);
