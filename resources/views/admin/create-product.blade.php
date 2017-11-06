@@ -123,7 +123,7 @@
                                     {{--</div>--}}
                                     <div class="col-md-3 col-sm-3 col-xs-6">
                                         <div class="input-group">
-                                            <inpu type="number"t name="size-price[]" class="form-control" placeholder="Price">
+                                            <input type="number" name="size-price[]" class="form-control" placeholder="Price">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
                                             </div>
