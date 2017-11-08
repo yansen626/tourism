@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Frontend;
 
 
 
+use App\libs\Utilities;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductProperty;
@@ -297,7 +298,7 @@ class CartController
             return response()->json(['success' => true]);
         }
         catch (\Exception $ex){
-            error_log($ex);
+            Utilities::ExceptionLog($ex);
             return response()->json(['success' => false, 'error' => 'exception']);
         }
     }
