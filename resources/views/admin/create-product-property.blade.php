@@ -49,26 +49,30 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 @if($propertyName == 'weight')
-                                    <input type="number" id="description" name="description" class="form-control col-md-7 col-xs-12" required>
-                                @else
-                                    <input id="description" name="description" class="form-control col-md-7 col-xs-12" required>
+                                    <input type="number" id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="1 Kg, 2 Kg, etc" required>
+                                @elseif($propertyname == 'size')
+                                    <input id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="Large, Small, Round, Square, etc" required>
+                                @elseif($propertyname == 'qty')
+                                    <input id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="20 Boxes, 10 Units, 200 Pieces, etc" required>
+                                @elseif($propertyname == 'color')
+                                    <input id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="Black, Yellow, White, etc" required>
                                 @endif
                             </div>
                         </div>
 
-                        @if($propertyName == 'qty')
+                        @if($propertyName == 'qty' || $propertyName == 'size')
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
+                                <label for="weight" class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" id="qty-weight" name="qty-weight" class="form-control col-md-7 col-xs-12" required>
+                                    <input type="number" id="weight" name="weight" class="form-control col-md-7 col-xs-12" required>
                                 </div>
                             </div>
                         @endif
 
                         @if($propertyName == 'size' || $propertyName == 'weight' || $propertyName == 'qty')
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price
+                                <label for="price" class="control-label col-md-3 col-sm-3 col-xs-12">Price
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 price-format">
                                     <input id="price" name="price" class="form-control col-md-7 col-xs-12" required>

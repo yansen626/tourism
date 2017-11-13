@@ -123,12 +123,14 @@ class ProductController extends Controller
                 $isValid = true;
                 $sizes = Input::get('size');
                 $sizePrice = Input::get('size-price');
+                $sizeWeight = Input::get('size-weight');
                 if(!empty($sizes)){
                     $idx = 0;
                     foreach($sizes as $size){
                         if($idx != count($sizes) - 1){
                             if(empty($size)) $isValid = false;
                             if(empty($sizePrice[$idx])) $isValid = false;
+                            if(empty($sizeWeight[$idx])) $isValid = false;
                         }
                         $idx++;
                     }
@@ -271,7 +273,7 @@ class ProductController extends Controller
                 if(Input::get('size-options') == 'yes'){
                     $idx = 0;
                     $sizePrice = Input::get('size-price');
-//                    $sizeWeight = Input::get('size-weight');
+                    $sizeWeight = Input::get('size-weight');
                     foreach(Input::get('size') as $size){
                         if(!empty($size)){
                             $propertySize = ProductProperty::create([
@@ -280,16 +282,17 @@ class ProductController extends Controller
                                 'description'   => $size
                             ]);
 
-                            if(!empty($sizePrice[$idx])){
-//                                $propertyPriceDouble = (double) str_replace('.','', $sizePrice[$idx]);
-                                $propertySize->price = $sizePrice[$idx];
+                            // Set Size Price
+                            $propertySize->price = $sizePrice[$idx];
 
-                                if($idx == 0){
-                                    $product->price = $sizePrice[$idx];
-                                    $product->price_discounted = $sizePrice[$idx];
-                                    $product->save();
-                                }
+                            if($idx == 0){
+                                $product->price = $sizePrice[$idx];
+                                $product->price_discounted = $sizePrice[$idx];
+                                $product->save();
                             }
+
+                            // Set Size Weight
+                            $propertySize->weight = $sizeWeight[$idx];
 
                             if($idx == 0){
                                 $propertySize->primary = 1;
@@ -542,8 +545,7 @@ class ProductController extends Controller
 
                 $validator = Validator::make($request->all(),[
                     'category'              => 'required|option_not_default',
-                    'name'                  => 'required',
-                    'weight'                => 'required',
+                    'name'                  => 'required'
                 ],[
                     'option_not_default'    => 'Select a category'
                 ]);

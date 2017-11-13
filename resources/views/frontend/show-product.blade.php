@@ -152,11 +152,14 @@
                                                     if(!empty($size->price)){
                                                         $content .= ' - Rp '. $size->price;
                                                     }
+
+                                                    $sizeWeightNumber = floatval($size->weight);
+                                                    $sizeWeightNumber = $sizeWeightNumber / 1000;
                                                 ?>
                                                 @if($size->primary == 1)
-                                                    <option data-price="{{ $size->price ? $size->price : 0 }}"  value="{{ $size->id }}" selected>{{ $content }}</option>
+                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}"  value="{{ $size->id }}" selected>{{ $content }}</option>
                                                 @else
-                                                    <option data-price="{{ $size->price ? $size->price : 0 }}"  value="{{ $size->id }}">{{ $content }}</option>
+                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}"  value="{{ $size->id }}">{{ $content }}</option>
                                                 @endif
 
                                             @endforeach

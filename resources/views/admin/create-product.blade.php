@@ -100,9 +100,9 @@
                                 <div class="col-md-3 col-sm-3 col-xs-6">
                                     <input name="size[]" class="form-control" placeholder="Size (Primary)">
                                 </div>
-                                {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
-                                {{--<input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">--}}
-                                {{--</div>--}}
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Primary)">
+                                </div>
                                 <div class="col-md-3 col-sm-3 col-xs-6">
                                     <div class="input-group">
                                         <input type="number" name="size-price[]" class="form-control" placeholder="Price (Primary)">
@@ -118,9 +118,9 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <input name="size[]" class="form-control" placeholder="Size">
                                     </div>
-                                    {{--<div class="col-md-3 col-sm-4 col-xs-6">--}}
-                                    {{--<input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Optional)">--}}
-                                    {{--</div>--}}
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram">
+                                    </div>
                                     <div class="col-md-3 col-sm-3 col-xs-6">
                                         <div class="input-group">
                                             <input type="number" name="size-price[]" class="form-control" placeholder="Price">

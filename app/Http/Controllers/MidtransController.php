@@ -164,17 +164,18 @@ class MidtransController extends Controller
             // Get order id from GET parameter
             $orderId = \request()->order_id;
 
+            // Filter product property & sum all weights
             foreach ($carts as $cart) {
                 if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
-                    $size = $cart->product->product_properties()->where('name','=','size')
+                    $sizeProperty = $cart->product->product_properties()->where('name','=','size')
                         ->where('description', $cart->size_option)
                         ->first();
 
-                    if(!empty($size->price)){
-                        $price = $size->getOriginal('price');
+                    if(!empty($sizeProperty->price)){
+                        $price = $sizeProperty->getOriginal('price');
 
-                        if($cart->getOriginal('price') != $size->getOriginal('price')){
-                            $cart->price = $size->getOriginal('price');
+                        if($cart->getOriginal('price') != $sizeProperty->getOriginal('price')){
+                            $cart->price = $sizeProperty->getOriginal('price');
                             $cart->save();
                         }
                     }
@@ -182,7 +183,7 @@ class MidtransController extends Controller
                         $price = $cart->product->getOriginal('price_discounted');
                     }
 
-                    $weight = $cart->product->weight;
+                    $weight = $sizeProperty->weight;
                 }
                 elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                     $weightProperty = $cart->product->product_properties()->where('name','=','weight')
@@ -415,15 +416,15 @@ class MidtransController extends Controller
 
                 foreach ($carts as $cart) {
                     if(!empty($cart->size_option) && empty($cart->weight_option) && empty($cart->qty_option)){
-                        $size = $cart->product->product_properties()->where('name','=','size')
+                        $sizeProperty = $cart->product->product_properties()->where('name','=','size')
                             ->where('description', $cart->size_option)
                             ->first();
 
-                        if(!empty($size->price)){
-                            $price = $size->getOriginal('price');
+                        if(!empty($sizeProperty->price)){
+                            $price = $sizeProperty->getOriginal('price');
 
-                            if($cart->getOriginal('price') != $size->getOriginal('price')){
-                                $cart->price = $size->getOriginal('price');
+                            if($cart->getOriginal('price') != $sizeProperty->getOriginal('price')){
+                                $cart->price = $sizeProperty->getOriginal('price');
                                 $cart->save();
                             }
                         }
@@ -431,7 +432,7 @@ class MidtransController extends Controller
                             $price = $cart->product->getOriginal('price_discounted');
                         }
 
-                        $weight = $cart->product->weight;
+                        $weight = $sizeProperty->weight;
                     }
                     elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                         $weightProperty = $cart->product->product_properties()->where('name','=','weight')

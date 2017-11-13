@@ -38,7 +38,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Description</th>
-                                    @if($propertyName == 'qty')
+                                    @if($propertyName == 'qty' || $propertyName == 'size')
                                         <th>Weight</th>
                                     @endif
                                     @if($propertyName != 'color')
@@ -60,7 +60,7 @@
                                                 {{ $property->description }}
                                             @endif
                                         </td>
-                                        @if($propertyName == 'qty')
+                                        @if($propertyName == 'qty' || $propertyName == 'size')
                                             @php( $weightVal = floatval($property->weight / 1000) )
                                             <td>{{ $weightVal }} Kg</td>
                                         @endif

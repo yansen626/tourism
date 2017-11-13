@@ -66,7 +66,6 @@ class CartController
                 $note .= 'color='. $color->description. ';';
             }
 
-
             $carts = Cart::where([['user_id', '=', $userId], ['product_id', '=', $productId]])->get()->count();
 
             if($carts > 0){
@@ -78,8 +77,6 @@ class CartController
                     $size = $product->product_properties()->where('id', Input::get('size'))
                         ->first();
                     $cart = $cart->where('size_option', $size->description)->first();
-
-                    error_log('cart = '. !empty($cart));
 
                     // Check if cart has the same selected product property or not
                     if(!empty($cart)){

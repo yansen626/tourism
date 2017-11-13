@@ -192,7 +192,7 @@
                                 <!-- //SET DISCOUNT -->
                             @endif
 
-                            @if($weightProperties->count() == 0 && $qtyProperties->count() == 0)
+                            @if($weightProperties->count() == 0 && $qtyProperties->count() == 0 && $sizeProperties->count() == 0)
                                 <!-- SET WEIGHT -->
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram <span class="required">*</span>

@@ -170,11 +170,14 @@ function addCommas(nStr) {
 // SELECTIONS IN PRODUCT DETAIL
 function onchangeSize(e){
     var obj = e.options[e.selectedIndex];
-    if(obj.hasAttribute("data-price")){
-        var price = obj.getAttribute('data-price');
-        if(price !== '0'){
-            $('#price-label').html("Rp " + price);
-        }
+
+    var price = obj.getAttribute('data-price');
+    if(price !== '0'){
+        $('#price-label').html("Rp " + price);
+    }
+    var weight = obj.getAttribute('data-weight');
+    if(weight !== 0){
+        $('#weight-label').html("Weight: " + weight + " Kg");
     }
 }
 

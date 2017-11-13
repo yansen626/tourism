@@ -72,10 +72,10 @@ class ProductPropertyController extends Controller
                 'price'             => 'required'
             ]);
         }
-        elseif($name == 'qty'){
+        elseif($name == 'qty' || $name == 'size'){
             $validator = Validator::make($request->all(),[
                 'description'       => 'required|max:50',
-                'qty-weight'        => 'required'
+                'weight'        => 'required'
             ]);
         }
         else{
@@ -157,7 +157,7 @@ class ProductPropertyController extends Controller
             $product->price_discounted = $propertyPriceDouble;
 
             if($name == 'weight') $product->weight = intval(Input::get('description'));
-            if($name == 'qty') $product->weight = Input::get('qty-weight');
+            if($name == 'qty' || $name == 'size') $product->weight = Input::get('weight');
 
             $product->save();
         }
@@ -187,7 +187,13 @@ class ProductPropertyController extends Controller
         elseif($property->name == 'qty'){
             $validator = Validator::make($request->all(),[
                 'description'       => 'required|max:50',
-                'qty-weight'        => 'required'
+                'weight'            => 'required'
+            ]);
+        }
+        elseif($property->name == 'size'){
+            $validator = Validator::make($request->all(),[
+                'description'       => 'required|max:50',
+                'weight'            => 'required'
             ]);
         }
         else{
@@ -211,8 +217,8 @@ class ProductPropertyController extends Controller
                 $property->price = $propertyPriceDouble;
             }
 
-            if(!empty(Input::get('qty-weight'))){
-                $property->weight = Input::get('qty-weight');
+            if(!empty(Input::get('weight'))){
+                $property->weight = Input::get('weight');
             }
         }
 
@@ -243,7 +249,7 @@ class ProductPropertyController extends Controller
         $product->price_discounted = $propertyPriceDouble;
 
         if($property->name == 'weight') $product->weight = intval(Input::get('description'));
-        if($property->name == 'qty') $product->weight = Input::get('qty-weight');
+        if($property->name == 'qty' || $property->name == 'size') $product->weight = Input::get('weight');
 
         $product->save();
 

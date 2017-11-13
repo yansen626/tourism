@@ -42,9 +42,9 @@
                         <div class="form-group">
                             <div class="control-label col-md-3 col-sm-3 col-xs-12">
                                 @if($property->name == 'weight')
-                                    <label for="name">Weight in Gram </label>
+                                    <label for="description">Weight in Gram </label>
                                 @else
-                                    <label for="name">Description </label>
+                                    <label for="description">Description </label>
                                 @endif
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -56,19 +56,19 @@
                             </div>
                         </div>
 
-                        @if($property->name == 'qty')
+                        @if($property->name == 'qty' || $propertyName == 'size')
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
+                                <label for="weight" class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" id="qty-weight" name="qty-weight" class="form-control col-md-7 col-xs-12"  value="{{ $property->weight }}" required>
+                                    <input type="number" id="weight" name="weight" class="form-control col-md-7 col-xs-12"  value="{{ $property->weight }}" required>
                                 </div>
                             </div>
                         @endif
 
                         @if($property->name == 'size' || $property->name == 'weight' || $property->name == 'qty')
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Price
+                                <label for="price" class="control-label col-md-3 col-sm-3 col-xs-12">Price
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 price-format">
                                     <input id="price" name="price" class="form-control col-md-7 col-xs-12" value="{{ $property->getOriginal('price') }}" required>
