@@ -148,16 +148,21 @@
                 {{--@endforeach--}}
                 <li class="sub-menu"><a href="javascript:void(0);" >Category</a>
                     <!-- MEGA MENU -->
-                    <ul class="mega_menu megamenu_col2 clearfix">
+                    <ul class="mega_menu megamenu_col3 clearfix">
                         <?php
                             $categoryAll = $categories::allCategory();
                             $categoryTotal = $categoryAll->count();
-                            if($categoryTotal % 2 == 1){
-                                $first = ($categoryTotal + 1) / 2;
+                            if($categoryTotal % 3 == 1){
+                                $first = ($categoryTotal + 2) / 3;
+                            }
+                            elseif($categoryTotal % 3 == 2){
+                                $first = ($categoryTotal + 1) / 3;
                             }
                             else{
-                                $first = $categoryTotal / 2;
+                                $first = $categoryTotal / 3;
                             }
+
+                            $second = $first + $first;
                         ?>
                         <li class="col">
                             <ol>
@@ -171,7 +176,14 @@
                         </li>
                         <li class="col">
                             <ol>
-                                @for($i = ($categoryTotal - $first) + 1; $i < $categoryTotal; $i++)
+                                @for($i = ($categoryTotal - $second) + 1; $i < $second; $i++)
+                                    <li><a href="{{ route('products', ['categoryId' => $categoryAll[$i]->id, 'categoryName' => $categoryAll[$i]->name]) }}" >{{ $categoryAll[$i]->name }}</a></li>
+                                @endfor
+                            </ol>
+                        </li>
+                        <li class="col">
+                            <ol>
+                                @for($i = $second + 1; $i < $categoryTotal; $i++)
                                     <li><a href="{{ route('products', ['categoryId' => $categoryAll[$i]->id, 'categoryName' => $categoryAll[$i]->name]) }}" >{{ $categoryAll[$i]->name }}</a></li>
                                 @endfor
                             </ol>

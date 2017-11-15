@@ -26,7 +26,7 @@ class ProductPropertyController extends Controller
 
     public function index($productId, $name){
         $product = Product::find($productId);
-        $properties = $product->product_properties()->where('name', $name)->get();
+        $properties = $product->product_properties()->where('name', $name)->orderBy('price')->get();
 
         $data = [
             'product'       => $product,
@@ -124,7 +124,7 @@ class ProductPropertyController extends Controller
                 $product->price_discounted = $propertyPriceDouble;
 
                 if($name == 'weight') $product->weight = intval(Input::get('description'));
-                if($name == 'qty') $product->weight = Input::get('qty-weight');
+                if($name == 'qty') $product->weight = Input::get('weight');
 
                 $product->save();
             }
@@ -156,8 +156,10 @@ class ProductPropertyController extends Controller
             $product->discount_flat = null;
             $product->price_discounted = $propertyPriceDouble;
 
-            if($name == 'weight') $product->weight = intval(Input::get('description'));
-            if($name == 'qty' || $name == 'size') $product->weight = Input::get('weight');
+            if(Input::get('primary') == 'yes'){
+                if($name == 'weight') $product->weight = intval(Input::get('description'));
+                if($name == 'qty' || $name == 'size') $product->weight = Input::get('weight');
+            }
 
             $product->save();
         }
@@ -248,8 +250,10 @@ class ProductPropertyController extends Controller
         $product->discount_flat = null;
         $product->price_discounted = $propertyPriceDouble;
 
-        if($property->name == 'weight') $product->weight = intval(Input::get('description'));
-        if($property->name == 'qty' || $property->name == 'size') $product->weight = Input::get('weight');
+        if($property->primary == 1){
+            if($property->name == 'weight') $product->weight = intval(Input::get('description'));
+            if($property->name == 'qty' || $property->name == 'size') $product->weight = Input::get('weight');
+        }
 
         $product->save();
 

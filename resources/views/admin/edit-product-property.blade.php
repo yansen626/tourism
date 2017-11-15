@@ -56,7 +56,7 @@
                             </div>
                         </div>
 
-                        @if($property->name == 'qty' || $propertyName == 'size')
+                        @if($property->name == 'qty' || $property->name == 'size')
                             <div class="item form-group">
                                 <label for="weight" class="control-label col-md-3 col-sm-3 col-xs-12">Weight in Gram
                                 </label>

@@ -176,7 +176,7 @@ function onchangeSize(e){
         $('#price-label').html("Rp " + price);
     }
     var weight = obj.getAttribute('data-weight');
-    if(weight !== 0){
+    if(weight !== '0' || weight !== ''){
         $('#weight-label').html("Weight: " + weight + " Kg");
     }
 }
@@ -186,7 +186,7 @@ function onchangeWeight(e){
     $('#price-label').html("Rp " + price);
 
     var weight = e.options[e.selectedIndex].getAttribute('data-weight');
-    if(weight !== 0){
+    if(weight !== '0'){
         $('#weight-label').html("Weight: " + weight + " Kg");
     }
 }

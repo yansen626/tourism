@@ -93,7 +93,7 @@ class ProductsController extends Controller
             ->get();
 
         $colors = $product->product_properties()->where('name','color')->get();
-        $sizes = $product->product_properties()->where('name','size')->get();
+        $sizes = $product->product_properties()->where('name','size')->orderBy('price')->get();
         $weights = $product->product_properties()->where('name','weight')->orderBy('description')->get();
         $qtys = $product->product_properties()->where('name','qty')->get();
 

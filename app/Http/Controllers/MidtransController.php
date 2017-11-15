@@ -432,7 +432,12 @@ class MidtransController extends Controller
                             $price = $cart->product->getOriginal('price_discounted');
                         }
 
-                        $weight = $sizeProperty->weight;
+                        if(!empty($sizeProperty->weight)){
+                            $weight = $sizeProperty->weight;
+                        }
+                        else{
+                            $weight = $cart->product->weight;
+                        }
                     }
                     elseif(empty($cart->size_option) && !empty($cart->weight_option) && empty($cart->qty_option)){
                         $weightProperty = $cart->product->product_properties()->where('name','=','weight')
@@ -451,7 +456,7 @@ class MidtransController extends Controller
                             $price = $weightProperty->product->getOriginal('price_discounted');
                         }
 
-                        $weight = (intval($weightProperty->description) * $cart->quantity);
+                        $weight = intval($weightProperty->description);
                     }
                     elseif(empty($cart->size_option) && empty($cart->weight_option) && !empty($cart->qty_option)){
                         $qtyProperty = $cart->product->product_properties()->where('name','=','qty')
@@ -470,7 +475,7 @@ class MidtransController extends Controller
                             $price = $qtyProperty->product->getOriginal('price_discounted');
                         }
 
-                        $weight = $qtyProperty->weight * $cart->quantity;
+                        $weight = $qtyProperty->weight;
                     }
                     else{
                         $price = $cart->product->getOriginal('price_discounted');
@@ -491,7 +496,6 @@ class MidtransController extends Controller
                     $totalWeight += $subtotalWeight;
                 }
                 $totalPriceWithDeliveryFeeAdminFee = $totalPrice + $deliveryFee + $adminFee;
-
 
                 //insert into transactions DB
                 $transaction = Transaction::create([

@@ -143,6 +143,8 @@ $("#color-yes-opt").change(function(){
 $("#size-no-opt").change(function(){
     $("#input-group-size").hide(300);
     $("#price").attr('required', true);
+    $("#weight").attr('required',true);
+    $("#form-weight-section").show(300);
     $("#form-price-section").show(300);
     $("#form-discount-section").show(300);
     $("#form-weight-option").show(300);
@@ -152,6 +154,8 @@ $("#size-no-opt").change(function(){
 $("#size-yes-opt").change(function(){
     $("#input-group-size").show(300);
     $("#price").removeAttr('required');
+    $("#weight").removeAttr('required');
+    $("#form-weight-section").hide(300);
     $("#form-price-section").hide(300);
     $("#form-discount-section").hide(300);
     $("#form-weight-option").hide(300);

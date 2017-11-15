@@ -96,11 +96,16 @@ class TransactionController extends Controller
                 $totalWeight += (intval($qty->weight) * $cart->quantity);
             }
             elseif(empty($cart->weight_option) && empty($cart->qty_option) && !empty($cart->size_option)){
-                $qty = $cart->product->product_properties()->where('name','=','size')
+                $size = $cart->product->product_properties()->where('name','=','size')
                     ->where('description', $cart->qty_option)
                     ->first();
 
-                $totalWeight += (intval($qty->weight) * $cart->quantity);
+                if(!empty($size->weight)){
+                    $totalWeight += (intval($size->weight) * $cart->quantity);
+                }
+                else{
+                    $totalWeight += ($cart->product->weight * $cart->quantity);
+                }
             }
             else{
                 $totalWeight += ($cart->product->weight * $cart->quantity);
