@@ -285,25 +285,20 @@ class ProductController extends Controller
                             // Set Size Price
                             $propertySize->price = $sizePrice[$idx];
 
-                            if($idx == 0){
-                                $product->price = $sizePrice[$idx];
-                                $product->price_discounted = $sizePrice[$idx];
-                                $product->save();
-                            }
-
                             // Set Size Weight
                             $propertySize->weight = $sizeWeight[$idx];
 
                             if($idx == 0){
+                                $product->price = $sizePrice[$idx];
+                                $product->price_discounted = $sizePrice[$idx];
+                                $product->weight = $sizeWeight[$idx];
+                                $product->save();
+
                                 $propertySize->primary = 1;
                             }
                             else{
                                 $propertySize->primary = 0;
                             }
-
-//                            if(!empty($sizeWeight[$idx])){
-//                                $propertySize->weight = $sizeWeight[$idx];
-//                            }
 
                             $propertySize->save();
                         }
