@@ -86,6 +86,20 @@
                                 <td class="product-subtotal" id="{{ $productTotalId }}">Rp. {{ $cart->total_price }}</td>
                                 <td class="product-remove"><a href="{{ route('delete-cart', ['cartId' => $cart->id]) }}"><i>X</i></a></td>
                             </tr>
+                            <tr class="cart_item">
+                                <td colspan="5" class="border_bottom">
+                                    @if(!empty($cart->buyer_note))
+                                        Note: {{ $cart->buyer_note }}
+                                    @endif
+                                </td>
+                                <td class="border_bottom" style="padding-right: 0">
+                                    @if(!empty($cart->buyer_note))
+                                        <button class="btn btn-sm btn-dark">Edit Note</button>
+                                    @else
+                                        <button class="btn btn-sm btn-dark">Add Note</button>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
 
 
