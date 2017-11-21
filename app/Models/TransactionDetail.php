@@ -27,6 +27,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_on
  * @property string $modified_by
  * @property \Carbon\Carbon $modified_on
+ * @property string $buyer_note
  * @property string $note
  * @property int $weight_option
  * @property float $weight_option_price
@@ -80,6 +81,7 @@ class TransactionDetail extends Eloquent
 		'created_on',
 		'modified_by',
 		'modified_on',
+        'buyer_note',
 		'note',
         'weight_option',
         'weight_option_price',

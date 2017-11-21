@@ -69,6 +69,9 @@
 <script src="{{ URL::asset('js/frontend/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 
+<!-- autoNumeric -->
+<script src="{{ URL::asset('js/autoNumeric/autoNumeric.min.js') }}"></script>
+
 <!-- Datatables -->
 <script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/datatable/dataTables.bootstrap.min.js') }}"></script>

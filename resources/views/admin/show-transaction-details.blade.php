@@ -116,6 +116,7 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Name</th>
+                                                    <th>Note</th>
                                                     <th>Category</th>
                                                     <th>Weight</th>
                                                     <th>Normal Price</th>
@@ -156,6 +157,11 @@
                                                                 @endforeach
                                                             @endif
 
+                                                        </td>
+                                                        <td>
+                                                            @if(!empty($detail->buyer_note))
+                                                                {{ $detail->buyer_note }}
+                                                            @endif
                                                         </td>
                                                         <td>{{ $detail->product->category->name }}</td>
                                                         <td>{{ $detail->weight }} Gr</td>

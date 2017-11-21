@@ -46,6 +46,9 @@ Route::post('/edit-cart', [
     'uses' => 'Frontend\CartController@EditQuantityCart',
     'as' => 'editCart'
 ]);
+Route::get('cart/check/{id}', 'Frontend\CartController@getNotes');
+Route::post('cart/add/check', 'Frontend\CartController@checkNoteForCartAdd')->name('cart-add-check-note');
+Route::post('cart/save/note', 'Frontend\CartController@storeNotes');
 
 // Gallery
 Route::get('gallery/{id}', 'Frontend\GalleryController@index')->name('frontend-gallery-show');

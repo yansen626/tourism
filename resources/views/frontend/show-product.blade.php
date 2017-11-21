@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.frontend-bayu')
 
 @section('body-content')
 
@@ -79,16 +79,16 @@
                                 <div class="pull-left tovar_brend">&nbsp;</div>
 
                                 {{--@if($product->quantity == 0)--}}
-                                    {{--<div class="pull-right tovar_view_price" style="color: red;">Out of Stock!</div>--}}
+                                {{--<div class="pull-right tovar_view_price" style="color: red;">Out of Stock!</div>--}}
                                 {{--@else--}}
-                                    {{--@if(!empty($product->discount) || !empty($product->discount_flat))--}}
-                                        {{--<div class="pull-right" style="font-size: 20px;">--}}
-                                            {{--<span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>--}}
-                                            {{--<p style="color:orange;"><b>Rp {{ $product->price_discounted }}</b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>--}}
-                                        {{--</div>--}}
-                                    {{--@else--}}
-                                        {{--<div class="pull-right tovar_view_price">Rp {{ $product->price }}</div>--}}
-                                    {{--@endif--}}
+                                {{--@if(!empty($product->discount) || !empty($product->discount_flat))--}}
+                                {{--<div class="pull-right" style="font-size: 20px;">--}}
+                                {{--<span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>--}}
+                                {{--<p style="color:orange;"><b>Rp {{ $product->price_discounted }}</b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>--}}
+                                {{--</div>--}}
+                                {{--@else--}}
+                                {{--<div class="pull-right tovar_view_price">Rp {{ $product->price }}</div>--}}
+                                {{--@endif--}}
                                 {{--@endif--}}
                                 @if(auth()->check())
                                     @if(!empty($product->discount) || !empty($product->discount_flat))
@@ -114,8 +114,8 @@
                                         <select id="select-weight" class="basic" onchange="onchangeWeight(this)">
                                             @foreach($weights as $weight)
                                                 <?php
-                                                    $weightNumber = floatval($weight->description);
-                                                    $weightNumber = $weightNumber / 1000;
+                                                $weightNumber = floatval($weight->description);
+                                                $weightNumber = $weightNumber / 1000;
                                                 ?>
                                                 @if($weight->primary == 1)
                                                     <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" value="{{ $weight->id }}" selected>{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
@@ -148,16 +148,16 @@
                                         <select id="select-size" class="basic" onchange="onchangeSize(this)">
                                             @foreach($sizes as $size)
                                                 <?php
-                                                    $content = ucwords($size->description);
-                                                    if(!empty($size->price)){
-                                                        $content .= ' - Rp '. $size->price;
-                                                    }
+                                                $content = ucwords($size->description);
+                                                if(!empty($size->price)){
+                                                    $content .= ' - Rp '. $size->price;
+                                                }
 
-                                                    $sizeWeightNumber = 0;
-                                                    if(!empty($size->weight)){
-                                                        $sizeWeightNumber = floatval($size->weight);
-                                                        $sizeWeightNumber = $sizeWeightNumber / 1000;
-                                                    }
+                                                $sizeWeightNumber = 0;
+                                                if(!empty($size->weight)){
+                                                    $sizeWeightNumber = floatval($size->weight);
+                                                    $sizeWeightNumber = $sizeWeightNumber / 1000;
+                                                }
                                                 ?>
                                                 @if($size->primary == 1)
                                                     <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}"  value="{{ $size->id }}" selected>{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
@@ -191,9 +191,9 @@
 
                                 <div class="tovar_view_btn">
                                     {{--@if($product->quantity > 0)--}}
-                                        {{--<div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>--}}
+                                    {{--<div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>--}}
                                     {{--@endif--}}
-                                    <div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>
+                                    <div class="add_bag" onclick="addToCartNotes('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>
                                 </div>
                             @endif
                         </div>
@@ -220,57 +220,101 @@
     <!-- NEW ARRIVALS -->
     {{--<section class="new_arrivals padbot50">--}}
 
-        {{--<!-- CONTAINER -->--}}
-        {{--<div class="container">--}}
-            {{--<h2>Recent Products</h2>--}}
+    {{--<!-- CONTAINER -->--}}
+    {{--<div class="container">--}}
+    {{--<h2>Recent Products</h2>--}}
 
-            {{--<!-- JCAROUSEL -->--}}
-            {{--<div class="jcarousel-wrapper">--}}
+    {{--<!-- JCAROUSEL -->--}}
+    {{--<div class="jcarousel-wrapper">--}}
 
-                {{--<!-- NAVIGATION -->--}}
-                {{--<div class="jCarousel_pagination">--}}
-                    {{--<a href="javascript:void(0);" class="jcarousel-control-prev" ><i class="fa fa-angle-left"></i></a>--}}
-                    {{--<a href="javascript:void(0);" class="jcarousel-control-next" ><i class="fa fa-angle-right"></i></a>--}}
-                {{--</div><!-- //NAVIGATION -->--}}
+    {{--<!-- NAVIGATION -->--}}
+    {{--<div class="jCarousel_pagination">--}}
+    {{--<a href="javascript:void(0);" class="jcarousel-control-prev" ><i class="fa fa-angle-left"></i></a>--}}
+    {{--<a href="javascript:void(0);" class="jcarousel-control-next" ><i class="fa fa-angle-right"></i></a>--}}
+    {{--</div><!-- //NAVIGATION -->--}}
 
-                {{--<div class="jcarousel">--}}
-                    {{--<ul>--}}
+    {{--<div class="jcarousel">--}}
+    {{--<ul>--}}
 
-                        {{--@foreach($recentProducts as $recentProduct)--}}
-                            {{--<li>--}}
-                                {{--<!-- TOVAR -->--}}
-                                {{--<div class="tovar_item_new">--}}
-                                    {{--<div class="tovar_img">--}}
-                                        {{--<img src="{{ URL::asset('frontend_images/tovar/women/new/1.jpg') }}" alt="" />--}}
-                                        {{--<div class="open-project-link"><a class="open-project tovar_view" href="javascript:void(0);" data-url="!projects/women/1.html" >quick view</a></div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="tovar_description clearfix">--}}
-                                        {{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $recentProduct->id]) }}" >{{$recentProduct->name}}</a>--}}
-                                        {{--<span class="tovar_price">Rp. {{$recentProduct->price}}</span>--}}
-                                    {{--</div>--}}
-                                {{--</div><!-- //TOVAR -->--}}
-                            {{--</li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-            {{--</div><!-- //JCAROUSEL -->--}}
-        {{--</div><!-- //CONTAINER -->--}}
+    {{--@foreach($recentProducts as $recentProduct)--}}
+    {{--<li>--}}
+    {{--<!-- TOVAR -->--}}
+    {{--<div class="tovar_item_new">--}}
+    {{--<div class="tovar_img">--}}
+    {{--<img src="{{ URL::asset('frontend_images/tovar/women/new/1.jpg') }}" alt="" />--}}
+    {{--<div class="open-project-link"><a class="open-project tovar_view" href="javascript:void(0);" data-url="!projects/women/1.html" >quick view</a></div>--}}
+    {{--</div>--}}
+    {{--<div class="tovar_description clearfix">--}}
+    {{--<a class="tovar_title" href="{{ route('product-detail', ['id' => $recentProduct->id]) }}" >{{$recentProduct->name}}</a>--}}
+    {{--<span class="tovar_price">Rp. {{$recentProduct->price}}</span>--}}
+    {{--</div>--}}
+    {{--</div><!-- //TOVAR -->--}}
+    {{--</li>--}}
+    {{--@endforeach--}}
+    {{--</ul>--}}
+    {{--</div>--}}
+    {{--</div><!-- //JCAROUSEL -->--}}
+    {{--</div><!-- //CONTAINER -->--}}
     {{--</section><!-- //NEW ARRIVALS -->--}}
 
     <hr class="container">
 
-    <div class="modal fade" id="add-cart-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="padding-top: 10%;">
+    <div class="modal fade" id="modal-cart-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="padding-top: 10%;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Success</h4>
+                    {{--<h4 class="modal-title" id="myModalLabel">Success</h4>--}}
                 </div>
-                <div class="modal-body text-center">
-                    Successfully Add to Cart
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-xs-12">
+                            <div class="form-group">
+                                <label for="cart_qty">Quantity:</label>
+                                <div class="input-group">
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                              </button>
+                            </span>
+                                    <input type="text" id="cart_qty" name="quant[2]" class="form-control input-number" value="1" min="1" max="999" style="text-align: center;">
+                                    <span class="input-group-btn">
+                              <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                              </button>
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="buyer_note">Note for seller (Optional):</label>
+                                <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" placeholder="Optional message for seller"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addToCart('{{ $product->id }}')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-add-cart-success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="padding-top: 10%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{--<h4 class="modal-title" id="myModalLabel">Success</h4>--}}
+                </div>
+                <div class="modal-body text-center">
+                    Success adding product to cart!
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     <a href="{{ route('cart-list') }}" type="button" class="btn btn-primary">View Cart</a>
                 </div>
             </div>
@@ -278,7 +322,8 @@
     </div>
 
     <script>
-        var urlLink = '{{route('addCart')}}';
+        var urlLink = '{{ route('addCart') }}';
+        var urlCheckNoteLink = '{{ route('cart-add-check-note') }}';
     </script>
 @endsection
 

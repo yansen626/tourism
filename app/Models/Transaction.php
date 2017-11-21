@@ -25,7 +25,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $total_payment
  * @property float $total_price
  * @property int $total_weight
- * @property string $buyer_note
  * @property string $address_name
  * @property string $phone
  * @property int $province_id
@@ -104,7 +103,6 @@ class Transaction extends Eloquent
 		'total_payment',
 		'total_price',
         'total_weight',
-        'buyer_note',
         'address_name',
         'phone',
 		'province_id',

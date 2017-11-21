@@ -1,3 +1,77 @@
+//plugin bootstrap minus and plus
+//http://jsfiddle.net/laelitenetwork/puJ6G/
+$('.btn-number').click(function(e){
+    e.preventDefault();
+
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+
+        }
+    } else {
+        input.val(0);
+    }
+});
+$('.input-number').focusin(function(){
+    $(this).data('oldValue', $(this).val());
+});
+$('.input-number').change(function() {
+
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the minimum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the maximum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+
+
+});
+$(".input-number").keydown(function (e) {
+    // Allow: backspace, delete, tab, escape, enter and .
+    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+        // Allow: Ctrl+A
+        (e.keyCode == 65 && e.ctrlKey === true) ||
+        // Allow: home, end, left, right
+        (e.keyCode >= 35 && e.keyCode <= 39)) {
+        // let it happen, don't do anything
+        return;
+    }
+    // Ensure that it is a number and stop the keypress
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+    }
+});
+
 $('#example').DataTable();
 
 function addToCart(productId){
@@ -20,6 +94,9 @@ function addToCart(productId){
         qty = $('#select-qty').val();
     }
 
+    var buyerNote = $('#buyer_note').val();
+    var cartQty = $('#cart_qty').val();
+
     $.ajax({
         url     : urlLink,
         method  : 'POST',
@@ -29,15 +106,18 @@ function addToCart(productId){
             color : color,
             size:  size,
             weight: weight,
-            qty: qty
+            qty: qty,
+            buyerNote: buyerNote,
+            cartQty: cartQty
         },
         headers:
         {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success : function(response){
+            $('#modal-cart-add').modal('toggle');
             if(response.success === true){
-                $("#add-cart-modal").modal()
+                $("#modal-add-cart-success").modal()
             }
             else{
                 if(response.error === "login"){
@@ -84,34 +164,98 @@ function deleteCart(cartId){
 }
 
 function editCartQuantity(cartId){
-var quantity = $('#cart_quantity_'+cartId).val();
-var productSubtotal = '#product-subtotal-' + cartId;
-if(quantity){
+    var quantity = $('#cart_quantity_'+cartId).val();
+    var productSubtotal = '#product-subtotal-' + cartId;
+    if(quantity){
+        $.ajax({
+            url     : urlLinkEdit,
+            method  : 'POST',
+            dataType: 'JSON',
+            data    : {
+                cart_id  : cartId,
+                quantity: quantity
+            },
+            headers:
+            {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : function(response){
+                var newSinglePrice = "Rp. " + response.singlePrice;
+                $(productSubtotal).html(newSinglePrice);
+
+                var newtotalPrice = "Rp. " + response.totalPrice;
+                $('#sub-total-price').html(newtotalPrice);
+                $('#total-price').html(newtotalPrice);
+            },
+            error:function(){
+
+            }
+        });
+    }
+}
+
+function getNotes(id){
+    $.get('/cart/check/' + id, function (data) {
+        if(data.success === true) {
+            $('#modal-cart-note').modal();
+
+            if(data.notes !== 'default'){
+                $('#buyer_note').val(data.notes);
+            }
+
+            $('#cart_id').val(id);
+        }
+    });
+}
+
+function addToCartNotes(productId){
+
+    var color = '';
+    if($('#select-color').length > 0){
+        color = $('#select-color').val();
+    }
+    var size = '';
+    if($('#select-size').length > 0){
+        size = $('#select-size').val();
+    }
+
+    var weight = '';
+    if($('#select-weight').length > 0){
+        weight = $('#select-weight').val();
+    }
+
+    var qty = '';
+    if($('#select-qty').length > 0){
+        qty = $('#select-qty').val();
+    }
+
     $.ajax({
-        url     : urlLinkEdit,
+        url     : urlCheckNoteLink,
         method  : 'POST',
-        dataType: 'JSON',
         data    : {
-            cart_id  : cartId,
-            quantity: quantity
+            // _token: CSRF_TOKEN,
+            product_id  : productId,
+            color : color,
+            size:  size,
+            weight: weight,
+            qty: qty
         },
         headers:
-        {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+            {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
         success : function(response){
-            var newSinglePrice = "Rp. " + response.singlePrice;
-            $(productSubtotal).html(newSinglePrice);
+            $('#modal-cart-add').modal();
 
-            var newtotalPrice = "Rp. " + response.totalPrice;
-            $('#sub-total-price').html(newtotalPrice);
-            $('#total-price').html(newtotalPrice);
+            if(response.notes !== 'default'){
+                $('#buyer_note').val(response.notes);
+            }
         },
         error:function(){
 
         }
     });
-}
+
 }
 
 // autoNumeric

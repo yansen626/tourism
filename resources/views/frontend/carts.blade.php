@@ -89,14 +89,14 @@
                             <tr class="cart_item">
                                 <td colspan="5" class="border_bottom">
                                     @if(!empty($cart->buyer_note))
-                                        Note: {{ $cart->buyer_note }}
+                                        <p><span style="font-weight: bold;">Note :</span> {{ $cart->buyer_note }}</p>
                                     @endif
                                 </td>
                                 <td class="border_bottom" style="padding-right: 0">
                                     @if(!empty($cart->buyer_note))
-                                        <button class="btn btn-sm btn-dark">Edit Note</button>
+                                        <button class="btn btn-sm btn-dark" onclick="getNotes('{{ $cart->id }}')">Edit Note</button>
                                     @else
-                                        <button class="btn btn-sm btn-dark">Add Note</button>
+                                        <button class="btn btn-sm btn-dark" onclick="getNotes('{{ $cart->id }}')">Add Note</button>
                                     @endif
                                 </td>
                             </tr>
@@ -145,6 +145,33 @@
         {{--var urlLinkDelete = '{{route('deleteCart')}}';--}}
         var urlLinkEdit = '{{route('editCart')}}';
     </script>
-@endsection
 
-@include('frontend.partials._modal')
+    <div class="modal fade" id="modal-cart-note" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="padding-top: 10%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {!! Form::open(array('action' => 'Frontend\CartController@storeNotes', 'method' => 'POST', 'role' => 'form')) !!}
+                {{ csrf_field() }}
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{--<h4 class="modal-title" id="myModalLabel">Success</h4>--}}
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="buyer_note">Note for seller (Optional)</label>
+                        <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note"></textarea>
+                    </div>
+                    {{ Form::hidden('cart_id', '', array('id' => 'cart_id')) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+
+    @include('frontend.partials._modal')
+@endsection
