@@ -183,7 +183,7 @@
                         </li>
                         <li class="col">
                             <ol>
-                                @for($i = $second + 1; $i < $categoryTotal; $i++)
+                                @for($i = $second; $i < $categoryTotal; $i++)
                                     <li><a href="{{ route('products', ['categoryId' => $categoryAll[$i]->id, 'categoryName' => $categoryAll[$i]->name]) }}" >{{ $categoryAll[$i]->name }}</a></li>
                                 @endfor
                             </ol>

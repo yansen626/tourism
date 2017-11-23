@@ -106,6 +106,7 @@
                                                                         <th>Price</th>
                                                                         <th>Quantity</th>
                                                                         <th>Subtotal Price</th>
+                                                                        <th>Note</th>
                                                                         <th>Featured Photo</th>
                                                                     </tr>
                                                                     </thead>
@@ -131,6 +132,13 @@
                                                                             <td>Rp {{ $detail->price_final }}</td>
                                                                             <td class="text-center">{{ $detail->quantity }}</td>
                                                                             <td>Rp {{ $detail->subtotal_price }}</td>
+                                                                            <td>
+                                                                                @if(!empty($detail->buyer_note))
+                                                                                    {{ $detail->buyer_note }}
+                                                                                @else
+                                                                                    -
+                                                                                @endif
+                                                                            </td>
                                                                             <td width="15%">
                                                                                 <img width="100%" src="{{ asset('storage\product\\'. $detail->product->product_image()->where('featured', 1)->first()->path) }}">
                                                                             </td>

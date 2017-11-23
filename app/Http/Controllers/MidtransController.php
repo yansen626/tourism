@@ -346,6 +346,11 @@ class MidtransController extends Controller
                     $transactionDetail->note = $cart->note;
                 }
 
+                // Check buyer note
+                if(!empty($cart->buyer_note)){
+                    $transactionDetail->buyer_note = $cart->buyer_note;
+                }
+
                 $transactionDetail->save();
             }
 

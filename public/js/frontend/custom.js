@@ -115,8 +115,8 @@ function addToCart(productId){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success : function(response){
-            $('#modal-cart-add').modal('toggle');
             if(response.success === true){
+                $('#modal-cart-add').modal('toggle');
                 $("#modal-add-cart-success").modal()
             }
             else{
@@ -125,7 +125,7 @@ function addToCart(productId){
                     window.location = "/login?redirect=" + redirect;
                 }
                 else{
-                    alert("Out of Stock");
+                    alert("There's something wrong, please contact admin");
                 }
             }
         },
@@ -245,10 +245,22 @@ function addToCartNotes(productId){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
         success : function(response){
-            $('#modal-cart-add').modal();
 
-            if(response.notes !== 'default'){
-                $('#buyer_note').val(response.notes);
+            if(response.success === true){
+                $('#modal-cart-add').modal();
+
+                if(response.notes !== 'default'){
+                    $('#buyer_note').val(response.notes);
+                }
+            }
+            else{
+                if(response.error === "login"){
+                    var redirect = window.location.href;
+                    window.location = "/login?redirect=" + redirect;
+                }
+                else{
+                    alert("There's something wrong, please contact admin");
+                }
             }
         },
         error:function(){

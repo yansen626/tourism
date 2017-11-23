@@ -159,7 +159,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="buyer_note">Note for seller (Optional)</label>
-                        <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note"></textarea>
+                        <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Optional message for seller"></textarea>
                     </div>
                     {{ Form::hidden('cart_id', '', array('id' => 'cart_id')) }}
                 </div>

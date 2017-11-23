@@ -455,78 +455,89 @@ class CartController
     }
 
     public function checkNoteForCartAdd(Request $request){
+        try{
+            if (!Auth::check()){
+                return response()->json(['success' => false, 'error' => 'login']);
+            }
 
-        error_log('CHECK!');
+            $user = Auth::user();
+            $userId = $user->id;
 
-        $user = Auth::user();
-        $userId = $user->id;
+            $product = Product::find(Input::get('product_id'));
 
-        $product = Product::find(Input::get('product_id'));
+            $notes = "default";
 
-        $notes = "default";
+            $note = "";
+            if(!empty(Input::get('color'))){
+                $color = ProductProperty::find(Input::get('color'));
+                $note .= 'color='. $color->description. ';';
+            }
 
-        $note = "";
-        if(!empty(Input::get('color'))){
-            $color = ProductProperty::find(Input::get('color'));
-            $note .= 'color='. $color->description. ';';
+            $carts = Cart::where([['user_id', '=', $userId], ['product_id', '=', $product->id]])->get()->count();
+
+            if($carts > 0){
+                $cart = Cart::where('user_id', $userId)->where('product_id', $product->id);
+                $isExist = false;
+
+                // Get size selection
+                if(!empty(Input::get('size')) && Input::get('size') != '0'){
+                    $size = $product->product_properties()->where('id', Input::get('size'))
+                        ->first();
+                    $cart = $cart->where('size_option', $size->description)->first();
+
+                    // Check if cart has the same selected product property or not
+                    if(!empty($cart)){
+                        $notes = $cart->buyer_note;
+                    }
+                }
+                // Get weight selection
+                elseif(!empty(Input::get('weight')) && Input::get('weight') != '0'){
+                    $weight = $product->product_properties()->where('id', Input::get('weight'))
+                        ->first();
+                    $cart = $cart->where('weight_option', $weight->description)->first();
+
+                    // Check if cart has the same selected product property or not
+                    if(!empty($cart)){
+                        $notes = $cart->buyer_note;
+                    }
+                }
+                // Get qty selection
+                elseif(!empty(Input::get('qty')) && Input::get('qty') != '0'){
+                    $qty = $product->product_properties()->where('id', Input::get('qty'))
+                        ->first();
+                    $cart = $cart->where('qty_option', $qty->description)->first();
+
+                    // Check if cart has the same selected product property or not
+                    if(!empty($cart)){
+                        $notes = $cart->buyer_note;
+                    }
+                }
+                else{
+                    $cart = $cart->whereNull('weight_option')
+                        ->whereNull('size_option')
+                        ->whereNull('qty_option')
+                        ->first();
+
+                    // Check if cart does not have any selected product property or not
+                    if(!empty($cart)){
+                        $notes = $cart->buyer_note;
+                    }
+                }
+            }
+
+            return response()->json([
+                'success'   => true,
+                'notes'     => $notes
+            ]);
+        }
+        catch(\Exception $ex){
+            Utilities::ExceptionLog($ex);
+            return response()->json([
+                'success'   => true,
+                'error'     => 'exception'
+            ]);
         }
 
-        $carts = Cart::where([['user_id', '=', $userId], ['product_id', '=', $product->id]])->get()->count();
-
-        if($carts > 0){
-            $cart = Cart::where('user_id', $userId)->where('product_id', $product->id);
-            $isExist = false;
-
-            // Get size selection
-            if(!empty(Input::get('size')) && Input::get('size') != '0'){
-                $size = $product->product_properties()->where('id', Input::get('size'))
-                    ->first();
-                $cart = $cart->where('size_option', $size->description)->first();
-
-                // Check if cart has the same selected product property or not
-                if(!empty($cart)){
-                    $notes = $cart->buyer_note;
-                }
-            }
-            // Get weight selection
-            elseif(!empty(Input::get('weight')) && Input::get('weight') != '0'){
-                $weight = $product->product_properties()->where('id', Input::get('weight'))
-                    ->first();
-                $cart = $cart->where('weight_option', $weight->description)->first();
-
-                // Check if cart has the same selected product property or not
-                if(!empty($cart)){
-                    $notes = $cart->buyer_note;
-                }
-            }
-            // Get qty selection
-            elseif(!empty(Input::get('qty')) && Input::get('qty') != '0'){
-                $qty = $product->product_properties()->where('id', Input::get('qty'))
-                    ->first();
-                $cart = $cart->where('qty_option', $qty->description)->first();
-
-                // Check if cart has the same selected product property or not
-                if(!empty($cart)){
-                    $notes = $cart->buyer_note;
-                }
-            }
-            else{
-                $cart = $cart->whereNull('weight_option')
-                    ->whereNull('size_option')
-                    ->whereNull('qty_option')
-                    ->first();
-
-                // Check if cart does not have any selected product property or not
-                if(!empty($cart)){
-                    $notes = $cart->buyer_note;
-                }
-            }
-        }
-
-        return response()->json([
-            'success'   => true,
-            'notes'     => $notes
-        ]);
     }
 
     public function storeNotes(Request $request){

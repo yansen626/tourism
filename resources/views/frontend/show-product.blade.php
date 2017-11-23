@@ -291,7 +291,7 @@
                         <div class="col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group">
                                 <label for="buyer_note">Note for seller (Optional):</label>
-                                <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" placeholder="Optional message for seller"></textarea>
+                                <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Optional message for seller"></textarea>
                             </div>
                         </div>
                     </div>
