@@ -135,7 +135,7 @@ Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-log
 // Product
 Route::prefix('/admin/product')->group(function (){
     Route::get('/', 'Admin\ProductController@index')->name('product-list');
-    Route::post('/', 'Admin\ProductController@store');
+    Route::post('/', 'Admin\ProductController@store')->name('product-store');
     Route::get('/create', 'Admin\ProductController@create')->name('product-create');
     Route::get('/edit/{id}', 'Admin\ProductController@edit')->name('product-edit');
     Route::post('/{id}', 'Admin\ProductController@update');

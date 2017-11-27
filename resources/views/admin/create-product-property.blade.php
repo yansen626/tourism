@@ -50,11 +50,11 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 @if($propertyName == 'weight')
                                     <input type="number" id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="1 Kg, 2 Kg, etc" required>
-                                @elseif($propertyname == 'size')
+                                @elseif($propertyName == 'size')
                                     <input id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="Large, Small, Round, Square, etc" required>
-                                @elseif($propertyname == 'qty')
+                                @elseif($propertyName == 'qty')
                                     <input id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="20 Boxes, 10 Units, 200 Pieces, etc" required>
-                                @elseif($propertyname == 'color')
+                                @elseif($propertyName == 'color')
                                     <input id="description" name="description" class="form-control col-md-7 col-xs-12" placeholder="Black, Yellow, White, etc" required>
                                 @endif
                             </div>

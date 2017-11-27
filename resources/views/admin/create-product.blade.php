@@ -40,7 +40,6 @@
                     <div class="x_content">
 
                         {!! Form::open(array('action' => 'Admin\ProductController@store', 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
-                        {{ csrf_field() }}
 
                         @if(count($errors))
                             <div class="form-group">

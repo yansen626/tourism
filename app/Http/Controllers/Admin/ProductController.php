@@ -593,6 +593,14 @@ class ProductController extends Controller
                 $status = Input::get('status');
                 $product->status_id = $status === '1' ? 1 : 2;
 
+                // Check description
+                if(!empty(Input::get('description'))){
+                    $product->description = Input::get('description');
+                }
+                else{
+                    $product->description = null;
+                }
+
                 // Check property
                 $sizeProperties = $product->product_properties()->where('name', '=', 'size')->get();
                 $weightProperties = $product->product_properties()->where('name', '=', 'weight')->get();
@@ -630,13 +638,6 @@ class ProductController extends Controller
                         $product->discount = null;
                         $product->discount_flat = null;
                         $product->price_discounted = $priceDouble;
-                    }
-
-                    if(!empty(Input::get('description'))){
-                        $product->description = Input::get('description');
-                    }
-                    else{
-                        $product->description = null;
                     }
                 }
 
