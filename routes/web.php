@@ -127,7 +127,7 @@ Route::get('/lowids/login/{failed}', function ($failed){
 
 // User
 Route::get('/admin/customer', 'Admin\CustomerController@index')->name('customer-list');
-
+Route::get('/admin/{customerId}/transactions', 'Admin\TransactionController@indexCustomer')->name('customer-transaction-list');
 Route::post('/admin', 'Auth\LoginAdminController@login');
 Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
@@ -258,11 +258,11 @@ Route::get('/admin/option/address', 'Admin\OptionController@index')->name('store
 Route::post('/admin/option/address/save', 'Admin\OptionController@update');
 Route::get('/admin/option/city', 'Admin\OptionController@getCities');
 Route::get('/admin/option/subdistrict', 'Admin\OptionController@getSubdistricts');
-// report
+
+// Report
 Route::prefix('admin/report')->group(function(){
     Route::get('/form', 'Admin\ReportController@index')->name('report-form');
     Route::post('/', 'Admin\ReportController@request');
-    Route::get('/show', 'Admin\ReportController@show')->name('report-preview');
 });
 
 // Admin

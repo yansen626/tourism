@@ -398,7 +398,7 @@ class ProductController extends Controller
 
                     $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-                    $img->save(public_path('storage/product/'. $filename), 75);
+                    $img->save(public_path('storage/product/'. $filename));
 
                     $productImgFeatured = ProductImage::create([
                         'product_id'    => $savedId,
@@ -422,7 +422,7 @@ class ProductController extends Controller
                         $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
 
 
-                        $photo->save(public_path('storage/product/'. $filename), 60);
+                        $photo->save(public_path('storage/product/'. $filename));
 
                         $productPhoto = ProductImage::create([
                             'product_id'    => $savedId,
@@ -668,7 +668,7 @@ class ProductController extends Controller
 
                     $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
-                    $img->save(public_path('storage/product/'. $filename), 75);
+                    $img->save(public_path('storage/product/'. $filename));
 
                     $productImgFeatured = ProductImage::create([
                         'product_id'    => $savedId,
@@ -735,7 +735,7 @@ class ProductController extends Controller
                         $filename = $savedId.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
 
 
-                        $photo->save(public_path('storage/product/'. $filename), 60);
+                        $photo->save(public_path('storage/product/'. $filename));
 
                         $productPhoto = ProductImage::create([
                             'product_id'    => $savedId,

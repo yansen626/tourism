@@ -29,7 +29,7 @@
                                     <label for="description">Start Date <span class="required">*</span></label>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                                    <div class="input-group date" data-provide="datepicker" data-date-format="dd M yyyy">
                                         <input type="text" name="start_date" required="required" class="form-control">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
@@ -42,7 +42,7 @@
                                     <label for="description">Finish Date <span class="required">*</span></label>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                                    <div class="input-group date" data-provide="datepicker" data-date-format="dd M yyyy">
                                         <input type="text" name="finish_date" required="required" class="form-control">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
@@ -69,10 +69,10 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="btn-group" data-toggle="buttons">
                                         <label class="btn btn-default active">
-                                            <input type="radio" name="options" value="10" id="prod-no-opt" checked> Success
+                                            <input type="radio" name="options" value="9" id="prod-no-opt" checked> Success
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="radio" name="options" value="9" id="prod-yes-opt"> Failed
+                                            <input type="radio" name="options" value="10" id="prod-yes-opt"> Failed
                                         </label>
                                     </div>
                                 </div>

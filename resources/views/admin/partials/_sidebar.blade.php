@@ -60,6 +60,11 @@
                             <li><a href="{{ route('top-banner-list') }}">Top Banner</a></li>
                         </ul>
                     </li>
+                    <li><a><i class="fa fa-bar-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('report-form') }}">Show</a></li>
+                        </ul>
+                    </li>
                     <li><a><i class="fa fa-picture-o"></i> Gallery <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
 
@@ -96,11 +101,6 @@
                         <ul class="nav child_menu">
                             <li><a href="{{ route('delivery-type-list') }}">Show</a></li>
                             <li><a href="{{ route('delivery-type-create') }}">Create</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-bar-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{ route('report-form') }}">Show</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-edit"></i> Status <span class="fa fa-chevron-down"></span></a>

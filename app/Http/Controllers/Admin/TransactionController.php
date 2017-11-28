@@ -37,6 +37,17 @@ class TransactionController extends Controller
         return View('admin.show-transactions', compact('transactions'));
     }
 
+    public function indexCustomer($customerId){
+        $transactions = Transaction::where('user_id', $customerId)->orderByDesc('created_on')->get();
+
+        $data = [
+            'transactions'  => $transactions,
+            'customerId'    => $customerId
+        ];
+
+        return View('admin.show-customer-transactions')->with($data);
+    }
+
     public function detail($id){
         $transaction = Transaction::find($id);
 

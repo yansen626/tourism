@@ -63,6 +63,7 @@
                                     <th>First name</th>
                                     <th>Last name</th>
                                     <th>Join Date</th>
+                                    <th>Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -74,6 +75,7 @@
                                         <td>{{ $user->first_name }}</td>
                                         <td>{{ $user->last_name }}t</td>
                                         <td>{{ \Carbon\Carbon::parse($user->created_on)->format('j M Y G:i:s') }}</td>
+                                        <td><a href="{{ route('customer-transaction-list', ['customerId' => $user->id]) }}" class="btn btn-primary" target="_blank">History</a></td>
                                     </tr>
                                     @php( $idx++ )
                                 @endforeach
