@@ -42,7 +42,7 @@ class MidtransController extends Controller
             $json_result = file_get_contents('php://input');
             $json = json_decode($json_result);
 
-//            Utilities::ExceptionLog($json);
+            Utilities::ExceptionLog($json);
 
             $vt = new Veritrans;
             $notif = $vt->status($json->order_id);
@@ -50,8 +50,7 @@ class MidtransController extends Controller
 //            Utilities::ExceptionLog('ORDER ID = '. $notif->order_id);
             $orderid = $notif->order_id;
 
-            sleep(10);
-
+            sleep(15);
 
             DB::transaction(function() use ($orderid, $json){
 
