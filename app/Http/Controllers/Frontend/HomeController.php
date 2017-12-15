@@ -112,4 +112,8 @@ class HomeController extends Controller
 
         return View('frontend.home')->with($data);
     }
+
+    public function terms(){
+        return View('frontend.terms');
+    }
 }

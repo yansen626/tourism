@@ -21,14 +21,8 @@ Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
-/*
-
-Route::get('/register', function (){
-    return view('frontend/register');
-});
-Route::post('/register', 'Auth\RegisterController@create');
-
-Route::get('/', 'Frontend\HomeController@Home')->name('home');*/
+// Terms and Condition
+Route::get('/terms', 'Frontend\HomeController@terms')->name('terms-show');
 
 // Product
 Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsController@products')->name('products');

@@ -16,7 +16,10 @@
 
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-ss-12 padbot10">
                 <h4>Contacts</h4>
-                <div class="foot_address"><span>Lowids</span>Ruko Bintaro Jaya Sektor 9 Blok D No.5</div>
+                <div class="foot_address">
+                    <span>Lowids</span>Ruko Bintaro Jaya Sektor 9 Blok D No.5<br/>
+                    Tangerang, Banten
+                </div>
                 {{--<div class="foot_live_chat"><a href="javascript:void(0);" ><i class="fa fa-comment-o"></i> Live chat</a></div>--}}
             </div>
 
