@@ -30,10 +30,30 @@ class HomeController extends Controller
         $sliderBanners = Banner::where('type', 1)
             ->where('status_id', 1)
             ->get();
-        $banner1st = Banner::where('type',2)->first();
-        $banner2nd = Banner::where('type',3)->first();
-        $banner3rd = Banner::where('type',4)->first();
-        $banner4th = Banner::where('type',5)->first();
+        $banner1st = Banner::where('type',2)->where('status_id', 1)->first();
+
+        if(!empty($banner1st->gallery_id) && $banner1st->gallery->status_id == 2){
+            $banner1st = null;
+        }
+
+        $banner2nd = Banner::where('type',3)->where('status_id', 1)->first();
+
+        if(!empty($banner2nd->gallery_id) && $banner2nd->gallery->status_id == 2){
+            $banner2nd = null;
+        }
+
+        $banner3rd = Banner::where('type',4)->where('status_id', 1)->first();
+
+        if(!empty($banner3rd->gallery_id) && $banner3rd->gallery->status_id == 2){
+            $banner3rd = null;
+        }
+
+        $banner4th = Banner::where('type',5)->where('status_id', 1)->first();
+
+        if(!empty($banner4th->gallery_id) && $banner4th->gallery->status_id == 2){
+            $banner4th = null;
+        }
+
         $categories = Category::orderBy('name')->get();
         $categoryTotal = $categories->count();
 

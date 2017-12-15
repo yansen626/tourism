@@ -98,6 +98,14 @@ class GalleryController extends Controller
         $gallery->updated_at = $dateTimeNow->toDateTimeString();
         $gallery->save();
 
+//        if(Input::get('status') == '2'){
+//            $activeBanner = Banner::where('gallery_id', $gallery->id)->first();
+//            if(!empty($activeBanner)){
+//                $activeBanner->image_path = null;
+//                $activeBanner->url = null;
+//            }
+//        }
+
         return redirect()->route('gallery-list');
     }
 
