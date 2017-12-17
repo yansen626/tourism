@@ -27,16 +27,6 @@
                 <div class="foot_phone"><span>021-7451927</span></div>
                 <div class="foot_phone"><span>021-74860612</span></div>
                 <div class="foot_mail"><a href="mailto:lowids@yahoo.co.id">lowids@yahoo.co.id</a></div>
-                {{--<h4>Information</h4>--}}
-                {{--<ul class="foot_menu">--}}
-                    {{--<li><a href="about.html" >About Us</a></li>--}}
-                    {{--<li><a href="gallery.html" >Gallery<span>new</span></a></li>--}}
-                    {{--<li><a href="javascript:void(0);" >Delivery</a></li>--}}
-                    {{--<li><a href="javascript:void(0);" >Privacy police</a></li>--}}
-                    {{--<li><a href="blog.html" >Blog</a></li>--}}
-                    {{--<li><a href="faq.html" >Faqs</a></li>--}}
-                    {{--<li><a href="contacts.html" >countact us</a></li>--}}
-                {{--</ul>--}}
             </div>
 
             <div class="respond_clear_480"></div>
@@ -80,6 +70,7 @@
 
             <div class="copyright_inf">
                 <span>Lowids© 2017</span>
+                <a href="{{ route('terms-show') }}" style="color: #000000">Terms & Condition</a>
                 <a class="back_top" href="javascript:void(0);" >Back to Top <i class="fa fa-angle-up"></i></a>
             </div>
         </div><!-- //CONTAINER -->
