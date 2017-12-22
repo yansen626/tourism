@@ -753,7 +753,7 @@
 		<!-- CONTAINER -->
 		<div class="container">
 			<hr>
-			<h2>new arrivals</h2>
+			<h2>Produk Terbaru</h2>
 
 			<!-- JCAROUSEL -->
 			<div class="jcarousel-wrapper">
@@ -798,7 +798,7 @@
 	<section>
 		<div class="container">
 			<hr>
-			<h2>Category</h2>
+			<h2>Kategori</h2>
 
 			<div class="list-group category_home_menu category_first_column">
 				@for($i = 0; $i < $firstColumn; $i++)

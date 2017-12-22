@@ -47,23 +47,45 @@
                             </div>
                         @endif
                         <ul>
-                            @for($i=0; $i<4; $i++)
-                                @php( $liID = "ridio".$i )
-                                @php( $price = $resultCollection[$deliveryTypes[$i]->courier->code."-".$deliveryTypes[$i]->code] )
-                                @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
-                                @php( $price = number_format($price, 0, ",", ".") )
+                            @if(!$isTesting)
+                                @for($i=0; $i<4; $i++)
+                                    @php( $liID = "ridio".$i )
+                                    @php( $price = $resultCollection[$deliveryTypes[$i]->courier->code."-".$deliveryTypes[$i]->code] )
+                                    @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
+                                    @php( $price = number_format($price, 0, ",", ".") )
 
-                                <li>
-                                    <input id="{{$liID}}" type="radio" name="shippingRadio" hidden value="{{$valueRadio}}"/>
-                                    <label for="{{$liID}}">{{$deliveryTypes[$i]->courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp {{ $price }}</b>
-                                        {{--@if($deliveryTypes[$i]->courier_id == 1)--}}
+                                    <li>
+                                        <input id="{{$liID}}" type="radio" name="shippingRadio" hidden value="{{$valueRadio}}"/>
+                                        <label for="{{$liID}}">{{$deliveryTypes[$i]->courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp {{ $price }}</b>
+                                            {{--@if($deliveryTypes[$i]->courier_id == 1)--}}
                                             {{--<img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />--}}
-                                        {{--@elseif ($deliveryTypes[$i]->courier_id == 2)--}}
+                                            {{--@elseif ($deliveryTypes[$i]->courier_id == 2)--}}
                                             {{--<img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />--}}
-                                        {{--@endif--}}
-                                    </label>
-                                </li>
-                            @endfor
+                                            {{--@endif--}}
+                                        </label>
+                                    </li>
+                                @endfor
+                            @else
+                                @for($i=0; $i<4; $i++)
+                                    @php( $liID = "ridio".$i )
+                                    @php( $price = 0 )
+                                    @php( $valueRadio = $deliveryTypes[$i]->courier_id."-".$deliveryTypes[$i]->id."-".$price )
+                                    @php( $price = number_format($price, 0, ",", ".") )
+
+                                    <li>
+                                        <input id="{{$liID}}" type="radio" name="shippingRadio" hidden value="{{$valueRadio}}"/>
+                                        <label for="{{$liID}}">{{$deliveryTypes[$i]->courier->description }} - {{ $deliveryTypes[$i]->description }}<b>Rp {{ $price }}</b>
+                                            {{--@if($deliveryTypes[$i]->courier_id == 1)--}}
+                                            {{--<img src="{{ URL::asset('frontend_images/standart_post.jpg') }}" alt="" />--}}
+                                            {{--@elseif ($deliveryTypes[$i]->courier_id == 2)--}}
+                                            {{--<img src="{{ URL::asset('frontend_images/premium_post.jpg') }}" alt="" />--}}
+                                            {{--@endif--}}
+                                        </label>
+                                    </li>
+                                @endfor
+                            @endif
+
+
                         </ul>
                         {{-- antisipasi kalau ternyata ada lebih dari 4 pengiriman --}}
                         @if($deliveryTypes->count() > 4)

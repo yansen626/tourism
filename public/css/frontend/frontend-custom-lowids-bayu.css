@@ -81,6 +81,30 @@ table tr.cart_item .border_bottom{
     width: 60px;
 }
 
+/* END OF CART */
+
+/* LOGIN & REGISTER */
+
+.my_account{
+    padding-top: 90px !important;
+}
+
+.my_account_block .login{
+    float: none;
+    width: 100%;
+    border-right: none;
+}
+
+.my_account_block input[type="submit"]{
+    float: none !important;
+}
+
+.my_account_block input[type="checkbox"] + label{
+    border-top: none;
+}
+
+/* END OF LOGIN & REGISTER */
+
 .product-list .tovar_title{
     width: 100%;
 }

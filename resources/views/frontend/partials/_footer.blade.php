@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-ss-12 padbot10">
-                <h4>Contacts</h4>
+                <h4>Kontak</h4>
                 <div class="foot_address">
                     <span>Lowids</span>Ruko Bintaro Jaya Sektor 9 Blok D No.5<br/>
                     Tangerang, Banten
@@ -49,7 +49,7 @@
                     {{--<input class="btn newsletter_btn" type="submit" value="SIGN UP">--}}
                 {{--</form>--}}
 
-                <h4>we are in social networks</h4>
+                <h4>Media Sosial</h4>
                 <div class="social">
                     {{--<a href="javascript:void(0);" ><i class="fa fa-twitter"></i></a>--}}
                     {{--<a href="javascript:void(0);" ><i class="fa fa-facebook"></i></a>--}}
@@ -70,8 +70,8 @@
 
             <div class="copyright_inf">
                 <span>Lowids© 2017</span>
-                <a href="{{ route('terms-show') }}" style="color: #000000">Terms & Condition</a>
-                <a class="back_top" href="javascript:void(0);" >Back to Top <i class="fa fa-angle-up"></i></a>
+                <a href="{{ route('terms-show') }}" style="color: #000000">Syarat dan Ketentuan</a>
+                <a class="back_top" href="javascript:void(0);" >Kembali ke atas <i class="fa fa-angle-up"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </div><!-- //COPYRIGHT -->

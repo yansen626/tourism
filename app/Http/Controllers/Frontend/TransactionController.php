@@ -112,6 +112,11 @@ class TransactionController extends Controller
             }
         }
 
+        $isTesting = false;
+        if(Auth::user()->email == 'testing@gmail.com'){
+            $isTesting = true;
+        }
+
         //rajaongkir process
         $collect = RajaOngkir::getCost('151', 'city', $Addressdata->city_id, 'city', (string)$totalWeight, $courierThrow);
         $results = $collect->rajaongkir->results;
@@ -129,7 +134,14 @@ class TransactionController extends Controller
 
             }
         }
-        return view('frontend.checkout-step2', compact('resultCollection', 'deliveryTypes'));
+
+        $data = [
+            'resultCollection'      => $resultCollection,
+            'deliveryTypes'         => $deliveryTypes,
+            'isTesting'             => $isTesting
+        ];
+
+        return view('frontend.checkout-step2')->with($data);
     }
 
     //submit shipping and add data to DB

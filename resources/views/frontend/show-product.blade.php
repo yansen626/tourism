@@ -15,7 +15,7 @@
 
                 <!-- SIDEBAR TOVAR DETAILS -->
                 <div class="col-lg-3 col-md-3 sidebar_tovar_details">
-                    <h3><b>other {{$product->category->name}}</b></h3>
+                    <h3><b>Produk {{$product->category->name}} Lain</b></h3>
 
                     <ul class="tovar_items_small clearfix">
                         @foreach($recommendedProducts as $recProduct)
@@ -41,7 +41,7 @@
                 <!-- TOVAR DETAILS WRAPPER -->
                 <div class="col-lg-9 col-md-9 tovar_details_wrapper clearfix">
                     <div class="tovar_details_header clearfix margbot35">
-                        <h3 class="pull-left"><b>{{$product->category->name}}</b></h3>
+                        <h3 class="pull-left"><b>Kategori {{ $product->category->name }}</b></h3>
 
                         <div class="tovar_details_pagination pull-right">
                         </div>
@@ -101,7 +101,7 @@
                                     @endif
                                 @else
                                     <div style="font-size: 18px;">
-                                        <p>Please login first <a href="javascript:void(0);" onclick="loginRedirect()" style="text-decoration: underline;">here</a> to see the price</p>
+                                        <p>Masuk ke Lowids terlebih dahulu di <a href="javascript:void(0);" onclick="loginRedirect()" style="text-decoration: underline;">sini</a> untuk melihat harga</p>
                                     </div>
                                 @endif
 
@@ -129,7 +129,7 @@
 
                                 @if($colors->count() > 0)
                                     <div class="tovar_color_select">
-                                        <p>Select Color</p>
+                                        <p>Pilih Warna</p>
                                         <select id="select-color" class="basic">
                                             @foreach($colors as $color)
                                                 @if($color->primary == 1)
@@ -144,7 +144,7 @@
 
                                 @if($sizes->count() > 0)
                                     <div class="tovar_color_select selection-size">
-                                        <p>Select Size</p>
+                                        <p>Pilih Ukuran</p>
                                         <select id="select-size" class="basic" onchange="onchangeSize(this)">
                                             @foreach($sizes as $size)
                                                 <?php
@@ -172,7 +172,7 @@
 
                                 @if($qtys->count() > 0)
                                     <div class="tovar_color_select selection-qty">
-                                        <p>Select Quantity</p>
+                                        <p>Pilih Jumlah</p>
                                         <select id="select-qty" class="basic" onchange="onchangeQty(this)">
                                             @foreach($qtys as $qty)
                                                 <?php
@@ -193,7 +193,7 @@
                                     {{--@if($product->quantity > 0)--}}
                                     {{--<div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>--}}
                                     {{--@endif--}}
-                                    <div class="add_bag" onclick="addToCartNotes('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>
+                                    <div class="add_bag" onclick="addToCartNotes('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Tambah ke Keranjang</span></div>
                                 </div>
                             @endif
                         </div>
@@ -202,12 +202,12 @@
                     <!-- TOVAR INFORMATION -->
                     <div class="tovar_information">
                         <ul class="tabs clearfix">
-                            <li class="current">Description</li>
+                            <li class="current">Keterangan</li>
                             {{--<li>Information</li>--}}
                         </ul>
                         <div class="box visible">
                             @php( $weightVal = floatval($product->weight / 1000) )
-                            <p><b><span id="weight-label">Weight: {{ $weightVal }} Kg</span></b></p>
+                            <p><b><span id="weight-label">Berat: {{ $weightVal }} Kg</span></b></p>
                             <p>{!! nl2br($product->description) !!}</p>
                         </div>
                         {{--<div class="box"></div>--}}
@@ -270,7 +270,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-xs-12">
                             <div class="form-group">
-                                <label for="cart_qty">Quantity:</label>
+                                <label for="cart_qty">Kuantitas:</label>
                                 <div class="input-group">
                             <span class="input-group-btn">
                               <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
@@ -290,15 +290,15 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group">
-                                <label for="buyer_note">Note for seller (Optional):</label>
-                                <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Optional message for seller"></textarea>
+                                <label for="buyer_note">Catatan Tambahan:</label>
+                                <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Pesan untuk penjual"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="addToCart('{{ $product->id }}')">Add to Cart</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" onclick="addToCart('{{ $product->id }}')">Tambah ke Keranjang</button>
                 </div>
             </div>
         </div>
@@ -312,10 +312,10 @@
                     {{--<h4 class="modal-title" id="myModalLabel">Success</h4>--}}
                 </div>
                 <div class="modal-body text-center">
-                    Success adding product to cart!
+                    Berhasil menambahkan produk ke keranjang belanja
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <a href="{{ route('cart-list') }}" type="button" class="btn btn-primary">View Cart</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                    <a href="{{ route('cart-list') }}" type="button" class="btn btn-primary">Lihat Keranjang Belanja</a>
                 </div>
             </div>
         </div>

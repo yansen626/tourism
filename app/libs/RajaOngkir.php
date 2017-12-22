@@ -54,7 +54,7 @@ class RajaOngkir
             'base_uri' => 'https://pro.rajaongkir.com/api/cost',
             'headers' => [
                 'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded',
                 'key' => env('RAJAONGKIR_API_KEY')
             ],
         ]);

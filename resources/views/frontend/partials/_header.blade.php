@@ -40,22 +40,22 @@
                     <ul class="cart-items">
                         @if(auth()->check())
                             <li class="clearfix">
-                                Welcome,<br/>
+                                Selamat Datang,<br/>
                                 {{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}
                             </li>
-                            <li class="clearfix"><a href="{{ route('user-profile') }}" >Profile</a></li>
-                            <li class="clearfix"><a href="{{ route('user-payment-list') }}" >Transaction</a></li>
+                            <li class="clearfix"><a href="{{ route('user-profile') }}" >Profil</a></li>
+                            <li class="clearfix"><a href="{{ route('user-payment-list') }}" >Transaksi</a></li>
                             <li class="clearfix">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Logout
+                                    Keluar
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
                         @else
-                            <li class="clearfix"><a href="{{ route('login') }}" >Login</a></li>
-                            <li class="clearfix"><a href="{{ route('register') }}" >Register</a></li>
+                            <li class="clearfix"><a href="{{ route('login') }}" >Masuk</a></li>
+                            <li class="clearfix"><a href="{{ route('register') }}" >Daftar</a></li>
                         @endif
                     </ul>
                 </div>
@@ -82,7 +82,7 @@
                     @php ( $cartList = Session::get('cartList')  )
 
                     @if($cartTotal != '0')
-                    <a class="shopping_bag_btn" id="menu-cart" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>shopping cart</p><span>{{$cartTotal}}</span></a>
+                    <a class="shopping_bag_btn" id="menu-cart" href="javascript:void(0);" ><i class="fa fa-shopping-cart"></i><p>KERANJANG BELANJA</p><span>{{$cartTotal}}</span></a>
                     <div class="cart" id="submenu-cart">
                         <ul class="cart-items">
                             @php( $idx = 1 )
@@ -99,14 +99,14 @@
                             @endforeach
                         </ul>
                         <div class="cart_total">
-                            <a class="btn btn-primary" href="{{ route('cart-list') }}">View Cart</a>
+                            <a class="btn btn-primary" href="{{ route('cart-list') }}">Lihat Semua</a>
                         </div>
                     </div>
                     @else
-                        <a class="shopping_bag_btn" href="{{ route('cart-list') }}" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p></a>
+                        <a class="shopping_bag_btn" href="{{ route('cart-list') }}" ><i class="fa fa-shopping-cart"></i><p>KERANJANG BELANJA</p></a>
                     @endif
                 @else
-                    <a class="shopping_bag_btn" href="{{ route('cart-list') }}" ><i class="fa fa-shopping-cart"></i><p>shopping bag</p></a>
+                    <a class="shopping_bag_btn" href="{{ route('cart-list') }}" ><i class="fa fa-shopping-cart"></i><p>KERANJANG BELANJA</p></a>
                 @endif
 
             </div><!-- //SHOPPING BAG -->
@@ -146,7 +146,7 @@
                 {{--@foreach($categories::allCategory() as $category)--}}
                     {{--<li><a href="{{ route('products', ['categoryId' => $category->id, 'categoryName' => $category->name]) }}" >{{ $category->name }}</a></li>--}}
                 {{--@endforeach--}}
-                <li class="sub-menu"><a href="javascript:void(0);" >Category</a>
+                <li class="sub-menu"><a href="javascript:void(0);" >Kategori</a>
                     <!-- MEGA MENU -->
                     <ul class="mega_menu megamenu_col3 clearfix">
                         <?php
