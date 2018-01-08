@@ -291,7 +291,7 @@
                         <div class="col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group">
                                 <label for="buyer_note">Catatan Tambahan:</label>
-                                <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Pesan untuk penjual"></textarea>
+                                <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Catatan tambahan untuk penjual"></textarea>
                             </div>
                         </div>
                     </div>

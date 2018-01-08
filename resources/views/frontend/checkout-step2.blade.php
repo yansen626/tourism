@@ -12,7 +12,7 @@
             <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart-list') }}" >Back shopping cart<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('cart-list') }}" >Kembali ke keranjang belanja<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -27,17 +27,17 @@
             <!-- CHECKOUT BLOCK -->
             <div class="checkout_block">
                 <ul class="checkout_nav">
-                    <li class="done_step">1. Shipping Address</li>
-                    <li class="active_step">2. Delivery</li>
-                    <li>3. Confirm Order</li>
-                    <li class="last">4. Payment</li>
+                    <li class="done_step">1. Alamat</li>
+                    <li class="active_step">2. Pengiriman</li>
+                    <li>3. Konfirmasi Pemesanan</li>
+                    <li class="last">4. Pembayaran</li>
                 </ul>
 
                 <form id="delivery-form" class="form-horizontal" role="form" method="POST" action="{{ route('checkout2Submit') }}">
                     {{ csrf_field() }}
 
                     <div class="checkout_delivery clearfix">
-                        <p class="checkout_title">Delivery Agent</p>
+                        <p class="checkout_title">Agen Pengiriman</p>
                         @if($errors->count() > 0)
                             <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -113,7 +113,7 @@
                             {{--<div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options are available for in-stock items only.</div>--}}
 
                             {{--<input type="submit" value="Continue" class="pull-right btn btn-primary">--}}
-                        <a class="btn btn-primary pull-right" onclick="document.getElementById('delivery-form').submit();" >Continue</a>
+                        <a class="btn btn-primary pull-right" onclick="document.getElementById('delivery-form').submit();" >Lanjutkan</a>
                         {{--<a class="btn active pull-right checkout_block_btn" href="{{route ('checkout3')}}" >Continue</a>--}}
                     </div>
 

@@ -11,7 +11,7 @@
 
         <!-- CONTAINER -->
         <div class="container">
-            <h3 class="pull-left"><b>Shopping bag</b></h3>
+            <h3 class="pull-left"><b>Keranjang Belanja</b></h3>
 
             <div class="pull-right">
                 {{--<a href="{{ route('product-list', ['categoryId' => 0]) }}" >Back to shop<i class="fa fa-angle-right"></i></a>--}}
@@ -36,9 +36,9 @@
                         <thead>
                         <tr>
                             <th class="product-thumbnail"></th>
-                            <th class="product-name">Item</th>
-                            <th class="product-price">Price</th>
-                            <th class="product-quantity">Quantity</th>
+                            <th class="product-name">Produk</th>
+                            <th class="product-price">Harga</th>
+                            <th class="product-quantity">Kuantitas</th>
                             <th class="product-subtotal">Total</th>
                             <th class="product-remove"></th>
                         </tr>
@@ -67,7 +67,7 @@
                                         @endif
                                     </a>
                                     <ul class="variation">
-                                        <li class="variation-Color">Category: <span>{{$cart->Product->Category->name}}</span></li>
+                                        <li class="variation-Color">Kategori: <span>{{$cart->Product->Category->name}}</span></li>
                                         @if(!empty($cart->note))
                                             @php( $notes = explode(';', $cart->note, 2) )
                                             @foreach($notes as $note)
@@ -89,14 +89,14 @@
                             <tr class="cart_item">
                                 <td colspan="5" class="border_bottom">
                                     @if(!empty($cart->buyer_note))
-                                        <p><span style="font-weight: bold;">Note :</span> {{ $cart->buyer_note }}</p>
+                                        <p><span style="font-weight: bold;">Catatan :</span> {{ $cart->buyer_note }}</p>
                                     @endif
                                 </td>
                                 <td class="border_bottom" style="padding-right: 0">
                                     @if(!empty($cart->buyer_note))
-                                        <button class="btn btn-sm btn-dark" onclick="getNotes('{{ $cart->id }}')">Edit Note</button>
+                                        <button class="btn btn-sm btn-dark" onclick="getNotes('{{ $cart->id }}')">Ubah Catatan</button>
                                     @else
-                                        <button class="btn btn-sm btn-dark" onclick="getNotes('{{ $cart->id }}')">Add Note</button>
+                                        <button class="btn btn-sm btn-dark" onclick="getNotes('{{ $cart->id }}')">Tambah Catatan</button>
                                     @endif
                                 </td>
                             </tr>
@@ -113,16 +113,16 @@
 
                     <!-- BAG TOTALS -->
                     <div class="sidepanel widget_bag_totals">
-                        <h3>BAG TOTALS</h3>
+                        <h3>RINGKASAN</h3>
                         <table class="bag_total">
-                            <tr class="cart-subtotal clearfix">
-                                <th>Sub total</th>
-                                <td id="sub-total-price">Rp. {{ $totalPrice }}</td>
-                            </tr>
-                            <tr class="shipping clearfix">
-                                <th>SHIPPING</th>
-                                <td>-</td>
-                            </tr>
+                            {{--<tr class="cart-subtotal clearfix">--}}
+                                {{--<th>Sub total</th>--}}
+                                {{--<td id="sub-total-price">Rp. {{ $totalPrice }}</td>--}}
+                            {{--</tr>--}}
+                            {{--<tr class="shipping clearfix">--}}
+                                {{--<th>SHIPPING</th>--}}
+                                {{--<td>-</td>--}}
+                            {{--</tr>--}}
                             <tr class="total clearfix">
                                 <th>Total</th>
                                 <td id="total-price">Rp. {{ $totalPrice }}</td>
@@ -130,9 +130,9 @@
                         </table>
 
                         @if($carts->count() > 0)
-                            <a class="btn btn-primary" href="{{ route('checkout') }}" >Check out</a>
+                            <a class="btn btn-primary" href="{{ route('checkout') }}" >CHECKOUT</a>
                         @else
-                            <button class="btn btn-primary" disabled>Check out</button>
+                            <button class="btn btn-primary" disabled>CHECKOUT</button>
                         @endif
                         {{--<a class="btn inactive" href="{{ route('product-list', ['categoryId' => 0]) }}" >Continue shopping</a>--}}
                     </div><!-- //REGISTRATION FORM -->
@@ -158,14 +158,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="buyer_note">Note for seller (Optional)</label>
-                        <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Optional message for seller"></textarea>
+                        <label for="buyer_note">Catatan Tambahan</label>
+                        <textarea rows="5" style="resize: vertical" id="buyer_note" name="buyer_note" maxlength="50" placeholder="Catatan tambahan untuk penjual"></textarea>
                     </div>
                     {{ Form::hidden('cart_id', '', array('id' => 'cart_id')) }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
 
                 {!! Form::close() !!}

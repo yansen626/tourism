@@ -14,7 +14,7 @@
             <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart-list') }}" >Back shopping cart<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('cart-list') }}" >Kembali ke keranjang belanja<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -29,10 +29,10 @@
             <!-- CHECKOUT BLOCK -->
             <div class="checkout_block">
                 <ul class="checkout_nav">
-                    <li class="done_step2">1. Shipping Address</li>
-                    <li class="done_step">2. Delivery</li>
-                    <li class="done_step">3. Confirm Order</li>
-                    <li class="active_step last">4. Payment</li>
+                    <li class="done_step2">1. Alamat</li>
+                    <li class="done_step">2. Pengiriman</li>
+                    <li class="done_step">3. Konfirmasi Pemesanan</li>
+                    <li class="active_step last">4. Pembayaran</li>
                 </ul>
 
                 {{--<div class="checkout_payment clearfix">--}}
@@ -59,7 +59,7 @@
                         {{ csrf_field() }}
                     <div class="col-lg-9 col-md-9 padbot60">
                         <div class="checkout_delivery clearfix">
-                            <p class="checkout_title">PAYMENT METHOD</p>
+                            <p class="checkout_title">PILIH METODE PEMBAYARAN</p>
                             @if($errors->count() > 0)
                                 <div class="alert alert-danger alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -77,14 +77,14 @@
                             @endif
 
                             <ul>
-                                <li>
+                                <li style="width: auto !important;">
                                     <input id="ridio1" type="radio" name="payment" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
-                                    <label for="ridio1"><b>Bank Transfer</b></label>
+                                    <label for="ridio1"><b>Transfer Bank ke akun virtual</b></label>
                                 </li>
 
                                 <li>
                                     <input id="ridio2" type="radio" name="payment" hidden value="credit_card" onchange="handleChangePayment(this);" />
-                                    <label for="ridio2"><b>Credit Card</b></label>
+                                    <label for="ridio2"><b>Kartu Kredit</b></label>
                                 </li>
                             </ul>
                         </div>
@@ -93,19 +93,19 @@
 
                         <!-- BAG TOTALS -->
                         <div class="sidepanel widget_bag_totals your_order_block">
-                            <h3>Your Order</h3>
+                            <h3>Pesanan Anda</h3>
                             <table class="bag_total">
                                 <tr class="cart-subtotal clearfix">
-                                    <th>Sub total</th>
+                                    <th>Sub Total</th>
                                     <td>Rp {{$totalPrice}}</td>
                                 </tr>
                                 <tr class="shipping clearfix">
-                                    <th>SHIPPING</th>
+                                    <th>Ongkos Kirim</th>
                                     <td>Rp {{$shipping}}</td>
                                 </tr>
                                 <tr class="shipping clearfix">
                                     <input type="hidden" id="selected-fee" name="selected-fee" value="0">
-                                    <th>ADMIN</th>
+                                    <th>Biaya Administrasi</th>
                                     <td id="admin-fee">Rp 0</td>
                                 </tr>
                                 <tr class="total clearfix">
@@ -113,11 +113,11 @@
                                     <th>Total</th>
                                     <td id="grand-total-price">Rp {{$grandTotal}}</td>
                                 </tr>
-                                <tr class="shipping clearfix">
-                                    <th style="color:red">Price includes admin fee</th>
-                                </tr>
+                                {{--<tr class="shipping clearfix">--}}
+                                    {{--<th style="color:red">Price includes admin fee</th>--}}
+                                {{--</tr>--}}
                             </table>
-                            <a class="btn btn-primary" onclick="document.getElementById('myForm').submit();" >Pay</a>
+                            <a class="btn btn-primary" onclick="document.getElementById('myForm').submit();" >BAYAR SEKARANG</a>
                         </div><!-- //REGISTRATION FORM -->
                     </div><!-- //SIDEBAR -->
 

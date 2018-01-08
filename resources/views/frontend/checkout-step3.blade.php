@@ -15,7 +15,7 @@
             <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart-list') }}" >Back shopping cart<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('cart-list') }}" >Kembali ke keranjang belanja<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -30,10 +30,10 @@
             <!-- CHECKOUT BLOCK -->
             <div class="checkout_block">
                 <ul class="checkout_nav">
-                    <li class="done_step">1. Shipping Address</li>
-                    <li class="done_step">2. Delivery</li>
-                    <li class="active_step">3. Confirm Order</li>
-                    <li class="last">4. Payment</li>
+                    <li class="done_step">1. Alamat</li>
+                    <li class="done_step">2. Pengiriman</li>
+                    <li class="active_step">3. Konfirmasi Pemesanan</li>
+                    <li class="last">4. Metode Pembayaran</li>
                 </ul>
             </div><!-- //CHECKOUT BLOCK -->
 
@@ -43,7 +43,7 @@
                     <div class="checkout_confirm_orded clearfix">
                         <div class="checkout_confirm_orded_bordright clearfix">
                             <div class="billing_information">
-                                <p class="checkout_title margbot10">Billing information</p>
+                                <p class="checkout_title margbot10">Informasi Billing</p>
 
                                 <div class="billing_information_content margbot40">
                                     <span>{{$userData->first_name}} {{$userData->last_name}}</span>
@@ -51,7 +51,7 @@
                                     <span>{{$userData->email}}</span>
                                 </div>
 
-                                <p class="checkout_title margbot10">Shipping adress</p>
+                                <p class="checkout_title margbot10">Alamat Pengiriman</p>
 
                                 <div class="billing_information_content margbot40">
                                     <span>{{$userAddress->name}}</span>
@@ -63,14 +63,14 @@
                             </div>
 
                             <div class="payment_delivery">
-                                <p class="checkout_title margbot10">Payment and delivery</p>
+                                <p class="checkout_title margbot10">Agen Pengiriman</p>
                                 <p>{{ $carts[0]->courier->description }}<br/>
                                 {{ $carts[0]->deliveryType->description }}</p>
                             </div>
                         </div>
 
                         <div class="checkout_confirm_orded_products">
-                            <p class="checkout_title">Products</p>
+                            <p class="checkout_title">Produk Pesanan</p>
                             <ul class="cart-items">
                                 @foreach($carts as $cart)
                                     <li class="clearfix">
@@ -100,14 +100,14 @@
 
                     <!-- BAG TOTALS -->
                     <div class="sidepanel widget_bag_totals your_order_block">
-                        <h3>Your Order</h3>
+                        <h3>Pesanan Anda</h3>
                         <table class="bag_total">
                             <tr class="cart-subtotal clearfix">
                                 <th>Sub total</th>
                                 <td>Rp {{$totalPrice}}</td>
                             </tr>
                             <tr class="shipping clearfix">
-                                <th>SHIPPING</th>
+                                <th>Ongkos  Kirim</th>
                                 <td>Rp {{$shipping}}</td>
                             </tr>
                             <tr class="total clearfix">
@@ -115,8 +115,8 @@
                                 <td>Rp {{$grandTotal}}</td>
                             </tr>
                         </table>
-                        <a class="btn btn-primary" href="{{ Route('checkout4') }}" >Select Payment</a>
-                        <a class="btn btn-primary" href="{{ route('checkout2') }}" >Back</a>
+                        <a class="btn btn-primary" href="{{ Route('checkout4') }}" >Pilih Metode Pembayaran</a>
+                        <a class="btn btn-primary" href="{{ route('checkout2') }}" >Kembali</a>
                     </div><!-- //REGISTRATION FORM -->
                 </div><!-- //SIDEBAR -->
             </div><!-- //ROW -->
