@@ -399,16 +399,27 @@ class MidtransController extends Controller
 //                    return redirect()->route('checkout4', ['ex' => 'stock']);
 //                }
 //            }
+            $paymentMethod = 3;
+            if($enabledPayments == 'credit_card'){
+                $paymentMethod = 2;
+            }
+            else if($enabledPayments == 'bank_transfer'){
+                $paymentMethod = 1;
+            }
+            else {
+                $paymentMethod = 3;
+            }
 
             foreach($carts as $cart){
-                $cart->payment_method = $enabledPayments == 'credit_card'? 2:1;
+                $cart->payment_method = $paymentMethod;
+//                $cart->payment_method = $enabledPayments == 'credit_card'? 2:1;
                 $cart->admin_fee = $adminFee;
                 $cart->save();
             }
 
             $cartsToMidtrans = $carts;
 
-            if($enabledPayments == 'bank_transfer'){
+            if($enabledPayments == 'bank_transfer' || $enabledPayments == 'manual_transfer'){
                 //transactions data
                 $dateTimeNow = Carbon::now('Asia/Jakarta');
                 $carts = Cart::where('user_id', $userId)->get();
@@ -506,7 +517,7 @@ class MidtransController extends Controller
                     'id'                => Uuid::generate(),
                     'user_id'           => $userId,
                     'order_id'          => $orderId,
-                    'payment_method_id' => $enabledPayments == 'credit_card'? 2:1,
+                    'payment_method_id' => $paymentMethod,
                     'total_payment'     => $totalPriceWithDeliveryFeeAdminFee,
                     'total_price'       => $totalPrice,
                     'total_weight'      => $totalWeight,
@@ -614,6 +625,11 @@ class MidtransController extends Controller
                 Session::forget('cartTotal');
                 Session::pull('cartList');
                 Session::pull('cartTotal');
+            }
+
+            //if payment select manual transfer redirect to account bank view
+            if($enabledPayments == "manual_transfer"){
+                return redirect()->route('checkout-bank-account');
             }
 
             //set data to request

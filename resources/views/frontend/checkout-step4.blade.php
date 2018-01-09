@@ -72,19 +72,24 @@
                             @if(!empty($ex))
                                 <div class="alert alert-danger alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                        One of your products is out of stock, return to shopping cart <a class="custom-link" href="{{ route('cart-list') }}" >here</a>
+                                        Stok dari salah satu dari produk telah kosong, kembali ke keranjang belanja <a class="custom-link" href="{{ route('cart-list') }}" >klik disini</a>
                                 </div>
                             @endif
 
                             <ul>
                                 <li style="width: auto !important;">
-                                    <input id="ridio1" type="radio" name="payment" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
-                                    <label for="ridio1"><b>Transfer Bank ke akun virtual</b></label>
+                                    <input id="ridio1" type="radio" name="payment" hidden value="manual_transfer" onchange="handleChangePayment(this);" />
+                                    <label for="ridio1"><b>Transfer Secara Manual</b></label>
+                                </li>
+
+                                <li style="width: auto !important;">
+                                    <input id="ridio2" type="radio" name="payment" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
+                                    <label for="ridio2"><b>Transfer Bank ke akun virtual</b></label>
                                 </li>
 
                                 <li>
-                                    <input id="ridio2" type="radio" name="payment" hidden value="credit_card" onchange="handleChangePayment(this);" />
-                                    <label for="ridio2"><b>Kartu Kredit</b></label>
+                                    <input id="ridio3" type="radio" name="payment" hidden value="credit_card" onchange="handleChangePayment(this);" />
+                                    <label for="ridio3"><b>Kartu Kredit</b></label>
                                 </li>
                             </ul>
                         </div>

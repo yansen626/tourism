@@ -297,8 +297,19 @@ function handleChangePayment(myRadio){
         $("#grand-total-value").val(newGrandTotalValue);
         $("#grand-total-price").html(newGrandTotal);
     }
-    else{
+    else if(selectedValue == "credit_card"){
         var fee = ((parseInt(grandTotalValue) - parseInt(selectedFeeValue)) * 0.03) + 2000;
+        selectedFee = addCommas(fee);
+        newGrandTotalValue = parseInt(grandTotalValue) - parseInt(selectedFeeValue) + fee;
+        newGrandTotal = addCommas(newGrandTotalValue);
+
+        $("#selected-fee").val(fee);
+        $('#admin-fee').html(selectedFee);
+        $("#grand-total-value").val(newGrandTotalValue);
+        $("#grand-total-price").html(newGrandTotal);
+    }
+    else{
+        var fee = 0;
         selectedFee = addCommas(fee);
         newGrandTotalValue = parseInt(grandTotalValue) - parseInt(selectedFeeValue) + fee;
         newGrandTotal = addCommas(newGrandTotalValue);

@@ -36,7 +36,7 @@
                 </ul>
 
 
-                <form class="checkout_form clearfix" role="form" method="POST" action="{{ route('checkout3BankSubmit') }}">
+                <form class="checkout_form clearfix" role="form" method="POST" action="{{ route('checkoutBankSubmit') }}">
                     {{ csrf_field() }}
 
                     @if ($errors->has('sender_name') || $errors->has('transfer_date') || $errors->has('receiver_bank') || $errors->has('transfer_amount'))
@@ -57,12 +57,12 @@
                     @endif
 
                     <div class="checkout_form_input ">
-                        <label>Sender Name <span class="color_red">*</span></label>
+                        <label>Nama Pemilik Rekening <span class="color_red">*</span></label>
                         <input type="text" name="sender_name" value="" placeholder="" />
                     </div>
 
                     <div class="checkout_form_input ">
-                        <label>Transfer date <span class="color_red">*</span></label>
+                        <label>Tanggal Transfer <span class="color_red">*</span></label>
                         <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                             <input type="text" name="transfer_date" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -71,24 +71,24 @@
 
 
                     <div class="checkout_form_input ">
-                        <label>Receiver Bank <span class="color_red">*</span></label>
+                        <label>Bank Penerima <span class="color_red">*</span></label>
                         <input type="text" name="receiver_bank" value="" placeholder="" />
                     </div>
 
                     <div class="checkout_form_input">
-                        <label>Transfer Amount <span class="color_red">*</span></label>
+                        <label>Jumlah Transfer <span class="color_red">*</span></label>
                         <div class="price-format">
                             <input type="text" name="transfer_amount" value="" placeholder="" />
                         </div>
                     </div>
 
                     <div class="checkout_form_input2 ">
-                        <label>Note</label>
+                        <label>Catatan</label>
                         <input type="text" name="note" value="" placeholder="" />
                     </div>
                     <div class="clear"></div>
 
-                    <div class="checkout_form_note">All fields marked with (<span class="color_red">*</span>) are required</div>
+                    <div class="checkout_form_note">Semua isian yang bertanda (<span class="color_red">*</span>) harus diisi</div>
 
                     <input type="submit" value="Submit" class="btn active pull-right">
                 </form>

@@ -18,6 +18,7 @@ use App\Models\Address;
 use App\Models\Courier;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\TransferConfirmation;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\DeliveryType;
@@ -231,30 +232,56 @@ class TransactionController extends Controller
 //        return view('frontend.checkout-step4-bank');
 //    }
 //
-//    //bank transfer process
-//    public function CheckoutProcessBankSubmit(Request $request){
-//        $user = Auth::user();
-//        $userId = $user->id;
-//
-//        $validator = Validator::make($request->all(),[
-//            'sender_name'                   => 'required',
-//            'transfer_date'                  => 'required',
-//            'receiver_bank'                 => 'required',
-//            'transfer_amount'                => 'required'
-//        ]);
-//
-//        if ($validator->fails()) {
-//            $this->throwValidationException(
-//                $request, $validator
-//            );
-//        }
-//        else {
-//
-//        }
-//
-//        //return ke page transaction
-//        return redirect()->route('checkout4');
-//    }
+    //show bank account
+    public function CheckoutProcessBankAccount(){
+        return view('frontend.show-account-bank');
+    }
+
+    public function CheckoutProcessBank(){
+        return view('frontend.checkout-step4-bank');
+    }
+
+    //bank transfer process
+    public function CheckoutProcessBankSubmit(Request $request){
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $validator = Validator::make($request->all(),[
+            'sender_name'                   => 'required',
+            'transfer_date'                  => 'required',
+            'receiver_bank'                 => 'required',
+            'transfer_amount'                => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $id = Uuid::generate();
+        $dateTimeNow = Carbon::now('Asia/Jakarta');
+
+        $transferConfirmation = TransferConfirmation::create([
+            'id'                => $id,
+            'user_id'           => $userId,
+            'transaction_id'    => "ec6bc220-f4f3-11e7-a467-1f0c71b37ffd",
+            'receiver_bank'     => Input::get('receiver_bank'),
+            'transfer_amount'   => Input::get('transfer_amount'),
+            'sender_name'       => Input::get('sender_name'),
+            'transfer_date'     => Input::get('transfer_date'),
+//            'note'              => $cart->getOriginal('total_price'),
+            'status_id'         => 3,
+            'created_on'        => $dateTimeNow->toDateTimeString(),
+            'created_by'        => $userId
+        ]);
+
+
+
+        //return ke page transaction
+        return redirect()->route('checkout4');
+    }
 
     //payment online failed
     public function CheckoutProcessFailed(){
@@ -270,4 +297,5 @@ class TransactionController extends Controller
 
         return view('frontend.checkout-step4-failed');
     }
+
 }
