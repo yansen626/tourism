@@ -92,6 +92,8 @@ class ProductController extends Controller
                     ->withInput();
             }
 
+            dd(Input::get('size-stock'));
+
             // Validation of no options selected
             if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'no' && Input::get('qty-options') == 'no'){
                 $validator = Validator::make($request->all(),[

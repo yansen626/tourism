@@ -96,17 +96,27 @@
                         <div id="input-group-size" style="display: none;">
                             <div class="item form-group control-group-size after-add-more-size">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
-                                    <input name="size[]" class="form-control" placeholder="Size (Primary)">
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
-                                <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Primary)">
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6">
-                                    <div class="input-group">
-                                        <input type="number" name="size-price[]" class="form-control" placeholder="Price (Primary)">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                            <input name="size[]" class="form-control" placeholder="Size (Primary)">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                            <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram (Primary)">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                            <div class="input-group">
+                                                <input type="number" name="size-price[]" class="form-control" placeholder="Price (Primary)">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-success add-more-size" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                            <select class="form-control" name="size-stock[]">
+                                                <option value="true" selected>Ready Stock</option>
+                                                <option value="false">Out of Stock</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -114,17 +124,27 @@
                             <div class="copy-size hide">
                                 <div class="item form-group control-group-size">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <input name="size[]" class="form-control" placeholder="Size">
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-6">
-                                    <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram">
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-6">
-                                        <div class="input-group">
-                                            <input type="number" name="size-price[]" class="form-control" placeholder="Price">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <input name="size[]" class="form-control" placeholder="Size">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <input type="number" name="size-weight[]" class="form-control" placeholder="Weight in Gram">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <div class="input-group">
+                                                    <input type="number" name="size-price[]" class="form-control" placeholder="Price">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-danger remove-size" type="button"><i class="glyphicon glyphicon-plus"></i> Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <select class="form-control" name="size-stock[]">
+                                                    <option value="true" selected>Ready stock</option>
+                                                    <option value="false">Out of Stock</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
