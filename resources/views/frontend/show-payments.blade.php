@@ -27,12 +27,12 @@
 
                     <!-- ROW -->
                     <div class="row">
-                        <h2>PAYMENT STATUS</h2>
+                        <h2>STATUS PEMBAYARAN</h2>
                         <form class="form-inline">
                             <div class="form-group">
                                 <div class="input-daterange input-group" id="datepicker">
                                     <input id="start" type="text" class="input-sm form-control" name="start" value="{{ $date_start }}"/>
-                                    <span  class="input-group-addon">to</span>
+                                    <span  class="input-group-addon">sampai</span>
                                     <input id="end" type="text" class="input-sm form-control" name="end" value="{{ $date_end }}"/>
                                 </div>
                             </div>
@@ -57,34 +57,40 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading table-wrapper" data-toggle="collapse" href="#order-{{ $idx }}" style="cursor: pointer;">
                                                     <a class="invoice-link" href="{{ route('invoice-view', ['id' => $trx->id]) }}"><b>{{ $trx->invoice }}</b></a><br/>
-                                                    Order Date: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}<br/>
+                                                    Tanggal Order: {{ \Carbon\Carbon::parse($trx->created_on)->format('j F Y') }} | Total: Rp {{ $trx->total_payment }}<br/>
                                                     <b>Status</b><br/>
-                                                    @if($trx->status_id == 3)
-                                                        Pending Payment
-                                                    @elseif($trx->status_id == 4)
-                                                        Payment Verification
+
+                                                    @if($trx->payment_method_id == 3 && $trx->status_id == 3)
+                                                        <a href="{{ route('checkout-bank', ['invoice' => $trx->invoice]) }}" class="btn btn-success btn-sm" >Konfirmasi Pembayaran</a>
+                                                    @else
+                                                        @if($trx->status_id == 3)
+                                                            Pembayaran Pending
+                                                        @elseif($trx->status_id == 4)
+                                                            Verifikasi Pembayaran
+                                                        @endif
                                                     @endif
+
                                                     <div class="arrow-show">
-                                                        <i class="fa fa-arrow-circle-o-down">&nbsp;<b>Show</b></i>
+                                                        <i class="fa fa-arrow-circle-o-down">&nbsp;<b>Tampilkan</b></i>
                                                     </div>
                                                 </div>
                                                 <div id="order-{{ $idx }}" class="panel-collapse collapse">
                                                     <div class="panel-body">
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-6">
-                                                                <b>Shipping ( {{ $trx->courier }} - {{ $trx->delivery_type }} )</b><br/>
+                                                                <b>Pengiriman ( {{ $trx->courier }} - {{ $trx->delivery_type }} )</b><br/>
                                                                 {{ $trx->address_name }}<br/>
                                                                 {{ $trx->address_detail }}<br/>
                                                                 {{ $trx->subdistrict_name }}, {{ $trx->city_name }}, {{ $trx->postal_code }}<br/>
                                                                 {{ $trx->province_name }}
                                                             </div>
                                                             <div class="col-lg-3 col-md-3">
-                                                                <b>Weight</b><br/>
+                                                                <b>Berat</b><br/>
                                                                 @php( $totalWeightVal = floatval($trx->total_weight / 1000) )
                                                                 {{ $totalWeightVal }} Kg
                                                             </div>
                                                             <div class="col-lg-3 col-md-3">
-                                                                <b>Delivery Fee</b><br/>
+                                                                <b>Ongkos Kirim</b><br/>
                                                                 Rp {{ $trx->delivery_fee }}
                                                             </div>
                                                         </div>
@@ -95,13 +101,13 @@
                                                                 <table class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th>Name</th>
-                                                                        <th>Weight</th>
-                                                                        <th>Price</th>
-                                                                        <th>Quantity</th>
-                                                                        <th>Subtotal Price</th>
-                                                                        <th>Note</th>
-                                                                        <th>Featured Photo</th>
+                                                                        <th>Nama</th>
+                                                                        <th>Berat</th>
+                                                                        <th>Harga</th>
+                                                                        <th>Jumlah</th>
+                                                                        <th>Harga Subtotal</th>
+                                                                        <th>Catatan</th>
+                                                                        <th>Foto</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>

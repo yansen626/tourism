@@ -11,10 +11,9 @@
 
         <!-- CONTAINER -->
         <div class="container border0 margbot0">
-            <h3 class="pull-left"><b>Checkout</b></h3>
 
             <div class="pull-right">
-                <a href="{{ route('cart-list') }}" >Back shopping bag<i class="fa fa-angle-right"></i></a>
+                <a href="{{ route('user-payment-list') }}" >Kembali<i class="fa fa-angle-right"></i></a>
             </div>
         </div><!-- //CONTAINER -->
     </section><!-- //PAGE HEADER -->
@@ -28,16 +27,10 @@
 
             <!-- CHECKOUT BLOCK -->
             <div class="checkout_block">
-                <ul class="checkout_nav">
-                    <li class="done_step2">1. Shipping Address</li>
-                    <li class="done_step">2. Delivery</li>
-                    <li class="active_step">3. Confirm Order</li>
-                    <li class="last">4. Payment</li>
-                </ul>
-
-
+                <h1>Konfirmasi Transfer</h1>
                 <form class="checkout_form clearfix" role="form" method="POST" action="{{ route('checkoutBankSubmit') }}">
                     {{ csrf_field() }}
+                    {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
 
                     @if ($errors->has('sender_name') || $errors->has('transfer_date') || $errors->has('receiver_bank') || $errors->has('transfer_amount'))
                         <div class="form-group">
@@ -55,6 +48,8 @@
                             </div>
                         </div>
                     @endif
+
+                    <input type="hidden" name="id" value="{{ $data }}" />
 
                     <div class="checkout_form_input ">
                         <label>Nama Pemilik Rekening <span class="color_red">*</span></label>

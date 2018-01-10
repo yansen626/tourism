@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('checkout-bank') }}" class="btn btn-primary" >PROSES SEKARANG</a>
+                            <a href="{{ route('checkout-bank', ['invoice' => $data]) }}" class="btn btn-primary" >PROSES SEKARANG</a>
                         </div>
                     </form>
                 </div>

@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Webpatser\Uuid\Uuid;
@@ -233,12 +234,15 @@ class TransactionController extends Controller
 //    }
 //
     //show bank account
-    public function CheckoutProcessBankAccount(){
-        return view('frontend.show-account-bank');
+    public function CheckoutProcessBankAccount($invoice){
+        $data = $invoice;
+        return view('frontend.show-account-bank', compact('data'));
     }
 
-    public function CheckoutProcessBank(){
-        return view('frontend.checkout-step4-bank');
+    public function CheckoutProcessBank($invoice){
+        $trxId = Transaction::where('invoice', $invoice)->first();
+        $data = $trxId->id;
+        return view('frontend.checkout-step4-bank', compact('data'));
     }
 
     //bank transfer process
@@ -261,26 +265,33 @@ class TransactionController extends Controller
         }
 
         $id = Uuid::generate();
+        $trxId = Input::get('id');
         $dateTimeNow = Carbon::now('Asia/Jakarta');
+        $transferDate = Carbon::createFromFormat('d/m/Y', Input::get('transfer_date'), 'Asia/Jakarta');
+
+        $price = Input::get('transfer_amount');
+        $priceDouble = (double) str_replace('.','', $price);
 
         $transferConfirmation = TransferConfirmation::create([
             'id'                => $id,
             'user_id'           => $userId,
-            'transaction_id'    => "ec6bc220-f4f3-11e7-a467-1f0c71b37ffd",
+            'transaction_id'    => $trxId,
             'receiver_bank'     => Input::get('receiver_bank'),
-            'transfer_amount'   => Input::get('transfer_amount'),
+            'transfer_amount'   => $priceDouble,
             'sender_name'       => Input::get('sender_name'),
-            'transfer_date'     => Input::get('transfer_date'),
-//            'note'              => $cart->getOriginal('total_price'),
+            'transfer_date'     => $transferDate->toDateString(),
+            'note'              => Input::get('note'),
             'status_id'         => 3,
             'created_on'        => $dateTimeNow->toDateTimeString(),
             'created_by'        => $userId
         ]);
 
-
+        $transaction = Transaction::find($trxId);
+        $transaction->status_id = 4;
+        $transaction->save();
 
         //return ke page transaction
-        return redirect()->route('checkout4');
+        return redirect()->route('user-order-list');
     }
 
     //payment online failed

@@ -542,7 +542,8 @@ class MidtransController extends Controller
                     'created_by'        => $userId
                 ]);
 
-                $transaction->invoice = Utilities::GenerateInvoice();
+                $invoice = Utilities::GenerateInvoice();
+                $transaction->invoice = $invoice;
                 $transaction->save();
 
                 $savedId = $transaction->id;
@@ -629,7 +630,7 @@ class MidtransController extends Controller
 
             //if payment select manual transfer redirect to account bank view
             if($enabledPayments == "manual_transfer"){
-                return redirect()->route('checkout-bank-account');
+                return redirect()->route('checkout-bank-account', ['invoice' => $invoice]);
             }
 
             //set data to request

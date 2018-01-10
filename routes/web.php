@@ -58,8 +58,8 @@ Route::get('checkout-3', 'Frontend\TransactionController@CheckoutProcess3')->nam
 Route::get('checkout-4', 'Frontend\TransactionController@CheckoutProcess4')->name('checkout4');
 Route::get('checkout-success/{userId}', 'MidtransController@success');
 Route::get('checkout-failed', 'Frontend\TransactionController@CheckoutProcessFailed')->name('checkout-failed');
-Route::get('checkout-bank-account', 'Frontend\TransactionController@CheckoutProcessBankAccount')->name('checkout-bank-account');
-Route::get('checkout-bank', 'Frontend\TransactionController@CheckoutProcessBank')->name('checkout-bank');
+Route::get('checkout-bank-account/{invoice}', 'Frontend\TransactionController@CheckoutProcessBankAccount')->name('checkout-bank-account');
+Route::get('checkout-bank/{invoice}', 'Frontend\TransactionController@CheckoutProcessBank')->name('checkout-bank');
 Route::post('/checkout-bank-submit', [
     'uses' => 'Frontend\TransactionController@CheckoutProcessBankSubmit',
     'as' => 'checkoutBankSubmit'
