@@ -41,6 +41,9 @@ class ProductsController extends Controller
             $products = $products->where('price_discounted', '>=', floatval(request()->min));
         }
 
+        // Filter ready stock
+        $products = $products->where('is_ready', 1)->orWhere('is_ready', 3);
+
         if(!empty(request()->sort)){
             $sort = request()->sort;
             if($sort == '1'){
@@ -93,9 +96,9 @@ class ProductsController extends Controller
             ->get();
 
         $colors = $product->product_properties()->where('name','color')->get();
-        $sizes = $product->product_properties()->where('name','size')->orderBy('price')->get();
-        $weights = $product->product_properties()->where('name','weight')->orderBy('description')->get();
-        $qtys = $product->product_properties()->where('name','qty')->get();
+        $sizes = $product->product_properties()->where('name','size')->where('is_ready', 1)->orderBy('price')->get();
+        $weights = $product->product_properties()->where('name','weight')->where('is_ready', 1)->orderBy('description')->get();
+        $qtys = $product->product_properties()->where('name','qty')->where('is_ready', 1)->get();
 
         $data =[
             'product'               => $product,
@@ -128,6 +131,11 @@ class ProductsController extends Controller
         else if(empty(request()->max && !empty(request()->min))){
             $products = $products->where('price_discounted', '>=', floatval(request()->min));
         }
+
+        $products = $products->where(function($query){
+            $query->where('is_ready', 1)
+                ->orWhere('is_ready', 3);
+        });
 
         if(!empty(request()->sort)){
             $sort = request()->sort;

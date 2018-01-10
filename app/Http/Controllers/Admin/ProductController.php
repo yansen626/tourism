@@ -38,23 +38,35 @@ class ProductController extends Controller
 
         if(!empty(request()->category) && !empty(request()->status)){
             $products = Product::where('category_id', request()->category)
-                ->where('status_id', request()->status)
-                ->orderByDesc('created_on')
-                ->get();
+                ->where('status_id', request()->status);
         }
         else if(!empty(request()->category) && empty(request()->status)){
-            $products = Product::where('category_id', request()->category)
-                ->orderByDesc('created_on')
-                ->get();
+            $products = Product::where('category_id', request()->category);
         }
         else if(empty(request()->category) && !empty(request()->status)){
-            $products = Product::where('status_id', intval(request()->status))
-                ->orderByDesc('created_on')
-                ->get();
+            $products = Product::where('status_id', intval(request()->status));
         }
         else if(empty(request()->category && empty(request()->status))){
-            $products = Product::all()->sortByDesc('created_on');
+            $products = Product::where('id', '!=', 99);
         }
+
+        if(!empty(request()->stock)){
+            $isReady = 1;
+            if(request()->stock == 'false'){
+                $isReady = 0;
+            }
+            else if(request()->stock == 'false-property'){
+                $isReady = 2;
+            }
+            else if(request()->stock == 'true-property'){
+                $isReady = 3;
+            }
+
+            $products = $products->where('is_ready', $isReady);
+        }
+
+        $products = $products->orderByDesc('created_on')
+            ->get();
 
         // Get all categories
         $categories = Category::all();
@@ -64,6 +76,7 @@ class ProductController extends Controller
             'categories'        => $categories,
             'filterCategory'    => request()->category ?? null,
             'filterStatus'      => request()->status ?? null,
+            'filterStock'       => request()->stock ?? null
         ];
 
         return View('admin.show-products')->with($data);
@@ -91,8 +104,6 @@ class ProductController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             }
-
-            dd(Input::get('size-stock'));
 
             // Validation of no options selected
             if((Input::get('size-options') == 'no') && Input::get('weight-options') == 'no' && Input::get('qty-options') == 'no'){
@@ -221,7 +232,8 @@ class ProductController extends Controller
                     'weight'        => $weight,
                     'quantity'      => 0,
                     'created_on'    => $dateTimeNow->toDateTimeString(),
-                    'status_id'     => 1
+                    'status_id'     => 1,
+                    'is_ready'      => Input::get('stock') == 'true' ? 1 : 0
                 ]);
 
                 if(Input::get('options') == 'percent'){
@@ -247,6 +259,8 @@ class ProductController extends Controller
 
                 $product->save();
                 $savedId = $product->id;
+
+                $stockIndicator = 3;
 
                 // Check color & size
                 if(Input::get('color-options') == 'yes'){
@@ -276,6 +290,7 @@ class ProductController extends Controller
                     $idx = 0;
                     $sizePrice = Input::get('size-price');
                     $sizeWeight = Input::get('size-weight');
+                    $sizeStock = Input::get('size-stock');
                     foreach(Input::get('size') as $size){
                         if(!empty($size)){
                             $propertySize = ProductProperty::create([
@@ -302,15 +317,27 @@ class ProductController extends Controller
                                 $propertySize->primary = 0;
                             }
 
+                            // Set Size Stock Status
+                            if($sizeStock[$idx] == 'false'){
+                                $stockIndicator = 2;
+                            }
+
+                            $propertySize->is_ready = $sizeStock[$idx] == 'true' ? 1 : 0;
+
                             $propertySize->save();
                         }
                         $idx++;
                     }
+
+                    // Change product default stock status
+                    $product->is_ready = $stockIndicator;
+                    $product->save();
                 }
 
                 if(Input::get('weight-options') == 'yes'){
                     $idx = 0;
                     $weightPrice = Input::get('weight-price');
+                    $weightStock = Input::get('weight-stock');
                     foreach(Input::get('weight') as $weightOpt){
                         if(!empty($weightOpt)){
                             $propertyWeight = ProductProperty::create([
@@ -340,19 +367,29 @@ class ProductController extends Controller
                                 $propertyWeight->primary = 0;
                             }
 
+                            // Set Weight Stock Status
+                            if($weightStock[$idx] == 'false'){
+                                $stockIndicator = 2;
+                            }
+
+                            $propertyWeight->is_ready = $weightStock[$idx] == 'true' ? 1 : 0;
+
                             $propertyWeight->save();
                         }
 
-                        error_log('index = '. $idx);
-
                         $idx++;
                     }
+
+                    // Change product default stock status
+                    $product->is_ready = $stockIndicator;
+                    $product->save();
                 }
 
                 if(Input::get('qty-options') == 'yes'){
                     $idx = 0;
                     $qtyPrice = Input::get('qty-price');
                     $qtyWeight = Input::get('qty-weight');
+                    $qtyStock = Input::get('qty-stock');
                     foreach(Input::get('qty') as $qty){
                         if(!empty($qty)){
                             $propertyQty = ProductProperty::create([
@@ -385,10 +422,21 @@ class ProductController extends Controller
                                 $propertyQty->primary = 0;
                             }
 
+                            // Set Weight Stock Status
+                            if($qtyStock[$idx] == 'false'){
+                                $stockIndicator = 2;
+                            }
+
+                            $propertyQty->is_ready = $qtyStock[$idx] == 'true' ? 1 : 0;
+
                             $propertyQty->save();
                         }
                         $idx++;
                     }
+
+                    // Change product default stock status
+                    $product->is_ready = $stockIndicator;
+                    $product->save();
                 }
 
                 if(!empty($request->file('product-featured'))){

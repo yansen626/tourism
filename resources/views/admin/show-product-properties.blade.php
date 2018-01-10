@@ -44,6 +44,7 @@
                                     @if($propertyName != 'color')
                                         <th>Price</th>
                                     @endif
+                                    <th>Stock Status</th>
                                     <th>Primay</th>
                                     <th>Option</th>
                                 </tr>
@@ -67,6 +68,9 @@
                                         @if($propertyName != 'color')
                                             <td>{{ $property->price ? 'Rp '. $property->price : '-' }}</td>
                                         @endif
+                                        <td>
+                                            {{ $property->is_ready == 1 ? 'Ready Stock' : 'Out of Stock' }}
+                                        </td>
                                         <td>
                                             {{ $property->primary == 1 ? 'Yes' : 'No' }}
                                         </td>

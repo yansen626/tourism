@@ -93,6 +93,16 @@
                             </div>
                         @endif
 
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="stock">Stock Status</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="stock" class="form-control" name="stock">
+                                    <option value="true" @if($property->is_ready == 1) selected @endif>Ready stock</option>
+                                    <option value="false" @if($property->is_ready == 0) selected @endif>Out of Stock</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="ln_solid"></div>
 
                         <div class="form-group">

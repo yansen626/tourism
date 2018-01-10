@@ -90,6 +90,16 @@
 
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Stock Status:</label>
+                                    <select id="filter-stock" class="form-control" onchange="filterStock(this)">
+                                        <option value="all" @if(empty($filterStock)) selected @endif>All</option>
+                                        <option value="true" @if(!empty($filterStock) && $filterStock == 'true') selected @endif>Ready Stock - Product</option>
+                                        <option value="true-property" @if(!empty($filterStock) && $filterStock == 'true-property') selected @endif>Ready Stock - Property</option>
+                                        <option value="false" @if(!empty($filterStock) && $filterStock == 'false') selected @endif>Out of Stock</option>
+                                        <option value="false-property" @if(!empty($filterStock) && $filterStock == 'false-property') selected @endif>Out of Stock - Property</option>
+                                    </select>
+                                </div>
                             </form>
                             <table id="datatable-global" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
@@ -107,6 +117,7 @@
                                     <th>Flat Discount</th>
                                     <th>Final Price</th>
                                     <th>Primary Property</th>
+                                    <th>Stock Status</th>
                                     <th>Status</th>
                                 </tr>
                                 </thead>
@@ -207,6 +218,17 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if($product->is_ready == 0)
+                                                Ready Stock
+                                            @elseif($product->is_ready == 1)
+                                                Out of Stock
+                                            @elseif($product->is_ready == 2)
+                                                Out of Stock - All Properties
+                                            @else
+                                                Ready Stock - One of Properties
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if($product->status_id == 1)
                                                 Published
                                             @else
@@ -233,12 +255,19 @@
             // Get existing status filter
             var status = $("#filter-status option:selected").val();
 
+            // Get existing stock filter
+            var stock = $("#filter-stock option:selected").val();
+
             // Get category filter value
             var category = e.value;
 
             var url = "/admin/product?category=" + category;
             if(status !== '0'){
                 url += "&status=" + status;
+            }
+
+            if(stock !== 'all'){
+                url += '&stock=' + stock;
             }
 
             window.location = url;
@@ -248,12 +277,41 @@
             // Get existing category filter
             var category = $("#filter-category option:selected").val();
 
+            // Get existing stock filter
+            var stock = $("#filter-stock option:selected").val();
+
             // Get status filter value
             var status = e.value;
 
             var url = "/admin/product?status=" + status;
             if(category !== '0'){
                 url += "&category=" + category;
+            }
+
+            if(stock !== 'all'){
+                url += '&stock=' + stock;
+            }
+
+            window.location = url;
+        }
+
+        function filterStock(e){
+            // Get existing category filter
+            var category = $("#filter-category option:selected").val();
+
+            // Get existing status filter
+            var status = $("#filter-status option:selected").val();
+
+            // Get stock filter value
+            var stock = e.value;
+
+            var url = "/admin/product?stock=" + stock;
+            if(category !== '0'){
+                url += "&category=" + category;
+            }
+
+            if(status !== '0'){
+                url += "&status=" + status;
             }
 
             window.location = url;

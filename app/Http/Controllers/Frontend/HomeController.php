@@ -23,6 +23,10 @@ class HomeController extends Controller
 //            ->get();
 
         $recentProducts = Product::where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 3);
+            })
             ->orderByDesc('created_on')
             ->take(10)
             ->get();
@@ -30,6 +34,7 @@ class HomeController extends Controller
         $sliderBanners = Banner::where('type', 1)
             ->where('status_id', 1)
             ->get();
+
         $banner1st = Banner::where('type',2)->where('status_id', 1)->first();
 
         if(!empty($banner1st->gallery_id) && $banner1st->gallery->status_id == 2){
@@ -59,30 +64,66 @@ class HomeController extends Controller
 
         $cat1Products = Product::where('category_id',3)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat2Products = Product::where('category_id',8)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat3Products = Product::where('category_id',13)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat4Products = Product::where('category_id',4)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat5Products = Product::where('category_id',1)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat6Products = Product::where('category_id',19)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat7Products = Product::where('category_id',23)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat8Products = Product::where('category_id',12)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
         $cat9Products = Product::where('category_id',25)
             ->where('status_id', 1)
+            ->where(function($query){
+                $query->where('is_ready', 1)
+                    ->orWhere('is_ready', 2);
+            })
             ->inRandomOrder()->take(4)->get();
 
         if($categoryTotal % 2 == 1){

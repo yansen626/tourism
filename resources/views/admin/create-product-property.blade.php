@@ -110,6 +110,15 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="stock">Stock Status</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="stock" class="form-control" name="stock">
+                                    <option value="true" selected>Ready stock</option>
+                                    <option value="false">Out of Stock</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="ln_solid"></div>
 

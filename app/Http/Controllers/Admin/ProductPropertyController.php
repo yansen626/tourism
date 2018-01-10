@@ -95,7 +95,8 @@ class ProductPropertyController extends Controller
         $property = ProductProperty::create([
             'product_id'    => $productId,
             'name'          => $name,
-            'description'   => Input::get('description')
+            'description'   => Input::get('description'),
+            'is_ready'      => Input::get('stock') == 'true' ? 1 : 0
         ]);
 
         if($name != 'color'){
@@ -240,6 +241,9 @@ class ProductPropertyController extends Controller
             }
         }
 
+        // Check stock status
+        $property->is_ready = Input::get('stock') == 'true' ? 1 : 0;
+
         $property->save();
 
         // Change product data
@@ -250,12 +254,29 @@ class ProductPropertyController extends Controller
         $product->discount_flat = null;
         $product->price_discounted = $propertyPriceDouble;
 
-        if($property->primary == 1){
-            if($property->name == 'weight') $product->weight = intval(Input::get('description'));
-            if($property->name == 'qty' || $property->name == 'size') $product->weight = Input::get('weight');
+        // Check overall property stock status
+        if(Input::get('stock') == 'true'){
+            $product->is_ready = 3;
+        }
+        else{
+            $properties = $product->product_properties()->get();
+
+            $temp = $properties->where('is_ready', 1)->first();
+
+            if($temp == null){
+                $product->is_ready = 2;
+            }
         }
 
         $product->save();
+
+
+        if($property->primary == 1){
+            if($property->name == 'weight') $product->weight = intval(Input::get('description'));
+            if($property->name == 'qty' || $property->name == 'size') $product->weight = Input::get('weight');
+            $property->save();
+        }
+
 
         Session::flash('message', 'Product '. $property->name. ' property has been saved!');
 

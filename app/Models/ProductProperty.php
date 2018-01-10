@@ -19,6 +19,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $price
  * @property int $weight
  * @property int $primary
+ * @property int $is_ready
+ *
  * 
  * @property \App\Models\Product $product
  *
@@ -31,7 +33,8 @@ class ProductProperty extends Eloquent
     protected $casts = [
         'weight' => 'int',
         'price' => 'float',
-        'primary' => 'int'
+        'primary' => 'int',
+        'is_ready' => 'int'
     ];
 
 	protected $fillable = [
@@ -40,7 +43,8 @@ class ProductProperty extends Eloquent
 		'description',
         'price',
         'weight',
-        'primary'
+        'primary',
+        'is_ready'
 	];
 
 	public function product()
