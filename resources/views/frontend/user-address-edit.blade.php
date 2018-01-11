@@ -8,77 +8,81 @@
         <div class="container">
 
             <div class="my_account_block clearfix">
-                <div>
-                    <h2>Edit Address</h2>
+                <div class="col-lg-3 col-md-3"></div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                    <div>
+                        <h2 class="text-center">Ubah Alamat</h2>
 
-                    @foreach($errors->all() as $error)
-                        <h5 style="color: red;"> {{ $error }} </h5>
-                    @endforeach
+                        @foreach($errors->all() as $error)
+                            <h5 style="color: red;"> {{ $error }} </h5>
+                        @endforeach
 
-                    @if(\Illuminate\Support\Facades\Session::has('message'))
-                        <div class="alert alert-success alert-dismissible fade in" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                            </button>
-                            <strong>{{ \Illuminate\Support\Facades\Session::get('message') }}</strong>
-                        </div>
-                    @endif
+                        @if(\Illuminate\Support\Facades\Session::has('message'))
+                            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <strong>{{ \Illuminate\Support\Facades\Session::get('message') }}</strong>
+                            </div>
+                        @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('user-address-update') }}">
-                        {{ csrf_field() }}
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('user-address-update') }}">
+                            {{ csrf_field() }}
 
-                        <label>Address Name:</label>
-                        <input type="text" name="name" placeholder="Address Name" value="{{ $addr->name }}"/>
+                            <label>Nama Penerima:</label>
+                            <input type="text" name="name" placeholder="Nama Penerima" value="{{ $addr->name }}"/>
 
-                        <label>Province:</label>
-                        <select id="province" name="province_id" onchange="checkCities()">
-                            @foreach($provinces as $province)
-                                @if($province->id == $addr->province_id)
+                            <label for="province">Provinsi:</label>
+                            <select id="province" name="province_id" onchange="checkCities()">
+                                @foreach($provinces as $province)
+                                    @if($province->id == $addr->province_id)
                                         <option value="{{$province->id}}" selected>{{$province->name}}</option>
                                     @else
                                         <option value="{{$province->id}}">{{$province->name}}</option>
-                                @endif
-                            @endforeach
-                        </select>
-
-                        <label>City:</label>
-                        <select id="city" name="city_id" onchange="getSubdistrict()">
-                            <option value="-1">Select City</option>
-                            @foreach($cities as $city)
-                                @if($city->id == $addr->city_id)
-                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}" selected>{{$city->name}}</option>
-                                    @else
-                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}">{{$city->name}}</option>
-                                @endif
-                            @endforeach
-                        </select>
-
-                        <div id="subdistrict-section">
-                            <label>Subdistrict:</label>
-                            <select id="subdistrict" name="subdistrict_id">
-                                @foreach($subdistricts as $subdistrict)
-                                    @if($subdistrict->subdistrict_id == $addr->subdistrict_id)
-                                        <option value="{{ $subdistrict->subdistrict_id }},{{ $subdistrict->subdistrict_name }}" selected>{{ $subdistrict->subdistrict_name }}</option>
-                                    @else
-                                        <option value="{{ $subdistrict->subdistrict_id }},{{ $subdistrict->subdistrict_name }}">{{ $subdistrict->subdistrict_name }}</option>
                                     @endif
                                 @endforeach
                             </select>
-                        </div>
 
-                        <label>Detail:</label>
-                        <textarea name="detail" cols="50" rows="10" placeholder="Address Details">{{ $addr->detail }}</textarea>
+                            <label for="city">Kota:</label>
+                            <select id="city" name="city_id" onchange="getSubdistrict()">
+                                <option value="-1">Select City</option>
+                                @foreach($cities as $city)
+                                    @if($city->id == $addr->city_id)
+                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}" selected>{{$city->name}}</option>
+                                    @else
+                                        <option value="{'city_id': '{{$city->id}}', 'province_id': '{{$city->province_id}}'}">{{$city->name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
 
-                        <label>Postal Code:</label>
-                        <input type="number" name="postal_code" placeholder="Postal Code" value="{{ $addr->postal_code }}"/>
+                            <div id="subdistrict-section">
+                                <label for="subdistrict">Kecamatan:</label>
+                                <select id="subdistrict" name="subdistrict_id">
+                                    @foreach($subdistricts as $subdistrict)
+                                        @if($subdistrict->subdistrict_id == $addr->subdistrict_id)
+                                            <option value="{{ $subdistrict->subdistrict_id }},{{ $subdistrict->subdistrict_name }}" selected>{{ $subdistrict->subdistrict_name }}</option>
+                                        @else
+                                            <option value="{{ $subdistrict->subdistrict_id }},{{ $subdistrict->subdistrict_name }}">{{ $subdistrict->subdistrict_name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
 
-                        {{ Form::hidden('redirect', $redirect, array('id' => 'redirect')) }}
+                            <label>Alamat:</label>
+                            <textarea name="detail" cols="50" rows="10" placeholder="Address Details">{{ $addr->detail }}</textarea>
 
-                        <div class="center"><input type="submit" value="Submit"></div>
-                    </form>
+                            <label>Kode Pos:</label>
+                            <input type="number" name="postal_code" placeholder="Postal Code" value="{{ $addr->postal_code }}"/>
+
+                            {{ Form::hidden('redirect', $redirect, array('id' => 'redirect')) }}
+
+                            <div class="center"><input type="submit" value="Simpan"></div>
+                        </form>
+                    </div>
                 </div>
+                <div class="col-lg-3 col-md-3"></div>
             </div>
 
-            <div class="my_account_note center">HAVE A QUESTION? <b>1 800 888 02828</b></div>
+            {{--<div class="my_account_note center">HAVE A QUESTION? <b>1 800 888 02828</b></div>--}}
         </div><!-- //CONTAINER -->
     </section><!-- //MY ACCOUNT PAGE -->
 

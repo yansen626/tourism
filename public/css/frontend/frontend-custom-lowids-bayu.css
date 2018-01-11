@@ -468,10 +468,8 @@ header{
     }
 }
 
-/*.shopping_bag.cart_active .shopping_bag_btn{*/
-    /*background: #E5E4D7 !important;*/
-/*}*/
-
-/*.cart{*/
-    /*background-color: #8ac657 !important;*/
-/*}*/
+/* User Profile */
+.profile_font{
+    font-size: 14px;
+    font-weight: bold;
+}
