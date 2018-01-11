@@ -377,8 +377,8 @@ $("#link-gallery-opt").change(function(){
 function modalPop(id, mode, url){
     if(mode === "accept"){
         var title = "Warning";
-        var content = "Are you sure you want to accept?"
-        var yes = "Accept"
+        var content = "Apakah Anda yakin untuk menerima?"
+        var yes = "Terima"
 
         $("#small-modal-title").html(title);
         $("#small-modal-body").html(content);
@@ -388,8 +388,8 @@ function modalPop(id, mode, url){
     }
     else if(mode === "transfer"){
         var title = "Warning";
-        var content = "Are you sure you want to confirm?"
-        var yes = "Confirm"
+        var content = "Apakah Anda yakin untuk mengkonfirmasi?"
+        var yes = "Konfirmasi"
 
         $("#small-modal-yes").attr("class","btn btn-success");
         $("#small-modal-title").html(title);
@@ -400,8 +400,8 @@ function modalPop(id, mode, url){
     }
     else if(mode === "cancel"){
         var title = "Warning";
-        var content = "Are you sure you want to delete?"
-        var yes = "Delete"
+        var content = "Apakah Anda yakin untuk menghapus?"
+        var yes = "Hapus"
 
         $("#small-modal-yes").attr("class","btn btn-danger");
         $("#small-modal-title").html(title);
@@ -412,8 +412,8 @@ function modalPop(id, mode, url){
     }
     else if(mode === "gallery"){
         var title = "Warning";
-        var content = "Are you sure you want to completely delete gallery and all related images?"
-        var yes = "Delete"
+        var content = "Apakah Anda ingin menghapus seluruh galeri dan semua gambar yang berhubungan?"
+        var yes = "Hapus"
 
         $("#small-modal-yes").attr("class","btn btn-danger");
         $("#small-modal-title").html(title);
@@ -424,8 +424,8 @@ function modalPop(id, mode, url){
     }
     else if(mode === "property-delete"){
         var title = "Warning";
-        var content = "Are you sure you want to delete selected product property?"
-        var yes = "Delete"
+        var content = "Apakah Anda ingin menghapus properti produk yang terpilih?"
+        var yes = "Hapus"
 
         $("#small-modal-yes").attr("class","btn btn-danger");
         $("#small-modal-title").html(title);
@@ -449,6 +449,6 @@ function confirmDeliveryModalPop(id, courier){
 
 // Select2
 $('#product').select2({
-    placeholder: 'Select a product',
+    placeholder: 'Pilih Produk',
     allowClear: true
 });

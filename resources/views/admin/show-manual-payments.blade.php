@@ -41,9 +41,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($transactions as $trx)
+                                @foreach($transfers as $trans)
                                     {{--@php( $trans = $trx->transfer_confirmation()->first())--}}
-                                    @php( $trans = $trx->transfer_confirmation()->first())
+                                    @php( $trx = $trans->Transaction()->first())
                                     <tr>
                                         <td><a href="{{ route('admin-invoice', ['trxId' => $trx->id]) }}">{{ $trx->invoice }}</a></td>
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>

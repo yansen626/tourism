@@ -38,6 +38,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('manual-transfer-payment-list') }}">
+                            <i class="fa fa-money"></i> Manual Trasnfer Payment Status
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('customer-list') }}">
                             <i class="fa fa-users"></i> Customer List
                         </a>

@@ -12,8 +12,8 @@
                 <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="small-modal-no">Close</button>
-                <a id="small-modal-yes" class="btn btn-success">Save changes</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="small-modal-no">Tutup</button>
+                <a id="small-modal-yes" class="btn btn-success">Simpan</a>
             </div>
 
         </div>

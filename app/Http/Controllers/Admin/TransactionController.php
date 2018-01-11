@@ -68,7 +68,7 @@ class TransactionController extends Controller
 
         Mail::to($trx->user->email)->send(new OrderAccepted());
 
-        Session::flash('message', 'New order has been successfully accepted!');
+        Session::flash('message', 'Order baru telah di terima!');
 
         return redirect::route('new-order-list');
     }
@@ -90,7 +90,7 @@ class TransactionController extends Controller
 //            $product->save();
 //        }
 
-        Session::flash('message', 'New order has been rejected!');
+        Session::flash('message', 'Order baru telah di tolak!');
 
         return redirect::route('new-order-list');
     }
@@ -105,17 +105,27 @@ class TransactionController extends Controller
         return View('admin.show-payments', compact('transactions'));
     }
 
+    public function manualTransferPayment(){
+        $transfers = TransferConfirmation::where('status_id', 3)->get();
+//        $transactions = Transaction::where('status_id', 3)
+//            ->orWhere('status_id', 4)
+//            ->orWhere('status_id', 11)
+//            ->orderByDesc('created_on')->get();
+
+        return View('admin.show-manual-payments', compact('transfers'));
+    }
+
     public function confirmPayment($id){
         $trans = TransferConfirmation::find($id);
 
         $trans->status_id = 5;
         $trans->save();
 
-        $trx = Transaction::find($trans->trx_id);
+        $trx = Transaction::find($trans->transaction_id);
         $trx->status_id = 5;
         $trx->save();
 
-        Session::flash('message', 'Payment has been successfully confirmed!');
+        Session::flash('message', 'Pembayaran telah sukses di terima!');
 
         return redirect::route('payment-list');
     }
@@ -126,7 +136,7 @@ class TransactionController extends Controller
         $trx->finish_date = Carbon::now('Asia/Jakarta')->toDateTimeString();
         $trx->save();
 
-        Session::flash('message', 'Payment has been cancelled!');
+        Session::flash('message', 'Pembayaran telah di tolak!');
 
         return redirect::route('payment-list');
     }
@@ -146,7 +156,7 @@ class TransactionController extends Controller
 
         Mail::to($trx->user->email)->send(new DeliveryConfirm(Input::get('tracking-code')));
 
-        Session::flash('message', 'Delivery way bill has been successfully submitted!');
+        Session::flash('message', 'Berhasil input nomor resi!');
 
         return redirect::route('delivery-list');
     }

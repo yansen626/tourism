@@ -2,8 +2,8 @@
     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Delivery Status</th>
+            <th>Tanggal</th>
+            <th>Status Pengiriman</th>
         </tr>
         </thead>
         <tbody>
@@ -17,6 +17,6 @@
     </table>
 @else
     <div class="text-center">
-        <p>Invalid waybill or not yet registered</p>
+        <p>Nomor resi salah atau belum terdaftar</p>
     </div>
 @endif
