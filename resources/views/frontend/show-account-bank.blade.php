@@ -59,18 +59,24 @@
                         {{ csrf_field() }}
                         <div class="col-lg-12 col-md-12 padbot60">
                             <div class="checkout_delivery clearfix">
-                                <p class="checkout_title">AKUN BANK TRANSFER</p>
-                                <div class="col-lg-6 col-md-6">
-                                    BCA a.n. Lowids <br>
-                                    123-456-789-10
+                                {{--<p class="checkout_title">AKUN BANK TRANSFER</p>--}}
+                                <div class="col-lg-3 col-md-3"></div>
+                                <div class="col-lg-6 col-md-6 col-xs-12"style="font-size: 14px; text-align: center;">
+                                    <p>
+                                        Silahkan transfer ke rekening bank berikut ini
+                                    </p>
+                                    <p style="font-weight: bold;">
+                                        BCA a.n. Lo Widjaya <br>
+                                        605 030 5811
+                                        <br/><br/>
+                                        Mandiri a.n. Lo Widjaya <br>
+                                        12400 0745 1918
+                                    </p>
+                                    <br/>
+                                    <a href="{{ route('checkout-bank', ['invoice' => $data]) }}" class="btn btn-primary" >KONFIRMASI TRANSFER</a>
                                 </div>
-                                <div class="col-lg-6 col-md-6">
-                                    Bank Mandiri a.n. Lowids <br>
-                                    123-456-789-10
-                                </div>
+                                <div class="col-lg-3 col-md-3"></div>
                             </div>
-
-                            <a href="{{ route('checkout-bank', ['invoice' => $data]) }}" class="btn btn-primary" >PROSES SEKARANG</a>
                         </div>
                     </form>
                 </div>

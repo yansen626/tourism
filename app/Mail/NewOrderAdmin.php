@@ -30,7 +30,7 @@ class NewOrderAdmin extends Mailable
     public function build()
     {
         return $this->from('admin@lowids.com')
-                    ->subject('New Order')
+                    ->subject('Pemesanan Baru')
                     ->view('email.new-order-admin');
     }
 }

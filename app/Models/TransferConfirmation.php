@@ -49,7 +49,7 @@ class TransferConfirmation extends Eloquent
 
 	protected $fillable = [
 		'user_id',
-		'trx_id',
+		'transaction_id',
 		'receiver_bank',
 		'transfer_amount',
 		'sender_name',

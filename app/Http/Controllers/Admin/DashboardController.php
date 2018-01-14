@@ -10,16 +10,9 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Mail\DeliveryConfirm;
-use App\Mail\NewOrderAdmin;
 use App\Models\Transaction;
+use App\Models\TransferConfirmation;
 use App\Models\User;
-use App\Notifications\NewOrder;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
 
 class DashboardController extends Controller
 {
@@ -36,6 +29,7 @@ class DashboardController extends Controller
         $onGoingPaymentTotal = Transaction::where('status_id', 3)
             ->orWhere('status_id',4)
             ->get()->count();
+        $manualPaymentTotal = TransferConfirmation::where('status_id', 3)->get()->count();
         $challengedCcTotal = Transaction::where('status_id', 11)->get()->count();
         $deliveryReqTotal = Transaction::where('status_id', 6)->get()->count();
 
@@ -44,6 +38,7 @@ class DashboardController extends Controller
             'customerTotal'         => $customerTotal,
             'newOrderTotal'         => $newOrderTotal,
             'onGoingPaymentTotal'   => $onGoingPaymentTotal,
+            'manualPaymentTotal'    => $manualPaymentTotal,
             'challengedCcTotal'     => $challengedCcTotal,
             'deliveryReqTotal'      => $deliveryReqTotal
         ];

@@ -14,11 +14,11 @@
         <!-- top tiles -->
         <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i> Total Registered Customers</span>
+                <span class="count_top"><i class="fa fa-user"></i> Jumlah Customer</span>
                 <div class="count">{{ $customerTotal }}</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <span class="count_top"><i class="fa fa-money"></i> Total Success Transactions</span>
+                <span class="count_top"><i class="fa fa-money"></i> Transaksi Sukses</span>
                 <div class="count">{{ $trxTotal }}</div>
             </div>
             {{--<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">--}}
@@ -49,7 +49,7 @@
 
                     <div class="row x_title">
                         <div class="col-md-6">
-                            <h3>Welcome</h3>
+                            <h3>Selamat Datang</h3>
                         </div>
                         {{--<div class="col-md-6">--}}
                             {{--<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">--}}
@@ -64,7 +64,7 @@
                             <div class="alert alert-info alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                <strong>Hi!</strong> There is nothing needs your attentions
+                                <strong>Hi!</strong> Tidak ada notifikasi
                             </div>
                         @endif
 
@@ -72,12 +72,15 @@
                             <div class="alert alert-warning alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                @if($newOrderTotal > 1)
-                                There are {{ $newOrderTotal }} new orders
-                                @else
-                                    There is {{ $newOrderTotal }} new order
-                                @endif
-                                , please take a look <a style="color: dodgerblue;" href="{{ route('new-order-list') }}"><strong>here</strong></a>
+                                Ada {{ $newOrderTotal }} pemesanan baru, silahkan cek di <a style="color: dodgerblue;" href="{{ route('new-order-list') }}"><strong>halaman ini</strong></a>
+                            </div>
+                        @endif
+
+                        @if($manualPaymentTotal > 0)
+                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                Ada {{ $onGoingPaymentTotal }} transfer bank masuk ke rekening, silahkan cek di <a style="color: orange;" href="{{ route('manual-transfer-payment-list') }}"><strong>halaman ini</strong></a>
                             </div>
                         @endif
 
@@ -85,12 +88,7 @@
                             <div class="alert alert-info alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                @if($onGoingPaymentTotal > 1)
-                                    There are {{ $onGoingPaymentTotal }} new payments
-                                @else
-                                    There is {{ $onGoingPaymentTotal }} new payment
-                                @endif
-                                    , you can check {{ $onGoingPaymentTotal > 1 ? 'their':'its' }} status <a style="color: orange;" href="{{ route('payment-list') }}"><strong>here</strong></a>
+                                Ada {{ $onGoingPaymentTotal }} status pembayaran baru, silahkan cek di <a style="color: orange;" href="{{ route('payment-list') }}"><strong>halaman ini</strong></a>
                             </div>
                         @endif
 
@@ -98,12 +96,7 @@
                             <div class="alert alert-danger alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                @if($challengedCcTotal > 1)
-                                    There are {{ $challengedCcTotal }} new credit card payments in challenge status
-                                @else
-                                    There is {{ $challengedCcTotal }} new credit card payment in challenge status
-                                @endif
-                                , please confirm manually at Midtrans control panel <a style="color: orange;" href="account.midtrans.com"><strong>here</strong></a>
+                                Ada {{ $challengedCcTotal }} pembayaran kartu kredit dalam status challenge, silahkan cek dan konfirmasi di <a style="color: orange;" href="account.midtrans.com"><strong>panel admin Midtrans</strong></a>
                             </div>
                         @endif
 
@@ -111,12 +104,7 @@
                             <div class="alert alert-warning alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                @if($deliveryReqTotal > 1)
-                                    There are {{ $deliveryReqTotal }} transaction delivery requests
-                                @else
-                                    There is {{ $deliveryReqTotal }} transaction delivery request
-                                @endif
-                                , please take a look <a style="color: dodgerblue;" href="{{ route('delivery-list') }}"><strong>here</strong></a>
+                                Ada {{ $deliveryReqTotal }} permintaan pengiriman barang, silahkan konfirmasi nomor resi pengiriman <a style="color: dodgerblue;" href="{{ route('delivery-list') }}"><strong>di halaman ini</strong></a>
                             </div>
                         @endif
                     </div>

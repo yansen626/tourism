@@ -125,7 +125,7 @@ class TransactionController extends Controller
         $trx->status_id = 5;
         $trx->save();
 
-        Session::flash('message', 'Pembayaran telah sukses di terima!');
+        Session::flash('message', 'Sukses konfirmasi transfer bank!');
 
         return redirect::route('payment-list');
     }

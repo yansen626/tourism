@@ -12,6 +12,7 @@ use App\libs\Midtrans;
 use App\libs\RajaOngkir;
 use App\libs\Utilities;
 use App\Http\Controllers\Controller;
+use App\Mail\NewBankTransfer;
 use App\Mail\NewOrderAdmin;
 use App\Mail\NewOrderCustomer;
 use App\Models\Address;
@@ -265,7 +266,10 @@ class TransactionController extends Controller
         }
 
         $id = Uuid::generate();
-        $trxId = Input::get('id');
+        $trxId = Input::get('trx_id');
+
+//        dd($trxId);
+
         $dateTimeNow = Carbon::now('Asia/Jakarta');
         $transferDate = Carbon::createFromFormat('d/m/Y', Input::get('transfer_date'), 'Asia/Jakarta');
 
@@ -289,6 +293,9 @@ class TransactionController extends Controller
         $transaction = Transaction::find($trxId);
         $transaction->status_id = 4;
         $transaction->save();
+
+        // Send email
+        Mail::to('admin@lowids.com')->send(new NewBankTransfer());
 
         //return ke page transaction
         return redirect()->route('user-order-list');

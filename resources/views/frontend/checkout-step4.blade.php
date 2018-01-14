@@ -79,17 +79,17 @@
                             <ul>
                                 <li style="width: auto !important;">
                                     <input id="ridio1" type="radio" name="payment" hidden value="manual_transfer" onchange="handleChangePayment(this);" />
-                                    <label for="ridio1"><b>Transfer Secara Manual</b></label>
+                                    <label for="ridio1"><b>Transfer bank</b></label>
                                 </li>
 
                                 <li style="width: auto !important;">
                                     <input id="ridio2" type="radio" name="payment" hidden value="bank_transfer" onchange="handleChangePayment(this);" />
-                                    <label for="ridio2"><b>Transfer Bank ke akun virtual</b></label>
+                                    <label for="ridio2"><b>Transfer ke akun virtual (diproses instan)</b></label>
                                 </li>
 
                                 <li>
                                     <input id="ridio3" type="radio" name="payment" hidden value="credit_card" onchange="handleChangePayment(this);" />
-                                    <label for="ridio3"><b>Kartu Kredit</b></label>
+                                    <label for="ridio3"><b>Kartu kredit (diproses instan)</b></label>
                                 </li>
                             </ul>
                         </div>
