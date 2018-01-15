@@ -44,7 +44,7 @@
                                 {{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}
                             </li>
                             <li class="clearfix"><a href="{{ route('user-profile') }}" >Profil</a></li>
-                            <li class="clearfix"><a href="{{ route('user-payment-list') }}" >Transaksi</a></li>
+                            <li class="clearfix"><a href="{{ route('user-payment-list') }}" >Pembelian</a></li>
                             <li class="clearfix">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Keluar

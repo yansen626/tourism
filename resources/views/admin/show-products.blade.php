@@ -96,7 +96,7 @@
                                         <option value="all" @if(empty($filterStock)) selected @endif>All</option>
                                         <option value="true" @if(!empty($filterStock) && $filterStock == 'true') selected @endif>Ready Stock - Product</option>
                                         <option value="true-property" @if(!empty($filterStock) && $filterStock == 'true-property') selected @endif>Ready Stock - Property</option>
-                                        <option value="false" @if(!empty($filterStock) && $filterStock == 'false') selected @endif>Out of Stock</option>
+                                        <option value="false" @if(!empty($filterStock) && $filterStock == 'false') selected @endif>Out of Stock - Product</option>
                                         <option value="false-property" @if(!empty($filterStock) && $filterStock == 'false-property') selected @endif>Out of Stock - Property</option>
                                     </select>
                                 </div>
@@ -219,9 +219,9 @@
                                         </td>
                                         <td>
                                             @if($product->is_ready == 0)
-                                                Ready Stock
-                                            @elseif($product->is_ready == 1)
                                                 Out of Stock
+                                            @elseif($product->is_ready == 1)
+                                                Ready Stock
                                             @elseif($product->is_ready == 2)
                                                 Out of Stock - All Properties
                                             @else

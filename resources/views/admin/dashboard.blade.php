@@ -80,7 +80,7 @@
                             <div class="alert alert-info alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                Ada {{ $onGoingPaymentTotal }} transfer bank masuk ke rekening, silahkan cek di <a style="color: orange;" href="{{ route('manual-transfer-payment-list') }}"><strong>halaman ini</strong></a>
+                                Ada {{ $manualPaymentTotal }} konfirmasi transfer bank customer, silahkan cek di <a style="color: orange;" href="{{ route('manual-transfer-payment-list') }}"><strong>halaman ini</strong></a>
                             </div>
                         @endif
 

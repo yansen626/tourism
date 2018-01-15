@@ -409,14 +409,6 @@
                         </div>
                         <!-- SET //COLOR OPTIONS -->
 
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea rows="5" style="resize: vertical" id="description" name="description" class="form-control col-md-7 col-xs-12"></textarea>
-                            </div>
-                        </div>
-
                         <div id="form-stock-section" class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="stock">Stock Status
                             </label>
@@ -425,6 +417,14 @@
                                     <option value="true" selected>Ready stock</option>
                                     <option value="false">Out of Stock</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea rows="5" style="resize: vertical" id="description" name="description" class="form-control col-md-7 col-xs-12"></textarea>
                             </div>
                         </div>
 

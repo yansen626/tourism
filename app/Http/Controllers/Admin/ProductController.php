@@ -651,18 +651,20 @@ class ProductController extends Controller
                     $product->description = null;
                 }
 
-                // Check property
+                // Check properties
                 $sizeProperties = $product->product_properties()->where('name', '=', 'size')->get();
                 $weightProperties = $product->product_properties()->where('name', '=', 'weight')->get();
+                $qtyProperties = $product->product_properties()->where('name', '=', 'qty')->get();
 
-                $price = $request->input('price');
-                $priceDouble = (double) str_replace('.','', $price);
-                $weight = (double) str_replace('.','', Input::get('weight'));
+                if($sizeProperties->count() == 0 && $weightProperties->count() == 0 && $qtyProperties->count() == 0){
 
-                if($sizeProperties->count() == 0 && $weightProperties->count() == 0){
+                    $price = Input::get('price');
+                    $priceDouble = (double) str_replace('.','', $price);
+                    $weight = (double) str_replace('.','', Input::get('weight'));
+                    $ready = Input::get('stock');
+
                     $product->price = $priceDouble;
-//                  $product->weight = $weight;
-//                  $product->quantity = Input::get('qty');
+                    $product->weight = $weight;
 
                     if(Input::get('options') == 'percent'){
                         $discountPercent = (double) Input::get('discount-percent');
@@ -689,11 +691,14 @@ class ProductController extends Controller
                         $product->discount_flat = null;
                         $product->price_discounted = $priceDouble;
                     }
-                }
 
-                if(($sizeProperties->count() > 0 && $weightProperties->count() == 0) ||
-                    ($sizeProperties->count() == 0 && $weightProperties->count() == 0)){
-                    $product->weight = $weight;
+                    // Check stock
+                    if($ready == ' true'){
+                        $product->is_ready = 1;
+                    }
+                    else{
+                        $product->is_ready = 0;
+                    }
                 }
 
                 $product->save();
