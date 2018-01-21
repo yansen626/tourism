@@ -42,7 +42,7 @@ class ProductsController extends Controller
         }
 
         // Filter ready stock
-        $products = $products->where('is_ready', 1)->orWhere('is_ready', 3);
+        // $products = $products->where('is_ready', 1)->orWhere('is_ready', 3);
 
         if(!empty(request()->sort)){
             $sort = request()->sort;
@@ -95,10 +95,20 @@ class ProductsController extends Controller
             ->take(6)
             ->get();
 
+        /*
         $colors = $product->product_properties()->where('name','color')->get();
         $sizes = $product->product_properties()->where('name','size')->where('is_ready', 1)->orderBy('price')->get();
         $weights = $product->product_properties()->where('name','weight')->where('is_ready', 1)->orderBy('description')->get();
         $qtys = $product->product_properties()->where('name','qty')->where('is_ready', 1)->get();
+        */
+
+        $colors = $product->product_properties()->where('name','color')->get();
+        $sizes = $product->product_properties()->where('name','size')->orderBy('price')->get();
+        $weights = $product->product_properties()->where('name','weight')->orderBy('description')->get();
+        $qtys = $product->product_properties()->where('name','qty')->get();
+
+        // Find primary
+        $primary = $product->product_properties()->where('primary', 1)->first();
 
         $data =[
             'product'               => $product,
@@ -107,7 +117,8 @@ class ProductsController extends Controller
             'colors'                => $colors,
             'sizes'                 => $sizes,
             'weights'               => $weights,
-            'qtys'                  => $qtys
+            'qtys'                  => $qtys,
+            'primary'               => $primary
         ];
 
         return View('frontend.show-product')->with($data);

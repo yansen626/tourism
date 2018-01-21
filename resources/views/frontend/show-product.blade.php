@@ -91,13 +91,25 @@
                                 {{--@endif--}}
                                 {{--@endif--}}
                                 @if(auth()->check())
-                                    @if(!empty($product->discount) || !empty($product->discount_flat))
-                                        <div class="pull-right" style="font-size: 20px;">
-                                            <span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>
-                                            <p style="color:orange;"><b><span id="price-label">Rp {{ $product->price_discounted }}</span></b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
-                                        </div>
+                                    @if(!empty($primary))
+                                        @if($primary->is_ready == 1)
+                                            <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
+                                        @else
+                                            <div class="pull-right tovar_view_price" id="price-label">Produk Kosong</div>
+                                        @endif
                                     @else
-                                        <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
+                                        @if($product->is_ready == 0)
+                                            <div class="pull-right tovar_view_price" id="price-label">Produk Kosong</div>
+                                        @else
+                                            @if(!empty($product->discount) || !empty($product->discount_flat))
+                                                <div class="pull-right" style="font-size: 20px;">
+                                                    <span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>
+                                                    <p style="color:orange;"><b><span id="price-label">Rp {{ $product->price_discounted }}</span></b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
+                                                </div>
+                                            @else
+                                                <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
+                                            @endif
+                                        @endif
                                     @endif
                                 @else
                                     <div style="font-size: 18px;">
@@ -118,9 +130,9 @@
                                                 $weightNumber = $weightNumber / 1000;
                                                 ?>
                                                 @if($weight->primary == 1)
-                                                    <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" value="{{ $weight->id }}" selected>{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
+                                                    <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" data-ready="{{ $weight->is_ready }}" value="{{ $weight->id }}" selected>{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
                                                 @else
-                                                    <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" value="{{ $weight->id }}">{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
+                                                    <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" data-ready="{{ $weight->is_ready }}" value="{{ $weight->id }}">{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -160,9 +172,9 @@
                                                 }
                                                 ?>
                                                 @if($size->primary == 1)
-                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}"  value="{{ $size->id }}" selected>{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
+                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}" data-ready="{{ $size->is_ready }}" value="{{ $size->id }}" selected>{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
                                                 @else
-                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}"  value="{{ $size->id }}">{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
+                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}" data-ready="{{ $size->is_ready }}"  value="{{ $size->id }}">{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
                                                 @endif
 
                                             @endforeach
@@ -180,9 +192,9 @@
                                                 $qtyWeight = $qtyWeight / 1000;
                                                 ?>
                                                 @if($qty->primary == 1)
-                                                    <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" value="{{ $qty->id }}" selected>{{ $qty->description }} - {{ $qtyWeight }} Kg - {{  $qty->price }}</option>
+                                                    <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" data-ready="{{ $qty->is_ready }}" value="{{ $qty->id }}" selected>{{ $qty->description }} - {{ $qtyWeight }} Kg - {{  $qty->price }}</option>
                                                 @else
-                                                    <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" value="{{ $qty->id }}">{{ $qty->description }} - {{ $qtyWeight }} Kg - Rp {{ $qty->price }}</option>
+                                                    <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" data-ready="{{ $qty->is_ready }}" value="{{ $qty->id }}">{{ $qty->description }} - {{ $qtyWeight }} Kg - Rp {{ $qty->price }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
