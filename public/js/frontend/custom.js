@@ -338,10 +338,19 @@ function addCommas(nStr) {
 function onchangeSize(e){
     var obj = e.options[e.selectedIndex];
 
-    var price = obj.getAttribute('data-price');
-    if(price !== '0'){
-        $('#price-label').html("Rp " + price);
+    var ready = obj.getAttribute('data-ready');
+    if(ready === '0'){
+        $('#cart-add-btn').hide();
+        $('#price-label').html("Produk Kosong")
     }
+    else{
+        $('#cart-add-btn').show();
+        var price = obj.getAttribute('data-price');
+        if(price !== '0'){
+            $('#price-label').html("Rp " + price);
+        }
+    }
+
     var weight = obj.getAttribute('data-weight');
     if(weight !== '0' || weight !== ''){
         $('#weight-label').html("Weight: " + weight + " Kg");
@@ -349,20 +358,44 @@ function onchangeSize(e){
 }
 
 function onchangeWeight(e){
-    var price = e.options[e.selectedIndex].getAttribute('data-price');
-    $('#price-label').html("Rp " + price);
+    var obj = e.options[e.selectedIndex];
 
-    var weight = e.options[e.selectedIndex].getAttribute('data-weight');
+    var ready = obj.getAttribute('data-ready');
+    if(ready === '0'){
+        $('#cart-add-btn').hide();
+        $('#price-label').html("Produk Kosong")
+    }
+    else{
+        $('#cart-add-btn').show();
+        var price = obj.getAttribute('data-price');
+        if(price !== '0'){
+            $('#price-label').html("Rp " + price);
+        }
+    }
+
+    var weight = obj.getAttribute('data-weight');
     if(weight !== '0'){
         $('#weight-label').html("Weight: " + weight + " Kg");
     }
 }
 
 function onchangeQty(e){
-    var price = e.options[e.selectedIndex].getAttribute('data-price');
-    $('#price-label').html("Rp " + price);
+    var obj = e.options[e.selectedIndex];
 
-    var weight = e.options[e.selectedIndex].getAttribute('data-weight');
+    var ready = obj.getAttribute('data-ready');
+    if(ready === '0'){
+        $('#cart-add-btn').hide();
+        $('#price-label').html("Produk Kosong")
+    }
+    else{
+        $('#cart-add-btn').show();
+        var price = obj.getAttribute('data-price');
+        if(price !== '0'){
+            $('#price-label').html("Rp " + price);
+        }
+    }
+
+    var weight = obj.getAttribute('data-weight');
     if(weight !== 0){
         $('#weight-label').html("Weight: " + weight + " Kg");
     }

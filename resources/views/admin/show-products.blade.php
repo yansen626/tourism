@@ -112,7 +112,7 @@
                                     <th>Normal Price</th>
                                     {{--<th>Stock</th>--}}
                                     <th>Created Date</th>
-                                    <th>Featured Photo</th>
+                                    {{--<th>Featured Photo</th>--}}
                                     <th>Discount</th>
                                     <th>Flat Discount</th>
                                     <th>Final Price</th>
@@ -171,11 +171,11 @@
                                         <td>
                                             {{ \Carbon\Carbon::parse($product->created_on)->format('j F y')}}
                                         </td>
-                                        <td>
-                                            @if($product->product_image->count() > 0)
-                                                <img style="height: 150px;" src="{{ asset('storage/product/'. $product->product_image()->where('featured', 1)->first()->path) }}">
-                                            @endif
-                                        </td>
+                                        {{--<td>--}}
+                                            {{--@if($product->product_image->count() > 0)--}}
+                                                {{--<img style="height: 150px;" src="{{ asset('storage/product/'. $product->product_image()->where('featured', 1)->first()->path) }}">--}}
+                                            {{--@endif--}}
+                                        {{--</td>--}}
                                         <td>
                                             @if(!empty($product->discount))
                                                 {{ $product->discount}}%

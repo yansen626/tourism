@@ -693,7 +693,7 @@ class ProductController extends Controller
                     }
 
                     // Check stock
-                    if($ready == ' true'){
+                    if($ready == 'true'){
                         $product->is_ready = 1;
                     }
                     else{

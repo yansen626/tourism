@@ -90,16 +90,19 @@
                                 {{--<div class="pull-right tovar_view_price">Rp {{ $product->price }}</div>--}}
                                 {{--@endif--}}
                                 {{--@endif--}}
+                                <?php $isReady = 1; ?>
                                 @if(auth()->check())
                                     @if(!empty($primary))
                                         @if($primary->is_ready == 1)
                                             <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
                                         @else
-                                            <div class="pull-right tovar_view_price" id="price-label">Produk Kosong</div>
+                                            <?php $isReady = 0; ?>
+                                            <div class="pull-right tovar_view_price" id="price-label">STOK KOSONG</div>
                                         @endif
                                     @else
                                         @if($product->is_ready == 0)
-                                            <div class="pull-right tovar_view_price" id="price-label">Produk Kosong</div>
+                                            <?php $isReady = 0; ?>
+                                            <div class="pull-right tovar_view_price" id="price-label">STOK KOSONG</div>
                                         @else
                                             @if(!empty($product->discount) || !empty($product->discount_flat))
                                                 <div class="pull-right" style="font-size: 20px;">
@@ -205,7 +208,8 @@
                                     {{--@if($product->quantity > 0)--}}
                                     {{--<div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>--}}
                                     {{--@endif--}}
-                                    <div class="add_bag" onclick="addToCartNotes('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Tambah ke Keranjang</span></div>
+                                    <div id="cart-add-btn" class="add_bag" onclick="addToCartNotes('{{ $product->id }}')" style="cursor: pointer; @if($isReady == 0) display: none; @endif"><i class="fa fa-shopping-cart"></i><span>Tambah ke Keranjang</span></div>
+
                                 </div>
                             @endif
                         </div>
