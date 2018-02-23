@@ -9,7 +9,7 @@
 
             <div class="my_account_block clearfix">
                 <div class="login">
-                    <p style="font-size: 15px;">Your Email is successfully verified. Click here to <strong><a href="{{ route('login') }}">login</a></strong></p>
+                    <p style="font-size: 15px;">Email ada berhasil diverifikasi, anda bisa login <strong><a href="{{ route('login') }}">login</a></strong> kembali</p>
                 </div>
             </div>
         </div><!-- //CONTAINER -->
