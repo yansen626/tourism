@@ -25,13 +25,11 @@
                                 </a>
                                 <a href="{{ route('product-detail', ['id' => $recProduct->id]) }}" class="tovar_item_small_title">{{$recProduct->name}}</a>
                                 {{--<span class="tovar_item_small_price">Rp {{$recProduct->price}}</span>--}}
-                                @if(auth()->check())
-                                    @if(!empty($recProduct->discount) || !empty($recProduct->discount_flat))
-                                        <span style="text-decoration: line-through;">Rp {{ $recProduct->price }}</span><br/>
-                                        <p style="color:orange;"><b>Rp {{ $recProduct->price_discounted }}</b></p>
-                                    @else
-                                        <span class="tovar_item_small_price">Rp {{$recProduct->price_discounted}}</span>
-                                    @endif
+                                @if(!empty($recProduct->discount) || !empty($recProduct->discount_flat))
+                                    <span style="text-decoration: line-through;">Rp {{ $recProduct->price }}</span><br/>
+                                    <p style="color:orange;"><b>Rp {{ $recProduct->price_discounted }}</b></p>
+                                @else
+                                    <span class="tovar_item_small_price">Rp {{$recProduct->price_discounted}}</span>
                                 @endif
                             </li>
                         @endforeach
@@ -91,127 +89,126 @@
                                 {{--@endif--}}
                                 {{--@endif--}}
                                 <?php $isReady = 1; ?>
-                                @if(auth()->check())
-                                    @if(!empty($primary))
-                                        @if($primary->is_ready == 1)
-                                            <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
-                                        @else
-                                            <?php $isReady = 0; ?>
-                                            <div class="pull-right tovar_view_price" id="price-label">STOK KOSONG</div>
-                                        @endif
+                                @if(!empty($primary))
+                                    @if($primary->is_ready == 1)
+                                        <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
                                     @else
-                                        @if($product->is_ready == 0)
-                                            <?php $isReady = 0; ?>
-                                            <div class="pull-right tovar_view_price" id="price-label">STOK KOSONG</div>
-                                        @else
-                                            @if(!empty($product->discount) || !empty($product->discount_flat))
-                                                <div class="pull-right" style="font-size: 20px;">
-                                                    <span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>
-                                                    <p style="color:orange;"><b><span id="price-label">Rp {{ $product->price_discounted }}</span></b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
-                                                </div>
-                                            @else
-                                                <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
-                                            @endif
-                                        @endif
+                                        <?php $isReady = 0; ?>
+                                        <div class="pull-right tovar_view_price" id="price-label">STOK KOSONG</div>
                                     @endif
                                 @else
-                                    <div style="font-size: 18px;">
-                                        <p>Masuk ke Lowids terlebih dahulu di <a href="javascript:void(0);" onclick="loginRedirect()" style="text-decoration: underline;">sini</a> untuk melihat harga</p>
-                                    </div>
+                                    @if($product->is_ready == 0)
+                                        <?php $isReady = 0; ?>
+                                        <div class="pull-right tovar_view_price" id="price-label">STOK KOSONG</div>
+                                    @else
+                                        @if(!empty($product->discount) || !empty($product->discount_flat))
+                                            <div class="pull-right" style="font-size: 20px;">
+                                                <span style="text-decoration: line-through;">Rp {{ $product->price }}</span><br/>
+                                                <p style="color:orange;"><b><span id="price-label">Rp {{ $product->price_discounted }}</span></b> <span style="font-size:12px; color:red;">( -{{ $product->discount ? $product->discount. '%' : 'Rp '. $product->discount_flat }} )</span></p>
+                                            </div>
+                                        @else
+                                            <div class="pull-right tovar_view_price" id="price-label">Rp {{ $product->price }}</div>
+                                        @endif
+                                    @endif
                                 @endif
+                                {{--@if(auth()->check())--}}
+                                    {{----}}
+                                {{--@else--}}
+                                    {{--<div style="font-size: 18px;">--}}
+                                        {{--<p>Masuk ke Lowids terlebih dahulu di <a href="javascript:void(0);" onclick="loginRedirect()" style="text-decoration: underline;">sini</a> untuk melihat harga</p>--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
 
                             </div>
 
-                            @if(auth()->check())
-                                @if($weights->count() > 0)
-                                    <div class="tovar_color_select selection-weight">
-                                        <p>Select Weight</p>
-                                        <select id="select-weight" class="basic" onchange="onchangeWeight(this)">
-                                            @foreach($weights as $weight)
-                                                <?php
-                                                $weightNumber = floatval($weight->description);
-                                                $weightNumber = $weightNumber / 1000;
-                                                ?>
-                                                @if($weight->primary == 1)
-                                                    <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" data-ready="{{ $weight->is_ready }}" value="{{ $weight->id }}" selected>{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
-                                                @else
-                                                    <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" data-ready="{{ $weight->is_ready }}" value="{{ $weight->id }}">{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-
-                                @if($colors->count() > 0)
-                                    <div class="tovar_color_select">
-                                        <p>Pilih Warna</p>
-                                        <select id="select-color" class="basic">
-                                            @foreach($colors as $color)
-                                                @if($color->primary == 1)
-                                                    <option value="{{ $color->id }}" selected>{{ ucwords($color->description) }}</option>
-                                                @else
-                                                    <option value="{{ $color->id }}">{{ ucwords($color->description) }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-
-                                @if($sizes->count() > 0)
-                                    <div class="tovar_color_select selection-size">
-                                        <p>Pilih Ukuran</p>
-                                        <select id="select-size" class="basic" onchange="onchangeSize(this)">
-                                            @foreach($sizes as $size)
-                                                <?php
-                                                $content = ucwords($size->description);
-                                                if(!empty($size->price)){
-                                                    $content .= ' - Rp '. $size->price;
-                                                }
-
-                                                $sizeWeightNumber = 0;
-                                                if(!empty($size->weight)){
-                                                    $sizeWeightNumber = floatval($size->weight);
-                                                    $sizeWeightNumber = $sizeWeightNumber / 1000;
-                                                }
-                                                ?>
-                                                @if($size->primary == 1)
-                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}" data-ready="{{ $size->is_ready }}" value="{{ $size->id }}" selected>{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
-                                                @else
-                                                    <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}" data-ready="{{ $size->is_ready }}"  value="{{ $size->id }}">{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
-                                                @endif
-
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-
-                                @if($qtys->count() > 0)
-                                    <div class="tovar_color_select selection-qty">
-                                        <p>Pilih Jumlah</p>
-                                        <select id="select-qty" class="basic" onchange="onchangeQty(this)">
-                                            @foreach($qtys as $qty)
-                                                <?php
-                                                $qtyWeight = floatval($qty->weight);
-                                                $qtyWeight = $qtyWeight / 1000;
-                                                ?>
-                                                @if($qty->primary == 1)
-                                                    <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" data-ready="{{ $qty->is_ready }}" value="{{ $qty->id }}" selected>{{ $qty->description }} - {{ $qtyWeight }} Kg - {{  $qty->price }}</option>
-                                                @else
-                                                    <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" data-ready="{{ $qty->is_ready }}" value="{{ $qty->id }}">{{ $qty->description }} - {{ $qtyWeight }} Kg - Rp {{ $qty->price }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-
-                                <div class="tovar_view_btn">
-                                    {{--@if($product->quantity > 0)--}}
-                                    {{--<div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>--}}
-                                    {{--@endif--}}
-                                    <div id="cart-add-btn" class="add_bag" onclick="addToCartNotes('{{ $product->id }}')" style="cursor: pointer; @if($isReady == 0) display: none; @endif"><i class="fa fa-shopping-cart"></i><span>Tambah ke Keranjang</span></div>
-
+                            @if($weights->count() > 0)
+                                <div class="tovar_color_select selection-weight">
+                                    <p>Select Weight</p>
+                                    <select id="select-weight" class="basic" onchange="onchangeWeight(this)">
+                                        @foreach($weights as $weight)
+                                            <?php
+                                            $weightNumber = floatval($weight->description);
+                                            $weightNumber = $weightNumber / 1000;
+                                            ?>
+                                            @if($weight->primary == 1)
+                                                <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" data-ready="{{ $weight->is_ready }}" value="{{ $weight->id }}" selected>{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
+                                            @else
+                                                <option data-price="{{ $weight->price }}" data-weight="{{ $weightNumber }}" data-ready="{{ $weight->is_ready }}" value="{{ $weight->id }}">{{ $weightNumber }} Kg - Rp {{ $weight->price }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
                             @endif
+
+                            @if($colors->count() > 0)
+                                <div class="tovar_color_select">
+                                    <p>Pilih Warna</p>
+                                    <select id="select-color" class="basic">
+                                        @foreach($colors as $color)
+                                            @if($color->primary == 1)
+                                                <option value="{{ $color->id }}" selected>{{ ucwords($color->description) }}</option>
+                                            @else
+                                                <option value="{{ $color->id }}">{{ ucwords($color->description) }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            @if($sizes->count() > 0)
+                                <div class="tovar_color_select selection-size">
+                                    <p>Pilih Ukuran</p>
+                                    <select id="select-size" class="basic" onchange="onchangeSize(this)">
+                                        @foreach($sizes as $size)
+                                            <?php
+                                            $content = ucwords($size->description);
+                                            if(!empty($size->price)){
+                                                $content .= ' - Rp '. $size->price;
+                                            }
+
+                                            $sizeWeightNumber = 0;
+                                            if(!empty($size->weight)){
+                                                $sizeWeightNumber = floatval($size->weight);
+                                                $sizeWeightNumber = $sizeWeightNumber / 1000;
+                                            }
+                                            ?>
+                                            @if($size->primary == 1)
+                                                <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}" data-ready="{{ $size->is_ready }}" value="{{ $size->id }}" selected>{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
+                                            @else
+                                                <option data-price="{{ $size->price ? $size->price : 0 }}" data-weight="{{ $sizeWeightNumber }}" data-ready="{{ $size->is_ready }}"  value="{{ $size->id }}">{{ $content }} @if($sizeWeightNumber != 0) - {{ $sizeWeightNumber }} Kg @endif</option>
+                                            @endif
+
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            @if($qtys->count() > 0)
+                                <div class="tovar_color_select selection-qty">
+                                    <p>Pilih Jumlah</p>
+                                    <select id="select-qty" class="basic" onchange="onchangeQty(this)">
+                                        @foreach($qtys as $qty)
+                                            <?php
+                                            $qtyWeight = floatval($qty->weight);
+                                            $qtyWeight = $qtyWeight / 1000;
+                                            ?>
+                                            @if($qty->primary == 1)
+                                                <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" data-ready="{{ $qty->is_ready }}" value="{{ $qty->id }}" selected>{{ $qty->description }} - {{ $qtyWeight }} Kg - {{  $qty->price }}</option>
+                                            @else
+                                                <option data-price="{{ $qty->price }}" data-weight="{{ $qtyWeight }}" data-ready="{{ $qty->is_ready }}" value="{{ $qty->id }}">{{ $qty->description }} - {{ $qtyWeight }} Kg - Rp {{ $qty->price }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            <div class="tovar_view_btn">
+                                {{--@if($product->quantity > 0)--}}
+                                {{--<div class="add_bag" onclick="addToCart('{{ $product->id }}')" style="cursor: pointer;"><i class="fa fa-shopping-cart"></i><span>Add to cart</span></div>--}}
+                                {{--@endif--}}
+                                <div id="cart-add-btn" class="add_bag" onclick="addToCartNotes('{{ $product->id }}')" style="cursor: pointer; @if($isReady == 0) display: none; @endif"><i class="fa fa-shopping-cart"></i><span>Tambah ke Keranjang</span></div>
+
+                            </div>
                         </div>
                     </div><!-- //CLEARFIX -->
 

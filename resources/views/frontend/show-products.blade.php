@@ -155,18 +155,16 @@
                                             <div class="row">
                                                 <a class="tovar_title" href="{{ route('product-detail', ['id' => $product->id]) }}" >{{ $product->name }}</a>
                                             </div>
-                                            @if(auth()->check())
-                                                <div class="row">
-                                                    @if(!empty($product->discount) || !empty($product->discount_flat))
-                                                        <span class="tovar_price" style="text-decoration: line-through; font-size: 11px;">Rp {{$product->price}}</span>
-                                                    @else
-                                                        <span class="tovar_price" style="color: orange; visibility: hidden;">Rp {{$product->price_discounted}}</span>
-                                                    @endif
-                                                </div>
-                                                <div class="row">
-                                                    <span class="tovar_price" style="color: orange;">Rp {{$product->price_discounted}}</span>
-                                                </div>
-                                            @endif
+                                            <div class="row">
+                                                @if(!empty($product->discount) || !empty($product->discount_flat))
+                                                    <span class="tovar_price" style="text-decoration: line-through; font-size: 11px;">Rp {{$product->price}}</span>
+                                                @else
+                                                    <span class="tovar_price" style="color: orange; visibility: hidden;">Rp {{$product->price_discounted}}</span>
+                                                @endif
+                                            </div>
+                                            <div class="row">
+                                                <span class="tovar_price" style="color: orange;">Rp {{$product->price_discounted}}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
