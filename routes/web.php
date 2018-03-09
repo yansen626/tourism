@@ -29,6 +29,10 @@ Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsCon
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
 Route::get('search/{key}', 'Frontend\ProductsController@search')->name('product-search');
 
+// Search
+Route::get('search-form/', 'Frontend\TravelerController@SearchForm')->name('search');
+Route::get('search/{key}', 'Frontend\TravelerController@SearchResult')->name('search-result');
+
 // Cart
 Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
 Route::post('/add-cart', [

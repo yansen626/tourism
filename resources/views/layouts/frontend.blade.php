@@ -3,94 +3,99 @@
 <head>
 
     <meta charset="utf-8">
-    <title>Lowids</title>
+    <title>Travel Mate</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Modu System Indonesia" />
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta property="og:description" content="Modu System Indonesia" />
 
     <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
 
     <!-- CSS -->
-    <link href="{{ URL::asset('css/frontend/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/frontend/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/reset.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/jquery.fancybox.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/fonts/fi/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/flexslider.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/main.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/indent.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('rs-plugin/css/settings.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('rs-plugin/css/layers.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('rs-plugin/css/navigation.css') }}">
 
-    <link href="{{ URL::asset('css/frontend/flexslider.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/frontend/fancySelect.css') }}" rel="stylesheet" media="screen, projection" >
-    <link href="{{ URL::asset('css/frontend/animate.css') }}" rel="stylesheet" media="all">
-    <link href="{{ URL::asset('css/frontend/style.css') }}" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="{{ URL::asset('css/frontend/datatable/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ URL::asset('css/frontend/custom.css') }}" rel="stylesheet">
 
-    <!-- Lowids Custom CSS -->
-    <link href="{{ URL::asset('css/frontend/frontend-custom-lowids-bayu.css') }}" rel="stylesheet">
-
-    <!-- FONTS -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 
 </head>
 
 <body>
 
-<!-- PRELOADER -->
-<div id="preloader"><img src="{{ URL::asset('frontend_images/preloader.gif') }}" alt="" /></div>
-<!-- //PRELOADER -->
-<div class="preloader_hide">
+<!-- HEADER -->
+@include('frontend.partials._header')
+<!-- //HEADER -->
 
-    <!-- PAGE -->
-    <div id="page">
-
-        <!-- HEADER -->
-        @include('frontend.partials._header')
-        <!-- //HEADER -->
-
-        @yield('body-content')
-
-        <!-- FOOTER -->
-        @include('frontend.partials._footer')
-        <!-- //FOOTER -->
-    </div>
-    <!-- //PAGE -->
+<div class="content-body">
+    @yield('body-content')
 </div>
 
-<!-- TOVAR MODAL CONTENT -->
-<div id="modal-body" class="clearfix">
-    <div id="tovar_content"></div>
-    <div class="close_block"></div>
-</div><!-- TOVAR MODAL CONTENT -->
+<!-- FOOTER -->
+@include('frontend.partials._footer')
+<!-- //FOOTER -->
 
 <!-- SCRIPTS -->
-<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-<!--[if IE]><html class="ie" lang="en"> <![endif]-->
-
+<script src="https://www.youtube.com/player_api"></script>
 <script src="{{ URL::asset('js/frontend/jquery.min.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/bootstrap.min.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-
-<!-- autoNumeric -->
-<script src="{{ URL::asset('js/autoNumeric/autoNumeric.min.js') }}"></script>
-
-<!-- Datatables -->
-<script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/datatable/dataTables.bootstrap.min.js') }}"></script>
-
+<script src="{{ URL::asset('js/frontend/jquery-ui.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/bootstrap.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/owl.carousel.js') }}"></script>
 <script src="{{ URL::asset('js/frontend/jquery.sticky.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/parallax.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/jquery.flexslider-min.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/jquery.jcarousel.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/fancySelect.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/animate.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/myscript.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/TweenMax.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/cws_parallax.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.fancybox.pack.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.fancybox-media.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/isotope.pkgd.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/masonry.pkgd.min.js') }}"></script>
 
+<script src="{{ URL::asset('rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.slideanims.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.layeranimation.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.navigation.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.parallax.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.video.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.actions.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.kenburn.min.js') }}"></script>
+<script src="{{ URL::asset('rs-plugin/js/extensions/revolution.extension.migration.min.js') }}"></script>
+
+<script src="{{ URL::asset('js/frontend/jquery.validate.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.form.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/script.js') }}"></script>
+
+{{--<script type="text/javascript" src="js/bg-video/cws_self_vimeo_bg.js"></script>--}}
+{{--<script type="text/javascript" src="js/bg-video/jquery.vimeo.api.min.js"></script>--}}
+{{--<script type="text/javascript" src="js/bg-video/cws_YT_bg.js"></script>--}}
+
+<script src="{{ URL::asset('js/frontend/jquery.tweet.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.scrollTo.min.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/jquery.flexslider.js') }}"></script>
+<script src="{{ URL::asset('js/frontend/retina.min.js') }}"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3JCAhNj6tVAO_LSb8M-AzMlidiT-RPAs"></script>
 
 <script src="{{ URL::asset('js/frontend/custom.js') }}"></script>
-<script src="{{ URL::asset('js/frontend/frontend-custom-lowids-bayu.js') }}"></script>
-<script>
-    if (top != self) top.location.replace(self.location.href);
-</script>
 
 </body>
 </html>
