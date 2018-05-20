@@ -7,12 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Lowids | Admin</title>
+    <title>Travel Mate | Admin</title>
 
     <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
 
     <!-- Bootstrap -->
+    {{--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">--}}
     <link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
     <!-- bootstrap-file-input -->
     <link href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}" rel="stylesheet">
@@ -46,7 +47,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('css/admin/custom.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('css/admin/custom-admin-lowids.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/admin/custom-admin.css') }}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -67,7 +68,7 @@
 <!-- bootstrap-file-input -->
 <script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
 <!-- DateTime -->
-<script src="{{ URL::asset('js/frontend/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ URL::asset('js/admin/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 <!-- autoNumeric -->
 <script src="{{ URL::asset('js/autoNumeric/autoNumeric.min.js') }}"></script>
 

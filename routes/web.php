@@ -113,13 +113,13 @@ Route::get('invoice/{id}','Frontend\PurchaseController@invoice')->name('invoice-
 Route::get('rajaongkir/subdistrict/{cityId}', 'Frontend\UserAddressController@getSubdistrict');
 
 // Backend Routing
-Route::get('/admin', 'Admin\DashboardController@dashboardShow')->name('admin-dashboard');
+Route::get('/HTIITravelmate', 'Admin\DashboardController@dashboardShow')->name('admin-dashboard');
 
-Route::get('/lowids/login', function (){
+Route::get('/HTII/login', function (){
     return view('admin/login');
 })->name('login-admin');
 
-Route::get('/lowids/login/{failed}', function ($failed){
+Route::get('/HTII/login/{failed}', function ($failed){
     $msg = "Not Found!";
     return view('admin/login')->with('msg', $msg);
 })->name('login-admin-failed');
@@ -130,6 +130,21 @@ Route::get('/admin/{customerId}/transactions', 'Admin\TransactionController@inde
 Route::post('/admin', 'Auth\LoginAdminController@login');
 Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
+
+
+// Voucher
+Route::prefix('admin/voucher')->group(function(){
+    Route::get('/', 'Admin\VoucherController@index')->name('voucher-list');
+    Route::post('/', 'Admin\VoucherController@store');
+    Route::get('/create', 'Admin\VoucherController@create')->name('voucher-create');
+    Route::get('/edit/{id}', 'Admin\VoucherController@edit');
+    Route::post('/{id}', 'Admin\VoucherController@update');
+});
+Route::prefix('admin/rate')->group(function(){
+    Route::get('/edit', 'Admin\RateController@edit')->name('rate-edit');
+    Route::post('/edit', 'Admin\RateController@update');
+});
+
 
 // Product
 Route::prefix('/admin/product')->group(function (){

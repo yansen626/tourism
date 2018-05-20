@@ -10,7 +10,8 @@
     <title>Admin Login</title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    {{--<link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">--}}
     <!-- Font Awesome -->
     <link href="{{ URL::asset('css/font-awesome/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
@@ -41,7 +42,7 @@
                 {!! csrf_field() !!}
 
                 <form>
-                    <h1>Login Form</h1>
+                    <h1>{{env('APP_NAME')}} Login Form</h1>
                     <div>
                         @foreach($errors->all() as $error)
                             <span class="help-block">
@@ -72,7 +73,7 @@
 
                         <div>
                             {{--<h1><i class="fa fa-paw"></i> Lowids</h1>--}}
-                            <p>©2017 All Rights Reserved. Lowids by PT Generasi Muda Gigih</p>
+                            <p>©{{env('YEAR')}} All Rights Reserved {{env('APP_NAME')}} </p>
                         </div>
                     </div>
                 </form>

@@ -53,28 +53,32 @@
     <nav class="main-nav js-stick">
         <div class="full-wrapper relative clearfix container">
             <!-- Logo ( * your text or image into link tag *)-->
-            <div class="nav-logo-wrap local-scroll"><a href="index.html" class="logo"><img src="img/logo.png" data-at2x="img/logo@2x.png" alt></a></div>
+            <div class="nav-logo-wrap local-scroll">
+                <a href="{{route('landing')}}" class="logo">
+                    <img src="{{ URL::asset('frontend_images/Logo.png') }}" data-at2x="img/logo@2x.png" style="width: 80%;">
+                </a>
+            </div>
             <!-- Main Menu-->
-            <div class="inner-nav desktop-nav">
+            <div class="inner-nav desktop-nav"  >
                 <ul class="clearlist">
                     <!-- Item -->
-                    <li><a href="{{route('landing')}}" class="active">Home</a></li>
+                    <li><a href="{{route('landing')}}" class="active">Home +</a></li>
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="hotels-search.html" class="mn-has-sub">TRAVEL MATE</a></li>
+                    <li><a href="#" class="mn-has-sub">TRAVEL MATE +</a></li>
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="page-about-us.html" class="mn-has-sub">DESTINATION</a></li>
+                    <li><a href="#" class="mn-has-sub">DESTINATION +</a></li>
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="shop-grid.html" class="mn-has-sub">TAILOR MADE JOURNEY</a></li>
+                    <li><a href="#" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
                     <!-- End Item -->
 
                     <!-- Search-->
-                    <li class="search"><a href="" class="mn-has-sub"> <i class="fa fa-search" style="font-size: 30px;"></i></a>
+                    <li class="search"><a href="" class="mn-has-sub"> <i class="fa fa-search" style="font-size: 35px;"></i></a>
                         <ul class="search-sub">
                             <li>
                                 <div class="container">
@@ -85,7 +89,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="close-button"><span> <i class="fa fa-search" style="font-size: 30px;"></i></span></div>
+                                    <div class="close-button"><span><i class="fa fa-search" style="font-size: 35px;"></i></span></div>
                                 </div>
                             </li>
                         </ul>

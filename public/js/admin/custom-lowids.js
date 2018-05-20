@@ -149,7 +149,6 @@ $("#size-no-opt").change(function(){
     $("#form-discount-section").show(300);
     $("#form-weight-option").show(300);
     $("#form-qty-option").show(300);
-    $("#form-stock-section").show(300);
 });
 
 $("#size-yes-opt").change(function(){
@@ -161,7 +160,6 @@ $("#size-yes-opt").change(function(){
     $("#form-discount-section").hide(300);
     $("#form-weight-option").hide(300);
     $("#form-qty-option").hide(300);
-    $("#form-stock-section").hide(300);
 
     // Hide discount sections
     $("#form-discount-section").hide(300);
@@ -188,7 +186,6 @@ $("#weight-no-opt").change(function(){
     $("#form-discount-section").show(300);
     $("#form-size-option").show(300);
     $("#form-qty-option").show(300);
-    $("#form-stock-section").show(300);
 });
 
 $("#weight-yes-opt").change(function(){
@@ -199,7 +196,6 @@ $("#weight-yes-opt").change(function(){
     $("#form-weight-section").hide(300);
     $("#form-size-option").hide(300);
     $("#form-qty-option").hide(300);
-    $("#form-stock-section").hide(300);
 
     // Hide discount sections
     $("#form-discount-section").hide(300);
@@ -225,7 +221,6 @@ $("#qty-no-opt").change(function(){
     $("#form-discount-section").show(300);
     $("#form-weight-option").show(300);
     $("#form-size-option").show(300);
-    $("#form-stock-section").show(300);
 });
 
 $("#qty-yes-opt").change(function(){
@@ -236,7 +231,6 @@ $("#qty-yes-opt").change(function(){
     $("#form-weight-section").hide(300);
     $("#form-weight-option").hide(300);
     $("#form-size-option").hide(300);
-    $("#form-stock-section").hide(300);
 
     // Hide discount sections
     $("#form-discount-section").hide(300);

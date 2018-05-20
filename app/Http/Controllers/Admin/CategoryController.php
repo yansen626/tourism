@@ -26,11 +26,11 @@ class CategoryController extends Controller
     public function index(){
         $categories = Category::all();
 
-        return View('admin.show-categories', compact('categories'));
+        return View('admin.categories.show-categories', compact('categories'));
     }
 
     public function create(){
-        return View('admin.create-category');
+        return View('admin.categories.create-category');
     }
 
     public function store(Request $request){
@@ -56,7 +56,7 @@ class CategoryController extends Controller
     public function edit($id){
         $category = Category::find($id);
 
-        return View('admin.edit-category', compact('category'));
+        return View('admin.categories.edit-category', compact('category'));
     }
 
     public function update(Request $request, $id){

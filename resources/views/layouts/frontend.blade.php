@@ -10,11 +10,11 @@
     <meta name="author" content="">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Modu System Indonesia" />
+    <meta property="og:title" content="Travelmate" />
     <meta property="og:url" content="" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="" />
-    <meta property="og:description" content="Modu System Indonesia" />
+    <meta property="og:description" content="Travelmate" />
 
     <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">

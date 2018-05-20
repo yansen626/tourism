@@ -36,10 +36,10 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Product List</h2>
+                            <h2>Daftar Voucher</h2>
                             <div class="nav navbar-right">
-                                <a href="{{ route('category-create') }}" class="btn btn-app">
-                                    <i class="fa fa-plus"></i> Add
+                                <a href="{{ route('voucher-create') }}" class="btn btn-app">
+                                    <i class="fa fa-plus"></i> Tambah
                                 </a>
                             </div>
                             <div class="clearfix"></div>
@@ -49,18 +49,18 @@
                                 <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Category</th>
+                                    <th>Voucher</th>
                                     <th>Option</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @php ($idx = 1)
-                                @foreach($categories as $category)
+                                @foreach($vouchers as $voucher)
                                     <tr>
                                         <td>{{ $idx}}</td>
-                                        <td>{{ $category->name}}</td>
+                                        <td>{{ $voucher->name}}</td>
                                         <td>
-                                            <a href="/admin/category/edit/{{ $category->id }}" class="btn btn-primary">Edit</a>
+                                            <a href="/admin/voucher/edit/{{ $voucher->id }}" class="btn btn-primary">Edit</a>
                                         </td>
                                     </tr>
                                     @php ($idx++)

@@ -33,7 +33,7 @@ class LoginAdminController extends Controller
 
         $email = $request->input('email');
         $pass = $request->input('password');
-
+//        dd($email." | ".$pass);
         if(Auth::guard('user_admins')->attempt(['email' => $email, 'password' => $pass])){
             return Redirect::route('admin-dashboard');
         }

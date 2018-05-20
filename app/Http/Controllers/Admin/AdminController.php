@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function index(){
         $users = UserAdmin::all();
 
-        return View('admin.show-users', compact('users'));
+        return View('admin.users.show-users', compact('users'));
     }
 
     public function show($id){
@@ -39,7 +39,7 @@ class AdminController extends Controller
 
         $admin = UserAdmin::find($id);
 
-        return View('admin.show-user', compact('admin'));
+        return View('admin.users.show-user', compact('admin'));
     }
 
     public function edit($id){
@@ -49,7 +49,7 @@ class AdminController extends Controller
 
         $admin = UserAdmin::find($id);
 
-        return View('admin.edit-user', compact('admin'));
+        return View('admin.users.edit-user', compact('admin'));
     }
 
     public function update(Request $request, $id){
@@ -81,7 +81,7 @@ class AdminController extends Controller
             return Redirect::route('admin-list');
         }
 
-        return View('admin.edit-user-password');
+        return View('admin.users.edit-user-password');
     }
 
     public function passwordUpdate(Request $request, $id)
