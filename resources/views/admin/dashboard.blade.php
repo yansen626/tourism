@@ -53,7 +53,11 @@
 
                     <div class="row x_title">
                         <div class="col-md-6">
-                            <h3>Selamat Datang</h3>
+                            <h3>
+                                Selamat Datang,
+                                {{ \Illuminate\Support\Facades\Auth::guard('user_admins')->user()->first_name }}
+                                {{ \Illuminate\Support\Facades\Auth::guard('user_admins')->user()->last_name }}
+                            </h3>
                         </div>
                         {{--<div class="col-md-6">--}}
                             {{--<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">--}}

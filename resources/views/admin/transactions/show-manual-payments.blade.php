@@ -30,24 +30,22 @@
                                 <tr>
                                     <th>Invoice</th>
                                     <th>Nama Transaksi</th>
-                                    <th>Metode Pembayaran</th>
                                     <th>Nama Pengirim</th>
                                     <th>Jumlah Transfer</th>
-                                    <th>Total Pembayaran</th>
+                                    <th>Yang harus Dibayar</th>
                                     <th>Tanggal Transfer</th>
                                     <th>Tanggal Transaksi</th>
-                                    <th>Status</th>
+                                    <th>Catatan Transfer</th>
                                     <th>Pilihan</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($transactions as $trx)
+                                @foreach($transfers as $trans)
                                     {{--@php( $trans = $trx->transfer_confirmation()->first())--}}
-                                    @php( $trans = $trx->transfer_confirmation()->first())
+                                    @php( $trx = $trans->Transaction()->first())
                                     <tr>
                                         <td><a href="{{ route('admin-invoice', ['trxId' => $trx->id]) }}">{{ $trx->invoice }}</a></td>
                                         <td>{{ $trx->user->first_name }}&nbsp;{{ $trx->user->last_name }}</td>
-                                        <td>{{ $trx->payment_method->description }}</td>
                                         <td>{{ $trans->sender_name ?? '-'}}</td>
                                         <td>
                                             @if(!empty($trans))
@@ -66,18 +64,14 @@
                                         </td>
                                         <td>
                                             @if(!empty($trx->created_on))
-                                                {{ \Carbon\Carbon::parse($trx->created_on)->format('j M Y G:i:s') }}
+                                                {{ \Carbon\Carbon::parse($trx->created_at)->format('j M Y G:i:s') }}
                                             @else
                                                 -
                                             @endif
                                         </td>
                                         <td>
-                                            @if($trx->status_id == 3)
-                                                <span style="color: red;">Pembayaran Pending</span>
-                                            @elseif($trx->status_id == 4)
-                                                <span style="color: orange;">Pembayaran Telah diverifikasi</span>
-                                            @else
-                                                <span style="color: orange;">Challenge</span>
+                                            @if(!empty($trx->note))
+                                                {{ $trx->note }}
                                             @endif
                                         </td>
                                         <td>

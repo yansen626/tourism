@@ -30,7 +30,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return View('admin.show-report-form');
+        return View('admin.reports.show-report-form');
     }
 
     public function request(Request $request)
@@ -47,7 +47,7 @@ class ReportController extends Controller
         $transactions = Transaction::where('status_id', '=', $statusId)
             ->whereBetween('created_on', [$start->toDateString(),$end->toDateString()])
             ->orderByDesc('created_on')->get();
-        return View('admin.show-report-print', compact('transactions', 'start', 'end', 'statusString'));
+        return View('admin.reports.show-report-print', compact('transactions', 'start', 'end', 'statusString'));
     }
 //    public function show()
 //    {

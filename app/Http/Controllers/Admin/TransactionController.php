@@ -34,30 +34,19 @@ class TransactionController extends Controller
     public function index(){
         $transactions = Transaction::all()->sortByDesc('created_on');
 
-        return View('admin.show-transactions', compact('transactions'));
-    }
-
-    public function indexCustomer($customerId){
-        $transactions = Transaction::where('user_id', $customerId)->orderByDesc('created_on')->get();
-
-        $data = [
-            'transactions'  => $transactions,
-            'customerId'    => $customerId
-        ];
-
-        return View('admin.show-customer-transactions')->with($data);
+        return View('admin.transactions.show-transactions', compact('transactions'));
     }
 
     public function detail($id){
         $transaction = Transaction::find($id);
 
-        return View('admin.show-transaction-details', compact('transaction'));
+        return View('admin.transactions.show-transaction-details', compact('transaction'));
     }
 
     public function newOrder(){
         $transactions = Transaction::where('status_id', 5)->orderByDesc('created_on')->get();
 
-        return View('admin.show-new-orders', compact('transactions'));
+        return View('admin.transactions.show-new-orders', compact('transactions'));
     }
 
     public function acceptOrder($id){
@@ -102,7 +91,7 @@ class TransactionController extends Controller
             ->orWhere('status_id', 11)
             ->orderByDesc('created_on')->get();
 
-        return View('admin.show-payments', compact('transactions'));
+        return View('admin.transactions.show-payments', compact('transactions'));
     }
 
     public function manualTransferPayment(){
@@ -112,7 +101,7 @@ class TransactionController extends Controller
 //            ->orWhere('status_id', 11)
 //            ->orderByDesc('created_on')->get();
 
-        return View('admin.show-manual-payments', compact('transfers'));
+        return View('admin.transactions.show-manual-payments', compact('transfers'));
     }
 
     public function confirmPayment($id){
@@ -164,6 +153,6 @@ class TransactionController extends Controller
     public function invoice($trxId){
         $trx = Transaction::find($trxId);
 
-        return View('frontend.show-invoice', compact('trx'));
+        return View('frontend.transactions.show-invoice', compact('trx'));
     }
 }

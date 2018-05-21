@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function index(){
         $users = UserAdmin::all();
 
-        return View('admin.users.show-users', compact('users'));
+        return View('admin.users.index', compact('users'));
     }
 
     public function show($id){
@@ -39,7 +39,7 @@ class AdminController extends Controller
 
         $admin = UserAdmin::find($id);
 
-        return View('admin.users.show-user', compact('admin'));
+        return View('admin.users.show', compact('admin'));
     }
 
     public function edit($id){
@@ -49,7 +49,7 @@ class AdminController extends Controller
 
         $admin = UserAdmin::find($id);
 
-        return View('admin.users.edit-user', compact('admin'));
+        return View('admin.users.edit', compact('admin'));
     }
 
     public function update(Request $request, $id){
@@ -73,6 +73,8 @@ class AdminController extends Controller
         $admin->last_name = Input::get('last-name');
         $admin->save();
 
+        Session::flash('message', 'Berhasil mengubah nama!');
+
         return Redirect::route('admin-list');
     }
 
@@ -81,7 +83,7 @@ class AdminController extends Controller
             return Redirect::route('admin-list');
         }
 
-        return View('admin.users.edit-user-password');
+        return View('admin.users.edit-password');
     }
 
     public function passwordUpdate(Request $request, $id)
@@ -110,12 +112,12 @@ class AdminController extends Controller
             $obj_user->password = Hash::make(Input::get('password'));
             $obj_user->save();
 
-            Session::flash('message', 'Password Updated!');
+            Session::flash('message', 'Berhasil mengubah password!');
 
             return Redirect::route('admin-show',[ 'id' => $id]);
         }
         else{
-            return redirect()->back()->withErrors('Wrong Password!', 'default');
+            return redirect()->back()->withErrors('Password salah!', 'default');
         }
     }
 }

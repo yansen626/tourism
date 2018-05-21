@@ -16,23 +16,13 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Create New Category Master Data</h2>
+                        <h2>Ubah Profil</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <br />
-                        <form data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/category">
-                            {{ csrf_field() }}
-
-                            <div class="form-group">
-                                <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    <label for="description">Category Name <span class="required">*</span></label>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            </div>
-                            <div class="ln_solid"></div>
+                        {!! Form::open(array('action' => array('Admin\AdminController@update', $admin->id), 'method' => 'POST', 'role' => 'form', 'class' => 'form-horizontal form-label-left', 'novalidate')) !!}
+                        {{ csrf_field() }}
 
                             @if(count($errors))
                                 <div class="form-group">
@@ -49,12 +39,31 @@
                             @endif
 
                             <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <p class="red">Master data once created cannot be deleted!</p>
-                                    <button type="submit" class="btn btn-success">Create</button>
+                                <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    <label>Nama Depan :</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="first-name" name="first-name" required="required" class="form-control col-md-7 col-xs-12" value="{{ $admin->first_name }}">
                                 </div>
                             </div>
-                        </form>
+                            <div class="form-group">
+                                <div class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    <label>Nama Belakang :</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12" value="{{ $admin->last_name }}">
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <a class="btn btn-primary" href="{{ route('admin-list') }}"> Batal</a>
+                                    <button type="submit" class="btn btn-success"> Simpan</button>
+                                </div>
+                            </div>
+
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 19 May 2018 10:12:29 +0000.
+ * Date: Mon, 21 May 2018 02:33:09 +0000.
  */
 
 namespace App\Models;
@@ -13,7 +13,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class Packet
  * 
  * @property string $id
- * @property string $user_id
+ * @property string $travelmate_id
  * @property int $category_id
  * @property string $name
  * @property float $price
@@ -23,13 +23,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $description
  * @property int $status_id
  * @property string $created_by
- * @property \Carbon\Carbon $created_on
+ * @property \Carbon\Carbon $created_at
  * @property string $modified_by
- * @property \Carbon\Carbon $modified_on
+ * @property \Carbon\Carbon $modified_at
  * 
  * @property \App\Models\Category $category
  * @property \App\Models\Status $status
- * @property \App\Models\User $user
+ * @property \App\Models\Travelmate $travelmate
  * @property \Illuminate\Database\Eloquent\Collection $banners
  * @property \Illuminate\Database\Eloquent\Collection $carts
  * @property \Illuminate\Database\Eloquent\Collection $packet_images
@@ -52,12 +52,12 @@ class Packet extends Eloquent
 	];
 
 	protected $dates = [
-		'created_on',
-		'modified_on'
+		'created_at',
+		'modified_at'
 	];
 
 	protected $fillable = [
-		'user_id',
+		'travelmate_id',
 		'category_id',
 		'name',
 		'price',
@@ -82,9 +82,9 @@ class Packet extends Eloquent
 		return $this->belongsTo(\App\Models\Status::class);
 	}
 
-	public function user()
+	public function travelmate()
 	{
-		return $this->belongsTo(\App\Models\User::class);
+		return $this->belongsTo(\App\Models\Travelmate::class);
 	}
 
 	public function banners()
@@ -106,4 +106,20 @@ class Packet extends Eloquent
 	{
 		return $this->hasMany(\App\Models\TransactionDetail::class, 'product_id');
 	}
+
+    public function getPriceAttribute(){
+        return number_format($this->attributes['price'], 0, ",", ".");
+    }
+
+    public function getDiscountFlatAttribute(){
+        if(!empty($this->attributes['discount_flat'])){
+            return number_format($this->attributes['discount_flat'], 0, ",", ".");
+        }
+    }
+
+    public function getPriceDiscountedAttribute(){
+        if(!empty($this->attributes['price_discounted'])){
+            return number_format($this->attributes['price_discounted'], 0, ",", ".");
+        }
+    }
 }

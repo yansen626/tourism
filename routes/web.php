@@ -125,12 +125,15 @@ Route::get('/HTII/login/{failed}', function ($failed){
 })->name('login-admin-failed');
 
 // User
-Route::get('/admin/customer', 'Admin\CustomerController@index')->name('customer-list');
-Route::get('/admin/{customerId}/transactions', 'Admin\TransactionController@indexCustomer')->name('customer-transaction-list');
 Route::post('/admin', 'Auth\LoginAdminController@login');
 Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
 
+//traveller
+Route::prefix('admin/traveller')->group(function(){
+    Route::get('/', 'Admin\TravellerController@index')->name('traveller-list');
+    Route::get('/{customerId}/transactions', 'Admin\TravellerController@transactions')->name('traveller-transaction-list');
+});
 
 // Voucher
 Route::prefix('admin/voucher')->group(function(){
@@ -140,6 +143,8 @@ Route::prefix('admin/voucher')->group(function(){
     Route::get('/edit/{id}', 'Admin\VoucherController@edit');
     Route::post('/{id}', 'Admin\VoucherController@update');
 });
+
+//rate
 Route::prefix('admin/rate')->group(function(){
     Route::get('/edit', 'Admin\RateController@edit')->name('rate-edit');
     Route::post('/edit', 'Admin\RateController@update');
@@ -282,12 +287,12 @@ Route::prefix('admin/report')->group(function(){
 
 // Admin
 Route::prefix('admin/user')->group(function(){
-    Route::get('/list', 'Admin\AdminController@index')->name('admin-list');
-    Route::get('/show/{id}', 'Admin\AdminController@show')->name('admin-show');
-    Route::get('/edit/{id}', 'Admin\AdminController@edit')->name('admin-edit');
-    Route::post('/save/{id}', 'Admin\AdminController@update');
-    Route::get('/password/{id}', 'Admin\AdminController@passwordEdit')->name('admin-password-edit');
-    Route::post('/password/save/{id}', 'Admin\AdminController@passwordUpdate');
+    Route::get('/list', 'Admin\UserController@index')->name('admin-list');
+    Route::get('/show/{id}', 'Admin\UserController@show')->name('admin-show');
+    Route::get('/edit/{id}', 'Admin\UserController@edit')->name('admin-edit');
+    Route::post('/save/{id}', 'Admin\UserController@update');
+    Route::get('/password/{id}', 'Admin\UserController@passwordEdit')->name('admin-password-edit');
+    Route::post('/password/save/{id}', 'Admin\UserController@passwordUpdate');
 });
 
 // End Backend Routing

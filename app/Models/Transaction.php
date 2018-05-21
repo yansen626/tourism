@@ -49,9 +49,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $reject_note
  * @property int $status_id
  * @property string $created_by
- * @property \Carbon\Carbon $created_on
+ * @property \Carbon\Carbon $created_at
  * @property string $modified_by
- * @property \Carbon\Carbon $modified_on
+ * @property \Carbon\Carbon $modified_at
  * 
  * @property \App\Models\Address $address
  * @property \App\Models\PaymentMethod $payment_method
@@ -85,8 +85,8 @@ class Transaction extends Eloquent
         'accept_date',
         'delivery_date',
         'finish_date',
-		'created_on',
-		'modified_on'
+		'created_at',
+		'modified_at'
 	];
 
 	protected $fillable = [
@@ -127,9 +127,9 @@ class Transaction extends Eloquent
         'reject_note',
 		'status_id',
 		'created_by',
-		'created_on',
+		'created_at',
 		'modified_by',
-		'modified_on'
+		'modified_at'
 	];
 
 	public function address()

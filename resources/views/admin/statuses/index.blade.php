@@ -20,21 +20,22 @@
                     <div class="x_panel">
                         <div class="x_title">
                             @include('admin.partials._success')
-                            <h2>Status Master Data</h2>
+                            <h2>Daftar Status</h2>
                             <div class="nav navbar-right">
                                 <a href="{{ route('status-create') }}" class="btn btn-app">
-                                    <i class="fa fa-plus"></i> Add
+                                    <i class="fa fa-plus"></i> Tambah
                                 </a>
                             </div>
                             <div class="clearfix"></div>
 
                         </div>
                         <div class="x_content">
+                            @include('admin.partials._success')
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Description</th>
+                                    <th>Deskripsi</th>
                                     <th>Option</th>
                                 </tr>
                                 </thead>

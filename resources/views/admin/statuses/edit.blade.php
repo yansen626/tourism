@@ -16,12 +16,13 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Create New Status Master Data</h2>
+                        <h2>Ubah Status</h2>
                         <div class="clearfix"></div>
                     </div>
+
                     <div class="x_content">
                         <br />
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/status">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="/admin/status/{{ $status->id }}">
                             {{ csrf_field() }}
 
                             @if(count($errors))
@@ -39,19 +40,19 @@
                             @endif
 
                             <div class="form-group">
-                                <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    <label for="description">Description <span class="required">*</span></label>
-                                </div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Deskripsi <span class="required">*</span>
+                                </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="{{ $status->description }}">
                                 </div>
                             </div>
-                            <div class="ln_solid"></div>
 
+
+                            <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <p class="red">Master data once created cannot be deleted!</p>
-                                    <button type="submit" class="btn btn-success">Create</button>
+                                    <a class="btn btn-primary" href="{{ route('status-list') }}"> Batal</a>
+                                    <button type="submit" class="btn btn-success"> Simpan</button>
                                 </div>
                             </div>
                         </form>
@@ -60,9 +61,4 @@
             </div>
         </div>
     </div>
-
-    <!-- footer -->
-    @include('admin.partials._footer')
-    <!-- /footer -->
-
 @endsection

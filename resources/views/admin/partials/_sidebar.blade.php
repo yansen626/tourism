@@ -37,10 +37,10 @@
                     <li><a><i class="fa fa-list"></i> Traveller & Travelmate <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="{{ route('customer-list') }}">Daftar Traveller</a>
+                                <a href="{{ route('traveller-list') }}">Daftar Traveller</a>
                             </li>
                             <li>
-                                <a href="{{ route('customer-list') }}">Daftar Travelmate</a>
+                                <a href="{{ route('traveller-list') }}">Daftar Travelmate</a>
                             </li>
                         </ul>
                     </li>
@@ -52,13 +52,38 @@
                     </li>
                     <li><a><i class="fa fa-list"></i> Pengaturan <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ route('category-list') }}">Daftar Kategori</a></li>
-                            <li><a href="{{ route('category-create') }}">Tambah Kategori</a></li>
-                            <li><a href="{{ route('status-list') }}">Daftar Status</a></li>
-                            <li><a href="{{ route('status-create') }}">Tambah Status</a></li>
-                            <li><a href="{{ route('admin-list') }}">Daftar Admin</a></li>
-                            <li><a href="{{ route('voucher-list') }}">Daftar Voucher</a></li>
-                            <li><a href="{{ route('voucher-create') }}">Tambah Voucher</a></li>
+                            <li><a>Kategori<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li class="sub_menu"><a href="{{ route('category-list') }}">Daftar Kategori</a>
+                                    </li>
+                                    <li><a href="{{ route('category-create') }}">Tambah Kategori</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a>Status<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('status-list') }}">Daftar Status</a>
+                                    </li>
+                                    <li><a href="{{ route('status-create') }}">Tambah Status</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a>Admin<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('admin-list') }}">Daftar Admin</a>
+                                    </li>
+                                    <li><a href="#">Tambah Admin</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a>Voucher<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('voucher-list') }}">Daftar Voucher</a>
+                                    </li>
+                                    <li><a href="{{ route('voucher-create') }}">Tambah Voucher</a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li><a href="{{ route('rate-edit') }}">Konversi Mata Uang</a></li>
                         </ul>
                     </li>

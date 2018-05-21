@@ -14,7 +14,7 @@ use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class TravellerController extends Controller
 {
     public function __construct()
     {
@@ -25,7 +25,18 @@ class CustomerController extends Controller
     {
         $users = User::all();
 
-        return View('admin.show-customers', compact('users'));
+        return View('admin.travellers.index', compact('users'));
         //return view('admin.show_users')->with('users', $users);
+    }
+
+    public function transactions($customerId){
+        $transactions = Transaction::where('user_id', $customerId)->orderByDesc('created_on')->get();
+
+        $data = [
+            'transactions'  => $transactions,
+            'customerId'    => $customerId
+        ];
+
+        return View('admin.travellers.index-transactions')->with($data);
     }
 }

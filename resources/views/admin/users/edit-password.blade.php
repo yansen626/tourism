@@ -16,7 +16,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Change Password</h2>
+                        <h2>Ubah Password</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -41,7 +41,7 @@
 
                         <div class="form-group">
                             <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                <label>Current Password </label>
+                                <label>Password Sekarang </label>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="password" id="current-password" name="current-password" required="required" class="form-control col-md-7 col-xs-12">
@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group">
                             <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                <label>New Password </label>
+                                <label>Password Baru </label>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="password" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                <label>Confirm Password </label>
+                                <label>Konfirmasi Password </label>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="password" id="password-confirmation" name="password-confirmation" required="required" class="form-control col-md-7 col-xs-12">
@@ -67,7 +67,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success">Change Password</button>
+                                <a class="btn btn-primary" href="{{ route('admin-list') }}"> Batal</a>
+                                <button type="submit" class="btn btn-success"> Simpan</button>
                             </div>
                         </div>
 

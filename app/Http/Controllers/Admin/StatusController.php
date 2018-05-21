@@ -24,7 +24,7 @@ class StatusController extends Controller
         //
         $statuses = Status::all();
 
-        return View('admin.show-statuses', compact('statuses'));
+        return View('admin.statuses.index', compact('statuses'));
     }
 
     /**
@@ -35,7 +35,7 @@ class StatusController extends Controller
     public function create()
     {
         //
-        return View('admin.create-status ');
+        return View('admin.statuses.create ');
     }
 
     /**
@@ -53,7 +53,7 @@ class StatusController extends Controller
 
         Status::create(request(['description']));
 
-        Session::flash('message', 'Create Success!');
+        Session::flash('message', 'Berhasil membuat status!');
 
         return redirect('/admin/status');
     }
@@ -79,7 +79,7 @@ class StatusController extends Controller
     {
         //
         $status = Status::find($id);
-        return View('admin.edit-status', compact('status'));
+        return View('admin.statuses.edit', compact('status'));
     }
 
     /**
@@ -100,7 +100,7 @@ class StatusController extends Controller
             'description' => $request->description
         ]);
 
-        Session::flash('message', 'Update Success!');
+        Session::flash('message', 'Berhasil mengubah status!');
 
         return redirect('admin/status');
     }
@@ -115,7 +115,7 @@ class StatusController extends Controller
     {
         //
         Status::destroy($id);
-        Session::flash('message', 'Success Deleting Status!!!');
+        Session::flash('message', 'Berhasil menghapus status!');
 
         return redirect('admin/status');
     }

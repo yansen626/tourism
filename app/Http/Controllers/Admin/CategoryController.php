@@ -26,11 +26,11 @@ class CategoryController extends Controller
     public function index(){
         $categories = Category::all();
 
-        return View('admin.categories.show-categories', compact('categories'));
+        return View('admin.categories.index', compact('categories'));
     }
 
     public function create(){
-        return View('admin.categories.create-category');
+        return View('admin.categories.create');
     }
 
     public function store(Request $request){
@@ -48,7 +48,7 @@ class CategoryController extends Controller
             'name'      => Input::get('name')
         ]);
 
-        Session::flash('message', 'Create Success!');
+        Session::flash('message', 'Berhasil membuat kategori!');
 
         return redirect('/admin/category');
     }
@@ -56,7 +56,7 @@ class CategoryController extends Controller
     public function edit($id){
         $category = Category::find($id);
 
-        return View('admin.categories.edit-category', compact('category'));
+        return View('admin.categories.edit', compact('category'));
     }
 
     public function update(Request $request, $id){
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         $category->name = Input::get('name');
         $category->save();
 
-        Session::flash('message', 'Update Success!');
+        Session::flash('message', 'Berhasil mengubah kategori!');
 
         return redirect('/admin/category');
     }

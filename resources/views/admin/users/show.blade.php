@@ -16,7 +16,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Your Profile</h2>
+                        <h2>Profil Anda</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -41,7 +41,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    <label>First Name :</label>
+                                    <label>Nama Depan :</label>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label class="form-control">{{ $admin->first_name }}</label>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    <label>Last Name :</label>
+                                    <label>Nama Belakang :</label>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label class="form-control">{{ $admin->last_name }}</label>
