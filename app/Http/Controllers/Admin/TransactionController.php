@@ -44,7 +44,7 @@ class TransactionController extends Controller
     }
 
     public function newOrder(){
-        $transactions = Transaction::where('status_id', 5)->orderByDesc('created_on')->get();
+        $transactions = Transaction::where('status_id', 5)->orderByDesc('created_at')->get();
 
         return View('admin.transactions.show-new-orders', compact('transactions'));
     }
@@ -89,7 +89,7 @@ class TransactionController extends Controller
         $transactions = Transaction::where('status_id', 3)
             ->orWhere('status_id', 4)
             ->orWhere('status_id', 11)
-            ->orderByDesc('created_on')->get();
+            ->orderByDesc('created_at')->get();
 
         return View('admin.transactions.show-payments', compact('transactions'));
     }

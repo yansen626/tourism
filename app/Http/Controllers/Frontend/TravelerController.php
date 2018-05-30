@@ -15,6 +15,15 @@ use App\Models\Product;
 class TravelerController extends Controller
 {
     //
+    public function index(){
+
+        return View('frontend.traveler.index');
+    }
+    public function TransactionLists(){
+
+        return View('frontend.traveler.transactions');
+    }
+
     public function travelmates($categoryId, $categoryName){
 
         $products = Product::where('status_id', '=', 1);
@@ -122,15 +131,5 @@ class TravelerController extends Controller
         ];
 
         return View('frontend.show-product')->with($data);
-    }
-
-    public function SearchForm(){
-
-        return View('frontend.show-search-form');
-    }
-
-    public function SearchResult($key){
-
-        return View('frontend.show-search-result');
     }
 }

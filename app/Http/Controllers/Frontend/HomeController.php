@@ -137,4 +137,14 @@ class HomeController extends Controller
     public function terms(){
         return View('frontend.terms');
     }
+
+    public function SearchForm(){
+
+        return View('frontend.show-search-form');
+    }
+
+    public function SearchResult($key){
+
+        return View('frontend.show-search-result');
+    }
 }

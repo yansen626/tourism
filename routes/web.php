@@ -21,6 +21,23 @@ Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
+//HTII Section Start
+
+// Search
+Route::get('search-form/', 'Frontend\HomeController@SearchForm')->name('search');
+Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search-result');
+
+//Traveler
+Route::prefix('traveller')->group(function(){
+    Route::get('/', 'Frontend\TravelerController@index')->name('traveller-index');
+    Route::get('/transactions', 'Frontend\TravelerController@TransactionLists')->name('traveller-transactions');
+});\
+
+
+//HTII Section End
+
+
+
 // Terms and Condition
 Route::get('/terms', 'Frontend\HomeController@terms')->name('terms-show');
 
@@ -29,9 +46,6 @@ Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsCon
 Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
 Route::get('search/{key}', 'Frontend\ProductsController@search')->name('product-search');
 
-// Search
-Route::get('search-form/', 'Frontend\TravelerController@SearchForm')->name('search');
-Route::get('search/{key}', 'Frontend\TravelerController@SearchResult')->name('search-result');
 
 // Cart
 Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
@@ -113,7 +127,7 @@ Route::get('invoice/{id}','Frontend\PurchaseController@invoice')->name('invoice-
 Route::get('rajaongkir/subdistrict/{cityId}', 'Frontend\UserAddressController@getSubdistrict');
 
 // Backend Routing
-Route::get('/HTIITravelmate', 'Admin\DashboardController@dashboardShow')->name('admin-dashboard');
+Route::get('/HTII-Travelmate', 'Admin\DashboardController@dashboardShow')->name('admin-dashboard');
 
 Route::get('/HTII/login', function (){
     return view('admin/login');
@@ -125,8 +139,8 @@ Route::get('/HTII/login/{failed}', function ($failed){
 })->name('login-admin-failed');
 
 // User
-Route::post('/admin', 'Auth\LoginAdminController@login');
-Route::get('/admin', 'Admin\DashboardController@index')->name('admin-dashboard');
+Route::get('/admin/dashboard', 'Admin\DashboardController@index')->name('admin-dashboard');
+Route::post('/HTII-Travelmate', 'Auth\LoginAdminController@login');
 Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-logout');
 
 //traveller

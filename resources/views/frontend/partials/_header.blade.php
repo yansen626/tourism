@@ -66,7 +66,7 @@
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="#" class="mn-has-sub">TRAVEL MATE +</a></li>
+                    <li><a href="{{route('search')}}" class="mn-has-sub">TRAVEL MATE +</a></li>
                     <!-- End Item -->
 
                     <!-- Item -->
