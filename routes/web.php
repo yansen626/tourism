@@ -28,7 +28,7 @@ Route::get('search-form/', 'Frontend\HomeController@SearchForm')->name('search')
 Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search-result');
 
 //Traveler
-Route::prefix('traveller')->group(function(){
+Route::prefix('traveler')->group(function(){
     Route::get('/', 'Frontend\TravelerController@index')->name('traveller-index');
     Route::get('/transactions', 'Frontend\TravelerController@TransactionLists')->name('traveller-transactions');
 });\

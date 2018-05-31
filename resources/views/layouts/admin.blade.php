@@ -150,7 +150,7 @@
 <script src="{{ URL::asset('js/admin/custom.js') }}"></script>
 
 <!-- Custom Lowids Scripts -->
-<script src="{{ URL::asset('js/admin/custom-lowids.js') }}"></script>
+<script src="{{ URL::asset('js/admin/custom-admin.js') }}"></script>
 <script>
     $('#datatable-responsive').DataTable( {
         buttons: [
