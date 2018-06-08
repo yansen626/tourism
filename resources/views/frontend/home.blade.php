@@ -139,7 +139,7 @@
 					<!-- testimonial item-->
 					<div class="testimonial-item">
 						<div class="testimonial-top"><a href="#">
-								<div class="pic"><img src="{{ URL::asset('storage/banner_profile/banner-2.jpg') }}" data-at2x="{{ URL::asset('storage/banner_profile/banner-2.jpg') }}" alt></div></a>
+                            <div class="pic"><img src="{{ URL::asset('storage/banner_profile/banner-2.jpg') }}" data-at2x="{{ URL::asset('storage/banner_profile/banner-2.jpg') }}" alt></div></a>
 							<div class="author"> <img src="{{ URL::asset('storage/profile/profile2.jpg') }}" data-at2x="{{ URL::asset('storage/profile/profile2.jpg') }}" alt></div>
 						</div>
 						<!-- testimonial content-->
