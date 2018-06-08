@@ -31,7 +31,7 @@ Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search
 Route::prefix('traveler')->group(function(){
     Route::get('/', 'Frontend\TravelerController@index')->name('traveller-index');
     Route::get('/transactions', 'Frontend\TravelerController@TransactionLists')->name('traveller-transactions');
-});\
+});
 
 
 //HTII Section End

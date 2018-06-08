@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "agungjk/rajaongkir": "^0.1.0",
         "barryvdh/laravel-dompdf": "^0.8.1",
+        "barryvdh/laravel-ide-helper": "^2.4",
         "guzzlehttp/guzzle": "~6.0",
         "intervention/image": "^2.4",
         "laravel/framework": "5.4.*",
@@ -16,6 +17,7 @@
         "reliese/laravel": "^0.0.13",
         "symfony/psr-http-message-bridge": "^1.0",
         "webpatser/laravel-uuid": "2.*",
+        "yajra/laravel-datatables": "1.0",
         "zendframework/zend-diactoros": "^1.6"
     },
     "require-dev": {

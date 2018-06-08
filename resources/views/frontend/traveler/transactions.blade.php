@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.frontend_2')
 
 @section('body-content')
     <!-- content-->
