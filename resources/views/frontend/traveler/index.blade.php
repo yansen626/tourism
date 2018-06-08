@@ -13,7 +13,7 @@
                     <div class="">
                         <div class="col-md-12 mb-md-70">
                             <div class="col-md-4">
-                                <img class="img-circle" src="{{ URL::asset('frontend_images/bg.jpg') }}" style="width:200px;height:200px;">
+                                <img class="img-circle" src="{{ URL::asset('storage/profile/profile3.jpg') }}" style="width:200px;height:200px;">
                             </div>
                             <div class="col-md-8">
                                 <h4>MY PROFILE</h4>

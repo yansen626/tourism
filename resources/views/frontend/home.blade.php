@@ -133,7 +133,7 @@
 						<div class="testimonial-body">
 							<h5 class="title"><span>Nicole</span> Beck</h5>
 							<div class="stars stars-5"></div>
-							<p class="align-center">Suspe blandit orci quis lorem eleifend maximus. Quisque nec.</p><a href="#" class="testimonial-button">Read more</a>
+							<p class="align-center">Suspe blandit orci quis lorem eleifend maximus. Quisque nec.</p><a href="#" class="testimonial-button">Visit Profile</a>
 						</div>
 					</div>
 					<!-- testimonial item-->
@@ -153,7 +153,7 @@
 					<div class="testimonial-item">
 						<div class="testimonial-top"><a href="#">
 								<div class="pic"><img src="{{ URL::asset('storage/banner_profile/banner-3.jpg') }}" data-at2x="{{ URL::asset('storage/banner_profile/banner-3.jpg') }}" alt></div></a>
-							<div class="author"> <img src="{{ URL::asset('storage/profile/profile3.jpg') }}" data-at2x="{{ URL::asset('storage/profile/profile3.jpg') }}" alt></div>
+                                <div class="author"> <img src="{{ URL::asset('storage/profile/profile3.jpg') }}" data-at2x="{{ URL::asset('storage/profile/profile3.jpg') }}" alt></div>
 						</div>
 						<!-- testimonial content-->
 						<div class="testimonial-body">
