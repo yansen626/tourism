@@ -19,7 +19,7 @@ class TravelerController extends Controller
 
         return View('frontend.traveler.index');
     }
-    public function TransactionLists(){
+    public function transactions(){
 
         return View('frontend.traveler.transactions');
     }

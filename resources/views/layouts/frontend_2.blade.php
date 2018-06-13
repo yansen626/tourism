@@ -35,7 +35,7 @@
 
     <!-- Custom CSS -->
     <link href="{{ URL::asset('css/frontend/custom.css') }}" rel="stylesheet">
-    @yield('style')
+    @yield('styles')
 </head>
 
 <body>
@@ -93,8 +93,7 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3JCAhNj6tVAO_LSb8M-AzMlidiT-RPAs"></script>
 
-@yield('script')
+@yield('scripts')
 
-<script src="{{ URL::asset('js/frontend/custom.js') }}"></script>
 </body>
 </html>

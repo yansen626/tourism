@@ -12,14 +12,14 @@
     </div>
     <div class="col-md-12">
         <p>
-            <a href="{{route('traveller-index')}}" class="">
+            <a href="{{route('traveller.index')}}" class="">
                 <i class="fa fa-user" aria-hidden="true"></i> <span>My Profile</span>
             </a>
         </p>
     </div>
     <div class="col-md-12">
         <p>
-            <a href="{{route('traveller-transactions')}}" class="">
+            <a href="{{route('traveller.transactions')}}" class="">
                 <i class="fa fa-plane" aria-hidden="true"></i> <span>Tailor Made Journey</span>
             </a>
         </p>
