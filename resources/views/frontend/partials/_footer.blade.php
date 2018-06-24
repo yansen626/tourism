@@ -13,9 +13,7 @@
                 </div>
                 <div class="col-sm-4 text-right" style="font-size:35px;padding-right:8%;">
                     <a href="#" class="footer-nav" style="margin-left:0;"><i class="fa fa-facebook-square"></i></a>
-                    <a href="#" class="footer-nav" style="margin-left:0;"><i class="fa fa-google-plus-square"></i></a>
                     <a href="#" class="footer-nav" style="margin-left:0;"><i class="fa fa-youtube-square"></i></a>
-                    <a href="#" class="footer-nav" style="margin-left:0;"><i class="fa fa-twitter-square"></i></a>
                     <a href="#" class="footer-nav" style="margin-left:0;"><i class="fa fa-instagram"></i></a>
                 </div>
             </div>

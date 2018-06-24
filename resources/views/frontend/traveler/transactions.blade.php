@@ -46,30 +46,52 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-striped dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">
+                            <table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">
                                 <thead style="display: none;">
                                 <tr>
                                     <th class="text-center">TEST</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-center">TRAVEL 1</td>
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-1.jpg') }}') no-repeat;">
+                                    <td class="traveller-td">
+                                        <div class="col-md-6 text-left">
+                                            LAMPUNG <br>December 12
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <a class="cws-button cws-button-custom mb-20">FINISHED</a>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">TRAVEL 2</td>
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-2.jpg') }}') no-repeat;">
+                                    <td class="traveller-td">
+                                        <div class="col-md-6 text-left">
+                                            PULAU DERAWAN <br>November 04
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <a class="cws-button cws-button-custom mb-20">ON TRIP</a>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">TRAVEL 3</td>
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-3.jpg') }}') no-repeat;">
+                                    <td class="traveller-td">
+                                        <div class="col-md-6 text-left">
+                                            PULAU MACAN <br>September 03
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <a class="cws-button cws-button-custom mb-20">FINISHED</a>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">TRAVEL 4</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">TRAVEL 5</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">TRAVEL 6</td>
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-4.jpg') }}') no-repeat;">
+                                    <td class="traveller-td">
+                                        <div class="col-md-6 text-left">
+                                            PULAU PRAMUKA <br>September 03
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <a class="cws-button cws-button-custom mb-20">FINISHED</a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -91,6 +113,20 @@
     @parent
     <link rel="stylesheet" href="{{ URL::asset('css/datatable/jquery.dataTables.min.css') }}">
     <style>
+        .cws-button-custom{
+            border: 2px solid white !important;
+        }
+        .traveller-transactions{
+            width: 100%;
+            height: 300px;
+            background-size: cover !important;
+        }
+
+        .traveller-td{
+            padding-top: 35% !important;
+            color:white !important;
+        }
+
         #custom-search-input{
             padding: 3px;
             border: solid 1px #E4E4E4;
@@ -127,7 +163,10 @@
         #custom-search-input .glyphicon-search{
             font-size: 23px;
         }
-
+        #travel-table{
+            border-spacing: 0 50px;
+            border: none;
+        }
         .travel-header{
             position: relative;
             width: 100%;

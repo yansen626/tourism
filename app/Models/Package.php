@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 08 Jun 2018 07:28:39 +0000.
+ * Date: Sun, 24 Jun 2018 08:45:19 +0000.
  */
 
 namespace App\Models;
@@ -21,6 +21,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $discount_flat
  * @property float $price_discounted
  * @property string $description
+ * @property string $featured_image
  * @property int $status_id
  * @property string $created_by
  * @property \Carbon\Carbon $created_at
@@ -59,6 +60,7 @@ class Package extends Eloquent
 		'discount_flat',
 		'price_discounted',
 		'description',
+		'featured_image',
 		'status_id',
 		'created_by',
 		'updated_by'
@@ -98,4 +100,21 @@ class Package extends Eloquent
 	{
 		return $this->hasMany(\App\Models\TransactionDetail::class);
 	}
+
+
+    public function getPriceAttribute(){
+        return number_format($this->attributes['price'], 0, ",", ".");
+    }
+
+    public function getDiscountFlatAttribute(){
+        if(!empty($this->attributes['discount_flat'])){
+            return number_format($this->attributes['discount_flat'], 0, ",", ".");
+        }
+    }
+
+    public function getPriceDiscountedAttribute(){
+        if(!empty($this->attributes['price_discounted'])){
+            return number_format($this->attributes['price_discounted'], 0, ",", ".");
+        }
+    }
 }

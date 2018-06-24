@@ -2,7 +2,7 @@
 
 @section('body-content')
     <!-- content-->
-    <div class="content-body" style="background-image:url('{{ URL::asset('frontend_images/bg.jpg') }}');">
+    <div class="content-body content-background">
         <div class="container page">
             <div class="row">
                 <div class="col-md-6">
@@ -195,6 +195,14 @@
             border-color: rgb(201,225,230);
             border-width: 3px;
             resize: none;
+        }
+
+        .content-background{
+            background: rgba(0, 0, 0, 0.55) url('{{ URL::asset('frontend_images/tmj-background.jpg') }}') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
         }
     </style>
 @endsection

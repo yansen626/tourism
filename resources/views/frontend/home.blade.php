@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.frontend_2')
 
 @section('body-content')
 	<div class="tp-banner-container">
@@ -30,66 +30,23 @@
 		<!-- slider info-->
 		<div class="slider-info-wrap clearfix">
 			<div class="slider-info-content">
-				<div class="slider-info-item">
-					<div class="info-item-media"><img src="{{ URL::asset('frontend_images/top-slider-1.jpg') }}" data-at2x="{{ URL::asset('frontend_images/top-slider-1.jpg') }}" alt>
-						<div class="info-item-text">
-							<div class="info-price font-4"><span>start per night</span> $105</div>
-							<div class="info-temp font-4"><span>local temperature</span> 36° / 96.8°</div>
-							<p class="info-text">Nunc hendrerit nulla molestie ipsum tincidunt vestibulum. Nunc condimentum nibh.</p>
+				@foreach($packages as $package)
+					<div class="slider-info-item">
+						<div class="info-item-media"><img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}" data-at2x="{{ URL::asset('frontend_images/top-slider-1.jpg') }}" alt>
+							<div class="info-item-text">
+								<div class="info-price font-4"><span>start per night</span> Rp {{$package->price}}</div>
+								{{--<div class="info-temp font-4"><span>local temperature</span> 36° / 96.8°</div>--}}
+								<p class="info-text">{{$package->description}}</p>
+							</div>
+						</div>
+						<div class="info-item-content">
+							<div class="main-title">
+								<h3 class="title"><span class="font-4">{{$package->travelmate->province->name}}</span> {{$package->travelmate->city->name}}</h3>
+								<div class="price"><span>Rp {{$package->price}}</span> per night</div><a href="#" class="button">Details</a>
+							</div>
 						</div>
 					</div>
-					<div class="info-item-content">
-						<div class="main-title">
-							<h3 class="title"><span class="font-4">Hawaii</span> Honolulu</h3>
-							<div class="price"><span>$105</span> per night</div><a href="#" class="button">Details</a>
-						</div>
-					</div>
-				</div>
-				<div class="slider-info-item">
-					<div class="info-item-media"><img src="{{ URL::asset('frontend_images/top-slider-2.jpg') }}" data-at2x="{{ URL::asset('frontend_images/top-slider-2.jpg') }}" alt>
-						<div class="info-item-text">
-							<div class="info-price font-4"><span>start per night</span> $55</div>
-							<div class="info-temp font-4"><span>local temperature</span> 31° / 87.8°</div>
-							<p class="info-text">Donec semper mattis diam sit amet eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et.</p>
-						</div>
-					</div>
-					<div class="info-item-content">
-						<div class="main-title">
-							<h3 class="title"><span class="font-4">Turkey</span> Antalya</h3>
-							<div class="price"><span>$55</span> per night</div><a href="#" class="button">Details</a>
-						</div>
-					</div>
-				</div>
-				<div class="slider-info-item">
-					<div class="info-item-media"><img src="{{ URL::asset('frontend_images/top-slider-3.jpg') }}" data-at2x="{{ URL::asset('frontend_images/top-slider-3.jpg') }}" alt>
-						<div class="info-item-text">
-							<div class="info-price font-4"><span>start per night</span> $95</div>
-							<div class="info-temp font-4"><span>local temperature</span> 41° / 105.8°</div>
-							<p class="info-text">Donec ac eros dapibus, pulvinar enim in, vestibulum nisi. Sed bibendum magna at massa laoreet gravida.</p>
-						</div>
-					</div>
-					<div class="info-item-content">
-						<div class="main-title">
-							<h3 class="title"><span class="font-4">Indonesia</span> Bali</h3>
-							<div class="price"><span>$95</span> per night</div><a href="#" class="button">Details</a>
-						</div>
-					</div>
-				</div>
-				<div class="slider-info-item">
-					<div class="info-item-media"><img src="{{ URL::asset('frontend_images/top-slider-4.jpg') }}" data-at2x="{{ URL::asset('frontend_images/top-slider-4.jpg') }}" alt>
-						<div class="info-item-text">
-							<div class="info-price font-4"><span>start per night</span> $80</div>
-							<div class="info-temp font-4"><span>local temperature</span> 25° / 77°</div>
-							<p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
-						</div>
-					</div>
-					<div class="info-item-content">
-						<div class="main-title">
-							<h3 class="title"><span class="font-4">Austria</span> Serfaus</h3>
-							<div class="price"><span>$80</span> per night</div><a href="#" class="button">Details</a>
-						</div>
-					</div>
-				</div>
+				@endforeach
 			</div>
 		</div>
 		<!-- ! slider-info-->
@@ -113,68 +70,45 @@
 	<section class="small-section cws_prlx_section bg-blue-40"><img src="{{ URL::asset('frontend_images/bg3.jpg') }}" alt class="cws_prlx_layer">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8">
-					<h2 class="title-section alt-2"><span>HELLO</span></h2>
-					<h6 class="title-section-top font-4">THIS IS OUR </h6>
-					<h2 class="title-section alt-2"><span>TRAVEL</span></h2>
-					<h2 class="title-section alt-2"><span>MATE</span></h2>
-				</div>
+				<a href="#">
+					<div class="col-md-8">
+						<h2 class="title-section alt-2"><span>HELLO</span></h2>
+						<h6 class="title-section-top font-4">THIS IS OUR </h6>
+						<h2 class="title-section alt-2"><span>TRAVEL</span></h2>
+						<h2 class="title-section alt-2"><span>MATE</span></h2>
+					</div>
+				</a>
 			</div>
 			<div class="row" style="padding-bottom:15%;">
 				<!-- testimonial carousel-->
 				<div class="owl-three-item">
+
+				@foreach($travelmates as $travelmate)
 					<!-- testimonial item-->
-					<div class="testimonial-item">
-						<div class="testimonial-top"><a href="#">
-								<div class="pic"><img src="{{ URL::asset('storage/banner_profile/banner-1.jpg') }}" data-at2x="{{ URL::asset('storage/banner_profile/banner-1.jpg') }}" alt></div></a>
-							<div class="author"> <img src="{{ URL::asset('storage/profile/profile1.jpg') }}" data-at2x="{{ URL::asset('storage/profile/profile1.jpg') }}" alt></div>
+						@php($star = "stars-".$travelmate->rating)
+						<div class="testimonial-item">
+							<div class="testimonial-top">
+								<a href="#">
+									<div class="pic">
+										<img src="{{ URL::asset('storage/banner_profile/'.$travelmate->banner_picture) }}"
+											 data-at2x="{{ URL::asset('storage/banner_profile/'.$travelmate->banner_picture) }}" alt>
+									</div>
+								</a>
+								<div class="author">
+									<img src="{{ URL::asset('storage/profile/'.$travelmate->profile_picture) }}"
+										 data-at2x="{{ URL::asset('storage/profile/'.$travelmate->profile_picture) }}" alt>
+								</div>
+							</div>
+							<!-- testimonial content-->
+							<div class="testimonial-body">
+								<h5 class="title"><span>{{$travelmate->first_name}}</span> {{$travelmate->last_name}}</h5>
+								<div class="stars {{$star}}"></div>
+								<p class="align-center">
+									{{$travelmate->description}}
+								</p><a href="#" class="testimonial-button">Visit Profile</a>
+							</div>
 						</div>
-						<!-- testimonial content-->
-						<div class="testimonial-body">
-							<h5 class="title"><span>Nicole</span> Beck</h5>
-							<div class="stars stars-5"></div>
-							<p class="align-center">Suspe blandit orci quis lorem eleifend maximus. Quisque nec.</p><a href="#" class="testimonial-button">Visit Profile</a>
-						</div>
-					</div>
-					<!-- testimonial item-->
-					<div class="testimonial-item">
-						<div class="testimonial-top"><a href="#">
-                            <div class="pic"><img src="{{ URL::asset('storage/banner_profile/banner-2.jpg') }}" data-at2x="{{ URL::asset('storage/banner_profile/banner-2.jpg') }}" alt></div></a>
-							<div class="author"> <img src="{{ URL::asset('storage/profile/profile2.jpg') }}" data-at2x="{{ URL::asset('storage/profile/profile2.jpg') }}" alt></div>
-						</div>
-						<!-- testimonial content-->
-						<div class="testimonial-body">
-							<h5 class="title"><span>Peter</span> Robertson</h5>
-							<div class="stars stars-5"></div>
-							<p class="align-center">Nulla elit justo, dapibus ut lacus ac, ornare elementum neque.</p><a href="#" class="testimonial-button">Visit Profile</a>
-						</div>
-					</div>
-					<!-- testimonial item-->
-					<div class="testimonial-item">
-						<div class="testimonial-top"><a href="#">
-								<div class="pic"><img src="{{ URL::asset('storage/banner_profile/banner-3.jpg') }}" data-at2x="{{ URL::asset('storage/banner_profile/banner-3.jpg') }}" alt></div></a>
-                                <div class="author"> <img src="{{ URL::asset('storage/profile/profile3.jpg') }}" data-at2x="{{ URL::asset('storage/profile/profile3.jpg') }}" alt></div>
-						</div>
-						<!-- testimonial content-->
-						<div class="testimonial-body">
-							<h5 class="title"><span>Kathy</span> Harrison</h5>
-							<div class="stars stars-5"></div>
-							<p class="align-center">Maece facilisis sit amet mauris eget aliquam. Integer vitae.</p><a href="#" class="testimonial-button">Visit Profile</a>
-						</div>
-					</div>
-					<!-- testimonial item-->
-					<div class="testimonial-item">
-						<div class="testimonial-top"><a href="#">
-								<div class="pic"><img src="{{ URL::asset('storage/banner_profile/banner-4.jpg') }}" data-at2x="{{ URL::asset('storage/banner_profile/banner-4.jpg') }}" alt></div></a>
-							<div class="author"> <img src="{{ URL::asset('storage/profile/profile4.jpg') }}" data-at2x="{{ URL::asset('storage/profile/profile4.jpg') }}" alt></div>
-						</div>
-						<!-- testimonial content-->
-						<div class="testimonial-body">
-							<h5 class="title"><span>Nicky</span> Beck</h5>
-							<div class="stars stars-5"></div>
-							<p class="align-center">Suspe blandit orci quis lorem eleifend maximus. Quisque nec.</p><a href="#" class="testimonial-button">Visit Profile</a>
-						</div>
-					</div>
+				@endforeach
 				</div>
 			</div>
 			<div class="row">

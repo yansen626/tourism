@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Package;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Travelmate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -109,6 +111,15 @@ class HomeController extends Controller
         }
         $request->session()->put('key', 'value');
 
+        $packages = Package::where('status_id', 1)
+            ->orderBy('price')
+            ->take(4)
+            ->get();
+
+        $travelmates = Travelmate::where('status_id', 1)
+            ->orderByDesc('rating')
+            ->take(5)
+            ->get();
         $data = [
 //            'recentProducts'    => $recentProducts,
 //            'sliderBanners'     => $sliderBanners,
@@ -116,6 +127,8 @@ class HomeController extends Controller
 //            'banner2nd'         => $banner2nd,
 //            'banner3rd'         => $banner3rd,
 //            'banner4th'         => $banner4th,
+            'packages'          => $packages,
+            'travelmates'          => $travelmates,
             'userId'            => $userId,
 //            'categories'        => $categories,
 //            'categoryTotal'     => $categoryTotal,

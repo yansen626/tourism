@@ -80,32 +80,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mg-0" style="margin-bottom: 20%;">
-                    <div>
-                        <div class="col-md-9">
-                            <h4>TRAVEL DIARY</h4>
-                        </div>
-                        <div class="col-md-3" style="padding-top: 7%;">
-                            <p style="font-size: 12px;">
-                                <a href="#">VIEW ALL</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="box-shadow">
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                    </div>
-                </div>
             </div>
     </div>
 </div>

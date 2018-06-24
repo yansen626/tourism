@@ -27,13 +27,6 @@
     <div class="col-md-12">
         <p>
             <a href="#" class="">
-                <i class="fa fa-user" aria-hidden="true"></i> <span>My Poin</span>
-            </a>
-        </p>
-    </div>
-    <div class="col-md-12">
-        <p>
-            <a href="#" class="">
                 <i class="fa fa-power-off" aria-hidden="true"></i> <span>Log Out</span>
             </a>
         </p>

@@ -21,7 +21,12 @@
                                 <h5>Anne Frank</h5>
                                 <span>Jakarta, INA</span>
                                 <br>
+                                <span>My Point : 10</span>
+                                <br>
                                 <span>REVIEWS : 10</span>
+                                <br>
+
+                                <div class="stars stars-5"></div>
                             </div>
                             <div class="col-md-12">
                                 <hr>
@@ -116,6 +121,23 @@
                                 <div class="col-md-9">
                                     : 222222
                                 </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                                <h4>Travel Diary</h4>
+                                <div class="col-md-3">
+                                    By
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12" >
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe src="https://www.youtube.com/embed/ojQbArbuN4E" class="embed-responsive-item"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
                             </div>
                         </div>
                     </div>

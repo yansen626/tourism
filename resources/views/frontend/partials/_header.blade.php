@@ -53,9 +53,10 @@
     <nav class="main-nav js-stick">
         <div class="full-wrapper relative clearfix container">
             <!-- Logo ( * your text or image into link tag *)-->
-            <div class="nav-logo-wrap local-scroll">
+            <div class="nav-logo-wrap local-scroll" style="margin-right:0;">
                 <a href="{{route('landing')}}" class="logo">
-                    <img src="{{ URL::asset('frontend_images/Logo.png') }}" data-at2x="img/logo@2x.png" style="width: 80%;">
+                    <img src="{{ URL::asset('frontend_images/Logo.png') }}"
+                         data-at2x="{{ URL::asset('frontend_images/Logo.png') }}">
                 </a>
             </div>
             <!-- Main Menu-->
@@ -66,7 +67,7 @@
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="{{route('search')}}" class="mn-has-sub">TRAVEL MATE +</a></li>
+                    <li><a href="#" class="mn-has-sub">TRAVEL MATE +</a></li>
                     <!-- End Item -->
 
                     <!-- Item -->
@@ -74,7 +75,7 @@
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="#" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
+                    <li><a href="{{route('search')}}" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
                     <!-- End Item -->
 
                     <!-- Search-->
