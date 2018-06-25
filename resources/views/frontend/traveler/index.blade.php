@@ -16,6 +16,9 @@
                                 <img class="img-circle" src="{{ URL::asset('storage/profile/profile3.jpg') }}" style="width:200px;height:200px;">
                             </div>
                             <div class="col-md-8">
+                                <div class="pull-right mt-10">
+                                    <a href="#" class="btn btn-default">EDIT</a>
+                                </div>
                                 <h4>MY PROFILE</h4>
                                 <hr>
                                 <h5>Anne Frank</h5>
