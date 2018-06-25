@@ -46,6 +46,11 @@ return [
             'provider' => 'user_admins',
         ],
 
+        'travelmates' => [
+            'driver' => 'session',
+            'provider' => 'travelmates',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -78,6 +83,11 @@ return [
         'user_admins' => [
             'driver' => 'eloquent',
             'model' => \App\Models\UserAdmin::class,
+        ],
+
+        'travelmates' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Travelmate::class,
         ],
 
         // 'users' => [

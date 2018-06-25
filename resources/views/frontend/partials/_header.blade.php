@@ -78,7 +78,8 @@
                     <li><a href="{{route('search')}}" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
                     <!-- End Item -->
 
-                    {{--<li><a href="#" class="mn-has-sub">LOGIN</a></li>--}}
+                    <li><a href="#" class="top-login">LOGIN</a></li>
+                    <li><a href="{{ route('logout') }}">Logout</a></li>
 
                     <li><a href="#" class="mn-has-sub">
                             <img style="width: 29px; height: auto;" src="{{ URL::asset('frontend_images/user-shape.png') }}">

@@ -7,11 +7,12 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Travelmate
- * 
+ *
  * @property string $id
  * @property string $first_name
  * @property string $last_name
@@ -26,7 +27,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $created_by
  * @property \Carbon\Carbon $updated_at
  * @property string $updated_by
- * 
+ *
  * @property \App\Models\City $city
  * @property \App\Models\Province $province
  * @property \App\Models\Status $status
@@ -34,54 +35,70 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @package App\Models
  */
-class Travelmate extends Eloquent
+class Travelmate extends Authenticatable
 {
-	public $incrementing = false;
-	public $timestamps = false;
+    use Notifiable;
 
-	protected $casts = [
-		'rating' => 'int',
-		'city_id' => 'int',
-		'province_id' => 'int',
-		'status_id' => 'int'
-	];
+    protected $guard = 'travelmates';
 
-	protected $dates = [
-		'total_point'
-	];
+    protected $table = 'travelmates';
 
-	protected $fillable = [
-		'first_name',
-		'last_name',
-		'total_point',
-		'rating',
-		'city_id',
-		'province_id',
-		'description',
-		'profile_picture',
-		'banner_picture',
-		'status_id',
-		'created_by',
-		'updated_by'
-	];
+    public $incrementing = false;
+    public $timestamps = false;
 
-	public function city()
-	{
-		return $this->belongsTo(\App\Models\City::class);
-	}
+    protected $casts = [
+        'rating' => 'int',
+        'city_id' => 'int',
+        'province_id' => 'int',
+        'status_id' => 'int'
+    ];
 
-	public function province()
-	{
-		return $this->belongsTo(\App\Models\Province::class);
-	}
+    protected $dates = [
+        'total_point'
+    ];
 
-	public function status()
-	{
-		return $this->belongsTo(\App\Models\Status::class);
-	}
+    protected $fillable = [
+        'email',
+        'first_name',
+        'last_name',
+        'total_point',
+        'rating',
+        'city_id',
+        'province_id',
+        'description',
+        'profile_picture',
+        'banner_picture',
+        'status_id',
+        'created_by',
+        'updated_by'
+    ];
 
-	public function packages()
-	{
-		return $this->hasMany(\App\Models\Package::class);
-	}
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password'
+    ];
+
+    public function city()
+    {
+        return $this->belongsTo(\App\Models\City::class);
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(\App\Models\Province::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(\App\Models\Status::class);
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(\App\Models\Package::class);
+    }
 }

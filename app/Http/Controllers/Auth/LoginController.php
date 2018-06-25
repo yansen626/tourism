@@ -55,7 +55,7 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'email'                 => 'required|email|max:100',
-                'password'              => 'required|min:6|max:20'
+                'password'              => 'required|max:20'
             ]
         );
 
@@ -64,27 +64,14 @@ class LoginController extends Controller
         }
 
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status_id' => 1])) {
-            // Authentication passed...
-            error_log(Input::get('redirect'));
-            if(!empty(Input::get('redirect'))){
-                return redirect(Input::get('redirect'));
-            }
-            else{
-                return redirect()->action('Frontend\HomeController@home');
-            }
+            return redirect()->action('Frontend\HomeController@home');
+        }
+        else if(Auth::guard('travelmates')->attempt(['email' => $request['email'], 'password' => $request['password']])){
+            return redirect()->action('Travelmate\HomeController@dashboard');
         }
         else
         {
-            $user = User::where('email',Input::get('email'))->first();
-            if($user != null && Hash::check(Input::get('password'), $user->getAuthPassword())){
-                $emailVerify = new EmailVerification($user);
-                Mail::to($user->email)->send($emailVerify);
-
-                return View('auth.send-email')->with('email',Input::get('email'));
-            }
-            else{
-                return redirect()->route('login')->withErrors('Wrong email or password');
-            }
+            return redirect()->route('login')->withErrors('Wrong email or password');
         }
     }
 
@@ -98,5 +85,28 @@ class LoginController extends Controller
             $redirect = request()->redirect;
         }
         return view('auth/login', compact('redirect'));
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        /*
+         * Remove the socialite session variable if exists
+         */
+
+        \Session::forget(config('access.socialite_session_name'));
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect()->action('Frontend\HomeController@home');
     }
 }

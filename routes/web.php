@@ -15,6 +15,9 @@
 Auth::routes();
 
 // Login Frontend
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+
 Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 
@@ -34,6 +37,11 @@ Route::prefix('traveler')->group(function(){
     Route::get('/profile/edit', 'Frontend\ProfileController@edit')->name('traveller.profile.edit');
 });
 
+//Travelmate
+Route::get('travelmate/dashboard', 'Travelmate\HomeController@dashboard')->name('travelmate-dashboard');
+
+//Tailor made Journey
+Route::post('tailor-made', 'Frontend\HomeController@submitTailorMade')->name('tailor-made');
 
 //HTII Section End
 

@@ -8,10 +8,13 @@ use App\Models\Category;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\TailorMade;
 use App\Models\Travelmate;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -159,5 +162,44 @@ class HomeController extends Controller
     public function SearchResult($key){
 
         return View('frontend.show-search-result');
+    }
+
+    public function submitTailorMade(Request $request){
+        //Submit Tailor Made Journey
+        $validator = Validator::make($request->all(),[
+            'email'         => 'required|email',
+            'start_date'    => 'required',
+            'finish_date'   => 'required',
+            'destination'   => 'required',
+            'participant'   => 'required',
+            'request'       => 'required',
+            'budget'        => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        //Insert Data
+        $startDate = Carbon::createFromFormat('d M Y', $request->input('start_date'), 'Asia/Jakarta');
+        $finishDate = Carbon::createFromFormat('d M Y', $request->input('finish_date'), 'Asia/Jakarta');
+        $budget = str_replace('.','', $request->input('budget'));
+        $now = Carbon::now('Asia/Jakarta');
+
+        $tailorMade = TailorMade::create([
+            'email'         => $request->input('email'),
+            'destination'   => $request->input('destination'),
+            'participant'   => $request->input('participant'),
+            'request'       => $request->input('request'),
+            'start_date'    => $startDate,
+            'finish_date'   => $finishDate,
+            'budget_per_person'        => $budget,
+            'created_at'    => $now->toDateTimeString()
+        ]);
+
+        Session::flash('message', 'Terima Kasih atas data yang Anda Submit!');
+        return View('frontend.show-search-form');
     }
 }

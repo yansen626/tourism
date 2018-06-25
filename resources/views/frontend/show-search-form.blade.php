@@ -9,7 +9,9 @@
                     <div class="">
 
                         <div class="col-md-12 mb-md-70">
-                            <form name="checkout" method="post" action="shop-checkout.html" enctype="multipart/form-data" class="checkout woocommerce-checkout">
+                            {{ Form::open(['route'=>['tailor-made'],'method' => 'post','id' => 'general-form','class'=>'checkout woocommerce-checkout']) }}
+                            {{--<form name="checkout" method="post" action="{{ route('tailor-made') }}" class="checkout woocommerce-checkout">--}}
+                                {{ csrf_field() }}
                                 <div id="customer_details">
                                     <div class="col-12 mb-sm-50">
                                         <div class="billing-wrapper">
@@ -20,10 +22,10 @@
                                                 </p>
                                                 <div class="clear"></div>
                                                 <p id="billing_first_name_field" class="form-row form-row-first validate-required">
-                                                    <input id="start" type="text" name="start" placeholder="START DATE" />
+                                                    <input id="start" type="text" name="start_date" placeholder="START DATE" />
                                                 </p>
                                                 <p id="billing_first_name_field" class="form-row form-row-first validate-required">
-                                                    <input id="finish" type="text" name="finish" placeholder="FINISH DATE"/>
+                                                    <input id="finish" type="text" name="finish_date" placeholder="FINISH DATE"/>
                                                 </p>
 
                                                 <p id="billing_first_name_field" class="form-row form-row-first validate-required">
@@ -38,13 +40,15 @@
                                                 </p>
                                                 <div class="clear"></div>
                                                 <p id="order_comments_field" class="form-row notes mt-20 mb-20">
-                                                    <textarea id="order_comments" name="order_comments" placeholder="REQUEST" rows="2" cols="6" class="input-text"></textarea>
+                                                    <textarea id="request" name="request" placeholder="REQUEST" rows="2" cols="6" class="input-text"></textarea>
                                                 </p>
+                                                <input type="submit" value="Submit" class="cws-button alt"/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            {{--</form>--}}
+                            {{ Form::close() }}
                         </div>
                         {{--<div class="search-hotels mb-40 pattern">--}}
                             {{--<div class="tours-container">--}}
@@ -149,7 +153,8 @@
         }
 
         #destination{
-            border-radius: 30px; border-color: rgb(201,225,230); border-width: 3px;
+            border-radius: 30px;
+            border-color: rgb(201,225,230); border-width: 3px;
             background-image: url('{{ URL::asset('frontend_images/map-marker.png') }}');
             -webkit-background-size: 15px 15px; background-size: 15px 15px;
             background-position: 210px 10px;
@@ -211,6 +216,7 @@
     @parent
     <script src="{{ URL::asset('js/frontend/moment.js') }}"></script>
     <script src="{{ URL::asset('js/frontend/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('js/autonumeric.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -221,6 +227,13 @@
             $('#finish').datetimepicker({
                 format: "DD MMM Y"
             });
+        });
+
+        budgetFormat = new AutoNumeric('#budget', {
+            decimalCharacter: ',',
+            digitGroupSeparator: '.',
+            minimumValue: '0',
+            decimalPlaces: 0
         });
     </script>
 @endsection
