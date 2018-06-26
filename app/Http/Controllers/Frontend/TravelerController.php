@@ -11,14 +11,110 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class TravelerController extends Controller
 {
-    //
-    public function index(){
-
-        return View('frontend.traveler.index');
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
+
+    //
+    public function show(){
+        $user = Auth::user();
+        if(!empty($user->id_card) && empty($user->passport_no)){
+            $identity = 'ID CARD';
+        }
+        elseif(empty($user->id_card) && !empty($user->passport_no)){
+            $identity = 'PASSPORT';
+        }
+        else{
+            $identity = '-';
+        }
+
+        $data = [
+            'user'      => $user,
+            'identity'  => $identity
+        ];
+
+        return View('frontend.traveler.index')->with($data);
+    }
+
+    public function edit(){
+        $user = Auth::user();
+        if(!empty($user->id_card) && empty($user->passport_no)){
+            $identity = 'ID CARD';
+        }
+        elseif(empty($user->id_card) && !empty($user->passport_no)){
+            $identity = 'PASSPORT';
+        }
+        else{
+            $identity = 'none';
+        }
+
+        $data = [
+            'user'      => $user,
+            'identity'  => $identity
+        ];
+
+        return View('frontend.traveler.profile-edit')->with($data);
+    }
+
+    public function update(Request $request, User $user){
+        $validator = Validator::make($request->all(), [
+            'fname'             => 'required|max:50',
+            'lname'             => 'required|max:50',
+            'about_me'          => 'max:400',
+            'phone'             => 'max:20',
+            'nationality'       => 'max:20',
+            'idcard-value'      => 'max:50',
+            'passport-value'    => 'max:50',
+            'language'          => 'max:20',
+            'interest'          => 'max:50',
+            'youtube'           => 'max:100'
+        ]);
+
+        if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
+
+        // Validate Identity No
+        if(Input::get('identity') === 'idcard' && empty(Input::get('idcard-value'))){
+            return redirect()->back()->withErrors('ID CARD is required!', 'default')->withInput($request->all());
+        }
+
+        if(Input::get('identity') === 'passport' && empty(Input::get('passport-value'))){
+            return redirect()->back()->withErrors('PASSPORT is required!', 'default')->withInput($request->all());
+        }
+
+        $user->first_name = Input::get('fname');
+        $user->last_name = Input::get('lname');
+        $user->about_me = Input::get('about_me');
+        $user->phone = Input::get('phone');
+        $user->nationality = Input::get('nationality');
+        $user->speaking_language = Input::get('language');
+        $user->travel_interest = Input::get('interest');
+
+        if(Input::get('identity') === 'idcard'){
+            $user->id_card = Input::get('idcard-value');
+            $user->passport_no = null;
+        }
+        else{
+            $user->id_card = null;
+            $user->passport_no = Input::get('passport-value');
+        }
+
+        $user->save();
+
+        Session::flash('message', 'Profile Updated!');
+
+        return redirect()->route('traveller.profile.show');
+    }
+
     public function transactions(){
 
         return View('frontend.traveler.transactions');
@@ -92,44 +188,5 @@ class TravelerController extends Controller
         ];
 
         return View('frontend.show-products')->with($data);
-    }
-
-    //
-    public function ProductShow($id){
-        $product = Product::find($id);
-        $photos = $product->product_image()->where('featured',0)->get();
-        $recommendedProducts = Product::where('category_id', '=', $product->category_id)
-            ->where('status_id',1)
-            ->inRandomOrder()
-            ->take(6)
-            ->get();
-
-        /*
-        $colors = $product->product_properties()->where('name','color')->get();
-        $sizes = $product->product_properties()->where('name','size')->where('is_ready', 1)->orderBy('price')->get();
-        $weights = $product->product_properties()->where('name','weight')->where('is_ready', 1)->orderBy('description')->get();
-        $qtys = $product->product_properties()->where('name','qty')->where('is_ready', 1)->get();
-        */
-
-        $colors = $product->product_properties()->where('name','color')->get();
-        $sizes = $product->product_properties()->where('name','size')->orderBy('price')->get();
-        $weights = $product->product_properties()->where('name','weight')->orderBy('description')->get();
-        $qtys = $product->product_properties()->where('name','qty')->get();
-
-        // Find primary
-        $primary = $product->product_properties()->where('primary', 1)->first();
-
-        $data =[
-            'product'               => $product,
-            'photos'                => $photos,
-            'recommendedProducts'   => $recommendedProducts,
-            'colors'                => $colors,
-            'sizes'                 => $sizes,
-            'weights'               => $weights,
-            'qtys'                  => $qtys,
-            'primary'               => $primary
-        ];
-
-        return View('frontend.show-product')->with($data);
     }
 }

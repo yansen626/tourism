@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.frontend_2')
 
 @section('body-content')
     <!-- content-->
@@ -11,18 +11,26 @@
                 </div>
                 <div class="col-md-7">
                     <div class="">
+                        @if(\Illuminate\Support\Facades\Session::has('message'))
+                            <div class="col-md-12">
+                                <div role="alert" class="alert alert-success alert-dismissible fade in mb-20">
+                                    <button type="button" data-dismiss="alert" aria-label="Close" class="close"></button><i class="alert-icon flaticon-round"></i>{{ \Illuminate\Support\Facades\Session::get('message') }}
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="col-md-12 mb-md-70">
                             <div class="col-md-4">
                                 <img class="img-circle" src="{{ URL::asset('storage/profile/profile3.jpg') }}" style="width:200px;height:200px;">
                             </div>
                             <div class="col-md-8">
                                 <div class="pull-right mt-10">
-                                    <a href="#" class="btn btn-default">EDIT</a>
+                                    <a href="{{ route('traveller.profile.edit') }}" class="btn btn-default">EDIT</a>
                                 </div>
                                 <h4>MY PROFILE</h4>
                                 <hr>
-                                <h5>Anne Frank</h5>
-                                <span>Jakarta, INA</span>
+                                <h5>{{ $user->first_name. ' '. $user->last_name }}</h5>
+                                <span>Jakarta</span>
                                 <br>
                                 <span>My Point : 10</span>
                                 <br>
@@ -35,10 +43,7 @@
                                 <hr>
                                 <h4>ABOUT ME</h4>
                                 <span>
-                                    Description Description Description Description Description Description Description Description Description
-                                    Description Description Description Description Description Description Description Description Description
-                                    Description Description Description Description Description Description Description Description Description
-                                    Description Description Description Description Description Description Description Description Description
+                                    {{ $user->about_me }}
                                 </span>
                             </div>
                             <div class="col-md-12">
@@ -48,66 +53,78 @@
                                     First Name
                                 </div>
                                 <div class="col-md-9">
-                                    : Anne
+                                    : {{ ucfirst($user->first_name) }}
                                 </div>
                                 <div class="col-md-3">
                                     Surname
                                 </div>
                                 <div class="col-md-9">
-                                    : Frank
+                                    : {{ ucfirst($user->last_name) }}
                                 </div>
                                 <div class="col-md-3">
                                     Sex
                                 </div>
                                 <div class="col-md-9">
-                                    : Female
+                                    :  {{ ucfirst($user->sex) }}
                                 </div>
                                 <div class="col-md-3">
                                     Email
                                 </div>
                                 <div class="col-md-9">
-                                    : annefrank@gmail.com
+                                    : {{ $user->email }}
                                 </div>
                                 <div class="col-md-3">
                                     Phone No.
                                 </div>
                                 <div class="col-md-9">
-                                    : 1234567890
+                                    : {{ $user->phone }}
                                 </div>
                                 <div class="col-md-3">
                                     Nationality
                                 </div>
                                 <div class="col-md-9">
-                                    : France
+                                    : {{ $user->nationality ?? '-' }}
                                 </div>
                                 <div class="col-md-3">
                                     Date of Birth
                                 </div>
                                 <div class="col-md-9">
-                                    : 12-03-88
+                                    : {{ \Carbon\Carbon::parse($user->dob)->format('d F Y') ?? '-' }}
                                 </div>
                                 <div class="col-md-3">
                                     Current Location
                                 </div>
                                 <div class="col-md-9">
-                                    : France
+                                    : {{ $user->current_location ?? '-' }}
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <hr>
                                 <h4>VERIFIED ID</h4>
                                 <div class="col-md-3">
-                                    ID Card (No.ID)
+                                    Identification
                                 </div>
                                 <div class="col-md-9">
-                                    : 11111111
+                                    : {{ $identity }}
                                 </div>
-                                <div class="col-md-3">
-                                    Passport No
-                                </div>
-                                <div class="col-md-9">
-                                    : 222222
-                                </div>
+
+                                @if($identity === 'ID CARD')
+                                    <div class="col-md-3">
+                                        ID Card (No.ID)
+                                    </div>
+                                    <div class="col-md-9">
+                                        : {{ $user->id_card }}
+                                    </div>
+                                @elseif($identity === 'PASSPORT')
+                                    <div class="col-md-3">
+                                        Passport No
+                                    </div>
+                                    <div class="col-md-9">
+                                        : {{ $user->passport }}
+                                    </div>
+                                @endif
+
+
                             </div>
                             <div class="col-md-12">
                                 <hr>
@@ -116,13 +133,13 @@
                                     Speaking Languages
                                 </div>
                                 <div class="col-md-9">
-                                    : France, English
+                                    : {{ $user->speaking_language ?? '-' }}
                                 </div>
                                 <div class="col-md-3">
                                     Travel Interest
                                 </div>
                                 <div class="col-md-9">
-                                    : 222222
+                                    : {{ $user->travel_interest ?? '-' }}
                                 </div>
                             </div>
                             <div class="col-md-12">

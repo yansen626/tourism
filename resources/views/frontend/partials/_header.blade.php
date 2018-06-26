@@ -84,7 +84,7 @@
                                 {{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}
                             </a>
                             <ul class="mn-sub">
-                                <li><a href="#">MY PROFILE</a></li>
+                                <li><a href="{{ route('traveller.profile.show') }}">MY PROFILE</a></li>
                                 <li><a href="#">TAILOR MADE JOURNEY</a></li>
                                 <li><a href="#">CHANGE PASSWORD</a></li>
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>

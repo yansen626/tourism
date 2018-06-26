@@ -46,6 +46,7 @@
                         <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
                     </div>
                     <div style="padding-top:30px" class="panel-body" >
+
                         @if($errors->count() > 0)
                             <div role="alert" class="alert alert-warning alert-dismissible fade in mb-20">
                                 <button type="button" data-dismiss="alert" aria-label="Close" class="close"></button><i class="alert-icon flaticon-warning"></i>
@@ -55,14 +56,12 @@
                             </div>
                         @endif
 
-
-
                         <form id="loginform" class="form-horizontal" role="form" method="POST" action="{{ route('signin') }}">
                             {{ csrf_field() }}
 
                             <div style="margin-bottom: 25px" class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">
+                                <input id="login-username" type="text" class="form-control" name="email" value="" placeholder="username or email">
                             </div>
 
                             <div style="margin-bottom: 15px" class="input-group">

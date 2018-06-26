@@ -34,9 +34,10 @@ Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search
 
 //Traveler
 Route::prefix('traveler')->group(function(){
-    Route::get('/', 'Frontend\TravelerController@index')->name('traveller.index');
+    Route::get('/', 'Frontend\TravelerController@show')->name('traveller.profile.show');
     Route::get('/transactions', 'Frontend\TravelerController@transactions')->name('traveller.transactions');
-    Route::get('/profile/edit', 'Frontend\ProfileController@edit')->name('traveller.profile.edit');
+    Route::get('/profile/edit', 'Frontend\TravelerController@edit')->name('traveller.profile.edit');
+    Route::put('/profile/update/{user}', 'Frontend\TravelerController@update')->name('traveller.profile.update');
 });
 
 //Travelmate

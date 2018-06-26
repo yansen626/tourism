@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-12">
         <p>
-            <a href="{{route('traveller.index')}}" class="">
+            <a href="{{route('traveller.profile.show')}}" class="">
                 <i class="fa fa-user" aria-hidden="true"></i> <span>My Profile</span>
             </a>
         </p>
