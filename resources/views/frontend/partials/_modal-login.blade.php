@@ -18,7 +18,7 @@
             {{ Form::close() }}
         </div>
         <div class="login-bot">
-            <p>No account yet? <a href="#">Register now</a></p>
+            <p>No account yet? <a href="{{ route('register') }}">Register now</a></p>
         </div>
     </div>
 </div>

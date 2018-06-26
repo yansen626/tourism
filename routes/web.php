@@ -21,6 +21,8 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 
+Route::post('/submit-register', 'Auth\RegisterController@register')->name('submit-register');
+
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
 
