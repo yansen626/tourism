@@ -97,7 +97,16 @@ class RegisterController extends Controller
                 'last_name'             => 'required|max:100',
                 'phone'                 => 'required|max:20',
                 'password'              => 'required|min:6|max:20|same:password',
-                'password_confirmation' => 'required|same:password'
+                'password_confirmation' => 'required|same:password',
+                'dob'                   => 'required',
+                'sex'                   => 'required',
+                'nationality'           => 'required',
+                'id_card'               => 'required',
+                'passport_no'           => 'required',
+                'current_location'      => 'required',
+                'speaking_language'     => 'required',
+                'travel_interest'       => 'required',
+                'about_me'              => 'required'
             ]
         );
 
@@ -106,10 +115,10 @@ class RegisterController extends Controller
         }
 
         $user = $this->create($request->all());
-        $emailVerify = new EmailVerification($user);
-        Mail::to($user->email)->send($emailVerify);
-
-        $email = Input::get('email');
+//        $emailVerify = new EmailVerification($user);
+//        Mail::to($user->email)->send($emailVerify);
+//
+//        $email = Input::get('email');
 
         return View('auth.send-email', compact('email'));
     }

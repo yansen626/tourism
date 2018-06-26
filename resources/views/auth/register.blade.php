@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.frontend_2')
 
 @section('body-content')
     <!-- MY ACCOUNT PAGE -->
@@ -31,6 +31,16 @@
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="email" type="text" class="form-control col-md-7 col-xs-12"
                                            name="email"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="phone">
+                                    Phone
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="phone" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="phone"/>
                                 </div>
                             </div>
 
@@ -80,9 +90,18 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <select id="sex" name="sex" class="form-control">
-                                        <option>Male</option>
-                                        <option>Female</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="dob">
+                                    Date of Birth
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="dob" type="text" name="dob" class="form-control col-md-7 col-xs-12"/>
                                 </div>
                             </div>
 
@@ -97,11 +116,61 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="dob">
-                                    Date of Birth
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="id_card">
+                                    ID Card No
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input id="dob" type="text" name="dob" class="form-control col-md-7 col-xs-12"/>
+                                    <input id="id_card" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="id_card"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="passport_no">
+                                    Passport No
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="passport_no" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="passport_no"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="current_location">
+                                    Current Location
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="current_location" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="current_location"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="speaking_language">
+                                    Speaking Language
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="speaking_language" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="speaking_language"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="travel_interest">
+                                    Travel Interest
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="travel_interest" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="travel_interest"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="about_me">
+                                    About Me
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea id="about_me" name="about_me" rows="5" class="form-control col-md-7 col-xs-12" style="resize: vertical"></textarea>
                                 </div>
                             </div>
 
@@ -109,7 +178,7 @@
                                 <!-- Button -->
 
                                 <div class="col-sm-12 controls text-center">
-                                    <input type="submit" id="btn-login" class="btn btn-success" value="Login">
+                                    <input type="submit" id="btn-login" class="btn btn-success" value="Register">
                                 </div>
                             </div>
                         </form>
