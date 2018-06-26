@@ -78,20 +78,21 @@
                     <li><a href="{{route('search')}}" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
                     <!-- End Item -->
 
-                    <li><a href="#" class="top-login">LOGIN</a></li>
-                    <li><a href="{{ route('logout') }}">Logout</a></li>
-
-                    <li><a href="#" class="mn-has-sub">
-                            <img style="width: 29px; height: auto;" src="{{ URL::asset('frontend_images/user-shape.png') }}">
-                            Bayu Indra
-                        </a>
-                        <ul class="mn-sub">
-                            <li><a href="#">MY PROFILE</a></li>
-                            <li><a href="#">TAILOR MADE JOURNEY</a></li>
-                            <li><a href="#">CHANGE PASSWORD</a></li>
-                            <li><a href="#">LOG OUT</a></li>
-                        </ul>
-                    </li>
+                    @if(auth()->check())
+                        <li><a href="#" class="mn-has-sub">
+                                <img style="width: 29px; height: auto;" src="{{ URL::asset('frontend_images/user-shape.png') }}">
+                                {{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}
+                            </a>
+                            <ul class="mn-sub">
+                                <li><a href="#">MY PROFILE</a></li>
+                                <li><a href="#">TAILOR MADE JOURNEY</a></li>
+                                <li><a href="#">CHANGE PASSWORD</a></li>
+                                <li><a href="{{ route('logout') }}">LOG OUT</a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <li><a href="#" class="top-login">LOGIN</a></li>
+                    @endif
 
                     <!-- Search-->
                     <li class="search"><a href="" class="mn-has-sub"> <i class="fa fa-search" style="font-size: 35px;"></i></a>
