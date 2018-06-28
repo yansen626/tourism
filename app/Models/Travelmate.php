@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 24 Jun 2018 09:39:47 +0000.
+ * Date: Thu, 28 Jun 2018 03:06:42 +0000.
  */
 
 namespace App\Models;
@@ -12,22 +12,36 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Travelmate
- *
+ * 
  * @property string $id
+ * @property string $email
+ * @property string $password
  * @property string $first_name
  * @property string $last_name
- * @property \Carbon\Carbon $total_point
+ * @property int $total_point
  * @property int $rating
  * @property int $city_id
  * @property int $province_id
  * @property string $description
+ * @property int $total_review
+ * @property string $about_me
+ * @property string $phone
+ * @property string $sex
+ * @property string $nationality
+ * @property \Carbon\Carbon $dob
+ * @property string $current_location
+ * @property string $id_card
+ * @property string $passport_no
+ * @property string $speaking_language
+ * @property string $travel_interest
  * @property string $profile_picture
  * @property string $banner_picture
  * @property int $status_id
+ * @property \Carbon\Carbon $created_at
  * @property string $created_by
  * @property \Carbon\Carbon $updated_at
  * @property string $updated_by
- *
+ * 
  * @property \App\Models\City $city
  * @property \App\Models\Province $province
  * @property \App\Models\Status $status
@@ -40,65 +54,71 @@ class Travelmate extends Authenticatable
     use Notifiable;
 
     protected $guard = 'travelmates';
-
     protected $table = 'travelmates';
+	public $incrementing = false;
 
-    public $incrementing = false;
-    public $timestamps = false;
+	protected $casts = [
+		'total_point' => 'int',
+		'rating' => 'int',
+		'city_id' => 'int',
+		'province_id' => 'int',
+		'total_review' => 'int',
+		'status_id' => 'int'
+	];
 
-    protected $casts = [
-        'rating' => 'int',
-        'city_id' => 'int',
-        'province_id' => 'int',
-        'status_id' => 'int'
-    ];
+	protected $dates = [
+		'dob'
+	];
 
-    protected $dates = [
-        'total_point'
-    ];
+	protected $hidden = [
+		'password'
+	];
 
-    protected $fillable = [
-        'email',
-        'first_name',
-        'last_name',
-        'total_point',
-        'rating',
-        'city_id',
-        'province_id',
-        'description',
-        'profile_picture',
-        'banner_picture',
-        'status_id',
-        'created_by',
-        'updated_by'
-    ];
+	protected $fillable = [
+		'email',
+		'password',
+		'first_name',
+		'last_name',
+		'total_point',
+		'rating',
+		'city_id',
+		'province_id',
+		'description',
+		'total_review',
+		'about_me',
+		'phone',
+		'sex',
+		'nationality',
+		'dob',
+		'current_location',
+		'id_card',
+		'passport_no',
+		'speaking_language',
+		'travel_interest',
+		'profile_picture',
+		'banner_picture',
+		'status_id',
+		'created_by',
+		'updated_by'
+	];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password'
-    ];
+	public function city()
+	{
+		return $this->belongsTo(\App\Models\City::class);
+	}
 
-    public function city()
-    {
-        return $this->belongsTo(\App\Models\City::class);
-    }
+	public function province()
+	{
+		return $this->belongsTo(\App\Models\Province::class);
+	}
 
-    public function province()
-    {
-        return $this->belongsTo(\App\Models\Province::class);
-    }
+	public function status()
+	{
+		return $this->belongsTo(\App\Models\Status::class);
+	}
 
-    public function status()
-    {
-        return $this->belongsTo(\App\Models\Status::class);
-    }
-
-    public function packages()
-    {
-        return $this->hasMany(\App\Models\Package::class);
-    }
+	public function packages()
+	{
+		return $this->hasMany(\App\Models\Package::class);
+	}
 }

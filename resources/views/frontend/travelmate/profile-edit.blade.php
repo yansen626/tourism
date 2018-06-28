@@ -7,12 +7,12 @@
         <div style="margin-top:3%;">
             <div class="row">
                 <div class="col-md-2">
-                    @include('frontend.traveler.partials._left-side')
+                    @include('frontend.travelmate.partials._left-side')
                 </div>
                 <div class="col-md-7">
                     <div class="">
                         <div class="col-md-12 mb-md-70">
-                            {{ Form::open(['route'=>['traveller.profile.update', $user->id],'method' => 'put','id' => 'general-form','class'=>'form-horizontal form-label-left', 'enctype'=>'multipart/form-data']) }}
+                            {{ Form::open(['route'=>['travelmate.profile.update', $user->id],'method' => 'put','id' => 'general-form','class'=>'form-horizontal form-label-left', 'enctype'=>'multipart/form-data']) }}
                             {{ csrf_field()}}
 
                                 @if($errors->count() > 0)
@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <div class="col-md-2 col-sm-2 col-xs-12"></div>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
-                                        {!! Form::file('image', array('id' => 'image', 'class' => 'file-loading', 'data-image-path' => asset('storage/profile/'. $user->img_path))) !!}
+                                        {!! Form::file('image', array('id' => 'image', 'class' => 'file-loading', 'data-image-path' => asset('storage/profile/'. $user->profile_picture))) !!}
                                     </div>
                                 </div>
                                 <hr/>
@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <hr/>
-                                <h4>MY INFORMATION</h4>
+                                <h4>ABOUT ME</h4>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="fname">
                                         First Name
@@ -155,7 +155,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input id="youtube" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('youtube')) parsley-error @endif"
-                                               name="youtube" value="{{$user->youtube_link}}">
+                                               name="youtube" value="">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -201,7 +201,7 @@
         var imgFeaturedPath = $("#image").attr('data-image-path');
         if(imgFeaturedPath !== ''){
             $("#image").fileinput({
-                uploadUrl: "/traveller/profile/upload",
+                uploadUrl: "/travelmate/profile/upload",
                 initialPreview:[imgFeaturedPath],
                 maxFilePreviewSize: 10240,
                 minFileCount: 1,

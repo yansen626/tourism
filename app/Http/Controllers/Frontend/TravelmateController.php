@@ -1,35 +1,33 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: yanse
- * Date: 8/31/2017
- * Time: 11:27 AM
+ * User: GMG-Developer
+ * Date: 28/06/2018
+ * Time: 9:07
  */
 
 namespace App\Http\Controllers\Frontend;
 
+
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\User;
+use App\Models\Travelmate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
-class TravelerController extends Controller
+class TravelmateController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:travelmates');
     }
 
     //
     public function show(){
-        $user = Auth::user();
+        $user = \Auth::guard('travelmates')->user();
         if(!empty($user->id_card) && empty($user->passport_no)){
             $identity = 'ID CARD';
         }
@@ -45,11 +43,11 @@ class TravelerController extends Controller
             'identity'  => $identity
         ];
 
-        return View('frontend.traveler.index')->with($data);
+        return View('frontend.travelmate.index')->with($data);
     }
 
     public function edit(){
-        $user = Auth::user();
+        $user = \Auth::guard('travelmates')->user();
         if(!empty($user->id_card) && empty($user->passport_no)){
             $identity = 'ID CARD';
         }
@@ -65,7 +63,7 @@ class TravelerController extends Controller
             'identity'  => $identity
         ];
 
-        return View('frontend.traveler.profile-edit')->with($data);
+        return View('frontend.travelmate.profile-edit')->with($data);
     }
 
     public function updateImage(Request $request){
@@ -76,15 +74,15 @@ class TravelerController extends Controller
             $extStr = $img->mime();
             $ext = explode('/', $extStr, 2);
 
-            $user = \Auth::guard('web')->user();
+            $user = \Auth::guard('travelmates')->user();
 
-            $filename = 'traveller_'. $user->id.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
+            $filename = 'travelmate_'. $user->id.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
 
             $img->save(public_path('storage/profile/'. $filename), 75);
 
-            $userObj = User::find($user->id);
-            $oldImage = $userObj->img_path;
-            $userObj->img_path = $filename;
+            $userObj = Travelmate::find($user->id);
+            $oldImage = $userObj->profile_picture;
+            $userObj->profile_picture = $filename;
             $userObj->save();
 
             // Delete old image
@@ -102,7 +100,7 @@ class TravelerController extends Controller
         }
     }
 
-    public function update(Request $request, User $user){
+    public function update(Request $request, Travelmate $user){
         $validator = Validator::make($request->all(), [
             'fname'             => 'required|max:50',
             'lname'             => 'required|max:50',
@@ -148,11 +146,11 @@ class TravelerController extends Controller
 
         Session::flash('message', 'Profile Updated!');
 
-        return redirect()->route('traveller.profile.show');
+        return redirect()->route('travelmate.profile.show');
     }
 
     public function transactions(){
 
-        return View('frontend.traveler.transactions');
+        return View('frontend.travelmate.transactions');
     }
 }

@@ -32,18 +32,26 @@ Route::get('/', 'Frontend\HomeController@home')->name('landing');
 Route::get('search-form/', 'Frontend\HomeController@SearchForm')->name('search');
 Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search-result');
 
-//Traveler
-Route::prefix('traveler')->group(function(){
+// Traveler
+Route::prefix('traveller')->group(function(){
     Route::get('/', 'Frontend\TravelerController@show')->name('traveller.profile.show');
     Route::get('/transactions', 'Frontend\TravelerController@transactions')->name('traveller.transactions');
     Route::get('/profile/edit', 'Frontend\TravelerController@edit')->name('traveller.profile.edit');
     Route::put('/profile/update/{user}', 'Frontend\TravelerController@update')->name('traveller.profile.update');
+    Route::post('/profile/upload', 'Frontend\TravelerController@updateImage')->name('traveller.profile.upload');
 });
 
-//Travelmate
+// Travelmate
 Route::get('travelmate/dashboard', 'Travelmate\HomeController@dashboard')->name('travelmate-dashboard');
+Route::prefix('travelmate')->group(function(){
+    Route::get('/', 'Frontend\TravelmateController@show')->name('travelmate.profile.show');
+    Route::get('/packages', 'Frontend\TravelmateController@packages')->name('travelmate.packages.index');
+    Route::get('/profile/edit', 'Frontend\TravelmateController@edit')->name('travelmate.profile.edit');
+    Route::put('/profile/update/{user}', 'Frontend\TravelmateController@update')->name('travelmate.profile.update');
+    Route::post('/profile/upload', 'Frontend\TravelmateController@updateImage')->name('travelmate.profile.upload');
+});
 
-//Tailor made Journey
+// Tailor made Journey
 Route::post('tailor-made', 'Frontend\HomeController@submitTailorMade')->name('tailor-made');
 
 //HTII Section End

@@ -77,15 +77,26 @@
                     <!-- Item -->
                     <li><a href="{{route('search')}}" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
                     <!-- End Item -->
-
-                    @if(auth()->check())
+                    @if(auth()->guard('web')->check())
                         <li><a href="#" class="mn-has-sub">
-                                <img style="width: 29px; height: auto;" src="{{ URL::asset('storage/profile/'.\Illuminate\Support\Facades\Auth::user()->img_path) }}">
-                                {{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}
+                                <img style="width: 29px; height: auto;" src="{{ URL::asset('storage/profile/'.\Illuminate\Support\Facades\Auth::guard('web')->user()->img_path) }}">
+                                {{ \Illuminate\Support\Facades\Auth::guard('web')->user()->first_name }} {{ \Illuminate\Support\Facades\Auth::guard('web')->user()->last_name }}
                             </a>
                             <ul class="mn-sub">
                                 <li><a href="{{ route('traveller.profile.show') }}">MY PROFILE</a></li>
                                 <li><a href="{{ route('traveller.transactions') }}">TAILOR MADE JOURNEY</a></li>
+                                {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}
+                                <li><a href="{{ route('logout') }}">LOG OUT</a></li>
+                            </ul>
+                        </li>
+                    @elseif(auth()->guard('travelmates')->check())
+                        <li><a href="#" class="mn-has-sub">
+                                <img style="width: 29px; height: auto;" src="{{ URL::asset('storage/profile/'.\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->profile_picture) }}">
+                                {{ \Illuminate\Support\Facades\Auth::guard('travelmates')->user()->first_name }} {{ \Illuminate\Support\Facades\Auth::guard('travelmates')->user()->last_name }}
+                            </a>
+                            <ul class="mn-sub">
+                                <li><a href="{{ route('travelmate.profile.show') }}">MY PROFILE</a></li>
+                                <li><a href="#">MY PACKAGES</a></li>
                                 {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>
                             </ul>

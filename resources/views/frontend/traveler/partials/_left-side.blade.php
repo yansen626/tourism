@@ -1,11 +1,11 @@
 
 <div class="col-md-2" style="height: 1543px;background-color: #ffc801;padding-top: 3%;">
     <div class="col-md-5">
-        <img class="img-circle" src="{{ URL::asset('storage/profile/'.$user->img_path) }}" style="width:60px;height:60px;">
+        <img class="img-circle" src="{{ URL::asset('storage/profile/'. \Illuminate\Support\Facades\Auth::guard('web')->user()->img_path) }}" style="width:60px;height:60px;">
     </div>
     <div class="col-md-7">
-        <h5>{{ $user->first_name. ' '. $user->last_name }}</h5>
-        <span>Traveler</span>
+        <h5>{{ \Illuminate\Support\Facades\Auth::guard('web')->user()->first_name. ' '. \Illuminate\Support\Facades\Auth::guard('web')->user()->last_name }}</h5>
+        <span>Traveller</span>
     </div>
     <div class="col-md-12">
         <div class="col-md-12">

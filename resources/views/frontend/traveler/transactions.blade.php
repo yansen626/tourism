@@ -51,7 +51,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-1.jpg') }}') no-repeat;">
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-1.jpg') }}') no-repeat;">
                                     <td class="traveller-td">
                                         <div class="col-md-6 text-left">
                                             LAMPUNG <br>December 12
@@ -61,7 +61,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-2.jpg') }}') no-repeat;">
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-2.jpg') }}') no-repeat;">
                                     <td class="traveller-td">
                                         <div class="col-md-6 text-left">
                                             PULAU DERAWAN <br>November 04
@@ -71,7 +71,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-3.jpg') }}') no-repeat;">
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-3.jpg') }}') no-repeat;">
                                     <td class="traveller-td">
                                         <div class="col-md-6 text-left">
                                             PULAU MACAN <br>September 03
@@ -81,7 +81,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('frontend_images/top-slider-4.jpg') }}') no-repeat;">
+                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-4.jpg') }}') no-repeat;">
                                     <td class="traveller-td">
                                         <div class="col-md-6 text-left">
                                             PULAU PRAMUKA <br>September 03
@@ -117,6 +117,7 @@
         .traveller-transactions{
             width: 100%;
             height: 300px;
+            background-position: center center !important;
             background-size: cover !important;
         }
 
