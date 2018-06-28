@@ -7,9 +7,9 @@
         <!-- CONTAINER -->
         <div class="container">
             <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
-                <div class="panel panel-info" >
+                <div class="panel panel-success" >
                     <div class="panel-heading">
-                        <div class="panel-title" style="text-align: center;">REGISTER</div>
+                        <div class="panel-title" style="text-align: center;">REGISTER AS TRAVELMATE</div>
                     </div>
                     <div style="padding-top:30px" class="panel-body" >
                         @if($errors->count() > 0)
@@ -21,7 +21,7 @@
                             </div>
                         @endif
 
-                        <form id="registerform" class="form-horizontal" role="form" method="POST" action="{{ route('submit-register') }}">
+                        <form id="registerform" class="form-horizontal" role="form" method="POST" action="{{ route('submit-travelmate') }}">
                             {{ csrf_field() }}
 
                             <div class="form-group">
@@ -105,26 +105,26 @@
                                 </div>
                             </div>
 
-                            {{--<div class="form-group">--}}
-                                {{--<label class="control-label col-md-2 col-sm-2 col-xs-12" for="nationality">--}}
-                                    {{--Nationality--}}
-                                {{--</label>--}}
-                                {{--<div class="col-md-10 col-sm-10 col-xs-12">--}}
-                                    {{--<select id="nationality" name="nationality" class="form-control">--}}
-                                        {{--@foreach($countries as $country)--}}
-                                            {{--<option value="{{ $country["name"] }}">{{ $country["name"] }}</option>--}}
-                                        {{--@endforeach--}}
-                                    {{--</select>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="nationality">
-                                    Nationality
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="province">
+                                    Province
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input id="nationality" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="nationality" value="{{ old('nationality') }}"/>
+                                    <select id="province" name="province" class="form-control">
+                                        @foreach($provinces as $province)
+                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="city">
+                                    City
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <select id="city" name="city" class="form-control">
+                                    </select>
                                 </div>
                             </div>
 
@@ -179,6 +179,24 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="profile_picture" >
+                                    Profile Picture
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    {!! Form::file('profile_picture', array('id' => 'profile_picture', 'class' => 'file')) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="banner_picture" >
+                                    Banner Picture
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    {!! Form::file('banner_picture', array('id' => 'banner_picture', 'class' => 'file')) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="about_me">
                                     About Me
                                 </label>
@@ -219,6 +237,37 @@
         $(function () {
             $('#dob').datetimepicker({
                 format: "DD MMM Y"
+            });
+
+            $('#province').change(function(){
+                var id = $(this).val();
+                var cities = document.getElementById("city");
+
+                $.ajax({
+                    url: '{{ route('get-cities') }}',
+                    data: {
+                        id: id,
+                        '_token': $('input[name=_token]').val()
+                    },
+                    success: function(data) {
+                        $('#city')
+                            .find('option')
+                            .remove()
+                            .end();
+
+                        if( data.length ){
+                            for(var i=0; i<data.length; i++){
+                                var option = document.createElement("option");
+                                option.value = data[i].id;
+                                option.text = data[i].name;
+                                cities.add(option);
+                            }
+                        }
+                    },
+                    error: function(error) {
+                        alert(error.responseJSON.message);
+                    }
+                });
             });
         });
     </script>

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\City;
+use App\Models\Province;
+use App\Models\Travelmate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -135,6 +138,70 @@ class RegisterController extends Controller
 
         return View('auth.send-email', compact('email'));
     }
+
+    public function registerTravelmate(){
+//        $path = public_path() . "/data/countries.json";
+//
+//        $countries = json_decode(file_get_contents($path), true);
+        $provinces = Province::all();
+
+        return view('auth.register-travelmate', compact('provinces'));
+    }
+
+    public function getCity(Request $request){
+        $cities = City::where('province_id', $request->id)->get();
+
+        return $cities;
+    }
+
+    public function submitRegisterTravelmate(Request $request){
+        $validator = Validator::make($request->all(),
+            [
+                'email'                 => 'required|email|max:100|unique:users',
+                'first_name'            => 'required|max:100',
+                'last_name'             => 'required|max:100',
+                'phone'                 => 'required|max:20',
+                'password'              => 'required|min:6|max:20|same:password',
+                'password_confirmation' => 'required|same:password',
+                'dob'                   => 'required',
+                'sex'                   => 'required',
+                'city_id'               => 'required',
+                'province_id'           => 'required',
+                'id_card'               => 'required',
+                'passport_no'           => 'required',
+                'current_location'      => 'required',
+                'speaking_language'     => 'required',
+                'travel_interest'       => 'required',
+                'about_me'              => 'required'
+            ]
+        );
+
+        $date = Carbon::createFromFormat('d M Y', $request->dob, 'Asia/Jakarta');
+
+        $travelmate = Travelmate::create([
+            'id'                    => Uuid::generate(),
+            'first_name'            => $request->first_name,
+            'last_name'             => $request->last_name,
+            'img_path'              => 'default.png',
+            'email'                 => $request->email,
+            'password'              => bcrypt($request->password),
+            'phone'                 => $request->phone,
+            'dob'                   => $date->toDateTimeString(),
+            'sex'                   => $request->sex,
+            'city_id'               => $request->city_id,
+            'province_id'           => $request->province_id,
+            'id_card'               => $request->id_card,
+            'passport_no'           => $request->passport_no,
+            'current_location'      => $request->current_location,
+            'speaking_language'     => $request->speaking_language,
+            'travel_interest'       => $request->travel_interest,
+            'about_me'              => $request->about_me,
+            'status_id'             => 2
+        ]);
+
+
+    }
+
     /**
      * Handle a registration request for the application.
      *

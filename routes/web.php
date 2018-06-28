@@ -22,6 +22,10 @@ Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 
 Route::post('/submit-register', 'Auth\RegisterController@register')->name('submit-register');
+Route::get('/register-travelmate', 'Auth\RegisterController@registerTravelmate')->name('register-travelmate');
+Route::post('/register-travelmate', 'Auth\RegisterController@submitRegisterTravelmate')->name('submit-travelmate');
+
+Route::get('/get-cities', 'Auth\RegisterController@getCity')->name('get-cities');
 
 // Frontend Routing
 Route::get('/', 'Frontend\HomeController@home')->name('landing');
