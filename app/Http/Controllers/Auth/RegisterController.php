@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
@@ -70,6 +71,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         Session::flash('message', 'Your Id is Registered!! Please Login!!');
+        $date = Carbon::createFromFormat('d M Y', $data['dob'], 'Asia/Jakarta');
 
         return User::create([
             'id' =>Uuid::generate(),
@@ -80,7 +82,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'email_token' => base64_encode($data['email']),
             'phone'                 => $data['phone'],
-            'dob'                   => $data['dob'],
+            'dob'                   => $date->toDateTimeString(),
             'sex'                   => $data['sex'],
             'nationality'           => $data['nationality'],
             'id_card'               => $data['id_card'],
@@ -129,7 +131,7 @@ class RegisterController extends Controller
 //        $emailVerify = new EmailVerification($user);
 //        Mail::to($user->email)->send($emailVerify);
 //
-//        $email = Input::get('email');
+        $email = Input::get('email');
 
         return View('auth.send-email', compact('email'));
     }

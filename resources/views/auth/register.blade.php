@@ -30,7 +30,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="email" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="email"/>
+                                           name="email" value="{{ old('email') }}"/>
                                 </div>
                             </div>
 
@@ -40,7 +40,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="phone" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="phone"/>
+                                           name="phone" value="{{ old('phone') }}"/>
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="first_name" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="first_name"/>
+                                           name="first_name" value="{{ old('first_name') }}"/>
                                 </div>
                             </div>
 
@@ -60,7 +60,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="last_name" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="last_name"/>
+                                           name="last_name" value="{{ old('last_name') }}"/>
                                 </div>
                             </div>
 
@@ -79,7 +79,7 @@
                                     Confirm Password
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input id="password_confirmation" type="text" class="form-control col-md-7 col-xs-12"
+                                    <input id="password_confirmation" type="password" class="form-control col-md-7 col-xs-12"
                                            name="password_confirmation"/>
                                 </div>
                             </div>
@@ -90,8 +90,8 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <select id="sex" name="sex" class="form-control">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="male" {{ old('sex') == 'male' ? "selected":"" }}>Male</option>
+                                        <option value="female" {{ old('sex') == 'female' ? "selected":"" }}>Female</option>
                                     </select>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                     Date of Birth
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input id="dob" type="text" name="dob" class="form-control col-md-7 col-xs-12"/>
+                                    <input id="dob" type="text" name="dob" value="{{ old('dob') }}" class="form-control col-md-7 col-xs-12"/>
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="nationality" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="nationality"/>
+                                           name="nationality" value="{{ old('nationality') }}"/>
                                 </div>
                             </div>
 
@@ -121,7 +121,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="id_card" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="id_card"/>
+                                           name="id_card" value="{{ old('id_card') }}"/>
                                 </div>
                             </div>
 
@@ -131,7 +131,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="passport_no" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="passport_no"/>
+                                           name="passport_no" value="{{ old('passport_no') }}"/>
                                 </div>
                             </div>
 
@@ -141,7 +141,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="current_location" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="current_location"/>
+                                           name="current_location" value="{{ old('current_location') }}"/>
                                 </div>
                             </div>
 
@@ -151,7 +151,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="speaking_language" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="speaking_language"/>
+                                           name="speaking_language" value="{{ old('speaking_language') }}"/>
                                 </div>
                             </div>
 
@@ -161,7 +161,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="travel_interest" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="travel_interest"/>
+                                           name="travel_interest" value="{{ old('travel_interest') }}"/>
                                 </div>
                             </div>
 
@@ -170,7 +170,9 @@
                                     About Me
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <textarea id="about_me" name="about_me" rows="5" class="form-control col-md-7 col-xs-12" style="resize: vertical"></textarea>
+                                    <textarea id="about_me" name="about_me" rows="5" class="form-control col-md-7 col-xs-12" style="resize: vertical">
+                                        {{ old('about_me') }}
+                                    </textarea>
                                 </div>
                             </div>
 
