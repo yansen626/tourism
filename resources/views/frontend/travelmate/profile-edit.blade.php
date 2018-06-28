@@ -6,9 +6,7 @@
         <input type="hidden" id="csrf_token" name="_token" value="{{ csrf_token() }}">
         <div style="margin-top:3%;">
             <div class="row">
-                <div class="col-md-2">
-                    @include('frontend.travelmate.partials._left-side')
-                </div>
+                @include('frontend.travelmate.partials._left-side')
                 <div class="col-md-7">
                     <div class="">
                         <div class="col-md-12 mb-md-70">

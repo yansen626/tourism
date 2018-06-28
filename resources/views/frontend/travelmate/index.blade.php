@@ -6,9 +6,7 @@
         {{--<div class="container page">--}}
         <div style="margin-top:3%;">
             <div class="row">
-                <div class="col-md-2">
-                    @include('frontend.travelmate.partials._left-side')
-                </div>
+                @include('frontend.travelmate.partials._left-side')
                 <div class="col-md-7">
                     <div class="">
                         @if(\Illuminate\Support\Facades\Session::has('message'))
