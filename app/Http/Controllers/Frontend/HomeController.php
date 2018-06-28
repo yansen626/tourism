@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\HomeContent;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\Cart;
@@ -133,6 +134,8 @@ class HomeController extends Controller
             'packages'          => $packages,
             'travelmates'          => $travelmates,
             'userId'            => $userId,
+            'home'=> HomeContent::where('section', 'banner')->get(),
+            'video'=> HomeContent::where('section', 'video')->first()
 //            'categories'        => $categories,
 //            'categoryTotal'     => $categoryTotal,
 //            'firstColumn'       => $firstColumn,
@@ -146,7 +149,7 @@ class HomeController extends Controller
 //            'cat8Products'      => $cat8Products,
 //            'cat9Products'      => $cat9Products
         ];
-
+//        dd($data);
         return View('frontend.home')->with($data);
     }
 

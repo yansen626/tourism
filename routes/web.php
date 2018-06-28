@@ -169,6 +169,12 @@ Route::prefix('admin/traveller')->group(function(){
     Route::get('/{customerId}/transactions', 'Admin\TravellerController@transactions')->name('traveller-transaction-list');
 });
 
+//travelmate
+Route::prefix('admin/travelmate')->group(function(){
+    Route::get('/', 'Admin\TravelmateController@index')->name('travelmate-list');
+    Route::get('/{customerId}/transactions', 'Admin\TravelmateController@transactions')->name('travelmate-transaction-list');
+});
+
 // Voucher
 Route::prefix('admin/voucher')->group(function(){
     Route::get('/', 'Admin\VoucherController@index')->name('voucher-list');
@@ -182,6 +188,12 @@ Route::prefix('admin/voucher')->group(function(){
 Route::prefix('admin/rate')->group(function(){
     Route::get('/edit', 'Admin\RateController@edit')->name('rate-edit');
     Route::post('/edit', 'Admin\RateController@update');
+});
+
+//rate
+Route::prefix('admin/content')->group(function(){
+    Route::get('/edit', 'Admin\ContentController@edit')->name('content-edit');
+    Route::post('/edit/{id}', 'Admin\ContentController@update')->name('content-edit-submit');
 });
 
 

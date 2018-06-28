@@ -9,12 +9,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\TransactionHeader;
+use App\Models\Travelmate;
 use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 
-class TravellerController extends Controller
+class TravelmateController extends Controller
 {
     public function __construct()
     {
@@ -23,20 +25,20 @@ class TravellerController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $users = Travelmate::all();
 
-        return View('admin.travellers.index', compact('users'));
+        return View('admin.travelmates.index', compact('users'));
         //return view('admin.show_users')->with('users', $users);
     }
 
     public function transactions($customerId){
-        $transactions = Transaction::where('user_id', $customerId)->orderByDesc('created_at')->get();
+        $transactions = TransactionHeader::where('user_id', $customerId)->orderByDesc('created_at')->get();
 
         $data = [
             'transactions'  => $transactions,
             'customerId'    => $customerId
         ];
 
-        return View('admin.travellers.index-transactions')->with($data);
+        return View('admin.travelmates.index-transactions')->with($data);
     }
 }

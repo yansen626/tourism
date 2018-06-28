@@ -15,6 +15,7 @@ use App\Mail\DeliveryConfirm;
 use App\Mail\OrderAccepted;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\TransactionHeader;
 use App\Models\TransferConfirmation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,25 +33,25 @@ class TransactionController extends Controller
     }
 
     public function index(){
-        $transactions = Transaction::all()->sortByDesc('created_on');
+        $transactions = TransactionHeader::all()->sortByDesc('created_on');
 
         return View('admin.transactions.show-transactions', compact('transactions'));
     }
 
     public function detail($id){
-        $transaction = Transaction::find($id);
+        $transaction = TransactionHeader::find($id);
 
         return View('admin.transactions.show-transaction-details', compact('transaction'));
     }
 
     public function newOrder(){
-        $transactions = Transaction::where('status_id', 5)->orderByDesc('created_at')->get();
+        $transactions = TransactionHeader::where('status_id', 5)->orderByDesc('created_at')->get();
 
         return View('admin.transactions.show-new-orders', compact('transactions'));
     }
 
     public function acceptOrder($id){
-        $trx = Transaction::find($id);
+        $trx = TransactionHeader::find($id);
 
         $trx->status_id = 6;
         $trx->save();
@@ -63,7 +64,7 @@ class TransactionController extends Controller
     }
 
     public function rejectOrder(Request $request){
-        $trx = Transaction::find(Input::get('reject-trx-id'));
+        $trx = TransactionHeader::find(Input::get('reject-trx-id'));
 
         $trx->status_id = 10;
         if(!empty(Input::get('reject-reason'))){
@@ -86,7 +87,7 @@ class TransactionController extends Controller
 
     public function payment(){
         //$transfers = TransferConfirmation::where('status_id', 4)->get();
-        $transactions = Transaction::where('status_id', 3)
+        $transactions = TransactionHeader::where('status_id', 3)
             ->orWhere('status_id', 4)
             ->orWhere('status_id', 11)
             ->orderByDesc('created_at')->get();

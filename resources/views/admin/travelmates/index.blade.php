@@ -36,7 +36,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Daftar Traveller</h2>
+                            <h2>Daftar Travelmate</h2>
                             {{--<ul class="nav navbar-right panel_toolbox">--}}
                                 {{--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--}}
                                 {{--</li>--}}
@@ -75,7 +75,7 @@
                                         <td>{{ $user->first_name }}</td>
                                         <td>{{ $user->last_name }}</td>
                                         <td>{{ \Carbon\Carbon::parse($user->created_on)->format('j M Y G:i:s') }}</td>
-                                        <td><a href="{{ route('traveller-transaction-list', ['customerId' => $user->id]) }}" class="btn btn-primary" target="_blank">History</a></td>
+                                        <td><a href="{{ route('travelmate-transaction-list', ['customerId' => $user->id]) }}" class="btn btn-primary" target="_blank">History</a></td>
                                     </tr>
                                     @php( $idx++ )
                                 @endforeach

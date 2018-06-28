@@ -24,7 +24,7 @@
                         <div class="x_title">
                             <h2>Customer ID {{ $customerId }} Transaction History</h2>
                             <div class="nav navbar-right">
-                                <a href="{{ route('traveller-list') }}" class="btn btn-app">
+                                <a href="{{ route('travelmate-list') }}" class="btn btn-app">
                                     <i class="fa fa-arrow-left"></i> Back
                                 </a>
                             </div>
