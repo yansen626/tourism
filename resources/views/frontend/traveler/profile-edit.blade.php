@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <hr/>
-                                <h4>ABOUT ME</h4>
+                                <h4>MY INFORMATION</h4>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="fname">
                                         First Name
@@ -145,7 +145,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input id="youtube" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('youtube')) parsley-error @endif"
-                                               name="youtube" value="">
+                                               name="youtube" value="{{$user->youtube_link}}">
                                     </div>
                                 </div>
                                 <div class="form-group">

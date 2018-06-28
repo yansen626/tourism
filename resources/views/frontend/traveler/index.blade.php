@@ -145,14 +145,14 @@
                                 <hr>
                                 <h4>Travel Diary</h4>
                                 <div class="col-md-3">
-                                    By
+                                    By {{ $user->first_name. ' '. $user->last_name }}
                                 </div>
                                 <br>
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12" >
                                         <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe src="https://www.youtube.com/embed/ojQbArbuN4E" class="embed-responsive-item"></iframe>
+                                            <iframe src="{{$user->youtube_link}}" class="embed-responsive-item"></iframe>
                                         </div>
                                     </div>
                                 </div>
