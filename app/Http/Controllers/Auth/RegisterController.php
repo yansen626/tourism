@@ -75,9 +75,20 @@ class RegisterController extends Controller
             'id' =>Uuid::generate(),
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
+            'img_path' => 'default.png',
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'email_token' => base64_encode($data['email']),
+            'phone'                 => $data['phone'],
+            'dob'                   => $data['dob'],
+            'sex'                   => $data['sex'],
+            'nationality'           => $data['nationality'],
+            'id_card'               => $data['id_card'],
+            'passport_no'           => $data['passport_no'],
+            'current_location'      => $data['current_location'],
+            'speaking_language'     => $data['speaking_language'],
+            'travel_interest'       => $data['travel_interest'],
+            'about_me'              => $data['about_me'],
             'status_id' => 2
         ]);
     }

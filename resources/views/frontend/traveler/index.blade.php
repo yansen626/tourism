@@ -6,9 +6,7 @@
         {{--<div class="container page">--}}
         <div style="margin-top:3%;">
             <div class="row">
-                <div class="col-md-2">
-                    @include('frontend.traveler.partials._left-side')
-                </div>
+                @include('frontend.traveler.partials._left-side', $user)
                 <div class="col-md-7">
                     <div class="">
                         @if(\Illuminate\Support\Facades\Session::has('message'))
@@ -21,7 +19,7 @@
 
                         <div class="col-md-12 mb-md-70">
                             <div class="col-md-4">
-                                <img class="img-circle" src="{{ URL::asset('storage/profile/profile3.jpg') }}" style="width:200px;height:200px;">
+                                <img class="img-circle" src="{{ URL::asset('storage/profile/'.$user->img_path) }}" style="width:200px;height:200px;">
                             </div>
                             <div class="col-md-8">
                                 <div class="pull-right mt-10">
@@ -32,12 +30,13 @@
                                 <h5>{{ $user->first_name. ' '. $user->last_name }}</h5>
                                 <span>Jakarta</span>
                                 <br>
-                                <span>My Point : 10</span>
+                                <span>My Point : {{ $user->total_point}}</span>
                                 <br>
-                                <span>REVIEWS : 10</span>
+                                <span>REVIEWS : {{ $user->total_review}}</span>
                                 <br>
 
-                                <div class="stars stars-5"></div>
+                                @php($star = "stars-".$user->rating)
+                                <div class="stars {{$star}}"></div>
                             </div>
                             <div class="col-md-12">
                                 <hr>

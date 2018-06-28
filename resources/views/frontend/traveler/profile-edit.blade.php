@@ -6,9 +6,7 @@
         {{--<div class="container page">--}}
         <div style="margin-top:3%;">
             <div class="row">
-                <div class="col-md-2">
-                    @include('frontend.traveler.partials._left-side')
-                </div>
+                @include('frontend.traveler.partials._left-side')
                 <div class="col-md-7">
                     <div class="">
                         <div class="col-md-12 mb-md-70">

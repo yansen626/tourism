@@ -80,13 +80,13 @@
 
                     @if(auth()->check())
                         <li><a href="#" class="mn-has-sub">
-                                <img style="width: 29px; height: auto;" src="{{ URL::asset('frontend_images/user-shape.png') }}">
+                                <img style="width: 29px; height: auto;" src="{{ URL::asset('storage/profile/'.\Illuminate\Support\Facades\Auth::user()->img_path) }}">
                                 {{ \Illuminate\Support\Facades\Auth::user()->first_name }} {{ \Illuminate\Support\Facades\Auth::user()->last_name }}
                             </a>
                             <ul class="mn-sub">
                                 <li><a href="{{ route('traveller.profile.show') }}">MY PROFILE</a></li>
-                                <li><a href="#">TAILOR MADE JOURNEY</a></li>
-                                <li><a href="#">CHANGE PASSWORD</a></li>
+                                <li><a href="{{ route('traveller.transactions') }}">TAILOR MADE JOURNEY</a></li>
+                                {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>
                             </ul>
                         </li>
