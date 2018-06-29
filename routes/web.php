@@ -179,6 +179,8 @@ Route::prefix('admin/traveller')->group(function(){
 Route::prefix('admin/travelmate')->group(function(){
     Route::get('/', 'Admin\TravelmateController@index')->name('travelmate-list');
     Route::get('/{customerId}/transactions', 'Admin\TravelmateController@transactions')->name('travelmate-transaction-list');
+    Route::post('/confirm', 'Admin\TravelmateController@confirm')->name('travelmate-confirm');
+    Route::get('/new-travelmate', 'Admin\TravelmateController@newTravelmate')->name('travelmate-new');
 });
 
 // Voucher

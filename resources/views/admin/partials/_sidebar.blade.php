@@ -42,6 +42,9 @@
                             <li>
                                 <a href="{{ route('travelmate-list') }}">Daftar Travelmate</a>
                             </li>
+                            <li>
+                                <a href="{{ route('travelmate-new') }}">Daftar Travelmate Baru</a>
+                            </li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-list"></i> Transaksi <span class="fa fa-chevron-down"></span></a>

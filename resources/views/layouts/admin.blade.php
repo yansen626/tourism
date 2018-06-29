@@ -48,6 +48,8 @@
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('css/admin/custom.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/admin/custom-admin.css') }}" rel="stylesheet">
+
+    @yield('styles')
 </head>
 
 <body class="nav-md">
@@ -166,6 +168,6 @@
         ]
     } );
 </script>
-
+@yield('scripts')
 </body>
 </html>
