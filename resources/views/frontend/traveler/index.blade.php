@@ -25,6 +25,7 @@
                                 <div class="pull-right mt-10">
                                     <a href="{{ route('traveller.profile.edit') }}" class="btn btn-default" style="background-color: #ffc801; color:white;">
                                         EDIT
+
                                     </a>
                                 </div>
                                 <h4>MY PROFILE</h4>
