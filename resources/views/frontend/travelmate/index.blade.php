@@ -99,28 +99,40 @@
                             <div class="col-md-12">
                                 <hr>
                                 <h4>VERIFIED ID</h4>
+                                {{--<div class="col-md-3">--}}
+                                    {{--Identification--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-9">--}}
+                                    {{--: {{ $identity }}--}}
+                                {{--</div>--}}
                                 <div class="col-md-3">
-                                    Identification
+                                    ID Card (No.ID)
                                 </div>
                                 <div class="col-md-9">
-                                    : {{ $identity }}
+                                    : {{ $user->id_card }}
+                                </div>
+                                <div class="col-md-3">
+                                    Passport No
+                                </div>
+                                <div class="col-md-9">
+                                    : {{ $user->passport }}
                                 </div>
 
-                                @if($identity === 'ID CARD')
-                                    <div class="col-md-3">
-                                        ID Card (No.ID)
-                                    </div>
-                                    <div class="col-md-9">
-                                        : {{ $user->id_card }}
-                                    </div>
-                                @elseif($identity === 'PASSPORT')
-                                    <div class="col-md-3">
-                                        Passport No
-                                    </div>
-                                    <div class="col-md-9">
-                                        : {{ $user->passport }}
-                                    </div>
-                                @endif
+                                {{--@if($identity === 'ID CARD')--}}
+                                    {{--<div class="col-md-3">--}}
+                                        {{--ID Card (No.ID)--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-9">--}}
+                                        {{--: {{ $user->id_card }}--}}
+                                    {{--</div>--}}
+                                {{--@elseif($identity === 'PASSPORT')--}}
+                                    {{--<div class="col-md-3">--}}
+                                        {{--Passport No--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-9">--}}
+                                        {{--: {{ $user->passport }}--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
 
 
                             </div>

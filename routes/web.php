@@ -18,7 +18,8 @@ Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 
-Route::get('/login', 'Auth\LoginController@login')->name('login');
+Route::get('/login-traveller', 'Auth\LoginController@login')->name('login');
+Route::get('/login-travelmate', 'Auth\LoginController@loginTravelmate')->name('login-travelmate');
 Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 
 Route::post('/submit-register', 'Auth\RegisterController@register')->name('submit-register');

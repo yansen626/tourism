@@ -24,7 +24,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <h1>MY TRAVEL</h1>
+                            <h1>MY BOOKING</h1>
                         </div>
                         <div class="col-md-6">
                             <div style="float: right;">

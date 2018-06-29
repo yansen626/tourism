@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-12">
             <p>
-                <a href="{{route('traveller.transactions')}}" class="">
+                <a href="{{route('search')}}" class="">
                     <i class="fa fa-plane" aria-hidden="true"></i> <span>Tailor Made Journey</span>
                 </a>
             </p>

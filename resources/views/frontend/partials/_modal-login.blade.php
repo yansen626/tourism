@@ -3,7 +3,7 @@
 <div class="login-popup">
     <div class="login-popup-wrap">
         <div class="title-wrap">
-            <h2>Login</h2><i class="close-button flaticon-close"></i>
+            <h2>Login as Traveler</h2><i class="close-button flaticon-close"></i>
         </div>
         <div class="login-content">
             {{ Form::open(['route'=>['signin'],'method' => 'post','id' => 'general-form']) }}

@@ -64,11 +64,13 @@ class LoginController extends Controller
         }
 
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status_id' => 1])) {
-            return redirect()->action('Frontend\HomeController@home');
+//            return redirect()->action('Frontend\TravellerController@transactions');
+            return redirect()->route('traveller.transactions');
         }
         else if(Auth::guard('travelmates')->attempt(['email' => $request['email'], 'password' => $request['password']])){
 //            return redirect()->action('Travelmate\HomeController@dashboard');
-            return redirect()->action('Frontend\HomeController@home');
+//            return redirect()->action('Frontend\TravelmateController@index');
+            return redirect()->route('travelmate.profile.show');
         }
         else
         {
@@ -86,6 +88,14 @@ class LoginController extends Controller
             $redirect = request()->redirect;
         }
         return view('auth/login', compact('redirect'));
+    }
+
+    public function loginTravelmate(){
+        $redirect = "";
+        if(!empty(request()->redirect)){
+            $redirect = request()->redirect;
+        }
+        return view('auth/login-travelmate', compact('redirect'));
     }
 
     /**

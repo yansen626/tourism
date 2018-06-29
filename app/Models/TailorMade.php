@@ -20,6 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $participant
  * @property float $budget_per_person
  * @property string $request
+ * @property int $status_id
  * @property \Carbon\Carbon $created_at
  *
  * @package App\Models
@@ -46,6 +47,7 @@ class TailorMade extends Eloquent
 		'participant',
 		'budget_per_person',
 		'request',
+		'status_id',
         'created_at'
 	];
 }

@@ -67,7 +67,7 @@
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="#" class="mn-has-sub">TRAVEL MATE +</a></li>
+                    <li><a href="{{route('login-travelmate')}}">TRAVEL MATE +</a></li>
                     <!-- End Item -->
 
                     <!-- Item -->
@@ -83,8 +83,8 @@
                                 {{ \Illuminate\Support\Facades\Auth::guard('web')->user()->first_name }} {{ \Illuminate\Support\Facades\Auth::guard('web')->user()->last_name }}
                             </a>
                             <ul class="mn-sub">
+                                <li><a href="{{ route('traveller.transactions') }}">DASHBOARD</a></li>
                                 <li><a href="{{ route('traveller.profile.show') }}">MY PROFILE</a></li>
-                                <li><a href="{{ route('traveller.transactions') }}">TAILOR MADE JOURNEY</a></li>
                                 {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>
                             </ul>
@@ -95,14 +95,15 @@
                                 {{ \Illuminate\Support\Facades\Auth::guard('travelmates')->user()->first_name }} {{ \Illuminate\Support\Facades\Auth::guard('travelmates')->user()->last_name }}
                             </a>
                             <ul class="mn-sub">
+                                <li><a href="#">DASHBOARD</a></li>
                                 <li><a href="{{ route('travelmate.profile.show') }}">MY PROFILE</a></li>
-                                <li><a href="#">MY PACKAGES</a></li>
+                                {{--<li><a href="#">MY PACKAGES</a></li>--}}
                                 {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>
                             </ul>
                         </li>
                     @else
-                        <li><a href="#" class="top-login">LOGIN</a></li>
+                        <li><a href="{{route('login')}}">LOGIN</a></li>
                     @endif
 
                     <!-- Search-->
