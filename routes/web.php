@@ -51,6 +51,7 @@ Route::get('travelmate/dashboard', 'Travelmate\HomeController@dashboard')->name(
 Route::prefix('travelmate')->group(function(){
     Route::get('/', 'Frontend\TravelmateController@show')->name('travelmate.profile.show');
     Route::get('/packages', 'Frontend\TravelmateController@packages')->name('travelmate.packages.index');
+    Route::get('/packages/create', 'Frontend\TravelmateController@createPackage')->name('travelmate.packages.create');
     Route::get('/profile/edit', 'Frontend\TravelmateController@edit')->name('travelmate.profile.edit');
     Route::put('/profile/update/{user}', 'Frontend\TravelmateController@update')->name('travelmate.profile.update');
     Route::post('/profile/upload', 'Frontend\TravelmateController@updateImage')->name('travelmate.profile.upload');

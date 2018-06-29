@@ -1,5 +1,5 @@
 
-<div class="col-md-2" style="height: 1543px;background-color: #EB5532;padding-top: 3%;">
+<div class="col-md-2" style="min-height: 100%;background-color: #EB5532;padding-top: 3%;">
     <div class="col-md-5">
         <img class="img-circle" src="{{ URL::asset('storage/profile/'. \Illuminate\Support\Facades\Auth::guard('travelmates')->user()->profile_picture ) }}" style="width:60px;height:60px;">
     </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-12">
             <p>
-                <a href=#" class="">
+                <a href="{{ route('travelmate.packages.index') }}" class="">
                     <i class="fa fa-plane" aria-hidden="true"></i> <span>My Packages</span>
                 </a>
             </p>

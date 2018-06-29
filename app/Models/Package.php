@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 24 Jun 2018 08:45:19 +0000.
+ * Date: Fri, 29 Jun 2018 04:20:12 +0000.
  */
 
 namespace App\Models;
@@ -14,21 +14,25 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property string $id
  * @property string $travelmate_id
- * @property int $category_id
  * @property string $name
+ * @property int $province_id
+ * @property int $city_id
+ * @property string $location_detail
  * @property float $price
  * @property int $discount
  * @property float $discount_flat
- * @property float $price_discounted
+ * @property float $final_price
  * @property string $description
  * @property string $featured_image
+ * @property string $duration
  * @property int $status_id
  * @property string $created_by
  * @property \Carbon\Carbon $created_at
  * @property string $updated_by
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Models\Category $category
+ * @property \App\Models\City $city
+ * @property \App\Models\Province $province
  * @property \App\Models\Status $status
  * @property \App\Models\Travelmate $travelmate
  * @property \Illuminate\Database\Eloquent\Collection $banners
@@ -43,32 +47,41 @@ class Package extends Eloquent
 	public $incrementing = false;
 
 	protected $casts = [
-		'category_id' => 'int',
+		'province_id' => 'int',
+		'city_id' => 'int',
 		'price' => 'float',
 		'discount' => 'int',
 		'discount_flat' => 'float',
-		'price_discounted' => 'float',
+		'final_price' => 'float',
 		'status_id' => 'int'
 	];
 
 	protected $fillable = [
 		'travelmate_id',
-		'category_id',
 		'name',
+		'province_id',
+		'city_id',
+		'location_detail',
 		'price',
 		'discount',
 		'discount_flat',
-		'price_discounted',
+		'final_price',
 		'description',
 		'featured_image',
+		'duration',
 		'status_id',
 		'created_by',
 		'updated_by'
 	];
 
-	public function category()
+	public function city()
 	{
-		return $this->belongsTo(\App\Models\Category::class);
+		return $this->belongsTo(\App\Models\City::class);
+	}
+
+	public function province()
+	{
+		return $this->belongsTo(\App\Models\Province::class);
 	}
 
 	public function status()
@@ -100,21 +113,4 @@ class Package extends Eloquent
 	{
 		return $this->hasMany(\App\Models\TransactionDetail::class);
 	}
-
-
-    public function getPriceAttribute(){
-        return number_format($this->attributes['price'], 0, ",", ".");
-    }
-
-    public function getDiscountFlatAttribute(){
-        if(!empty($this->attributes['discount_flat'])){
-            return number_format($this->attributes['discount_flat'], 0, ",", ".");
-        }
-    }
-
-    public function getPriceDiscountedAttribute(){
-        if(!empty($this->attributes['price_discounted'])){
-            return number_format($this->attributes['price_discounted'], 0, ",", ".");
-        }
-    }
 }

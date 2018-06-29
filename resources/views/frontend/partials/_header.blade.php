@@ -97,7 +97,7 @@
                             <ul class="mn-sub">
                                 <li><a href="#">DASHBOARD</a></li>
                                 <li><a href="{{ route('travelmate.profile.show') }}">MY PROFILE</a></li>
-                                {{--<li><a href="#">MY PACKAGES</a></li>--}}
+                                <li><a href="{{ route('travelmate.packages.index') }}">MY PACKAGES</a></li>
                                 {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>
                             </ul>

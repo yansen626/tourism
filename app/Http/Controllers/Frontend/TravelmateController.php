@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Frontend;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
 use App\Models\Travelmate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -149,8 +150,22 @@ class TravelmateController extends Controller
         return redirect()->route('travelmate.profile.show');
     }
 
-    public function transactions(){
+    public function packages(){
+        try{
+            $packages = Package::orderBy('created_at', 'desc')->paginate(20);
 
-        return View('frontend.travelmate.transactions');
+            $data = [
+                'packages'      => $packages
+            ];
+
+            return view('frontend.travelmate.packages.index')->with($data);
+        }
+        catch(\Exception $ex){
+            error_log($ex);
+        }
+    }
+
+    public function createPackage(){
+        return view('frontend.travelmate.packages.create');
     }
 }
