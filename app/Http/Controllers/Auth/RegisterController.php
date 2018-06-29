@@ -247,7 +247,7 @@ class RegisterController extends Controller
         $extStr = $ktp->mime();
         $ext = explode('/', $extStr, 2);
 
-        $ktpName = 'travelmate_banner_'. $travelmate->id. '.' . $ext[1];
+        $ktpName = 'travelmate_ktp_'. $travelmate->id. '.' . $ext[1];
 
         $img->save(public_path('storage/travelmate_ktp/'. $ktpName), 75);
 

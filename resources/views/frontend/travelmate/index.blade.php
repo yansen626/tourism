@@ -217,7 +217,7 @@
                                     : {{ $user->speaking_language ?? '-' }}
                                 </div>
                                 <div class="col-md-3">
-                                    Travel Interest
+                                    Travel Category
                                 </div>
                                 <div class="col-md-9">
                                     : {{ $user->travel_interest ?? '-' }}
