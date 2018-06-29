@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Webpatser\Uuid\Uuid;
 use App\Mail\EmailVerification;
 use Illuminate\Support\Facades\Mail;
@@ -165,8 +166,8 @@ class RegisterController extends Controller
                 'password_confirmation' => 'required|same:password',
                 'dob'                   => 'required',
                 'sex'                   => 'required',
-                'city_id'               => 'required',
-                'province_id'           => 'required',
+                'city'               => 'required',
+                'province'           => 'required',
                 'id_card'               => 'required',
                 'passport_no'           => 'required',
                 'current_location'      => 'required',
@@ -188,18 +189,64 @@ class RegisterController extends Controller
             'phone'                 => $request->phone,
             'dob'                   => $date->toDateTimeString(),
             'sex'                   => $request->sex,
-            'city_id'               => $request->city_id,
-            'province_id'           => $request->province_id,
+            'city_id'               => $request->city,
+            'province_id'           => $request->province,
             'id_card'               => $request->id_card,
             'passport_no'           => $request->passport_no,
             'current_location'      => $request->current_location,
             'speaking_language'     => $request->speaking_language,
             'travel_interest'       => $request->travel_interest,
             'about_me'              => $request->about_me,
+            'description'           => $request->description,
             'status_id'             => 2
         ]);
 
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
+        //Profile Picture
+        $img = Image::make($request->file('profile_picture'));
+        // Get image extension
+        $extStr = $img->mime();
+        $ext = explode('/', $extStr, 2);
+
+        $profileName = 'travelmate_profile_'. $travelmate->id. '.' . $ext[1];
+
+        $img->save(public_path('storage/travelmate_profile/'. $profileName), 75);
+
+        $travelmate->profile_picture = $profileName;
+        $travelmate->save();
+
+        //Banner Picture
+        $banner = Image::make($request->file('banner_picture'));
+
+        // Get image extension
+        $extStr = $banner->mime();
+        $ext = explode('/', $extStr, 2);
+
+        $bannerName = 'travelmate_banner_'. $travelmate->id. '.' . $ext[1];
+
+        $img->save(public_path('storage/travelmate_banner/'. $bannerName), 75);
+
+        $travelmate->banner_picture = $bannerName;
+        $travelmate->save();
+
+        //KTP Image
+        $ktp = Image::make($request->file('ktp_img'));
+
+        // Get image extension
+        $extStr = $ktp->mime();
+        $ext = explode('/', $extStr, 2);
+
+        $ktpName = 'travelmate_banner_'. $travelmate->id. '.' . $ext[1];
+
+        $img->save(public_path('storage/travelmate_ktp/'. $ktpName), 75);
+
+        $travelmate->ktp_img = $ktpName;
+        $travelmate->save();
+
+        return view('auth.finish-register-travelmate');
     }
 
     /**

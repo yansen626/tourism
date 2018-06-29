@@ -36,6 +36,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $travel_interest
  * @property string $profile_picture
  * @property string $banner_picture
+ * @property string $ktp_img
  * @property int $status_id
  * @property \Carbon\Carbon $created_at
  * @property string $created_by
@@ -75,6 +76,7 @@ class Travelmate extends Authenticatable
 	];
 
 	protected $fillable = [
+	    'id',
 		'email',
 		'password',
 		'first_name',
@@ -97,6 +99,7 @@ class Travelmate extends Authenticatable
 		'travel_interest',
 		'profile_picture',
 		'banner_picture',
+        'ktp_img',
 		'status_id',
 		'created_by',
 		'updated_by'

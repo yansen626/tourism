@@ -21,7 +21,7 @@
                             </div>
                         @endif
 
-                        <form id="registerform" class="form-horizontal" role="form" method="POST" action="{{ route('submit-travelmate') }}">
+                        <form id="registerform" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{ route('submit-travelmate') }}">
                             {{ csrf_field() }}
 
                             <div class="form-group">
@@ -111,6 +111,7 @@
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <select id="province" name="province" class="form-control">
+                                        <option value="-1">-- SELECT PROVINCE --</option>
                                         @foreach($provinces as $province)
                                             <option value="{{ $province->id }}">{{ $province->name }}</option>
                                         @endforeach
@@ -179,20 +180,23 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="profile_picture" >
-                                    Profile Picture
-                                </label>
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="ktp_img">KTP Image</label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    {!! Form::file('profile_picture', array('id' => 'profile_picture', 'class' => 'file')) !!}
+                                    {!! Form::file('ktp_img', array('id' => 'ktp_img', 'class' => 'file-loading')) !!}
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="banner_picture" >
-                                    Banner Picture
-                                </label>
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="profile_picture">Profile Picture</label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    {!! Form::file('banner_picture', array('id' => 'banner_picture', 'class' => 'file')) !!}
+                                    {!! Form::file('profile_picture', array('id' => 'profile_picture', 'class' => 'file-loading')) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="banner_picture">Banner Picture</label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    {!! Form::file('banner_picture', array('id' => 'banner_picture', 'class' => 'file-loading')) !!}
                                 </div>
                             </div>
 
@@ -203,6 +207,17 @@
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <textarea id="about_me" name="about_me" rows="5" class="form-control col-md-7 col-xs-12" style="resize: vertical">
                                         {{ old('about_me') }}
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="description">
+                                    Description
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea id="description" name="description" rows="5" class="form-control col-md-7 col-xs-12" style="resize: vertical">
+                                        {{ old('description') }}
                                     </textarea>
                                 </div>
                             </div>
@@ -226,12 +241,14 @@
 @section('styles')
     @parent
     <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datetimepicker.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}">
 @endsection
 
 @section('scripts')
     @parent
     <script src="{{ URL::asset('js/frontend/moment.js') }}"></script>
     <script src="{{ URL::asset('js/frontend/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -269,6 +286,25 @@
                     }
                 });
             });
+        });
+
+        // File Input
+        $("#profile_picture").fileinput({
+            maxFilePreviewSize: 10240,
+            showUpload: false,
+            allowedFileExtensions: ["jpg", "jpeg", "png"]
+        });
+
+        $("#banner_picture").fileinput({
+            maxFilePreviewSize: 10240,
+            showUpload: false,
+            allowedFileExtensions: ["jpg", "jpeg", "png"]
+        });
+
+        $("#ktp_img").fileinput({
+            maxFilePreviewSize: 10240,
+            showUpload: false,
+            allowedFileExtensions: ["jpg", "jpeg", "png"]
         });
     </script>
 @endsection
