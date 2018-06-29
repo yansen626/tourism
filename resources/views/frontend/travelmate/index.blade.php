@@ -221,6 +221,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     : {{ $user->travel_interest ?? '-' }}
+
                                 </div>
                             </div>
                             <div class="col-md-12">
