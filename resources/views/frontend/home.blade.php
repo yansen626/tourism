@@ -80,8 +80,8 @@
 							<div class="testimonial-top">
 								<a href="#">
 									<div class="pic">
-										<img src="{{ URL::asset('storage/banner_profile/'.$travelmate->banner_picture) }}"
-											 data-at2x="{{ URL::asset('storage/banner_profile/'.$travelmate->banner_picture) }}" alt>
+										<img src="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}"
+											 data-at2x="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}" alt>
 									</div>
 								</a>
 								<div class="author">
