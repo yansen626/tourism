@@ -57,9 +57,9 @@
                                             <div class="col-md-6 text-left">
                                                 {{ $package->name }} <br>{{ $package->province->name }}, {{ $package->city->name }}
                                             </div>
-                                            {{--<div class="col-md-6 text-right">--}}
-                                                {{--<a class="cws-button cws-button-custom mb-20">FINISHED</a>--}}
-                                            {{--</div>--}}
+                                            <div class="col-md-6 text-right">
+                                                <a class="cws-button cws-button-custom mb-20">FINISHED</a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
