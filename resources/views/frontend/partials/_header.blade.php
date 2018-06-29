@@ -66,9 +66,11 @@
                     <li><a href="{{route('landing')}}" class="active">Home +</a></li>
                     <!-- End Item -->
 
+                @if(!auth()->guard('travelmates')->check())
                     <!-- Item -->
-                    <li><a href="{{route('login-travelmate')}}">TRAVEL MATE +</a></li>
-                    <!-- End Item -->
+                        <li><a href="{{route('login-travelmate')}}">TRAVEL MATE +</a></li>
+                        <!-- End Item -->
+                @endif
 
                     <!-- Item -->
                     <li><a href="#" class="mn-has-sub">DESTINATION +</a></li>

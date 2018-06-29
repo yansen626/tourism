@@ -23,7 +23,9 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="pull-right mt-10">
-                                    <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default">EDIT</a>
+                                    <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                        EDIT
+                                    </a>
                                 </div>
                                 <h4>MY PROFILE</h4>
                                 <hr>
@@ -39,6 +41,11 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
+                                <div class="pull-right mt-10">
+                                    <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                        EDIT
+                                    </a>
+                                </div>
                                 <h4>ABOUT ME</h4>
                                 <span>
                                     {{ $user->about_me }}
@@ -46,6 +53,11 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
+                                <div class="pull-right mt-10">
+                                    <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                        EDIT
+                                    </a>
+                                </div>
                                 <h4>BASIC INFO</h4>
                                 <div class="col-md-3">
                                     First Name
@@ -78,6 +90,12 @@
                                     : {{ $user->phone }}
                                 </div>
                                 <div class="col-md-3">
+                                    Occupation
+                                </div>
+                                <div class="col-md-9">
+                                    : {{$user->occupation}}
+                                </div>
+                                <div class="col-md-3">
                                     Nationality
                                 </div>
                                 <div class="col-md-9">
@@ -95,9 +113,44 @@
                                 <div class="col-md-9">
                                     : {{ $user->current_location ?? '-' }}
                                 </div>
+                                <div class="col-md-3">
+                                    Address
+                                </div>
+                                <div class="col-md-9">
+                                    : {{$user->address}}
+                                </div>
+                                <div class="col-md-3">
+                                    City/Town
+                                </div>
+                                <div class="col-md-9">
+                                    : {{ $user->city->name }}
+                                </div>
+                                <div class="col-md-3">
+                                    Province/State
+                                </div>
+                                <div class="col-md-9">
+                                    : {{ $user->province->name }}
+                                </div>
+                                <div class="col-md-3">
+                                    Postal Code
+                                </div>
+                                <div class="col-md-9">
+                                    : {{ $user->postal_code }}
+                                </div>
+                                <div class="col-md-3">
+                                    Nationality
+                                </div>
+                                <div class="col-md-9">
+                                    : {{$user->nationality}}
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <hr>
+                                <div class="pull-right mt-10">
+                                    <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                        EDIT
+                                    </a>
+                                </div>
                                 <h4>VERIFIED ID</h4>
                                 {{--<div class="col-md-3">--}}
                                     {{--Identification--}}
@@ -115,7 +168,20 @@
                                     Passport No
                                 </div>
                                 <div class="col-md-9">
-                                    : {{ $user->passport }}
+                                    : {{ $user->passport_no }}
+                                </div>
+                                <div class="col-md-3">
+                                    Driving License No
+                                </div>
+                                <div class="col-md-9">
+                                    : {{ $user->driving_license }}
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ URL::asset('storage/travelmate_ktp/'.$user->ktp_img) }}">
+                                    {{--<button class="btn btn-default" style="background-color: #EB5532; color:white;">Upload Id</button>--}}
+                                </div>
+                                <div class="col-md-5">
+                                    &nbsp;
                                 </div>
 
                                 {{--@if($identity === 'ID CARD')--}}
@@ -138,6 +204,11 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
+                                <div class="pull-right mt-10">
+                                    <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                        EDIT
+                                    </a>
+                                </div>
                                 <h4>OTHERS</h4>
                                 <div class="col-md-3">
                                     Speaking Languages
@@ -154,9 +225,14 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
+                                <div class="pull-right mt-10">
+                                    <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                        EDIT
+                                    </a>
+                                </div>
                                 <h4>Travel Diary</h4>
                                 <div class="col-md-3">
-                                    By
+                                    By {{ ucfirst($user->first_name) }} {{ ucfirst($user->last_name) }}
                                 </div>
                                 <br>
                                 <br>

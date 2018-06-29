@@ -130,6 +130,36 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="passport_no">
+                                    Address
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="address" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="address" value="{{ old('address') }}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="passport_no">
+                                    Postal Code
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="postal_code" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="postal_code" value="{{ old('postal_code') }}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="passport_no">
+                                    Occupation
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="occupation" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="occupation" value="{{ old('occupation') }}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="id_card">
                                     ID Card No
                                 </label>
@@ -146,6 +176,16 @@
                                 <div class="col-md-10 col-sm-10 col-xs-12">
                                     <input id="passport_no" type="text" class="form-control col-md-7 col-xs-12"
                                            name="passport_no" value="{{ old('passport_no') }}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="passport_no">
+                                    Driving License No
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <input id="driving_license" type="text" class="form-control col-md-7 col-xs-12"
+                                           name="driving_license" value="{{ old('driving_license') }}"/>
                                 </div>
                             </div>
 

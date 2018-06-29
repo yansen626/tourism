@@ -159,7 +159,7 @@
                                 <div class="form-group">
                                     <div class="col-md-2 col-sm-2 col-xs-12"></div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <a class="btn btn-danger" href="{{ route('traveller.profile.show') }}">CANCEL</a>
+                                        <a class="btn btn-danger" href="{{ route('travelmate.profile.show') }}">CANCEL</a>
                                         <button type="submit" class="btn btn-success">SAVE</button>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    @include('frontend.traveler.partials._right-side')
+                    @include('frontend.travelmate.partials._right-side')
                 </div>
             </div>
         </div>

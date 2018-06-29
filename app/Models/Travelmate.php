@@ -23,7 +23,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $city_id
  * @property int $province_id
  * @property string $description
+ * @property string $address
+ * @property string $postal_code
  * @property int $total_review
+ * @property string $occupation
  * @property string $about_me
  * @property string $phone
  * @property string $sex
@@ -32,6 +35,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $current_location
  * @property string $id_card
  * @property string $passport_no
+ * @property string $driving_license
  * @property string $speaking_language
  * @property string $travel_interest
  * @property string $profile_picture
@@ -85,6 +89,9 @@ class Travelmate extends Authenticatable
 		'rating',
 		'city_id',
 		'province_id',
+		'address',
+		'postal_code',
+		'occupation',
 		'description',
 		'total_review',
 		'about_me',
@@ -95,6 +102,7 @@ class Travelmate extends Authenticatable
 		'current_location',
 		'id_card',
 		'passport_no',
+		'driving_license',
 		'speaking_language',
 		'travel_interest',
 		'profile_picture',
