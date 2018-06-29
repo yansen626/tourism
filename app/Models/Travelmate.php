@@ -62,6 +62,10 @@ class Travelmate extends Authenticatable
     protected $table = 'travelmates';
 	public $incrementing = false;
 
+    protected $appends = [
+        'dob_string'
+    ];
+
 	protected $casts = [
 		'total_point' => 'int',
 		'rating' => 'int',
@@ -113,7 +117,11 @@ class Travelmate extends Authenticatable
 		'updated_by'
 	];
 
-	public function city()
+    public function getDobStringAttribute(){
+        return Carbon::parse($this->attributes['dob'])->format('d M Y');
+    }
+
+    public function city()
 	{
 		return $this->belongsTo(\App\Models\City::class);
 	}

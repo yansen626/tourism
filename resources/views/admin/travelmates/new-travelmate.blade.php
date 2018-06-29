@@ -75,7 +75,8 @@
                                         <td>{{ $travelmate->first_name }}</td>
                                         <td>{{ $travelmate->last_name }}</td>
                                         <td>{{ \Carbon\Carbon::parse($travelmate->created_on)->format('j M Y G:i:s') }}</td>
-                                        <td><a class="confirm-modal btn btn-xs btn-success" data-id="{{ $travelmate->id }}">Confirm</a></td>
+                                        {{--<td><a class="confirm-modal btn btn-xs btn-success" data-id="{{ $travelmate->id }}">Confirm</a></td>--}}
+                                        <td><a href="{{ route('travelmate-show', ['travelmate' => $travelmate->id]) }}" class="btn btn-xs btn-info">Detail</a> </td>
                                     </tr>
                                     @php( $idx++ )
                                 @endforeach

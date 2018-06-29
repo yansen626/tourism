@@ -35,6 +35,12 @@ class TravelmateController extends Controller
         //return view('admin.show_users')->with('users', $users);
     }
 
+    public function show($id){
+        $data = Travelmate::find($id);
+
+        return View('admin.travelmates.show', compact('data'));
+    }
+
     public function newTravelmate(){
         $travelmates = Travelmate::where('status_id', 2)->get();
 
@@ -50,6 +56,19 @@ class TravelmateController extends Controller
             //Send Email
             Mail::to($travelmate->email)->send(new TravelmateConfirmed());
             Session::flash('message', 'Berhasil Confirm Travelmate '. $travelmate->first_name . " " . $travelmate->last_name);
+            return Response::json(array('success' => 'VALID'));
+        }
+        catch(\Exception $ex){
+            return Response::json(array('errors' => 'INVALID' . $request->input('id')));
+        }
+    }
+
+    public function reject(Request $request){
+        try{
+            $travelmate = Travelmate::find($request->input('id'));
+            $travelmate->delete();
+
+            Session::flash('message', 'Berhasil Menghapus Travelmate');
             return Response::json(array('success' => 'VALID'));
         }
         catch(\Exception $ex){
