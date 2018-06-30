@@ -33,7 +33,7 @@
                                 <h5>{{ $user->first_name. ' '. $user->last_name }}</h5>
                                 <span>Jakarta</span>
                                 <br>
-                                <span>My Point : {{ $user->total_point}}</span>
+                                <span>My Point : </span><span style="background-color:blue; color:white;">&nbsp;&nbsp;{{ $user->total_point}}&nbsp;&nbsp;</span>
                                 <br>
                                 <span>REVIEWS : {{ $user->total_review}}</span>
                                 <br>

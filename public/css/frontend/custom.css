@@ -2,6 +2,9 @@
     color: #ffffff !important;
 }
 
+.white-color-font{
+    color: white !important;;
+}
 .box-shadow{
     /*border: 1px solid #888;*/
     float: left;

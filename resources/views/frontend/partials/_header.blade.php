@@ -66,9 +66,9 @@
                     <li><a href="{{route('landing')}}" class="active">Home +</a></li>
                     <!-- End Item -->
 
-                @if(!auth()->guard('travelmates')->check())
+                @if(!auth()->guard('travelmates')->check() && !auth()->guard('web')->check())
                     <!-- Item -->
-                        <li><a href="{{route('login-travelmate')}}">TRAVEL MATE +</a></li>
+                        <li><a href="{{route('login-travelmate')}}" style="color: #EB5532;">AS TRAVELMATE +</a></li>
                         <!-- End Item -->
                 @endif
 
@@ -105,7 +105,7 @@
                             </ul>
                         </li>
                     @else
-                        <li><a href="{{route('login')}}">LOGIN</a></li>
+                        <li><a href="{{route('login')}}">REGISTER/LOGIN</a></li>
                     @endif
 
                     <!-- Search-->

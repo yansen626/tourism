@@ -95,7 +95,7 @@ class RegisterController extends Controller
             'speaking_language'     => $data['speaking_language'],
             'travel_interest'       => $data['travel_interest'],
             'about_me'              => $data['about_me'],
-            'status_id' => 2
+            'status_id' => 1
         ]);
     }
 
@@ -132,12 +132,15 @@ class RegisterController extends Controller
         }
 
         $user = $this->create($request->all());
+        Session::flash('message', 'Berhasil membuat User baru, silahkan login');
+        return redirect()->route('login');
+
 //        $emailVerify = new EmailVerification($user);
 //        Mail::to($user->email)->send($emailVerify);
 //
-        $email = Input::get('email');
-
-        return View('auth.send-email', compact('email'));
+//        $email = Input::get('email');
+//
+//        return View('auth.send-email', compact('email'));
     }
 
     public function registerTravelmate(){

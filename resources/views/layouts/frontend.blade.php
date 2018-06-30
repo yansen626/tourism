@@ -3,18 +3,18 @@
 <head>
 
     <meta charset="utf-8">
-    <title>Travel Mate</title>
+    <title>This Is Indonesia</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Travelmate" />
+    <meta property="og:title" content="This Is Indonesia" />
     <meta property="og:url" content="" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="" />
-    <meta property="og:description" content="Travelmate" />
+    <meta property="og:description" content="This Is Indonesia" />
 
     <link rel="shortcut icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ URL::asset('frontend_images/favicon.ico') }}" type="image/x-icon">

@@ -47,6 +47,7 @@
                     </div>
                     <div style="padding-top:30px" class="panel-body" >
 
+                        @include('admin.partials._success')
                         @if($errors->count() > 0)
                             <div role="alert" class="alert alert-warning alert-dismissible fade in mb-20">
                                 <button type="button" data-dismiss="alert" aria-label="Close" class="close"></button><i class="alert-icon flaticon-warning"></i>
