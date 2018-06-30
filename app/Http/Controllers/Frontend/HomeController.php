@@ -9,6 +9,7 @@ use App\Models\HomeContent;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Province;
 use App\Models\TailorMade;
 use App\Models\Travelmate;
 use Carbon\Carbon;
@@ -165,6 +166,38 @@ class HomeController extends Controller
     public function SearchResult($key){
 
         return View('frontend.show-search-result');
+    }
+
+    public function Destinations(){
+        $provinceName = "";
+        $provinces = Province::all();
+        $packages = Package::where('status_id', 1)->get();
+
+        $data = [
+            'packages'          => $packages,
+            'provinces'          => $provinces,
+            'provinceName'          => $provinceName,
+        ];
+        return View('frontend.show-destinations')->with($data);
+    }
+    public function Destination($key){
+        $provinceName = "";
+        if(empty($key)){
+            $packages = Package::where('status_id', 1)->get();
+        }
+        else{
+            $packages = Package::where('status_id', 1)
+                ->where('province_id', $key)
+                ->get();
+            $provinceDB = Province::find($key);
+            $provinceName = $provinceDB->name;
+        }
+
+        $data = [
+            'packages'          => $packages,
+            'provinceName'          => $provinceName,
+        ];
+        return View('frontend.show-destinations')->with($data);
     }
 
     public function submitTailorMade(Request $request){

@@ -22,9 +22,10 @@
 			<div class="slider-info-content">
 				@foreach($packages as $package)
 					<div class="slider-info-item">
-						<div class="info-item-media"><img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}" data-at2x="{{ URL::asset('frontend_images/top-slider-1.jpg') }}" alt>
+						<div class="info-item-media"><img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
+														  data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}" alt>
 							<div class="info-item-text">
-								<div class="info-price font-4"><span>start per night</span> Rp {{$package->price}}</div>
+								<div class="info-price font-4"><span>start from</span> Rp {{$package->price}}</div>
 								{{--<div class="info-temp font-4"><span>local temperature</span> 36° / 96.8°</div>--}}
 								<p class="info-text">{{$package->description}}</p>
 							</div>

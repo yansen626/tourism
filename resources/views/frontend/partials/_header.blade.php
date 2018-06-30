@@ -73,7 +73,7 @@
                 @endif
 
                     <!-- Item -->
-                    <li><a href="#" class="mn-has-sub">DESTINATION +</a></li>
+                    <li><a href="{{route('destinations')}}" class="mn-has-sub">DESTINATION +</a></li>
                     <!-- End Item -->
 
                     <!-- Item -->

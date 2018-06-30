@@ -37,6 +37,10 @@ Route::get('/', 'Frontend\HomeController@home')->name('landing');
 Route::get('search-form/', 'Frontend\HomeController@SearchForm')->name('search');
 Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search-result');
 
+// Destination
+Route::get('destinations/', 'Frontend\HomeController@Destinations')->name('destinations');
+Route::get('destination/{key}', 'Frontend\HomeController@Destination')->name('destination');
+
 // Traveler
 Route::prefix('traveller')->group(function(){
     Route::get('/', 'Frontend\TravelerController@show')->name('traveller.profile.show');
@@ -50,6 +54,7 @@ Route::prefix('traveller')->group(function(){
 Route::get('travelmate/dashboard', 'Travelmate\HomeController@dashboard')->name('travelmate-dashboard');
 Route::prefix('travelmate')->group(function(){
     Route::get('/', 'Frontend\TravelmateController@show')->name('travelmate.profile.show');
+    Route::get('index/', 'Frontend\TravelmateController@index')->name('travelmate.profile.index');
     Route::get('/packages', 'Frontend\TravelmateController@packages')->name('travelmate.packages.index');
     Route::get('/packages/create', 'Frontend\TravelmateController@createPackage')->name('travelmate.packages.create');
     Route::get('/profile/edit', 'Frontend\TravelmateController@edit')->name('travelmate.profile.edit');
