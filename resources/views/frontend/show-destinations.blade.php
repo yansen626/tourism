@@ -19,7 +19,7 @@
                                     <select id="province" name="province" class="selectpicker">
                                         <option value="-1">-- SELECT PROVINCE --</option>
                                         @foreach($provinces as $province)
-                                            <option value="{{ $province->id }}" {{ $province->id === $provinceId ? 'selected' : '' }} >{{ $province->name }}</option>
+                                            <option value="{{ $province->id }}" {{ $province->id == $provinceId ? 'selected' : '' }} >{{ $province->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

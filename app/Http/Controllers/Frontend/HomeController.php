@@ -213,6 +213,7 @@ class HomeController extends Controller
             'provinceName'          => $provinceName,
             'provinceId'          => $key,
         ];
+
         return View('frontend.show-destinations')->with($data);
     }
 
