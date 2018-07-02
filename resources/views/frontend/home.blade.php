@@ -80,7 +80,7 @@
 						@php($star = "stars-".$travelmate->rating)
 						<div class="testimonial-item">
 							<div class="testimonial-top">
-								<a href="#">
+								<a href="{{route('travelmate.profile.showid', ['id'=>$travelmate->id])}}">
 									<div class="pic">
 										<img src="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}"
 											 data-at2x="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}" alt>
@@ -97,7 +97,7 @@
 								<div class="stars {{$star}}"></div>
 								<p class="align-center">
 									{{$travelmate->description}}
-								</p><a href="#" class="testimonial-button">Visit Profile</a>
+								</p><a href="{{route('travelmate.profile.showid', ['id'=>$travelmate->id])}}" class="testimonial-button">Visit Profile</a>
 							</div>
 						</div>
 				@endforeach

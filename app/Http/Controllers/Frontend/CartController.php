@@ -33,7 +33,7 @@ class CartController
             $totalPriceTem = Cart::where('user_id', $userId)->sum('total_price');
             $totalPrice = number_format($totalPriceTem, 0, ",", ".");
 
-            return view('frontend.carts', compact('carts','totalPrice', 'totalPriceTem'));
+            return view('frontend.transactions.carts', compact('carts','totalPrice', 'totalPriceTem'));
         }
         else
         {

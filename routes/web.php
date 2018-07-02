@@ -55,6 +55,7 @@ Route::get('travelmate', 'Frontend\HomeController@Travelmates')->name('travelmat
 Route::get('travelmate/dashboard', 'Travelmate\HomeController@dashboard')->name('travelmate-dashboard');
 Route::prefix('travelmate')->group(function(){
     Route::get('/show', 'Frontend\TravelmateController@show')->name('travelmate.profile.show');
+    Route::get('/show-travelmate/{id}', 'Frontend\TravelmateController@showById')->name('travelmate.profile.showid');
     Route::get('/packages', 'Frontend\TravelmateController@packages')->name('travelmate.packages.index');
     Route::get('/packages/create', 'Frontend\TravelmateController@createPackage')->name('travelmate.packages.create');
     Route::get('/packages/city', 'Frontend\TravelmateController@getCities')->name('travelmate.packages.cities');
@@ -66,19 +67,8 @@ Route::prefix('travelmate')->group(function(){
 // Tailor made Journey
 Route::post('tailor-made', 'Frontend\HomeController@submitTailorMade')->name('tailor-made');
 
-//HTII Section End
-
-
-
-// Terms and Condition
-Route::get('/terms', 'Frontend\HomeController@terms')->name('terms-show');
-
-// Product
-Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsController@products')->name('products');
-Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
-Route::get('search/{key}', 'Frontend\ProductsController@search')->name('product-search');
-
-
+// transaction
+//Route::post('cart', 'Frontend\TransactionController@cart')->name('cart-list');
 // Cart
 Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
 Route::post('/add-cart', [
@@ -93,6 +83,19 @@ Route::post('/edit-cart', [
 Route::get('cart/check/{id}', 'Frontend\CartController@getNotes');
 Route::post('cart/add/check', 'Frontend\CartController@checkNoteForCartAdd')->name('cart-add-check-note');
 Route::post('cart/save/note', 'Frontend\CartController@storeNotes');
+
+//HTII Section End
+
+
+
+// Terms and Condition
+Route::get('/terms', 'Frontend\HomeController@terms')->name('terms-show');
+
+// Product
+Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsController@products')->name('products');
+Route::get('product-detail/{id}', 'Frontend\ProductsController@ProductShow')->name('product-detail');
+Route::get('search/{key}', 'Frontend\ProductsController@search')->name('product-search');
+
 
 // Gallery
 Route::get('gallery/{id}', 'Frontend\GalleryController@index')->name('frontend-gallery-show');

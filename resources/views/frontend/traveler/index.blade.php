@@ -43,11 +43,6 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
-                                <div class="pull-right mt-10">
-                                    <a href="{{ route('traveller.profile.edit') }}" class="btn btn-default" style="background-color: #ffc801; color:white;">
-                                        EDIT
-                                    </a>
-                                </div>
                                 <h4>ABOUT ME</h4>
                                 <span>
                                     {{ $user->about_me }}
@@ -55,11 +50,6 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
-                                <div class="pull-right mt-10">
-                                    <a href="{{ route('traveller.profile.edit') }}" class="btn btn-default" style="background-color: #ffc801; color:white;">
-                                        EDIT
-                                    </a>
-                                </div>
                                 <h4>BASIC INFO</h4>
                                 <div class="col-md-3">
                                     First Name
@@ -112,11 +102,6 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
-                                <div class="pull-right mt-10">
-                                    <a href="{{ route('traveller.profile.edit') }}" class="btn btn-default" style="background-color: #ffc801; color:white;">
-                                        EDIT
-                                    </a>
-                                </div>
                                 <h4>VERIFIED ID</h4>
                                 <div class="col-md-3">
                                     Identification
@@ -145,11 +130,6 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
-                                <div class="pull-right mt-10">
-                                    <a href="{{ route('traveller.profile.edit') }}" class="btn btn-default" style="background-color: #ffc801; color:white;">
-                                        EDIT
-                                    </a>
-                                </div>
                                 <h4>OTHERS</h4>
                                 <div class="col-md-3">
                                     Speaking Languages

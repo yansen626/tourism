@@ -54,6 +54,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mg-0" style="margin-bottom: 20%;">
+                    <div><a href="{{route('travelmate.packages.create')}}" class="cws-button alt mb-20">Create New Package</a></div>
+                </div>
             </div>
     </div>
 </div>

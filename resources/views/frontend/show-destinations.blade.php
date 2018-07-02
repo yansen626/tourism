@@ -60,7 +60,7 @@
                                 <div class="recom-price">Rp {{$package->price}}</div>
                                 <p class="mb-30">{{$package->description}}</p>
                                 <a href="hotels-details.html" class="recom-button">Read more</a>
-                                <a href="hotels-details.html" class="cws-button small alt">Add to cart</a>
+                                <a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>
                                 {{--<div class="action font-2">20%</div>--}}
                             </div>
                             <!-- Recomended Image-->

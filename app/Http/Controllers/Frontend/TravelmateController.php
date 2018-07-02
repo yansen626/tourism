@@ -26,12 +26,32 @@ class TravelmateController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:travelmates');
+        $this->middleware('auth:travelmates', ['except' => ['showById']]);
     }
 
     //
     public function show(){
         $user = \Auth::guard('travelmates')->user();
+        if(!empty($user->id_card) && empty($user->passport_no)){
+            $identity = 'ID CARD';
+        }
+        elseif(empty($user->id_card) && !empty($user->passport_no)){
+            $identity = 'PASSPORT';
+        }
+        else{
+            $identity = '-';
+        }
+
+        $data = [
+            'user'      => $user,
+            'identity'  => $identity
+        ];
+
+        return View('frontend.travelmate.show')->with($data);
+    }
+    //
+    public function showById($id){
+        $user = Travelmate::find($id);
         if(!empty($user->id_card) && empty($user->passport_no)){
             $identity = 'ID CARD';
         }
