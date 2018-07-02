@@ -33,7 +33,8 @@
 						<div class="info-item-content">
 							<div class="main-title">
 								<h3 class="title"><span class="font-4">{{$package->travelmate->province->name}}</span> {{$package->travelmate->city->name}}</h3>
-								<div class="price"><span>Rp {{$package->price}}</span> per night</div><a href="#" class="button">Details</a>
+								<div class="price">start from <span>Rp {{$package->price}}</span></div>
+								<a href="{{route('destination', ['key'=>$package->province_id])}}" class="button">Details</a>
 							</div>
 						</div>
 					</div>
@@ -61,7 +62,7 @@
 	<section class="small-section cws_prlx_section bg-blue-40"><img src="{{ URL::asset('frontend_images/bg3.jpg') }}" alt class="cws_prlx_layer">
 		<div class="container">
 			<div class="row">
-				<a href="#">
+				<a href="{{route('travelmate.index')}}">
 					<div class="col-md-8">
 						<h2 class="title-section alt-2"><span>HELLO</span></h2>
 						<h6 class="title-section-top font-4">THIS IS OUR </h6>

@@ -168,8 +168,20 @@ class HomeController extends Controller
         return View('frontend.show-search-result');
     }
 
+    //
+    public function Travelmates(){
+        $travelmates = Travelmate::where('status_id',1)->get();
+
+        $data = [
+            'travelmates'      => $travelmates
+        ];
+
+        return View('frontend.travelmate.index')->with($data);
+    }
+
     public function Destinations(){
         $provinceName = "";
+        $id = "";
         $provinces = Province::all();
         $packages = Package::where('status_id', 1)->get();
 
@@ -177,11 +189,13 @@ class HomeController extends Controller
             'packages'          => $packages,
             'provinces'          => $provinces,
             'provinceName'          => $provinceName,
+            'provinceId'          => $id,
         ];
         return View('frontend.show-destinations')->with($data);
     }
     public function Destination($key){
         $provinceName = "";
+        $provinces = Province::all();
         if(empty($key)){
             $packages = Package::where('status_id', 1)->get();
         }
@@ -195,7 +209,9 @@ class HomeController extends Controller
 
         $data = [
             'packages'          => $packages,
+            'provinces'          => $provinces,
             'provinceName'          => $provinceName,
+            'provinceId'          => $key,
         ];
         return View('frontend.show-destinations')->with($data);
     }

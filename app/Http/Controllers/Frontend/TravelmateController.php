@@ -44,7 +44,7 @@ class TravelmateController extends Controller
             'identity'  => $identity
         ];
 
-        return View('frontend.travelmate.index')->with($data);
+        return View('frontend.travelmate.show')->with($data);
     }
 
     public function edit(){
