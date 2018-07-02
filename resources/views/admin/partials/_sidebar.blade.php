@@ -34,16 +34,16 @@
                     <li>
                         <a href="{{ route('payment-list') }}"><i class="fa fa-exclamation-triangle"></i>Status Pembayaran</a>
                     </li>
-                    {{--<li><a><i class="fa fa-list"></i> Tailor Made <span class="fa fa-chevron-down"></span></a>--}}
-                        {{--<ul class="nav child_menu">--}}
-                            {{--<li>--}}
-                                {{--<a href="#">Daftar Request Tailor Made</a>--}}
-                            {{--</li>--}}
-                            {{--<li>--}}
-                                {{--<a href="#">Daftar Tailor Made</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
+                    <li><a><i class="fa fa-list"></i> Tailor Made <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="{{ route('tailormade-list-request') }}">Daftar Request Tailor Made</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('tailormade-list') }}">Daftar Tailor Made</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li><a><i class="fa fa-list"></i> Traveller <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>

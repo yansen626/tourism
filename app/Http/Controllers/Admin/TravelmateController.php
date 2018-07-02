@@ -35,10 +35,17 @@ class TravelmateController extends Controller
         //return view('admin.show_users')->with('users', $users);
     }
 
-    public function show($id){
+    public function show($id, $flag){
         $data = Travelmate::find($id);
 
-        return View('admin.travelmates.show', compact('data'));
+        if($flag == 1){
+            $route = 'travelmate-new';
+        }
+        else if($flag == 2){
+            $route = 'travelmate-list';
+        }
+
+        return View('admin.travelmates.show', compact('data', 'route'));
     }
 
     public function newTravelmate(){
@@ -68,7 +75,28 @@ class TravelmateController extends Controller
             $travelmate = Travelmate::find($request->input('id'));
             $travelmate->delete();
 
-            Session::flash('message', 'Berhasil Menghapus Travelmate');
+            Session::flash('message', 'Berhasil Mengubah Travelmate');
+            return Response::json(array('success' => 'VALID'));
+        }
+        catch(\Exception $ex){
+            return Response::json(array('errors' => 'INVALID' . $request->input('id')));
+        }
+    }
+
+    public function change(Request $request){
+        try{
+            $travelmate = Travelmate::find($request->input('id'));
+
+            if($travelmate->status_id == 1){
+                $travelmate->status_id = 2;
+                Session::flash('message', 'Berhasil Deactivate Travelmate');
+            }
+            else if($travelmate->status_id == 2){
+                $travelmate->status_id = 1;
+                Session::flash('message', 'Berhasil Activate Travelmate');
+            }
+            $travelmate->save();
+
             return Response::json(array('success' => 'VALID'));
         }
         catch(\Exception $ex){

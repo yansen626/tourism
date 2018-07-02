@@ -17,8 +17,16 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="navbar-left">
-                    <a class="confirm-modal btn btn-xs btn-success" data-id="{{ $data->id }}">Confirm</a>
-                    <a class="reject-modal btn btn-xs btn-danger" data-id="{{ $data->id }}">Reject</a>
+                    @if($data->status_id == 3)
+                        <a class="confirm-modal btn btn-xs btn-success" data-id="{{ $data->id }}">Confirm</a>
+                        <a class="reject-modal btn btn-xs btn-danger" data-id="{{ $data->id }}">Reject</a>
+                    @endif
+                    @if($data->status_id == 1)
+                        <a class="change-modal btn btn-xs btn-danger" data-id="{{ $data->id }}">Deactivate</a>
+                    @elseif($data->status_id == 2)
+                        <a class="change-modal btn btn-xs btn-success" data-id="{{ $data->id }}">Activate</a>
+                    @endif
+
                 </div>
                 <div class="navbar-right">
 
@@ -202,6 +210,7 @@
     <!-- /page content -->
     @include('partials.confirm')
     @include('partials.reject')
+    @include('partials.change')
 @endsection
 
 @section('styles')
@@ -230,7 +239,17 @@
 
             $('#rejected-id').val($(this).data('id'));
         });
+
+        $(document).on('click', '.change-modal', function(){
+            $('#changeModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            $('#change-id').val($(this).data('id'));
+        });
     </script>
-    @include('partials._confirm', ['routeUrl' => 'travelmate-confirm', 'redirectUrl' => 'travelmate-new'])
-    @include('partials._reject', ['routeUrl' => 'travelmate-reject', 'redirectUrl' => 'travelmate-new'])
+    @include('partials._confirm', ['routeUrl' => 'travelmate-confirm', 'redirectUrl' => $route])
+    @include('partials._reject', ['routeUrl' => 'travelmate-reject', 'redirectUrl' => $route])
+    @include('partials._change', ['routeUrl' => 'travelmate-change-status', 'redirectUrl' => $route])
 @endsection

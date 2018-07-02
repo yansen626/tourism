@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\TravelmateNotification;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\Travelmate;
+use App\Models\UserAdmin;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -257,6 +259,12 @@ class RegisterController extends Controller
 
         $travelmate->ktp_img = $ktpName;
         $travelmate->save();
+
+        //Send email to Admin
+        //Search Admin
+        $admin = UserAdmin::find('173e1e13-8c88-11e7-ba0c-7085c23fc9a8');
+        $emailNotification = new TravelmateNotification($travelmate);
+        Mail::to($admin->email)->send($emailNotification);
 
         return view('auth.finish-register-travelmate');
     }

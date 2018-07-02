@@ -32,7 +32,7 @@
                                                     <input id="destination" type="text" name="destination" placeholder="DESTINATION"/>
                                                 </p>
                                                 <p id="billing_last_name_field" class="form-row form-row-last validate-required">
-                                                    <input id="participant" type="text" name="participant" placeholder="PARTICIPANT" />
+                                                    <input id="participant" type="number" style="text-align: left; padding: 0 15px;" name="participant" placeholder="PARTICIPANT(s)" />
                                                 </p>
 
                                                 <p class="form-row form-row-wide address-field">
@@ -129,7 +129,6 @@
                     <!-- ! section title-->
                     <div class="cws_divider with-plus short-3 mb-20 mt-10"></div>
                     <p class="mb-50">Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                    <a href="#" class="cws-button alt">SUBMIT</a>
                 </div>
             </div>
         </div>

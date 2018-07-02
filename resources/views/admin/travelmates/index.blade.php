@@ -31,7 +31,7 @@
             </div>
 
             <div class="clearfix"></div>
-
+            @include('admin.partials._success')
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
@@ -63,6 +63,7 @@
                                     <th>Nama Depan</th>
                                     <th>Nama Belakang</th>
                                     <th>Tanggal Bergabung</th>
+                                    <th>Status</th>
                                     <th>Option</th>
                                 </tr>
                                 </thead>
@@ -75,7 +76,11 @@
                                         <td>{{ $user->first_name }}</td>
                                         <td>{{ $user->last_name }}</td>
                                         <td>{{ \Carbon\Carbon::parse($user->created_on)->format('j M Y G:i:s') }}</td>
-                                        <td><a href="{{ route('travelmate-transaction-list', ['customerId' => $user->id]) }}" class="btn btn-primary" target="_blank">History</a></td>
+                                        <td>{{ $user->status->description }}</td>
+                                        <td>
+                                            <a href="{{ route('travelmate-transaction-list', ['customerId' => $user->id]) }}" class="btn btn-primary" target="_blank">History</a>
+                                            <a href="{{ route('travelmate-show', ['travelmate' => $user->id, 'flag' => 2]) }}" class="btn btn-info" target="_blank">Detail</a>
+                                        </td>
                                     </tr>
                                     @php( $idx++ )
                                 @endforeach

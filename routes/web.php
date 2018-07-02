@@ -187,7 +187,8 @@ Route::prefix('admin/travelmate')->group(function(){
     Route::post('/confirm', 'Admin\TravelmateController@confirm')->name('travelmate-confirm');
     Route::post('/reject', 'Admin\TravelmateController@reject')->name('travelmate-reject');
     Route::get('/new-travelmate', 'Admin\TravelmateController@newTravelmate')->name('travelmate-new');
-    Route::get('/{travelmate}', 'Admin\TravelmateController@show')->name('travelmate-show');
+    Route::get('/{travelmate}/{flag}', 'Admin\TravelmateController@show')->name('travelmate-show');
+    Route::post('/change', 'Admin\TravelmateController@change')->name('travelmate-change-status');
 });
 
 // Voucher
@@ -272,6 +273,12 @@ Route::prefix('admin/category')->group(function(){
     Route::get('/create', 'Admin\CategoryController@create')->name('category-create');
     Route::get('/edit/{id}', 'Admin\CategoryController@edit');
     Route::post('/{id}', 'Admin\CategoryController@update');
+});
+
+// TailorMade
+Route::prefix('admin/tailormade')->group(function(){
+    Route::get('/', 'Admin\TailorMadeController@index')->name('tailormade-list');
+    Route::get('/request', 'Admin\TailorMadeController@request')->name('tailormade-list-request');
 });
 
 // Gallery

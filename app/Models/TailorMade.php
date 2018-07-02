@@ -7,6 +7,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -30,6 +31,11 @@ class TailorMade extends Eloquent
 	protected $table = 'tailor_made';
 	public $timestamps = false;
 
+	protected $append = [
+	    'start_date_string',
+        'finish_date_string'
+    ];
+
 	protected $casts = [
 		'budget_per_person' => 'float'
 	];
@@ -50,4 +56,17 @@ class TailorMade extends Eloquent
 		'status_id',
         'created_at'
 	];
+
+    public function getStartDateStringAttribute(){
+        return Carbon::parse($this->attributes['start_date'])->format('d M Y');
+    }
+
+    public function getFinishDateStringAttribute(){
+        return Carbon::parse($this->attributes['finish_date'])->format('d M Y');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(\App\Models\Status::class);
+    }
 }
