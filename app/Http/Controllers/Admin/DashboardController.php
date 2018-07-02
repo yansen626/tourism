@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\TailorMade;
 use App\Models\Transaction;
 use App\Models\TransactionHeader;
 use App\Models\TransferConfirmation;
@@ -27,6 +28,7 @@ class DashboardController extends Controller
         $trxTotal = TransactionHeader::where('status_id', 8)->get()->count();
         $customerTotal = User::where('status_id',1)->get()->count();
         $travelmateTotal = Travelmate::where('status_id',1)->get()->count();
+        $tmjTotal = TailorMade::all()->count();
 
         $newOrderTotal = TransactionHeader::where('status_id', 5)->get()->count();
         $onGoingPaymentTotal = TransactionHeader::where('status_id', 3)
@@ -40,6 +42,7 @@ class DashboardController extends Controller
             'trxTotal'              => $trxTotal,
             'customerTotal'         => $customerTotal,
             'travelmateTotal'         => $travelmateTotal,
+            'tmjTotal'         => $tmjTotal,
             'newOrderTotal'         => $newOrderTotal,
             'onGoingPaymentTotal'   => $onGoingPaymentTotal,
             'manualPaymentTotal'    => $manualPaymentTotal,
