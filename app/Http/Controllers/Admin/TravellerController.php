@@ -13,6 +13,8 @@ use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 
 class TravellerController extends Controller
 {
@@ -38,5 +40,26 @@ class TravellerController extends Controller
         ];
 
         return View('admin.travellers.index-transactions')->with($data);
+    }
+
+    public function change(Request $request){
+        try{
+            $traveller = User::find($request->input('id'));
+
+            if($traveller->status_id == 1){
+                $traveller->status_id = 2;
+                Session::flash('message', 'Berhasil Deactivate Traveller');
+            }
+            else if($traveller->status_id == 2){
+                $traveller->status_id = 1;
+                Session::flash('message', 'Berhasil Activate Traveller');
+            }
+            $traveller->save();
+
+            return Response::json(array('success' => 'VALID'));
+        }
+        catch(\Exception $ex){
+            return Response::json(array('errors' => 'INVALID' . $request->input('id')));
+        }
     }
 }

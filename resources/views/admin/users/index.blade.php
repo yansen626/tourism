@@ -82,6 +82,12 @@
                                         @else
                                             -
                                         @endif
+
+                                        @if($user->status_id == 1)
+                                            <a class="change-modal btn btn-xs btn-danger" data-id="{{ $data->id }}">Deactivate</a>
+                                        @elseif
+                                            <a class="change-modal btn btn-xs btn-success" data-id="{{ $data->id }}">Activate</a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @php( $idx++ )
@@ -96,4 +102,26 @@
 </div>
 <!-- /page content -->
 
+@include('partials.change')
+@endsection
+
+@section('styles')
+    @parent
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+@endsection
+
+@section('scripts')
+    @parent
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        $(document).on('click', '.change-modal', function(){
+            $('#changeModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            $('#change-id').val($(this).data('id'));
+        });
+    </script>
+    @include('partials._change', ['routeUrl' => 'travelmate-change', 'redirectUrl' => 'traveller-list'])
 @endsection

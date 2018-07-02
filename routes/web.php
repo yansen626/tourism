@@ -178,6 +178,7 @@ Route::get('/admin/logout', 'Auth\LoginAdminController@logout')->name('admin-log
 Route::prefix('admin/traveller')->group(function(){
     Route::get('/', 'Admin\TravellerController@index')->name('traveller-list');
     Route::get('/{customerId}/transactions', 'Admin\TravellerController@transactions')->name('traveller-transaction-list');
+    Route::post('/change', 'Admin\TravellerController@change')->name('traveller-change');
 });
 
 //travelmate

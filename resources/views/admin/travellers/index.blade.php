@@ -55,6 +55,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+                            @include('admin.partials._success')
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -75,7 +76,14 @@
                                         <td>{{ $user->first_name }}</td>
                                         <td>{{ $user->last_name }}</td>
                                         <td>{{ \Carbon\Carbon::parse($user->created_on)->format('j M Y G:i:s') }}</td>
-                                        <td><a href="{{ route('traveller-transaction-list', ['customerId' => $user->id]) }}" class="btn btn-primary" target="_blank">History</a></td>
+                                        <td>
+                                            <a href="{{ route('traveller-transaction-list', ['customerId' => $user->id]) }}" class="btn btn-primary" target="_blank">History</a>
+                                            @if($user->status_id == 1)
+                                                <a class="change-modal btn btn-danger" data-id="{{ $user->id }}">Deactivate</a>
+                                            @elseif($user->status_id == 2)
+                                                <a class="change-modal btn btn-success" data-id="{{ $user->id }}">Activate</a>
+                                            @endif
+                                        </td>
                                     </tr>
                                     @php( $idx++ )
                                 @endforeach
@@ -91,4 +99,26 @@
     </div>
     <!-- /page content -->
 
+    @include('partials.change')
+@endsection
+
+@section('styles')
+    @parent
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+@endsection
+
+@section('scripts')
+    @parent
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        $(document).on('click', '.change-modal', function(){
+            $('#changeModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            $('#change-id').val($(this).data('id'));
+        });
+    </script>
+    @include('partials._change', ['routeUrl' => 'traveller-change', 'redirectUrl' => 'traveller-list'])
 @endsection
