@@ -25,6 +25,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $description
  * @property string $featured_image
  * @property string $duration
+ * @property \Carbon\Carbon $start_date
+ * @property \Carbon\Carbon $end_date
  * @property int $status_id
  * @property string $created_by
  * @property \Carbon\Carbon $created_at
@@ -56,6 +58,11 @@ class Package extends Eloquent
 		'status_id' => 'int'
 	];
 
+	protected $dates = [
+	    'start_date',
+        'end_date'
+    ];
+
 	protected $fillable = [
 		'travelmate_id',
 		'name',
@@ -69,6 +76,8 @@ class Package extends Eloquent
 		'description',
 		'featured_image',
 		'duration',
+        'start_date',
+        'end_date',
 		'status_id',
 		'created_by',
 		'updated_by'

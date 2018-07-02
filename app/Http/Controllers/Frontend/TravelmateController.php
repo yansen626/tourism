@@ -10,13 +10,16 @@ namespace App\Http\Controllers\Frontend;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Package;
+use App\Models\Province;
 use App\Models\Travelmate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
 class TravelmateController extends Controller
@@ -166,6 +169,20 @@ class TravelmateController extends Controller
     }
 
     public function createPackage(){
-        return view('frontend.travelmate.packages.create');
+        $provinces = Province::orderBy('name')->get();
+        $view = View::make('frontend.travelmate.partials._trip_destination');
+        $content = (string) $view;
+
+        return view('frontend.travelmate.packages.create', compact('provinces', 'content'));
+    }
+
+    public function getCities(){
+        $provinceId = request()->province;
+
+        $cities = City::where('province_id', $provinceId)->get();
+
+        $returnHtml = View('frontend.travelmate.partials._city_options',['cities' => $cities])->render();
+
+        return response()->json( array('success' => true, 'html' => $returnHtml) );
     }
 }

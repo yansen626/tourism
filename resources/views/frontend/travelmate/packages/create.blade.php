@@ -15,7 +15,7 @@
                         <div class="col-md-6">
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 5px !important;">
+                    <div class="row" style="margin-top: 5px !important; margin-bottom: 35px;">
                         <div class="col-md-12">
 
                             <div class="board">
@@ -24,21 +24,21 @@
                                     <ul class="nav nav-tabs" id="myTab">
                                         <div class="liner"></div>
                                         <li class="active">
-                                            <a href="#home" data-toggle="tab" title="welcome">
+                                            <a href="#one" data-toggle="tab" title="one">
                                               <span class="round-tabs one">
                                                       1
                                               </span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#profile" data-toggle="tab" title="profile">
+                                            <a href="#two" data-toggle="tab" title="two">
                                                  <span class="round-tabs two">
                                                      2
                                                  </span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#doner" data-toggle="tab" title="completed">
+                                            <a href="#three" data-toggle="tab" title="three">
                                                  <span class="round-tabs five">
                                                       3
                                                  </span>
@@ -47,30 +47,170 @@
                                     </ul>
                                 </div>
                                 <div class="tab-content">
-                                    <div class="tab-pane fade in active" id="home">
+                                    <div class="tab-pane fade in active" id="one">
                                         <div class="col-lg-12 col-md-12">
-                                            <div class="row form-panel">
-                                                <<div class="col-lg-6 col-md-6">
-                                                    Column 1
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="row form-panel">
+                                                    <div class="col-lg-6 col-md-6 text-center">
+                                                        <select id="province" name="province" class="form-control" onchange="getCity()">
+                                                            <option value="-1">- Select Province -</option>
+                                                            @foreach($provinces as $province)
+                                                                <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <select id="city" name="city" class="form-control">
+                                                            <option value="-1">- Select City -</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    Column 2
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
+                                            <div class="col-lg-9 col-md-9 col-xs-12">
+                                                <div class="row form-panel">
+                                                    {!! Form::file('cover', array('id' => 'cover', 'class' => 'file-loading')) !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-xs-12">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
+                                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                                <div class="row form-panel">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">
+                                                            ABOUT THE TRIP
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-3 col-xs-12">
+                                                            <textarea id="description" name="description" rows="5" class="form-control" style="resize: none; overflow-y: scroll;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 20px;">
+                                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                                <div class="row form-panel">
+                                                    <div class="text-center" style="width: 100%;">
+                                                        <label for="start_date">START DATE</label>
+                                                    </div>
+                                                    <div class='input-group date' >
+                                                        <input id='start_date' name="start_date" type='text' class="form-control" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                                <div class="row form-panel">
+                                                    <div class="text-center" style="width: 100%;">
+                                                        <label for="end_date">END DATE</label>
+                                                    </div>
+                                                    <div class='input-group date' >
+                                                        <input id='end_date' name="end_date" type='text' class="form-control" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 20px;">
+                                            <div class="col-lg-8 col-md-8 col-xs-12">
+                                                <div class="row form-panel">
+                                                    <div class="form-group">
+                                                        <div class="text-center" style="width: 100%;">
+                                                            <label for="meeting_point">MEETING POINT</label>
+                                                        </div>
+                                                        <textarea id="meeting_point" name="meeting_point" rows="5" class="form-control" style="resize: none; overflow-y: scroll;"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-xs-12">
+                                                <div class="row form-panel">
+                                                    <div class="form-group">
+                                                        <div class="text-center" style="width: 100%;">
+                                                            <label for="max_capacity">MAX CAPACITY</label>
+                                                            <input id='max_capacity' name="max_capacity" type='number' placeholder="PERSONS" class="form-control" style="width: 100%;"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 20px;">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="row">
+                                                    <div style="float: right">
+                                                        <button class="btn btn-success" id="next_one" onclick="switchTab(2);">NEXT</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="profile">
-                                        <h3 class="head text-center">Create a Bootsnipp<sup>™</sup> Profile</h3>
-                                        <p class="narrow text-center">
-                                            Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                                        </p>
+                                    <div class="tab-pane fade" id="two">
+                                        <div id="trip_list" class="col-lg-12 col-md-12" style="margin-top: 20px;">
+                                            <div id="trip_1" class="col-lg-12 col-md-12" style="margin-bottom: 20px;">
+                                                <div class="row form-panel">
+                                                    <div class="col-lg-12 col-md-12 col-xs-12">
+                                                        <h3 class="text-center">DESTINATION 1</h3>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-xs-12">
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <div class="row form-panel">
+                                                                <div class="text-center" style="width: 100%;">
+                                                                    <label for="trip_start_date_1">START DATE</label>
+                                                                </div>
+                                                                <div class='input-group date' >
+                                                                    <input id='trip_start_date_1' name="trip_start_date[]" type='text' class="form-control" />
+                                                                    <span class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <div class="row form-panel">
+                                                                <div class="text-center" style="width: 100%;">
+                                                                    <label for="trip_end_date_1">END DATE</label>
+                                                                </div>
+                                                                <div class='input-group date'>
+                                                                    <input id='trip_end_date_1' name="trip_end_date[]" type='text' class="form-control" />
+                                                                    <span class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 20px;">
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <div class="row form-panel">
+                                                                {!! Form::file('trip_image_1', array('id' => 'trip_image_1', 'class' => 'file-loading')) !!}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <div class="row form-panel">
+                                                                <textarea id="trip_description_1" name="trip_description[]" rows="5" placeholder="TRIP DESCRIPTION" class="form-control" style="resize: none; overflow-y: scroll;"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="trip_2" class="col-lg-12 col-md-12" style="margin-bottom: 20px;">
 
-                                        <p class="text-center">
-                                            <a href="" class="btn btn-success btn-outline-rounded green"> create your profile <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                                        </p>
-
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12 text-center" style="margin-top: 20px;">
+                                            <a onclick="addTrip()">
+                                                <i class="fa fa-plus fa-5x"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="tab-pane fade" id="doner">
+                                    <div class="tab-pane fade" id="three">
                                         <div class="text-center">
                                             <i class="img-intro icon-checkmark-circle"></i>
                                         </div>
@@ -99,7 +239,8 @@
 
 @section('styles')
     @parent
-    <link rel="stylesheet" href="{{ URL::asset('css/datatable/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datetimepicker.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}">
     <style>
         @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
 
@@ -331,18 +472,168 @@
 
         .form-panel{
             border: 2px solid #EB5532;
-            border-radius: 4px;
+            border-radius: 20px;
+            padding: 10px;
+            margin: 0;
         }
     </style>
 @endsection
 
 @section('scripts')
     @parent
-    <script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('js/moment.js') }}"></script>
+    <script src="{{ URL::asset('js/frontend/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
+    <script src="{{ URL::asset('js/stringbuilder.js') }}"></script>
     <script>
         $(function(){
             $('a[title]').tooltip();
         });
+
+        function getCity(){
+            var provId = $("#province option:selected").val();
+
+            if(provId !== '-1'){
+                $.get('/travelmate/packages/city?province=' + provId, function (data) {
+                    if(data.success == true) {
+                        $('#city').html(data.html);
+                    }
+                });
+            }
+            else{
+                $('#city').html("<option value='-1'>- Select City -</option>");
+            }
+        }
+
+        // FILEINPUT
+        $("#cover").fileinput({
+            allowedFileExtensions: ["jpg", "jpeg", "png"],
+            browseClass: "btn btn-primary btn-block",
+            showUpload: false,
+            showRemove: false,
+            dropZoneEnabled: true,
+            browseOnZoneClick: true,
+            dropZoneTitle: "UPLOAD COVER IMAGE HERE!",
+            uploadExtraData:{'_token':'{{ csrf_token() }}'}
+        });
+
+        $("#trip_image_1").fileinput({
+            allowedFileExtensions: ["jpg", "jpeg", "png"],
+            browseClass: "btn btn-primary btn-block",
+            showUpload: false,
+            showRemove: false,
+            dropZoneEnabled: true,
+            browseOnZoneClick: true,
+            dropZoneTitle: "UPLOAD TRIP IMAGE HERE!",
+            uploadExtraData:{'_token':'{{ csrf_token() }}'}
+        });
+
+        // DATE PICKER
+        $('#start_date').datetimepicker({
+            format: "DD MMM Y"
+        });
+
+        $('#end_date').datetimepicker({
+            format: "DD MMM Y"
+        });
+
+        // DATETIMEPICKER
+        $('#trip_start_date_1').datetimepicker({
+            format: "DD MMM Y HH:mm"
+        });
+
+        $('#trip_end_date_1').datetimepicker({
+            format: "DD MMM Y HH:mm"
+        });
+
+        function switchTab(tabNumber){
+            if(tabNumber === 1){
+                $('.nav-tabs a[href="#one"]').tab('show')
+            }
+            else if(tabNumber === 2){
+                $('.nav-tabs a[href="#two"]').tab('show')
+            }
+            else if(tabNumber === 3){
+                $('.nav-tabs a[href="#three"]').tab('show')
+            }
+        }
+
+        var i = 2;
+        function addTrip(){
+            var sbAdd = new stringbuilder();
+            sbAdd.append("<div class='row form-panel'>");
+            sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
+            sbAdd.append("<h3 class='text-center'>DESTINATION " + i + "</h3>");
+            sbAdd.append("</div>");
+            sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
+            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            sbAdd.append("<div class='row form-panel'>");
+            sbAdd.append("<div class='text-center' style='width: 100%;'>");
+            sbAdd.append("<label for='trip_start_date_1'>START DATE</label>");
+            sbAdd.append("</div>");
+            sbAdd.append("<div class='input-group date' >");
+            sbAdd.append("<input id='trip_start_date_" + i + "' name='trip_start_date[]' type='text' class='form-control' />");
+            sbAdd.append("<span class='input-group-addon'>");
+            sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
+            sbAdd.append("</span>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            sbAdd.append("<div class='row form-panel'>");
+            sbAdd.append("<div class='text-center' style='width: 100%;'>");
+            sbAdd.append("<label for='trip_end_date_" + i + "'>END DATE</label>");
+            sbAdd.append("</div>");
+            sbAdd.append("<div class='input-group date'>");
+            sbAdd.append("<input id='trip_end_date_" + i + "' name='trip_end_date[]' type='text' class='form-control' />");
+            sbAdd.append("<span class='input-group-addon'>");
+            sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
+            sbAdd.append( "</span>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12' style='margin-top: 20px;'>");
+            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            sbAdd.append("<div class='row form-panel'>");
+            sbAdd.append("<input id='trip_image_" + i + "' class='file-loading' name='trip_image_" + i + "' type='file'>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            sbAdd.append("<div class='row form-panel'>");
+            sbAdd.append("<textarea id='trip_description_" + i + "' name='trip_description[]' rows='5' placeholder='TRIP DESCRIPTION' class='form-control' style='resize: none; overflow-y: scroll;'></textarea>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+            sbAdd.append("</div>");
+
+            $('#trip_' + i ).html(sbAdd.toString());
+
+            $('#trip_list').append("<div id='trip_" + (i+1) + "' class='col-lg-12 col-md-12' style='margin-bottom: 20px;'></div>");
+
+            // DYNAMIC FILEINPUT
+            $('#trip_image_' + i).fileinput({
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                browseClass: "btn btn-primary btn-block",
+                showUpload: false,
+                showRemove: false,
+                dropZoneEnabled: true,
+                browseOnZoneClick: true,
+                dropZoneTitle: "UPLOAD TRIP IMAGE HERE!",
+                uploadExtraData:{'_token':'{{ csrf_token() }}'}
+            });
+
+            // DYNAMIC DATETIMEPICKER
+            $('#trip_start_date_' + i).datetimepicker({
+                format: "DD MMM Y HH:mm"
+            });
+
+            $('#trip_end_date_' + i).datetimepicker({
+                format: "DD MMM Y HH:mm"
+            });
+
+            i++;
+        }
 
     </script>
 @endsection
