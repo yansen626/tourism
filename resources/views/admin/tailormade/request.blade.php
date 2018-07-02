@@ -71,6 +71,7 @@
                                         <td>{{ $tailorMade->status->description }}</td>
                                         <td>
                                             <a href="#" class="btn btn-primary">Edit</a>
+                                            <a class="confirm-tailormade-modal btn btn-success" data-id="{{ $tailorMade->id }}">Confirm</a>
                                         </td>
                                     </tr>
                                     @php ($idx++)
@@ -84,5 +85,26 @@
         </div>
     </div>
     <!-- /page content -->
+    @include('partials.confirmTailormade')
+@endsection
 
+@section('styles')
+    @parent
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+@endsection
+
+@section('scripts')
+    @parent
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        $(document).on('click', '.confirm-tailormade-modal', function(){
+            $('#confirmTailormadeModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            $('#confirm-id').val($(this).data('id'));
+        });
+    </script>
+    @include('partials._confirmTailormade', ['routeUrl' => 'tailormade-confirm', 'redirectUrl' => 'tailormade-list-request'])
 @endsection

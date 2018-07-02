@@ -65,7 +65,7 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status_id' => 1])) {
 //            return redirect()->action('Frontend\TravellerController@transactions');
-            return redirect()->route('traveller.transactions');
+            return redirect()->route('traveller.transactions', ['flag' => 1]);
         }
         else if(Auth::guard('travelmates')->attempt(['email' => $request['email'], 'password' => $request['password']])){
 //            return redirect()->action('Travelmate\HomeController@dashboard');

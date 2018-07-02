@@ -9,7 +9,7 @@
                         </div>
                         <div class="col-md-3" style="padding-top: 7%;">
                             <p style="font-size: 12px;">
-                                <a href="{{ route('traveller.transactions') }}">VIEW ALL</a>
+                                <a href="{{ route('traveller.transactions', ['flag' => 1]) }}">VIEW ALL</a>
                             </p>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-3" style="padding-top: 7%;">
                             <p style="font-size: 12px;">
-                                <a href="{{ route('traveller.transactions') }}">VIEW ALL</a>
+                                <a href="{{ route('traveller.transactions' , ['flag' => 2]) }}">VIEW ALL</a>
                             </p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-md-3" style="padding-top: 7%;">
                             <p style="font-size: 12px;">
-                                <a href="{{ route('traveller.transactions') }}">VIEW ALL</a>
+                                <a href="{{ route('traveller.transactions', ['flag' => 3]) }}">VIEW ALL</a>
                             </p>
                         </div>
                     </div>

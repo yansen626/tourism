@@ -44,7 +44,7 @@ Route::get('destination/{key}', 'Frontend\HomeController@Destination')->name('de
 // Traveler
 Route::prefix('traveller')->group(function(){
     Route::get('/', 'Frontend\TravelerController@show')->name('traveller.profile.show');
-    Route::get('/transactions', 'Frontend\TravelerController@transactions')->name('traveller.transactions');
+    Route::get('/transactions/{flag}', 'Frontend\TravelerController@transactions')->name('traveller.transactions');
     Route::get('/profile/edit', 'Frontend\TravelerController@edit')->name('traveller.profile.edit');
     Route::put('/profile/update/{user}', 'Frontend\TravelerController@update')->name('traveller.profile.update');
     Route::post('/profile/upload', 'Frontend\TravelerController@updateImage')->name('traveller.profile.upload');
@@ -280,6 +280,7 @@ Route::prefix('admin/category')->group(function(){
 Route::prefix('admin/tailormade')->group(function(){
     Route::get('/', 'Admin\TailorMadeController@index')->name('tailormade-list');
     Route::get('/request', 'Admin\TailorMadeController@request')->name('tailormade-list-request');
+    Route::post('/confirm', 'Admin\TailorMadeController@confirm')->name('tailormade-confirm');
 });
 
 // Gallery

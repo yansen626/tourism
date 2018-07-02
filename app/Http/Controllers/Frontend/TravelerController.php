@@ -151,8 +151,11 @@ class TravelerController extends Controller
         return redirect()->route('traveller.profile.show');
     }
 
-    public function transactions(){
-
-        return View('frontend.traveler.transactions');
+    public function transactions($flag){
+        //FLAG MEANING
+        // 1 = My Booking
+        // 2 = Upcoming
+        // 3 = History
+        return View('frontend.traveler.transactions', compact('flag'));
     }
 }

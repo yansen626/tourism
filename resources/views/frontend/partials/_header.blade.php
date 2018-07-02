@@ -85,7 +85,7 @@
                                 {{ \Illuminate\Support\Facades\Auth::guard('web')->user()->first_name }} {{ \Illuminate\Support\Facades\Auth::guard('web')->user()->last_name }}
                             </a>
                             <ul class="mn-sub">
-                                <li><a href="{{ route('traveller.transactions') }}">DASHBOARD</a></li>
+                                <li><a href="{{ route('traveller.transactions', ['flag' => 1]) }}">DASHBOARD</a></li>
                                 <li><a href="{{ route('traveller.profile.show') }}">MY PROFILE</a></li>
                                 {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>
