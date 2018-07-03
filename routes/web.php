@@ -39,7 +39,7 @@ Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search
 
 // Destination
 Route::get('destinations/', 'Frontend\HomeController@Destinations')->name('destinations');
-Route::get('destination/{key}', 'Frontend\HomeController@Destination')->name('destination');
+Route::get('destination/', 'Frontend\HomeController@Destination')->name('destination');
 
 // Traveler
 Route::prefix('traveller')->group(function(){

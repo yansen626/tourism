@@ -34,7 +34,7 @@
 							<div class="main-title">
 								<h3 class="title"><span class="font-4">{{$package->province->name}}</span> {{$package->city->name}}</h3>
 								<div class="price">start from <span>Rp {{$package->price}}</span></div>
-								<a href="{{route('destination', ['key'=>$package->province_id])}}" class="button">Details</a>
+								<a href="{{route('destination', ['province'=>$package->province_id])}}" class="button">Details</a>
 							</div>
 						</div>
 					</div>
@@ -50,7 +50,9 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="map-wrapper">
-						<iframe src="https://www.google.com/maps/d/u/0/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" allowfullscreen=""></iframe>
+						{{--<iframe src="https://www.google.com/maps/d/u/0/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" allowfullscreen=""></iframe>--}}
+						<iframe src="https://www.google.com/maps/d/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" width="640" height="480"></iframe>
+                        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" width="640" height="480"></iframe>
 					</div>
 				</div>
 			</div>

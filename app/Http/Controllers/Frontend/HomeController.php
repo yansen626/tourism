@@ -179,39 +179,74 @@ class HomeController extends Controller
         return View('frontend.travelmate.index')->with($data);
     }
 
-    public function Destinations(){
+//    public function Destinations(){
+//        $provinceName = "";
+//        $id = "";
+//        $provinces = Province::all();
+//        $packages = Package::where('status_id', 1)->get();
+//
+//        $data = [
+//            'packages'          => $packages,
+//            'provinces'          => $provinces,
+//            'provinceName'          => $provinceName,
+//            'provinceId'          => $id,
+//        ];
+//        return View('frontend.show-destinations')->with($data);
+//    }
+    public function Destination(){
         $provinceName = "";
-        $id = "";
         $provinces = Province::all();
-        $packages = Package::where('status_id', 1)->get();
+        $provinceId = request()->province;
+        $searchText = request()->search;
 
-        $data = [
-            'packages'          => $packages,
-            'provinces'          => $provinces,
-            'provinceName'          => $provinceName,
-            'provinceId'          => $id,
-        ];
-        return View('frontend.show-destinations')->with($data);
-    }
-    public function Destination($key){
-        $provinceName = "";
-        $provinces = Province::all();
-        if(empty($key)){
-            $packages = Package::where('status_id', 1)->get();
+        if(!empty($provinceId) && !empty($searchText)){
+            $provinceId = "";
+            $travelmate = Travelmate::select('id')
+                ->where('first_name', 'like', '%'.$searchText.'%')
+                ->orWhere('last_name', 'like', '%'.$searchText.'%')
+                ->get();
+            $travelmateId = $travelmate->toArray();
+
+            $packages = Package::where('status_id', 1)
+                ->whereIn('travelmate_id', $travelmateId)
+                ->where('province_id', $provinceId)
+                ->get();
+            $provinceDB = Province::find($provinceId);
+            $provinceName = $provinceDB->name;
+            $searchText = "";
+        }
+        else if(!empty($provinceId)){
+            $packages = Package::where('status_id', 1)
+                ->where('province_id', $provinceId)
+                ->get();
+            $provinceDB = Province::find($provinceId);
+            $provinceName = $provinceDB->name;
+            $searchText = "";
+        }
+        else if (!empty($searchText)){
+            $provinceId = "";
+            $travelmate = Travelmate::select('id')
+                ->where('first_name', 'like', '%'.$searchText.'%')
+                ->orWhere('last_name', 'like', '%'.$searchText.'%')
+                ->get();
+            $travelmateId = $travelmate->toArray();
+
+            $packages = Package::where('status_id', 1)
+                ->whereIn('travelmate_id', $travelmateId)
+                ->get();
         }
         else{
-            $packages = Package::where('status_id', 1)
-                ->where('province_id', $key)
-                ->get();
-            $provinceDB = Province::find($key);
-            $provinceName = $provinceDB->name;
+            $packages = Package::where('status_id', 1)->get();
+            $provinceId = "";
+            $searchText = "";
         }
 
         $data = [
             'packages'          => $packages,
             'provinces'          => $provinces,
             'provinceName'          => $provinceName,
-            'provinceId'          => $key,
+            'provinceId'          => $provinceId,
+            'searchText'          => $searchText,
         ];
 
         return View('frontend.show-destinations')->with($data);
