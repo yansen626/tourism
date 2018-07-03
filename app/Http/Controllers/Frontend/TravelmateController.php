@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Frontend;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Package;
 use App\Models\Province;
@@ -190,10 +191,25 @@ class TravelmateController extends Controller
 
     public function createPackage(){
         $provinces = Province::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
         $view = View::make('frontend.travelmate.partials._trip_destination');
         $content = (string) $view;
 
-        return view('frontend.travelmate.packages.create', compact('provinces', 'content'));
+        $data = [
+            'provinces'     => $provinces,
+            'categories'    => $categories,
+            'content'       => $content
+        ];
+
+        return view('frontend.travelmate.packages.create')->with($data);
+    }
+
+    public function storePackage(Request $request){
+        try{
+
+        }catch(\Exception $ex){
+            error_log($ex);
+        }
     }
 
     public function getCities(){

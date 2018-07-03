@@ -19,26 +19,27 @@
                         <div class="col-md-12">
 
                             <div class="board">
-                                <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
+                            {!! Form::open(array('action' => 'Frontend\TravelmateController@storePackage', 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'novalidate')) !!}
+
                                 <div class="board-inner">
                                     <ul class="nav nav-tabs" id="myTab">
                                         <div class="liner"></div>
                                         <li class="active">
-                                            <a href="#one" data-toggle="tab" title="one">
+                                            <a href="#one" data-toggle="tab" title="Tour Information">
                                               <span class="round-tabs one">
                                                       1
                                               </span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#two" data-toggle="tab" title="two">
+                                            <a href="#two" data-toggle="tab" title="Main Program">
                                                  <span class="round-tabs two">
                                                      2
                                                  </span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#three" data-toggle="tab" title="three">
+                                            <a href="#three" data-toggle="tab" title="Pricing">
                                                  <span class="round-tabs five">
                                                       3
                                                  </span>
@@ -74,7 +75,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-3 col-xs-12">
-
+                                                <div class="row form-panel">
+                                                    <h5 class="text-center">TRAVEL CATEGORY</h5>
+                                                    <div id="category_list" class="field radio_field">
+                                                        @foreach($categories as $category)
+                                                            <input type="radio" id="category_{{ $category->id }}" name="category" value="{{ $category->id }}"/>
+                                                            <label for="category_{{ $category->id }}">{{ $category->name }}</label>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
@@ -145,7 +154,7 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="row">
                                                     <div style="float: right">
-                                                        <button class="btn btn-success" id="next_one" onclick="switchTab(2);">NEXT</button>
+                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(2);">NEXT</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,19 +218,84 @@
                                                 <i class="fa fa-plus fa-5x"></i>
                                             </a>
                                         </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 10px;">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="row">
+                                                    <div style="float: left">
+                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(1);">PREVIOUS</button>
+                                                    </div>
+                                                    <div style="float: right">
+                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(3);">NEXT</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="three">
-                                        <div class="text-center">
-                                            <i class="img-intro icon-checkmark-circle"></i>
+                                        <div class="col-lg-12 col-md-12 col-xs-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover borderless" id="table_pricing">
+                                                    <thead>
+                                                        <th class="text-center" style="width: 15%">
+                                                            Number<br/>of Travellers
+                                                        </th>
+                                                        <th class="text-center" style="width: 20%">
+                                                            Price<br/>(IDR/PAX)
+                                                        </th>
+                                                        <th class="text-center" style="width: 20%">
+                                                            Total<br/>(IDR)
+                                                        </th>
+                                                        <th class="text-center" style="width: 20%">
+                                                            You Get <br/>IDR)
+                                                        </th>
+                                                        <th class="text-center" style="width: 5%"></th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="pricing_1">
+                                                            <td class="text-center">
+                                                                <input id="qty_1" name="qty[]" type="text" onblur="getTotal(1);" class="form-control text-center">
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <input id="price_1" name="qty[]" type="text" onblur="getTotal(1);" class="form-control text-center">
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <input id="total_1" type="text" class="form-control text-center" readonly>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <input id="get_1" type="text" class="form-control text-center" readonly>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <a onclick="deletePricing(1)">
+                                                                    <i class="fa fa-minus-square fa-2x"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                        <h3 class="head text-center">thanks for staying tuned! <span style="color:#f48260;">♥</span> Bootstrap</h3>
-                                        <p class="narrow text-center">
-                                            Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                                        </p>
+                                        <div class="col-lg-12 col-md-12 col-xs-12 text-center" style="margin-top: 20px;">
+                                            <a onclick="addPrice()">
+                                                <i class="fa fa-plus fa-5x"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 10px;">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="row">
+                                                    <div style="float: left">
+                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(2);">PREVIOUS</button>
+                                                    </div>
+                                                    <div style="float: right">
+                                                        <button class="btn btn-success btn-create" id="next_one" onclick="submitPackage();">ACTIVATE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
 
+                            {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
@@ -472,9 +546,51 @@
 
         .form-panel{
             border: 2px solid #EB5532;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 10px;
             margin: 0;
+        }
+
+        .borderless td, .borderless th {
+            border: none;
+        }
+
+        table.table{
+            border: none !important;;
+        }
+
+        table.table thead tr th{
+            border-right: none !important;;
+            padding-left: 0px !important;;
+            background-color: #ffffff; !important;
+        }
+
+        table.table tbody tr td{
+            border-right: none !important;
+        }
+
+        h5{
+            font-size: 14px;
+        }
+
+        #category_list input {
+            float: left;
+            -webkit-appearance: radio !important;
+        }
+
+        #category_list label {
+            float: left;
+            margin-left: 10px !important;
+            font-size: 13px !important;
+        }
+
+        #category_list label + input {
+            clear: both;
+        }
+
+        .btn-create{
+            background-color: #EB5532 !important;
+            border-color: #EB5532 !important;
         }
     </style>
 @endsection
@@ -633,6 +749,59 @@
             });
 
             i++;
+        }
+
+        // TAB PRICINGS
+        function getTotal(idx){
+            var qty = parseInt($('#qty_' + idx).val());
+            var price = parseInt($('#price_' + idx).val());
+
+            if(qty !== null && qty > 0 && price !== null && price > 0){
+                var total = qty * price;
+                $('#total_' + idx).val(total);
+
+                var get = total - ((10/100) * total);
+                $('#get_' + idx).val(get);
+            }
+        }
+
+        var pricingIdx = 2;
+        function addPrice(){
+
+            var sbAddPrice = new stringbuilder();
+            sbAddPrice.append("<tr id='pricing_" + pricingIdx + "'>");
+            sbAddPrice.append("<td class='text-center'>");
+            sbAddPrice.append("<input id='qty_" + pricingIdx + "' name='qty[]' type='text' onblur='getTotal(" + pricingIdx + ");' class='form-control text-center'>");
+            sbAddPrice.append("</td>");
+            sbAddPrice.append("<td class='text-center'>");
+            sbAddPrice.append("<input id='price_" + pricingIdx + "' name='qty[]' type='text' onblur='getTotal(" + pricingIdx + ");' class='form-control text-center'>");
+            sbAddPrice.append("</td>");
+            sbAddPrice.append("<td class='text-center'>");
+            sbAddPrice.append("<input id='total_" + pricingIdx + "' type='text' class='form-control text-center' readonly>");
+            sbAddPrice.append("</td>");
+            sbAddPrice.append("<td class='text-center'>");
+            sbAddPrice.append("<input id='get_" + pricingIdx + "' type='text' class='form-control text-center' readonly>");
+            sbAddPrice.append("</td>");
+            sbAddPrice.append("<td class='text-center'>");
+            sbAddPrice.append("<a onclick='deletePricing(" + pricingIdx + ")'");
+            sbAddPrice.append("<i class='fa fa-minus-square fa-2x'></i>");
+            sbAddPrice.append("</a>");
+            sbAddPrice.append("</td>");
+            sbAddPrice.append("</tr>");
+
+            $('#table_pricing').append(sbAddPrice.toString());
+
+            pricingIdx++;
+        }
+
+        function deletePricing(idx){
+            // Validate table rows count
+            var rows = document.getElementById('table_pricing').getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+            // alert(rows);
+            if(rows !== 1){
+                $('#pricing_' + idx).remove();
+                pricingIdx--;
+            }
         }
 
     </script>
