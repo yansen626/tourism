@@ -33,8 +33,8 @@
                                             <input type="text" id="search-text" placeholder="Travelmate" class="form-control search-field">
                                         </div>
                                     </form>
-                                    {{--<div class="button-search" onclick="filterSearch()">Search</div>--}}
-                                    <div class="button-search">Search</div>
+                                    <div class="button-search" onclick="filterSearch()">Search</div>
+                                    {{--<div class="button-search">Search</div>--}}
                                 </div>
                             </div>
                         </div>
@@ -48,14 +48,18 @@
                         <div class="col-md-6">
                             <div class="recom-item border">
                                 <div class="recom-media">
-                                    <a href="hotels-details.html">
+                                    <a href="#">
                                         <div class="pic">
                                             <img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
                                                  data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
                                                  style="max-width: 100%;height: 100%;" alt>
                                         </div>
                                     </a>
-                                    <div class="location"><i class="flaticon-suntour-map"></i> {{$package->province->name}}</div>
+                                    <div class="location">
+                                        <i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
+                                        <br>
+                                        <i class="flaticon-suntour-map"></i> {{$package->province->name}}
+                                    </div>
                                 </div>
                                 <!-- Recomended Content-->
                                 <div class="recom-item-body"><a href="hotels-details.html">
@@ -63,7 +67,7 @@
                                     <div class="stars stars-4"></div>
                                     <div class="recom-price">Rp {{$package->price}}</div>
                                     <p class="mb-30">{{$package->description}}</p>
-                                    <a href="hotels-details.html" class="recom-button">Read more</a>
+                                    <a href="#" class="recom-button">Read more</a>
                                     <a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>
                                     {{--<div class="action font-2">20%</div>--}}
                                 </div>

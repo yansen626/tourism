@@ -201,11 +201,14 @@ class HomeController extends Controller
 
         if(!empty($provinceId) && !empty($searchText)){
             $provinceId = "";
-            $travelmate = Travelmate::select('id')
-                ->where('first_name', 'like', '%'.$searchText.'%')
+            $travelmates = Travelmate::where('first_name', 'like', '%'.$searchText.'%')
                 ->orWhere('last_name', 'like', '%'.$searchText.'%')
                 ->get();
-            $travelmateId = $travelmate->toArray();
+
+            $travelmateId = array();
+            foreach ($travelmates as $travelmate){
+                array_push($travelmateId, $travelmate->id);
+            }
 
             $packages = Package::where('status_id', 1)
                 ->whereIn('travelmate_id', $travelmateId)
@@ -225,11 +228,15 @@ class HomeController extends Controller
         }
         else if (!empty($searchText)){
             $provinceId = "";
-            $travelmate = Travelmate::select('id')
-                ->where('first_name', 'like', '%'.$searchText.'%')
+            $travelmates = Travelmate::where('first_name', 'like', '%'.$searchText.'%')
                 ->orWhere('last_name', 'like', '%'.$searchText.'%')
                 ->get();
-            $travelmateId = $travelmate->toArray();
+
+            $travelmateId = array();
+            foreach ($travelmates as $travelmate){
+                array_push($travelmateId, $travelmate->id);
+            }
+//            $travelmateId = $travelmate->toArray();
 
             $packages = Package::where('status_id', 1)
                 ->whereIn('travelmate_id', $travelmateId)

@@ -35,8 +35,10 @@
                                             EDIT
                                         </a>
                                     </div>
+                                    <h4>MY PROFILE</h4>
+                                @else
+                                    <h4>TRAVELMATE PROFILE</h4>
                                 @endif
-                                <h4>MY PROFILE</h4>
                                 <hr>
                                 <h5>{{ $user->first_name. ' '. $user->last_name }}</h5>
                                 <span>Jakarta</span>
