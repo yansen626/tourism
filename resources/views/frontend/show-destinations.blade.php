@@ -48,7 +48,7 @@
                         <div class="col-md-6">
                             <div class="recom-item border">
                                 <div class="recom-media">
-                                    <a href="#">
+                                    <a href="{{route('package-detail', ['id'=>$package->id])}}">
                                         <div class="pic">
                                             <img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
                                                  data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
@@ -67,7 +67,7 @@
                                     <div class="stars stars-4"></div>
                                     <div class="recom-price">Rp {{$package->price}}</div>
                                     <p class="mb-30">{{$package->description}}</p>
-                                    <a href="#" class="recom-button">Read more</a>
+                                    <a href="{{route('package-detail', ['id'=>$package->id])}}" class="recom-button">Read more</a>
                                     <button onclick="addToCart('{{$package->id}}')" class="cws-button small alt">Add to cart</button>
                                     {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
                                     {{--<div class="action font-2">20%</div>--}}

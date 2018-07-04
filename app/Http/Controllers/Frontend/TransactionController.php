@@ -42,6 +42,10 @@ class TransactionController extends Controller
         $this->middleware('auth');
     }
 
+    public function CheckoutProcess(){
+        return View('frontend.transactions.payment-result');
+    }
+
     //set address for shipping
     public function CheckoutProcess1(){
 //        if (!Auth::check())

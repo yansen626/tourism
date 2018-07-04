@@ -41,6 +41,9 @@ Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search
 Route::get('destinations/', 'Frontend\HomeController@Destinations')->name('destinations');
 Route::get('destination/', 'Frontend\HomeController@Destination')->name('destination');
 
+// Package
+Route::get('package-detail/{id}', 'Frontend\PackageController@show')->name('package-detail');
+
 // Traveler
 Route::prefix('traveller')->group(function(){
     Route::get('/', 'Frontend\TravelerController@show')->name('traveller.profile.show');
@@ -70,6 +73,8 @@ Route::post('tailor-made', 'Frontend\HomeController@submitTailorMade')->name('ta
 
 // transaction
 //Route::post('cart', 'Frontend\TransactionController@cart')->name('cart-list');
+Route::get('transaction-result', 'Frontend\TransactionController@CheckoutProcess')->name('transaction-result');
+
 // Cart
 Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
 Route::post('add-cart', 'Frontend\CartController@AddToCart')->name('addCart');
