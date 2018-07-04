@@ -72,10 +72,11 @@ Route::post('tailor-made', 'Frontend\HomeController@submitTailorMade')->name('ta
 //Route::post('cart', 'Frontend\TransactionController@cart')->name('cart-list');
 // Cart
 Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
-Route::post('/add-cart', [
-    'uses' => 'Frontend\CartController@AddToCart',
-    'as' => 'addCart'
-]);
+Route::post('add-cart', 'Frontend\CartController@AddToCart')->name('addCart');
+//Route::post('/add-cart', [
+//    'uses' => 'Frontend\CartController@AddToCart',
+//    'as' => 'addCart'
+//]);
 Route::get('delete-cart/{cartId}', 'Frontend\CartController@DeleteCart')->name('delete-cart');
 Route::post('/edit-cart', [
     'uses' => 'Frontend\CartController@EditQuantityCart',

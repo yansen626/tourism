@@ -83,6 +83,13 @@ class Package extends Eloquent
 		'updated_by'
 	];
 
+    public function getPriceAttribute(){
+        return number_format($this->attributes['price'], 0, ",", ".");
+    }
+
+    public function getFinalPriceAttribute(){
+        return number_format($this->attributes['final_price'], 0, ",", ".");
+    }
 	public function city()
 	{
 		return $this->belongsTo(\App\Models\City::class);

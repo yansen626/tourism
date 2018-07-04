@@ -20,72 +20,29 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="cart_item">
-                                <td class="product-thumbnail">
-                                    <a href="#">
-                                        <img src="{{ URL::asset('storage/package_image/top-slider-1.jpg') }}"
-                                             data-at2x="{{ URL::asset('storage/package_image/top-slider-1.jpg') }}"
-                                             alt="" class="attachment-shop_thumbnail wp-post-image">
-                                    </a>
-                                </td>
-                                <td class="product-name">
-                                    <a href="#">Package 1</a>
-                                </td>
-                                <td class="product-quantity">
-                                    03 August 2018
-                                </td>
-                                <td class="product-quantity">
-                                    08 August 2018
-                                </td>
-                                <td class="product-price"><span class="amount">Rp 500000</span></td>
+                            @foreach($carts as $cart)
+                                <tr class="cart_item">
+                                    <td class="product-thumbnail">
+                                        <a href="#">
+                                            <img src="{{ URL::asset('storage/package_image/'.$cart->package->featured_image) }}"
+                                                 data-at2x="{{ URL::asset('storage/package_image/'.$cart->package->featured_image) }}"
+                                                 alt="" class="attachment-shop_thumbnail wp-post-image">
+                                        </a>
+                                    </td>
+                                    <td class="product-name">
+                                        <a href="#">{{$cart->package->name}}</a>
+                                    </td>
+                                    <td class="product-quantity">
+                                        03 August 2018
+                                    </td>
+                                    <td class="product-quantity">
+                                        08 August 2018
+                                    </td>
+                                    <td class="product-price"><span class="amount">Rp {{$cart->package->price}}</span></td>
 
-                                <td class="product-remove"><a href="#" title="Remove this item" class="remove"></a></td>
-                            </tr>
-                            <tr class="cart_item">
-                                <td class="product-thumbnail">
-                                    <a href="#">
-                                        <img src="{{ URL::asset('storage/package_image/top-slider-2.jpg') }}"
-                                             data-at2x="{{ URL::asset('storage/package_image/top-slider-2.jpg') }}"
-                                             alt="" class="attachment-shop_thumbnail wp-post-image">
-                                    </a>
-                                </td>
-                                <td class="product-name">
-                                    <a href="#">Package 2</a>
-                                </td>
-                                <td class="product-quantity">
-                                    08 December 2018
-                                </td>
-                                <td class="product-quantity">
-                                    13 December 2018
-                                </td>
-                                <td class="product-price"><span class="amount">Rp 1000000</span></td>
-
-                                <td class="product-remove"><a href="#" title="Remove this item" class="remove"></a></td>
-                            </tr>
-                            {{--<tr class="cart_item">--}}
-                                {{--<td class="product-thumbnail"><a href="shop-single.html"><img src="pic/shop/240x300/3.jpg" data-at2x="pic/shop/240x300/3@2x.jpg" alt="" class="attachment-shop_thumbnail wp-post-image"></a></td>--}}
-                                {{--<td class="product-name"><a href="shop-single.html">Maecenas tempus</a></td>--}}
-                                {{--<td class="product-price"><span class="amount">220.00<sup>$</sup></span></td>--}}
-                                {{--<td class="product-quantity">--}}
-                                    {{--<div class="quantity buttons_added">--}}
-                                        {{--<input type="number" step="1" min="0" name="cart" value="1" title="Qty" class="input-text qty text">--}}
-                                    {{--</div>--}}
-                                {{--</td>--}}
-                                {{--<td class="product-subtotal"><span class="amount">220.00<sup>$</sup></span></td>--}}
-                                {{--<td class="product-remove"><a href="#" title="Remove this item" class="remove"></a></td>--}}
-                            {{--</tr>--}}
-                            {{--<tr class="cart_item last">--}}
-                                {{--<td class="product-thumbnail"><a href="shop-single.html"><img src="pic/shop/240x300/5.jpg" data-at2x="pic/shop/240x300/5@2x.jpg" alt="" class="attachment-shop_thumbnail wp-post-image"></a></td>--}}
-                                {{--<td class="product-name"><a href="shop-single.html">Curabitur ullam corper ultrici</a></td>--}}
-                                {{--<td class="product-price"><span class="amount">170.00<sup>$</sup></span></td>--}}
-                                {{--<td class="product-quantity">--}}
-                                    {{--<div class="quantity buttons_added">--}}
-                                        {{--<input type="number" step="1" min="0" name="cart" value="2" title="Qty" class="input-text qty text">--}}
-                                    {{--</div>--}}
-                                {{--</td>--}}
-                                {{--<td class="product-subtotal"><span class="amount">340.00<sup>$</sup></span></td>--}}
-                                {{--<td class="product-remove"><a href="#" title="Remove this item" class="remove"></a></td>--}}
-                            {{--</tr>--}}
+                                    <td class="product-remove"><a href="{{route('delete-cart', ['cartId'=>$cart->id])}}" title="Remove this item" class="remove"></a></td>
+                                </tr>
+                            @endforeach
                             <tr>
                                 <td colspan="6" class="actions">
                                     <div class="coupon">
@@ -107,7 +64,7 @@
                                 <tbody>
                                 <tr class="cart-subtotal">
                                     <th>Cart Subtotal</th>
-                                    <td><span class="amount">Rp 1500000</span></td>
+                                    <td><span class="amount">Rp {{$totalPrice}}</span></td>
                                 </tr>
                                 <tr class="shipping">
                                     <th>Voucher</th>
@@ -115,7 +72,7 @@
                                 </tr>
                                 <tr class="order-total">
                                     <th>Order Total</th>
-                                    <td><span class="amount">Rp 1500000</span></td>
+                                    <td><span class="amount">Rp {{$totalPrice}}</span></td>
                                 </tr>
                                 </tbody>
                             </table>
