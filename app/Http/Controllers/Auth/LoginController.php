@@ -70,7 +70,7 @@ class LoginController extends Controller
         else if(Auth::guard('travelmates')->attempt(['email' => $request['email'], 'password' => $request['password']])){
 //            return redirect()->action('Travelmate\HomeController@dashboard');
 //            return redirect()->action('Frontend\TravelmateController@index');
-            return redirect()->route('travelmate.profile.show');
+            return redirect()->route('travelmate.packages.index');
         }
         else
         {

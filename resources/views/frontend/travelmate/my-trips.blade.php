@@ -24,7 +24,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <h1>MY PACKAGES</h1>
+                            <h1>MY TRIP</h1>
                         </div>
                         <div class="col-md-6">
                             <div style="float: right;">
@@ -32,8 +32,9 @@
                                     <div class="form-group">
                                         <label>Sort By:&nbsp;</label>
                                         <select id="filter-travel" class="form-control">
-                                            <option>ACTIVE</option>
-                                            <option>DEACTIVE</option>
+                                            <option value="8" {{ $filter === "8" ? 'selected' : '' }}>FINISH</option>
+                                            <option value="9" {{ $filter === "9" ? 'selected' : '' }}>CANCEL</option>
+                                            <option value="12" {{ $filter === "12" ? 'selected' : '' }}>UPCOMING</option>
                                         </select>
                                     </div>
                                 </form>

@@ -98,7 +98,7 @@
                                 {{ \Illuminate\Support\Facades\Auth::guard('travelmates')->user()->first_name }} {{ \Illuminate\Support\Facades\Auth::guard('travelmates')->user()->last_name }}
                             </a>
                             <ul class="mn-sub">
-                                <li><a href="#">DASHBOARD</a></li>
+                                <li><a href="{{route('travelmate.packages.index')}}">DASHBOARD</a></li>
                                 <li><a href="{{ route('travelmate.profile.show') }}">MY PROFILE</a></li>
                                 <li><a href="{{ route('travelmate.packages.index') }}">MY PACKAGES</a></li>
                                 {{--<li><a href="#">CHANGE PASSWORD</a></li>--}}

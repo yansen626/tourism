@@ -127,7 +127,9 @@
                 },
                 success: function(data) {
                     if ((data.errors)){
-                        alert("eror");
+                        var url = "/login-traveller";
+
+                        window.location = url;
                     }
                     else{
                         // alert("success");

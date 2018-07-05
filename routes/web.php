@@ -59,6 +59,7 @@ Route::get('travelmate/dashboard', 'Travelmate\HomeController@dashboard')->name(
 Route::prefix('travelmate')->group(function(){
     Route::get('/show', 'Frontend\TravelmateController@show')->name('travelmate.profile.show');
     Route::get('/show-travelmate/{id}', 'Frontend\TravelmateController@showById')->name('travelmate.profile.showid');
+    Route::get('/my-trips', 'Frontend\TravelmateController@myTrips')->name('travelmate.trips');
     Route::get('/packages', 'Frontend\TravelmateController@packages')->name('travelmate.packages.index');
     Route::get('/packages/create', 'Frontend\TravelmateController@createPackage')->name('travelmate.packages.create');
     Route::post('/packages/create/save', 'Frontend\TravelmateController@storePackage')->name('travelmate.packages.store');

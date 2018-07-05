@@ -12,16 +12,21 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\General;
 use App\Models\Package;
+use App\Models\PackagePrice;
+use App\Models\PackageTrip;
 use App\Models\Province;
 use App\Models\Travelmate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
+use Webpatser\Uuid\Uuid;
 
 class TravelmateController extends Controller
 {
@@ -189,6 +194,28 @@ class TravelmateController extends Controller
         }
     }
 
+    public function myTrips(){
+        try{
+            $filter = 0;
+            $status = request()->status;
+            if(!empty($status)){
+                $filter = $status;
+            }
+
+            $packages = Package::orderBy('created_at', 'desc')->paginate(20);
+
+            $data = [
+                'packages'      => $packages,
+                'filter'      => $filter
+            ];
+//            dd($data);
+            return view('frontend.travelmate.my-trips')->with($data);
+        }
+        catch(\Exception $ex){
+            error_log($ex);
+        }
+    }
+
     public function createPackage(){
         $provinces = Province::orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
@@ -206,9 +233,127 @@ class TravelmateController extends Controller
 
     public function storePackage(Request $request){
         try{
+            $validator = Validator::make($request->all(), [
+                'description'             => 'required',
+                'start_date'             => 'required',
+                'end_date'          => 'required',
+                'meeting_point'             => 'required',
+                'max_capacity'             => 'required'
+            ]);
+            if ($validator->fails()) return redirect()->back()->withErrors($validator->errors())->withInput();
+
+            if (Input::get('province') == "-1") {
+                return back()->withErrors("The province is required")->withInput();
+            }
+
+            if (Input::get('city') == "-1") {
+                return back()->withErrors("The city is required")->withInput();
+            }
+
+//            dd($request);
+            $tripStartDates = Input::get('trip_start_date');
+            $tripEndDates = Input::get('trip_end_date');
+            $tripImages = $request->file('trip_image');
+            $tripDescriptions = Input::get('trip_description');
+
+//            dd($tripImages);
+            $isNullTripStartDates = in_array(null, $tripStartDates, true);
+            $isNullTripEndDates = in_array(null, $tripEndDates, true);
+            $isNullTripImages = in_array(null, $tripImages, true);
+            $isNullTripDescriptions = in_array(null, $tripDescriptions, true);
+
+            if($isNullTripStartDates && $isNullTripEndDates && $isNullTripImages && $isNullTripDescriptions){
+                return back()->withErrors("All Trip field required")->withInput();
+            }
+
+            $pricingQuantities = Input::get('qty');
+            $pricingPrice = Input::get('price');
+            $isNullPricingQuantities = in_array(null, $pricingQuantities, true);
+            $isNullPricingPrice = in_array(null, $pricingPrice, true);
+
+            if($isNullPricingQuantities && $isNullPricingPrice){
+                return back()->withErrors("All Pricing field required")->withInput();
+            }
+            $user = \Auth::guard('travelmates')->user();
+
+            $packageID = Uuid::generate();
+
+//            $startDateTrip = Carbon::createFromFormat('d M Y H:i', $tripStartDates[0], 'Asia/Jakarta');
+//            dd($startDateTrip);
+            DB::transaction(function() use ($request, $packageID, $user, $tripStartDates,
+                $tripEndDates, $tripImages, $tripDescriptions, $pricingQuantities, $pricingPrice) {
+
+                $startDate = Carbon::createFromFormat('d M Y', Input::get('start_date'), 'Asia/Jakarta');
+                $endDate = Carbon::createFromFormat('d M Y', Input::get('end_date'), 'Asia/Jakarta');
+                $dateTimeNow = Carbon::now('Asia/Jakarta');
+                $newPackage = Package::create([
+                    'id' =>$packageID,
+                    'travelmate_id' => $user->id,
+                    'category_id' => Input::get('category'),
+                    'province_id' => Input::get('province'),
+                    'city_id' => Input::get('city'),
+                    'description' => Input::get('description'),
+                    'price' => min($pricingPrice),
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                    'status_id' => 1,
+                    'created_at'        => $dateTimeNow->toDateTimeString()
+                ]);
+
+                $img = Image::make($request->file('cover'));
+                $extStr = $img->mime();
+                $ext = explode('/', $extStr, 2);
+
+                $filename = $packageID.'_featured_'.Carbon::now('Asia/Jakarta')->format('Ymdhms'). '.'. $ext[1];
+
+                $img->save(public_path('storage/package_image/'. $filename), 75);
+                $newPackage->featured_image = $filename;
+                $newPackage->save();
+
+                //package trips
+                for($i=0;$i<sizeof($tripDescriptions);$i++){
+
+                    $startDateTrip = Carbon::createFromFormat('d M Y H:i', $tripStartDates[$i], 'Asia/Jakarta');
+                    $endDateTrip = Carbon::createFromFormat('d M Y H:i', $tripEndDates[$i], 'Asia/Jakarta');
+                    $newPackageTrip = PackageTrip::create([
+                        'package_id' => $packageID,
+                        'start_date' => $startDateTrip,
+                        'end_date' => $endDateTrip,
+                        'description' => $tripDescriptions[$i]
+                    ]);
+
+                    $img = Image::make($tripImages[$i]);
+                    $extStr = $img->mime();
+                    $ext = explode('/', $extStr, 2);
+
+                    $filename = $packageID.'_trip_'.Carbon::now('Asia/Jakarta')->format('Ymdhms'). '.'. $ext[1];
+
+                    $img->save(public_path('storage/package_image/'. $filename), 75);
+                    $newPackageTrip->featured_image = $filename;
+                    $newPackageTrip->save();
+                }
+
+                //package pricing
+                $serviceFee = General::find(1);
+                for($i=0;$i<sizeof($pricingQuantities);$i++){
+                    $total = $pricingQuantities[$i] * $pricingPrice[$i];
+                    $final = $total - ((10/100) * $total);
+
+                    $newPackagePrice = PackagePrice::create([
+                        'package_id' => $packageID,
+                        'quantity' => $pricingQuantities[$i],
+                        'price' => $pricingPrice[$i],
+                        'service_fee' => $serviceFee->service_fee,
+                        'final_price' => $final
+                    ]);
+
+                }
+            });
+            return redirect()->route('travelmate.packages.index');
 
         }catch(\Exception $ex){
             error_log($ex);
+            return back()->withErrors("Something Went Wrong")->withInput();
         }
     }
 

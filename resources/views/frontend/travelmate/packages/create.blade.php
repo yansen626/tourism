@@ -47,6 +47,21 @@
                                         </li>
                                     </ul>
                                 </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @if(count($errors))
+                                        <div class="form-group">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 alert alert-danger alert-dismissible fade in" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                </button>
+                                                <ul>
+                                                    @foreach($errors->all() as $error)
+                                                        <li> {{ $error }} </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="one">
                                         <div class="col-lg-12 col-md-12">
@@ -69,12 +84,14 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
-                                            <div class="col-lg-9 col-md-9 col-xs-12">
+                                            <div class="col-lg-12 col-md-12 col-xs-12">
                                                 <div class="row form-panel">
                                                     {!! Form::file('cover', array('id' => 'cover', 'class' => 'file-loading')) !!}
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 col-md-3 col-xs-12">
+                                        </div>
+                                        <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
+                                            <div class="col-lg-12 col-md-12 col-xs-12">
                                                 <div class="row form-panel">
                                                     <h5 class="text-center">TRAVEL CATEGORY</h5>
                                                     <div id="category_list" class="field radio_field">
@@ -94,7 +111,9 @@
                                                             ABOUT THE TRIP
                                                         </label>
                                                         <div class="col-lg-9 col-md-3 col-xs-12">
-                                                            <textarea id="description" name="description" rows="5" class="form-control" style="resize: none; overflow-y: scroll;"></textarea>
+                                                            <textarea id="description" name="description" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">
+                                                                {{old('description')}}
+                                                            </textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -107,7 +126,7 @@
                                                         <label for="start_date">START DATE</label>
                                                     </div>
                                                     <div class='input-group date' >
-                                                        <input id='start_date' name="start_date" type='text' class="form-control" />
+                                                        <input id='start_date' name="start_date" value="{{old('start_date')}}" type='text' class="form-control" />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>
@@ -120,7 +139,7 @@
                                                         <label for="end_date">END DATE</label>
                                                     </div>
                                                     <div class='input-group date' >
-                                                        <input id='end_date' name="end_date" type='text' class="form-control" />
+                                                        <input id='end_date' name="end_date" value="{{old('end_date')}}" type='text' class="form-control" />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>
@@ -135,7 +154,9 @@
                                                         <div class="text-center" style="width: 100%;">
                                                             <label for="meeting_point">MEETING POINT</label>
                                                         </div>
-                                                        <textarea id="meeting_point" name="meeting_point" rows="5" class="form-control" style="resize: none; overflow-y: scroll;"></textarea>
+                                                        <textarea id="meeting_point" name="meeting_point" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">
+                                                            {{old('meeting_point')}}
+                                                        </textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -144,7 +165,7 @@
                                                     <div class="form-group">
                                                         <div class="text-center" style="width: 100%;">
                                                             <label for="max_capacity">MAX CAPACITY</label>
-                                                            <input id='max_capacity' name="max_capacity" type='number' placeholder="PERSONS" class="form-control" style="width: 100%;"/>
+                                                            <input id='max_capacity' name="max_capacity" type='number' value="{{old('max_capacity')}}" placeholder="PERSONS" class="form-control" style="width: 100%;"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,7 +175,7 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="row">
                                                     <div style="float: right">
-                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(2);">NEXT</button>
+                                                        <a href="#two" data-toggle="tab" class="btn btn-success btn-create" id="next_one">NEXT</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,12 +217,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 20px;">
-                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="col-lg-12 col-md-12 col-xs-12">
                                                             <div class="row form-panel">
-                                                                {!! Form::file('trip_image_1', array('id' => 'trip_image_1', 'class' => 'file-loading')) !!}
+                                                                {!! Form::file('trip_image[]', array('id' => 'trip_image_1', 'class' => 'file-loading')) !!}
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 20px;">
+                                                        <div class="col-lg-12 col-md-12 col-xs-12">
                                                             <div class="row form-panel">
                                                                 <textarea id="trip_description_1" name="trip_description[]" rows="5" placeholder="TRIP DESCRIPTION" class="form-control" style="resize: none; overflow-y: scroll;"></textarea>
                                                             </div>
@@ -222,10 +245,12 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="row">
                                                     <div style="float: left">
-                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(1);">PREVIOUS</button>
+                                                        <a href="#one" data-toggle="tab" class="btn btn-success btn-create" id="next_one">PREVIOUS</a>
+                                                        {{--<button class="btn btn-success btn-create" id="next_one" onclick="switchTab(1);">PREVIOUS</button>--}}
                                                     </div>
                                                     <div style="float: right">
-                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(3);">NEXT</button>
+                                                        <a href="#three" data-toggle="tab" class="btn btn-success btn-create" id="next_one">NEXT</a>
+                                                        {{--<button class="btn btn-success btn-create" id="next_one" onclick="switchTab(3);">NEXT</button>--}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -256,7 +281,7 @@
                                                                 <input id="qty_1" name="qty[]" type="text" onblur="getTotal(1);" class="form-control text-center">
                                                             </td>
                                                             <td class="text-center">
-                                                                <input id="price_1" name="qty[]" type="text" onblur="getTotal(1);" class="form-control text-center">
+                                                                <input id="price_1" name="price[]" type="text" onblur="getTotal(1);" class="form-control text-center">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input id="total_1" type="text" class="form-control text-center" readonly>
@@ -283,7 +308,8 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="row">
                                                     <div style="float: left">
-                                                        <button class="btn btn-success btn-create" id="next_one" onclick="switchTab(2);">PREVIOUS</button>
+                                                        <a href="#two" data-toggle="tab" class="btn btn-success btn-create" id="next_one">PREVIOUS</a>
+                                                        {{--<button class="btn btn-success btn-create" id="next_one" onclick="switchTab(2);">PREVIOUS</button>--}}
                                                     </div>
                                                     <div style="float: right">
                                                         <button class="btn btn-success btn-create" id="next_one" onclick="submitPackage();">ACTIVATE</button>
@@ -317,6 +343,18 @@
     <link rel="stylesheet" href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}">
     <style>
         @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+
+        label > input{ /* HIDE RADIO */
+            visibility: hidden; /* Makes input not-clickable */
+            position: absolute; /* Remove input from document flow */
+        }
+        label > input + img{ /* IMAGE STYLES */
+            cursor:pointer;
+            border:2px solid transparent;
+        }
+        label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+            border:2px solid #f00;
+        }
 
         .board ul li{
             padding-left: 0 !important;;
@@ -629,7 +667,7 @@
             showRemove: false,
             dropZoneEnabled: true,
             browseOnZoneClick: true,
-            dropZoneTitle: "UPLOAD COVER IMAGE HERE!",
+            dropZoneTitle: "UPLOAD COVER IMAGE HERE! (RECOMMENDED SIZE IMAGE 770 x 290)",
             uploadExtraData:{'_token':'{{ csrf_token() }}'}
         });
 
@@ -710,14 +748,17 @@
             sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12' style='margin-top: 20px;'>");
-            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
             sbAdd.append("<div class='row form-panel'>");
-            sbAdd.append("<input id='trip_image_" + i + "' class='file-loading' name='trip_image_" + i + "' type='file'>");
+            sbAdd.append("<input id='trip_image_" + i + "' class='file-loading' name='trip_image[]' type='file'>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
-            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            sbAdd.append("</div>");
+            sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12' style='margin-top: 20px;'>");
+            sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
             sbAdd.append("<div class='row form-panel'>");
             sbAdd.append("<textarea id='trip_description_" + i + "' name='trip_description[]' rows='5' placeholder='TRIP DESCRIPTION' class='form-control' style='resize: none; overflow-y: scroll;'></textarea>");
+            sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
@@ -774,7 +815,7 @@
             sbAddPrice.append("<input id='qty_" + pricingIdx + "' name='qty[]' type='text' onblur='getTotal(" + pricingIdx + ");' class='form-control text-center'>");
             sbAddPrice.append("</td>");
             sbAddPrice.append("<td class='text-center'>");
-            sbAddPrice.append("<input id='price_" + pricingIdx + "' name='qty[]' type='text' onblur='getTotal(" + pricingIdx + ");' class='form-control text-center'>");
+            sbAddPrice.append("<input id='price_" + pricingIdx + "' name='price[]' type='text' onblur='getTotal(" + pricingIdx + ");' class='form-control text-center'>");
             sbAddPrice.append("</td>");
             sbAddPrice.append("<td class='text-center'>");
             sbAddPrice.append("<input id='total_" + pricingIdx + "' type='text' class='form-control text-center' readonly>");

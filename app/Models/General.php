@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 19 May 2018 15:31:46 +0000.
+ * Date: Wed, 04 Jul 2018 15:24:44 +0000.
  */
 
 namespace App\Models;
@@ -15,6 +15,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property float $idrusd
  * @property float $idrrmb
+ * @property int $service_fee
  *
  * @package App\Models
  */
@@ -24,11 +25,13 @@ class General extends Eloquent
 
 	protected $casts = [
 		'idrusd' => 'float',
-		'idrrmb' => 'float'
+		'idrrmb' => 'float',
+		'service_fee' => 'int'
 	];
 
 	protected $fillable = [
 		'idrusd',
-		'idrrmb'
+		'idrrmb',
+		'service_fee'
 	];
 }

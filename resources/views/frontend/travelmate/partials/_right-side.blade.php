@@ -5,11 +5,13 @@
                 <div class="row mg-0" style="margin-bottom: 20%;">
                     <div>
                         <div class="col-md-9">
-                            <h4>MY TRIP</h4>
+                            <a href="{{route('travelmate.trips')}}">
+                                <h4>MY TRIP</h4>
+                            </a>
                         </div>
                         <div class="col-md-3" style="padding-top: 7%;">
                             <p style="font-size: 12px;">
-                                <a href="#">VIEW ALL</a>
+                                <a href="{{route('travelmate.trips')}}">VIEW ALL</a>
                             </p>
                         </div>
                     </div>
@@ -35,7 +37,7 @@
                         </div>
                         <div class="col-md-3" style="padding-top: 7%;">
                             <p style="font-size: 12px;">
-                                <a href="#">VIEW ALL</a>
+                                <a href="/travelmate/my-trips?status=12">VIEW ALL</a>
                             </p>
                         </div>
                     </div>
