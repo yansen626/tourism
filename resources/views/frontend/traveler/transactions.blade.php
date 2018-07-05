@@ -28,46 +28,18 @@
                             <div class="col-md-6">
                                 <h1>MY BOOKING</h1>
                             </div>
-                            <div class="col-md-6">
-                                <div style="float: right;">
-                                    <form class="form-inline" style="margin-top:30px;">
-                                        <div class="form-group">
-                                            <label>Status:</label>
-                                            <select id="filter-travel" class="form-control">
-                                                <option>ALL</option>
-                                                <option>FINISHED</option>
-                                                <option>CANCELED</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
 
                         @elseif($flag == 2)
                             <div class="col-md-6">
                                 <h1>UPCOMING</h1>
-                            </div>
-                            <div class="col-md-6">
-                                <div style="float: right;">
-                                    <form class="form-inline" style="margin-top:30px;">
-                                        <div class="form-group">
-                                            <label>Status:</label>
-                                            <select id="filter-travel" class="form-control">
-                                                <option>ALL</option>
-                                                <option>FINISHED</option>
-                                                <option>CANCELED</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-
                             </div>
 
                         @elseif($flag == 3)
                             <div class="col-md-6">
                                 <h1>HISTORY</h1>
                             </div>
+
+                        @endif
                             <div class="col-md-6">
                                 <div style="float: right;">
                                     <form class="form-inline" style="margin-top:30px;">
@@ -84,7 +56,6 @@
 
                             </div>
 
-                        @endif
                     </div>
                     <div class="row">
                         <div class="col-md-12">

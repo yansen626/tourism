@@ -51,7 +51,8 @@
                                 <tbody>
                                 @foreach($packages as $package)
                                     @php( $img = $package->featured_image )
-                                    <tr class="travelmate-transactions" style="background: url('{{ URL::asset('storage/package_image/'. $img) }}') no-repeat;">
+                                    @php($url = route('package-detail', ['id'=>$package->id]))
+                                    <tr class="travelmate-transactions" style="background: url('{{ URL::asset('storage/package_image/'. $img) }}') no-repeat;cursor: pointer;" onclick="document.location = '{{$url}}';">
                                         <td class="travelmate-td">
                                             <div class="col-md-6 text-left">
                                                 {{ $package->name }} <br>{{ $package->province->name }}, {{ $package->city->name }}

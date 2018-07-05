@@ -111,9 +111,7 @@
                                                             ABOUT THE TRIP
                                                         </label>
                                                         <div class="col-lg-9 col-md-3 col-xs-12">
-                                                            <textarea id="description" name="description" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">
-                                                                {{old('description')}}
-                                                            </textarea>
+                                                            <textarea id="description" name="description" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">{{old('description')}}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,9 +152,7 @@
                                                         <div class="text-center" style="width: 100%;">
                                                             <label for="meeting_point">MEETING POINT</label>
                                                         </div>
-                                                        <textarea id="meeting_point" name="meeting_point" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">
-                                                            {{old('meeting_point')}}
-                                                        </textarea>
+                                                        <textarea id="meeting_point" name="meeting_point" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">{{old('meeting_point')}}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

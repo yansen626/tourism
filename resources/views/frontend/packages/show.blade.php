@@ -15,16 +15,6 @@
 
                     </div>
                     <div class="col-md-3">
-                        <p>PARTICIPANTS : </p>
-                    </div>
-                    <div class="col-md-9">
-                        <p>
-                            Mr. Budi <br>
-                            Ms. Listyani Lee <br>
-                            Ms. Cynthia Lesmana
-                        </p>
-                    </div>
-                    <div class="col-md-3">
                         <p>DESTINATION : </p>
                     </div>
                     <div class="col-md-9">
@@ -34,7 +24,9 @@
                         <p>SCHEDULE : </p>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" name="daterange" value="03/08/2018 - 11/08/2018" />
+                        @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d/m/Y'))
+                        @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d/m/Y'))
+                        <input type="text" name="daterange" value="{{$startDate}} - {{$endDate}}" />
                     </div>
                     <div class="col-md-3">
                         <p>TRAVEL MATE : </p>
@@ -50,26 +42,46 @@
                         <span>PRICE : </span>
                     </div>
                     <div class="col-md-9">
-                        <span> {{$package->price}}</span>
+
+                        @if($packagePrices->count() > 0)
+                            @php($qty = 0)
+                            @foreach($packagePrices as $packagePrice)
+                                @php($qty = $qty+1)
+                                <span> ({{$qty}}-{{$packagePrice->quantity}} Person) IDR {{$packagePrice->price}}</span>
+                                <br>
+                                @php($qty = $packagePrice->quantity)
+                            @endforeach
+                        @endif
+
                     </div>
                     <div class="col-md-12">
                         <span>PROGRAM : </span>
                         <br>
-                        <textarea> asdfadsfds \n safdfadf </textarea>
-                        <br>
 
-                        <a href="#" class="btn btn-default" style="background-color: #ffc801; color:white;">
-                            Download PDF
-                        </a>
-                    </div>
-                    <div class="col-md-12">
-                        <span>ADD ONS </span>
-                    </div>
-                    <div class="col-md-3">
-                        <span>PAYMENT STATUS : </span>
-                    </div>
-                    <div class="col-md-9">
-                        <span> 50%</span>
+                        <div class="row form-panel">
+                            @if($packageTrips->count() > 0)
+                                @foreach($packageTrips as $packageTrip)
+                                    @php($startDateTrip = \Carbon\Carbon::parse($packageTrip->start_date)->format('d/m/Y G:i'))
+                                    @php($endDateTrip = \Carbon\Carbon::parse($packageTrip->end_date)->format('d/m/Y G:i'))
+
+                                    <span> ({{$startDateTrip}} - {{$endDateTrip}}) Desc : {{$packageTrip->description}}</span>
+                                    <br>
+
+                                @endforeach
+                            @endif
+                        </div>
+                        <br>
+                        @if(auth()->guard('web')->check())
+                            <a href="#" class="btn btn-default" style="background-color: #ffc801; color:white;">
+                                Download PDF
+                            </a>
+                        @elseif(auth()->guard('travelmates')->check())
+                            @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $package->travelmate_id)
+                                <a href="#" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                    edit
+                                </a>
+                            @endif
+                        @endif
                     </div>
                     <div class="col-md-3">
                         <span>RATING : </span>
@@ -79,9 +91,18 @@
                         <div class="stars {{$star}}"></div>
                     </div>
                     <div class="col-md-12 text-right">
-                        <a href="#" class="btn btn-danger" >
-                            Cancel
-                        </a>
+
+                        @if(auth()->guard('web')->check())
+                            <a href="#" class="btn btn-danger" >
+                                Cancel
+                            </a>
+                        @elseif(auth()->guard('travelmates')->check())
+                            @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $package->travelmate_id)
+                                <a href="#" class="btn btn-danger" >
+                                    Deactive
+                                </a>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -96,6 +117,17 @@
 
 @section('styles')
     @parent
+    <style>
+
+        .form-panel{
+            overflow-y :scroll;
+            height:150px;
+            border: 2px solid #EB5532;
+            border-radius: 15px;
+            padding: 10px;
+            margin: 0;
+        }
+    </style>
 @endsection
 
 @section('scripts')
