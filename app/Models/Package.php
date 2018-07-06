@@ -83,9 +83,9 @@ class Package extends Eloquent
 		'updated_by'
 	];
 
-    public function getPriceAttribute(){
-        return number_format($this->attributes['price'], 0, ",", ".");
-    }
+//    public function getPriceAttribute(){
+//        return number_format($this->attributes['price'], 0, ",", ".");
+//    }
 
 	public function city()
 	{

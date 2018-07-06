@@ -43,9 +43,9 @@ class PackagePrice extends Eloquent
 		'final_price'
 	];
 
-    public function getPriceAttribute(){
-        return number_format($this->attributes['price'], 0, ",", ".");
-    }
+//    public function getPriceAttribute(){
+//        return number_format($this->attributes['price'], 0, ",", ".");
+//    }
 
     public function getFinalPriceAttribute(){
         return number_format($this->attributes['final_price'], 0, ",", ".");

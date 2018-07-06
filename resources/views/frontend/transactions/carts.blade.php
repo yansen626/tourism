@@ -10,6 +10,20 @@
                     <h2 class="title-section mb-5">
                         <span>My Cart</span>
                     </h2>
+                    <span>Select Currency : </span>
+                    <label class="radio-inline">
+                        <input type="radio" value="IDR" {{$currencyType == "IDR" ? 'checked':''}}
+                               onchange="selectCurrency(this);" name="optradio">IDR
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="USD" {{$currencyType == "USD" ? 'checked':''}}
+                               onchange="selectCurrency(this);" name="optradio">USD
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="RMB" {{$currencyType == "RMB" ? 'checked':''}}
+                               onchange="selectCurrency(this);" name="optradio">RMB
+                    </label>
+                    <br>
                     <form action="#" method="post">
                         <table class="shop_table cart">
                             <thead>
@@ -43,7 +57,9 @@
                                     <td class="product-quantity">
                                         {{$endDate}}
                                     </td>
-                                    <td class="product-price"><span class="amount">Rp {{$cart->package->price}}</span></td>
+                                    @php($priceConvert = $cart->package->price / $currencyValue)
+                                    @php($priceConvert = number_format($priceConvert, 2, ",", "."))
+                                    <td class="product-price"><span class="amount">{{$currencyType}} {{$priceConvert}}</span></td>
 
                                     <td class="product-remove"><a href="{{route('delete-cart', ['cartId'=>$cart->id])}}" title="Remove this item" class="remove"></a></td>
                                 </tr>
@@ -55,7 +71,6 @@
                                         <input id="coupon_code" type="text" name="coupon_code" value="" placeholder="Voucher code" class="input-text corner-radius-top">
                                         <input type="button" name="apply_coupon" value="Apply" class="cws-button alt">
                                     </div>
-                                    <input type="button" name="update_cart" value="Update Cart" class="cws-button">
                                     {{--<input type="button" name="proceed" value="Proceed to Checkout" class="cws-button">--}}
                                     <a href="{{route('transaction-result')}}" class="cws-button">Proceed to Checkout</a>
                                 </td>
@@ -70,7 +85,7 @@
                                 <tbody>
                                 <tr class="cart-subtotal">
                                     <th>Cart Subtotal</th>
-                                    <td><span class="amount">Rp {{$totalPrice}}</span></td>
+                                    <td><span class="amount">{{$currencyType}}  {{$totalPrice}}</span></td>
                                 </tr>
                                 <tr class="shipping">
                                     <th>Voucher</th>
@@ -78,7 +93,7 @@
                                 </tr>
                                 <tr class="order-total">
                                     <th>Order Total</th>
-                                    <td><span class="amount">Rp {{$totalPrice}}</span></td>
+                                    <td><span class="amount">{{$currencyType}} {{$totalPrice}}</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -100,4 +115,15 @@
 
 @section('scripts')
     @parent
+    <script>
+
+        function selectCurrency(e){
+            // Get status filter value
+            var status = e.value;
+
+            var url = "/cart?currency=" + status;
+
+            window.location = url;
+        }
+    </script>
 @endsection

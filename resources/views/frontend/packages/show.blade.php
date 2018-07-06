@@ -60,16 +60,30 @@
                         <hr>
                         <h4>PRICING</h4>
                     </div>
-                    <div class="col-md-3">
+                    <div id="price" class="col-md-3">
                         <span>PRICE : </span>
+                        <br>
+                        <label class="radio-inline">
+                            <input type="radio" value="IDR" {{$currencyType == "IDR" ? 'checked':''}}
+                            onchange="selectCurrency(this, '{{ $package->id }}');" name="optradio">IDR
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value="USD" {{$currencyType == "USD" ? 'checked':''}}
+                            onchange="selectCurrency(this, '{{$package->id}}');" name="optradio">USD
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value="RMB" {{$currencyType == "RMB" ? 'checked':''}}
+                            onchange="selectCurrency(this, '{{$package->id}}');" name="optradio">RMB
+                        </label>
                     </div>
                     <div class="col-md-9">
-
                         @if($packagePrices->count() > 0)
                             @php($qty = 0)
                             @foreach($packagePrices as $packagePrice)
                                 @php($qty = $qty+1)
-                                <span> ({{$qty}}-{{$packagePrice->quantity}} Person) IDR {{$packagePrice->price}}</span>
+                                @php($finalPrice = $packagePrice->price / $currencyValue)
+                                @php($priceConvert = number_format($finalPrice, 2, ",", "."))
+                                <span> ({{$qty}}-{{$packagePrice->quantity}} Person) {{$currencyType}} {{$priceConvert}}</span>
                                 <br>
                                 @php($qty = $packagePrice->quantity)
                             @endforeach
@@ -137,6 +151,11 @@
 @section('styles')
     @parent
     <style>
+        #price input {
+            float: left;
+            -webkit-appearance: radio !important;
+        }
+
         .cws_divider, hr {
             border-bottom: 2px solid #EB5532;
         }
@@ -162,6 +181,14 @@
             $(".daterangepicker").show();
         });
 
+        function selectCurrency(e, id){
+            // Get status filter value
+            var status = e.value;
+
+            var url = "/package-detail/"+id+"?currency=" + status;
+
+            window.location = url;
+        }
         $(function() {
             $('input[name="daterange"]').daterangepicker({
                 autoApply: true,

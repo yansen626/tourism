@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\libs\Utilities;
 use App\Models\Cart;
+use App\Models\General;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\ProductProperty;
@@ -35,13 +36,30 @@ class CartController
             foreach ($carts as $cart){
                 array_push($packageId, $cart->package_id);
             }
+
+            $currencyType = "IDR";
+            $currencyValue = 1;
+
+            if(!empty(request()->currency)){
+                $currencyType = request()->currency;
+                $generalDB = General::find(1);
+
+                if($currencyType == "USD"){
+                    $currencyValue = $generalDB->idrusd;
+                }
+                else if ($currencyType == "RMB"){
+                    $currencyValue = $generalDB->idrrmb;
+                }
+            };
             $totalPriceTem = Package::wherein('id', $packageId)->sum('price');
-            $totalPrice = number_format($totalPriceTem, 0, ",", ".");
+            $totalPrice = $totalPriceTem/$currencyValue;
+            $totalPrice = number_format($totalPrice, 2, ",", ".");
 
             $data = [
                 'carts'          => $carts,
-                'totalPrice'          => $totalPrice,
-                'totalPriceTem'          => $totalPriceTem
+                'currencyType'          => $currencyType,
+                'currencyValue'          => $currencyValue,
+                'totalPrice'          => $totalPrice
             ];
             return view('frontend.transactions.carts')->with($data);
         }
