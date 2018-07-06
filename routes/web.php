@@ -61,8 +61,11 @@ Route::prefix('travelmate')->group(function(){
     Route::get('/show-travelmate/{id}', 'Frontend\TravelmateController@showById')->name('travelmate.profile.showid');
     Route::get('/my-trips', 'Frontend\TravelmateController@myTrips')->name('travelmate.trips');
     Route::get('/packages', 'Frontend\TravelmateController@packages')->name('travelmate.packages.index');
+    Route::get('/packages/show/{id}', 'Frontend\TravelmateController@showPackage')->name('travelmate.packages.show');
     Route::get('/packages/create', 'Frontend\TravelmateController@createPackage')->name('travelmate.packages.create');
     Route::post('/packages/create/save', 'Frontend\TravelmateController@storePackage')->name('travelmate.packages.store');
+    Route::get('/packages/information/edit/{package}', 'Frontend\TravelmateController@editPackageInformation')->name('travelmate.packages.information.edit');
+    Route::put('/packages/information/update/{package}', 'Frontend\TravelmateController@updatePackageInformation')->name('travelmate.packages.information.update');
     Route::get('/packages/city', 'Frontend\TravelmateController@getCities')->name('travelmate.packages.cities');
     Route::get('/profile/edit', 'Frontend\TravelmateController@edit')->name('travelmate.profile.edit');
     Route::put('/profile/update/{user}', 'Frontend\TravelmateController@update')->name('travelmate.profile.update');

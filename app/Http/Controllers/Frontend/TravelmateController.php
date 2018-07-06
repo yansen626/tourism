@@ -231,6 +231,20 @@ class TravelmateController extends Controller
         return view('frontend.travelmate.packages.create')->with($data);
     }
 
+    public function showPackage($id){
+        $package = Package::find($id);
+        $packagePrices = $package->package_prices;
+        $packageTrips = $package->package_trips;
+
+        $data = [
+            'package'       => $package,
+            'packagePrices' => $packagePrices,
+            'packageTrips'  => $packageTrips
+        ];
+
+        return view('frontend.travelmate.packages.show')->with($data);
+    }
+
     public function storePackage(Request $request){
         try{
             $validator = Validator::make($request->all(), [
@@ -359,6 +373,25 @@ class TravelmateController extends Controller
             error_log($ex);
             return back()->withErrors("Something Went Wrong")->withInput();
         }
+    }
+
+    public function editPackageInformation(Package $package){
+        $provinces = Province::orderBy('name')->get();
+        $cities = City::where('province_id', $package->province_id)->orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
+
+        $data = [
+            'package'       => $package,
+            'provinces'     => $provinces,
+            'cities'        => $cities,
+            'categories'    => $categories
+        ];
+
+        return view('frontend.travelmate.packages.edit-info')->with($data);
+    }
+
+    public function updatePackageInformation(Package $package, Request $request){
+
     }
 
     public function getCities(){
