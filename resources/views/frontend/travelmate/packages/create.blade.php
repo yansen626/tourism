@@ -67,7 +67,10 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="row form-panel">
-                                                    <div class="col-lg-6 col-md-6 text-center">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <input id='name' name="name" type='text' value="{{old('name')}}" placeholder="DESTINATION" class="form-control" style="width: 100%;"/>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 text-center">
                                                         <select id="province" name="province" class="form-control" onchange="getCity()">
                                                             <option value="-1">- Select Province -</option>
                                                             @foreach($provinces as $province)
@@ -75,7 +78,7 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6">
+                                                    <div class="col-lg-4 col-md-4">
                                                         <select id="city" name="city" class="form-control">
                                                             <option value="-1">- Select City -</option>
                                                         </select>

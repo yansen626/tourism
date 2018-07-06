@@ -198,6 +198,7 @@ class HomeController extends Controller
         $provinces = Province::all();
         $provinceId = request()->province;
         $searchText = request()->search;
+        $sortBy = request()->sortBy;
 
         if(!empty($provinceId) && !empty($searchText)){
             $provinceId = "";
@@ -217,6 +218,30 @@ class HomeController extends Controller
             $provinceDB = Province::find($provinceId);
             $provinceName = $provinceDB->name;
             $searchText = "";
+        }
+        else if(!empty($sortBy)){
+            switch($sortBy){
+                case "price_low" :
+                    $packages = Package::where('status_id', 1)
+                        ->orderBy('price', 'asc')
+                        ->get();
+                    break;
+                case "price_high" :
+                    $packages = Package::where('status_id', 1)
+                        ->orderBy('price', 'desc')
+                        ->get();
+                    break;
+                case "date_asc" :
+                    $packages = Package::where('status_id', 1)
+                        ->orderBy('start_date', 'asc')
+                        ->get();
+                    break;
+                case "date_desc" :
+                    $packages = Package::where('status_id', 1)
+                        ->orderBy('start_date', 'desc')
+                        ->get();
+                    break;
+            }
         }
         else if(!empty($provinceId)){
             $packages = Package::where('status_id', 1)
@@ -250,6 +275,7 @@ class HomeController extends Controller
 
         $data = [
             'packages'          => $packages,
+            'sortBy'          => $sortBy,
             'provinces'          => $provinces,
             'provinceName'          => $provinceName,
             'provinceId'          => $provinceId,

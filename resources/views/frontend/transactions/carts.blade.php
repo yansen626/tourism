@@ -3,10 +3,13 @@
 @section('body-content')
 
     <div class="content-body">
-        <div class="container page">
+        <div style="margin:3%;">
             <div class="row">
                 <!-- content-->
                 <div class="col-lg-10 col-lg-offset-1 woocommerce">
+                    <h2 class="title-section mb-5">
+                        <span>My Cart</span>
+                    </h2>
                     <form action="#" method="post">
                         <table class="shop_table cart">
                             <thead>
@@ -32,11 +35,13 @@
                                     <td class="product-name">
                                         <a href="#">{{$cart->package->name}}</a>
                                     </td>
+                                    @php($startDate = \Carbon\Carbon::parse($cart->package->start_date)->format('d F Y'))
+                                    @php($endDate = \Carbon\Carbon::parse($cart->package->end_date)->format('d F Y'))
                                     <td class="product-quantity">
-                                        03 August 2018
+                                        {{$startDate}}
                                     </td>
                                     <td class="product-quantity">
-                                        08 August 2018
+                                        {{$endDate}}
                                     </td>
                                     <td class="product-price"><span class="amount">Rp {{$cart->package->price}}</span></td>
 

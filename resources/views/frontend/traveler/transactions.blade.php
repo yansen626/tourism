@@ -28,6 +28,21 @@
                             <div class="col-md-6">
                                 <h1>MY BOOKING</h1>
                             </div>
+                            <div class="col-md-6">
+                                <div style="float: right;">
+                                    <form class="form-inline" style="margin-top:30px;">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <select id="filter-travel" class="form-control">
+                                                <option>ALL ({{$allCount}})</option>
+                                                <option>FINISHED ({{$finishedCount}})</option>
+                                                <option>CANCELED ({{$canceledCount}})</option>
+                                                <option>UPCOMING ({{$upcomingCount}})</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
 
                         @elseif($flag == 2)
                             <div class="col-md-6">
@@ -38,77 +53,111 @@
                             <div class="col-md-6">
                                 <h1>HISTORY</h1>
                             </div>
-
-                        @endif
                             <div class="col-md-6">
                                 <div style="float: right;">
                                     <form class="form-inline" style="margin-top:30px;">
                                         <div class="form-group">
                                             <label>Status:</label>
                                             <select id="filter-travel" class="form-control">
-                                                <option>ALL</option>
-                                                <option>FINISHED</option>
-                                                <option>CANCELED</option>
+                                                <option>FINISHED ({{$finishedCount}})</option>
+                                                <option>CANCELED ({{$canceledCount}})</option>
                                             </select>
                                         </div>
                                     </form>
                                 </div>
-
                             </div>
+                        @endif
 
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">
-                                <thead style="display: none;">
-                                <tr>
-                                    <th class="text-center">TEST</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-1.jpg') }}') no-repeat;">
-                                    <td class="traveller-td">
-                                        <div class="col-md-6 text-left">
-                                            LAMPUNG <br>December 12
+
+                        @foreach($packages as $package)
+                            <div class="col-md-12">
+                                <div class="recom-item border">
+                                    <div class="recom-media">
+                                        <a href="{{route('package-detail', ['id'=>$package->id])}}">
+                                            <div class="pic">
+                                                <img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
+                                                     data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
+                                                     style="width: auto;height: 245px;" alt>
+                                            </div>
+                                        </a>
+                                        <div class="location">
+                                            <a href="{{route('travelmate.profile.showid', ['id'=>$package->travelmate_id])}}">
+                                                <i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
+                                            </a>
+                                            <br>
+                                            @php($star = "stars-".$package->travelmate->rating)
+                                            <div class="stars {{$star}}"></div>
+                                            <br>
+                                            <i class="flaticon-suntour-map"></i> {{$package->province->name}}
                                         </div>
-                                        <div class="col-md-6 text-right">
-                                            <a class="cws-button cws-button-custom mb-20">FINISHED</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-2.jpg') }}') no-repeat;">
-                                    <td class="traveller-td">
-                                        <div class="col-md-6 text-left">
-                                            PULAU DERAWAN <br>November 04
-                                        </div>
-                                        <div class="col-md-6 text-right">
-                                            <a class="cws-button cws-button-custom mb-20">ON TRIP</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-3.jpg') }}') no-repeat;">
-                                    <td class="traveller-td">
-                                        <div class="col-md-6 text-left">
-                                            PULAU MACAN <br>September 03
-                                        </div>
-                                        <div class="col-md-6 text-right">
-                                            <a class="cws-button cws-button-custom mb-20">FINISHED</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-4.jpg') }}') no-repeat;">
-                                    <td class="traveller-td">
-                                        <div class="col-md-6 text-left">
-                                            PULAU PRAMUKA <br>September 03
-                                        </div>
-                                        <div class="col-md-6 text-right">
-                                            <a class="cws-button cws-button-custom mb-20">FINISHED</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                    </div>
+                                    <!-- Recomended Content-->
+                                    <div class="recom-item-body"><a href="#">
+                                            <h6 class="blog-title">{{$package->name}}</h6></a>
+                                        <div class="recom-price">Rp {{$package->price}}</div>
+                                        <p class="mb-30">{{$package->description}}</p>
+                                        <a href="{{route('package-detail', ['id'=>$package->id])}}" class="recom-button">Read more</a>
+                                        <button class="cws-button small alt">{{$package->status->description}}</button>
+                                        {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
+                                        {{--<div class="action font-2">20%</div>--}}
+                                    </div>
+                                    <!-- Recomended Image-->
+                                </div>
+                            </div>
+                        @endforeach
+                        {{--<div class="col-md-12">--}}
+                            {{--<table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">--}}
+                                {{--<thead style="display: none;">--}}
+                                {{--<tr>--}}
+                                    {{--<th class="text-center">TEST</th>--}}
+                                {{--</tr>--}}
+                                {{--</thead>--}}
+                                {{--<tbody>--}}
+                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-1.jpg') }}') no-repeat;">--}}
+                                    {{--<td class="traveller-td">--}}
+                                        {{--<div class="col-md-6 text-left">--}}
+                                            {{--LAMPUNG <br>December 12--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-6 text-right">--}}
+                                            {{--<a class="cws-button cws-button-custom mb-20">FINISHED</a>--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-2.jpg') }}') no-repeat;">--}}
+                                    {{--<td class="traveller-td">--}}
+                                        {{--<div class="col-md-6 text-left">--}}
+                                            {{--PULAU DERAWAN <br>November 04--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-6 text-right">--}}
+                                            {{--<a class="cws-button cws-button-custom mb-20">ON TRIP</a>--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-3.jpg') }}') no-repeat;">--}}
+                                    {{--<td class="traveller-td">--}}
+                                        {{--<div class="col-md-6 text-left">--}}
+                                            {{--PULAU MACAN <br>September 03--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-6 text-right">--}}
+                                            {{--<a class="cws-button cws-button-custom mb-20">FINISHED</a>--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-4.jpg') }}') no-repeat;">--}}
+                                    {{--<td class="traveller-td">--}}
+                                        {{--<div class="col-md-6 text-left">--}}
+                                            {{--PULAU PRAMUKA <br>September 03--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-6 text-right">--}}
+                                            {{--<a class="cws-button cws-button-custom mb-20">FINISHED</a>--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                                {{--</tbody>--}}
+                            {{--</table>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
                 <div class="col-md-3">

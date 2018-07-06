@@ -14,29 +14,51 @@
                         <h4>{{$package->name}}</h4>
 
                     </div>
+
+                    <div class="col-md-12">
+                        <hr>
+                        <h4>TOUR INFORMATION</h4>
+                    </div>
                     <div class="col-md-3">
-                        <p>DESTINATION : </p>
+                        <p>DESTINATION </p>
                     </div>
                     <div class="col-md-9">
-                        <p>{{$package->name}}, {{$package->province->name}}</p>
+                        <p>: {{$package->name}}, {{$package->province->name}}</p>
                     </div>
+
                     <div class="col-md-3">
-                        <p>SCHEDULE : </p>
+                        <p>SCHEDULE</p>
                     </div>
                     <div class="col-md-9">
                         @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d/m/Y'))
                         @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d/m/Y'))
-                        <input type="text" name="daterange" value="{{$startDate}} - {{$endDate}}" />
+                        : <input type="text" name="daterange" value="{{$startDate}} - {{$endDate}}" />
                     </div>
                     <div class="col-md-3">
-                        <p>TRAVEL MATE : </p>
+                        <p>TRAVEL MATE</p>
                     </div>
                     <div class="col-md-9">
                         <p style="font-size: 16px;">
-                            <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">
+                            : <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">
                                 {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
                             </a>
                         </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>MEETING POINT </p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>: {{$package->meeting_point}}&nbsp;</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>MAX CAPACITY </p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>: {{$package->max_capacity}}&nbsp;Person(s)</p>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                        <h4>PRICING</h4>
                     </div>
                     <div class="col-md-3">
                         <span>PRICE : </span>
@@ -53,6 +75,10 @@
                             @endforeach
                         @endif
 
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                        <h4>MAIN PROGRAM</h4>
                     </div>
                     <div class="col-md-12">
                         <span>PROGRAM : </span>
@@ -83,13 +109,6 @@
                             @endif
                         @endif
                     </div>
-                    <div class="col-md-3">
-                        <span>RATING : </span>
-                    </div>
-                    <div class="col-md-9">
-                        @php($star = "stars-".$package->travelmate->rating)
-                        <div class="stars {{$star}}"></div>
-                    </div>
                     <div class="col-md-12 text-right">
 
                         @if(auth()->guard('web')->check())
@@ -118,7 +137,9 @@
 @section('styles')
     @parent
     <style>
-
+        .cws_divider, hr {
+            border-bottom: 2px solid #EB5532;
+        }
         .form-panel{
             overflow-y :scroll;
             height:150px;

@@ -92,6 +92,11 @@
                                 <li><a href="{{ route('logout') }}">LOG OUT</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="{{route('cart-list')}}">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> {{ $notifications->count() }}
+                            </a>
+                        </li>
                     @elseif(auth()->guard('travelmates')->check())
                         <li><a href="#" class="mn-has-sub">
                                 <img style="width: 29px; height: auto;" src="{{ URL::asset('storage/profile/'.\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->profile_picture) }}">

@@ -21,6 +21,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $location_detail
  * @property float $price
  * @property string $description
+ * @property string $meeting_point
+ * @property int $max_capacity
  * @property string $featured_image
  * @property \Carbon\Carbon $start_date
  * @property \Carbon\Carbon $end_date
@@ -52,7 +54,8 @@ class Package extends Eloquent
 		'province_id' => 'int',
 		'city_id' => 'int',
 		'price' => 'float',
-		'status_id' => 'int'
+		'status_id' => 'int',
+		'max_capacity' => 'int'
 	];
 
 	protected $dates = [
@@ -70,6 +73,8 @@ class Package extends Eloquent
 		'location_detail',
 		'price',
 		'description',
+		'meeting_point',
+		'max_capacity',
 		'featured_image',
 		'start_date',
 		'end_date',

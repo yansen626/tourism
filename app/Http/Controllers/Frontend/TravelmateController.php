@@ -234,6 +234,7 @@ class TravelmateController extends Controller
     public function storePackage(Request $request){
         try{
             $validator = Validator::make($request->all(), [
+                'name'             => 'required',
                 'description'             => 'required',
                 'start_date'             => 'required',
                 'end_date'          => 'required',
@@ -289,10 +290,13 @@ class TravelmateController extends Controller
                 $newPackage = Package::create([
                     'id' =>$packageID,
                     'travelmate_id' => $user->id,
+                    'name' => Input::get('name'),
                     'category_id' => Input::get('category'),
                     'province_id' => Input::get('province'),
                     'city_id' => Input::get('city'),
                     'description' => Input::get('description'),
+                    'meeting_point' => Input::get('meeting_point'),
+                    'max_capacity' => Input::get('max_capacity'),
                     'price' => min($pricingPrice),
                     'start_date' => $startDate,
                     'end_date' => $endDate,

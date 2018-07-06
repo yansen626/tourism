@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Package;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -156,6 +157,18 @@ class TravelerController extends Controller
         // 1 = My Booking
         // 2 = Upcoming
         // 3 = History
-        return View('frontend.traveler.transactions', compact('flag'));
+        $allCount = 9; $finishedCount = 5; $canceledCount = 2; $upcomingCount = 2;
+
+        $packages = Package::orderBy('created_at', 'desc')->paginate(20);
+        $data = [
+            'packages'      => $packages,
+            'flag'      => $flag,
+            'allCount'  => $allCount,
+            'finishedCount'  => $finishedCount,
+            'canceledCount'  => $canceledCount,
+            'upcomingCount'  => $upcomingCount
+        ];
+
+        return View('frontend.traveler.transactions')->with($data);
     }
 }

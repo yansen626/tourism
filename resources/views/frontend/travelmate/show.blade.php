@@ -6,9 +6,11 @@
         {{--<div class="container page">--}}
         <div style="margin-top:3%;">
             <div class="row">
-                @if(Auth::check())
-                    @include('frontend.travelmate.partials._left-side')
-                    @php($class='col-md-7')
+                @if(auth()->guard('travelmates')->check())
+                    @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $user->id)
+                        @include('frontend.travelmate.partials._left-side')
+                        @php($class='col-md-7')
+                    @endif
                 @else
                     @php($class='col-md-10 col-md-offset-1')
                 @endif
@@ -29,13 +31,15 @@
                             </div>
                             <div class="col-md-8">
 
-                                @if(Auth::check())
-                                    <div class="pull-right mt-10">
-                                        <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
-                                            EDIT
-                                        </a>
-                                    </div>
-                                    <h4>MY PROFILE</h4>
+                                @if(auth()->guard('travelmates')->check())
+                                    @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $user->id)
+                                        <div class="pull-right mt-10">
+                                            <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                                EDIT
+                                            </a>
+                                        </div>
+                                        <h4>MY PROFILE</h4>
+                                    @endif
                                 @else
                                     <h4>TRAVELMATE PROFILE</h4>
                                 @endif
@@ -48,7 +52,8 @@
                                 <span>REVIEWS : 10</span>
                                 <br>
 
-                                <div class="stars stars-5"></div>
+                                @php($star = "stars-".$user->rating)
+                                <div class="stars {{$star}}"></div>
                             </div>
                             <div class="col-md-12">
                                 <hr>
@@ -173,11 +178,13 @@
                                     : {{ $user->driving_license }}
                                 </div>
 
-                                @if(Auth::check())
-                                    <div class="col-md-7">
-                                        <img src="{{ URL::asset('storage/travelmate_ktp/'.$user->ktp_img) }}">
-                                        {{--<button class="btn btn-default" style="background-color: #EB5532; color:white;">Upload Id</button>--}}
-                                    </div>
+                                @if(auth()->guard('travelmates')->check())
+                                    @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $user->id)
+                                        <div class="col-md-7">
+                                            <img src="{{ URL::asset('storage/travelmate_ktp/'.$user->ktp_img) }}">
+                                            {{--<button class="btn btn-default" style="background-color: #EB5532; color:white;">Upload Id</button>--}}
+                                        </div>
+                                    @endif
                                 @endif
                                 <div class="col-md-5">
                                     &nbsp;
@@ -221,12 +228,14 @@
                             <div class="col-md-12">
                                 <hr>
 
-                                @if(Auth::check())
-                                    <div class="pull-right mt-10">
-                                        <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
-                                            EDIT
-                                        </a>
-                                    </div>
+                                @if(auth()->guard('travelmates')->check())
+                                    @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $user->id)
+                                        <div class="pull-right mt-10">
+                                            <a href="{{ route('travelmate.profile.edit') }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                                                EDIT
+                                            </a>
+                                        </div>
+                                    @endif
                                 @endif
                                 <h4>Travel Diary</h4>
                                 <div class="col-md-3">
@@ -247,10 +256,12 @@
                     </div>
                 </div>
 
-                @if(Auth::check())
-                    <div class="col-md-3">
-                        @include('frontend.travelmate.partials._right-side')
-                    </div>
+                @if(auth()->guard('travelmates')->check())
+                    @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $user->id)
+                        <div class="col-md-3">
+                            @include('frontend.travelmate.partials._right-side')
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>

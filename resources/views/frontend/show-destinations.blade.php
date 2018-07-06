@@ -16,7 +16,18 @@
                 <div class="tours-container">
                     <div class="tours-box">
                         <div class="row">
-                            <div class="col-md-6 clearfix">
+                            <div class="col-md-4 clearfix">
+                                <div class="selection-box">
+                                    <select id="sort" name="sort" class="selectpicker" onchange="sortBy(this)">
+                                        <option value="-1">-- SORT BY --</option>
+                                        <option  value="price_low" {{ $sortBy === "price_low" ? 'selected' : '' }}>Price (Lowest)</option>
+                                        <option value="price_high" {{ $sortBy === "price_high" ? 'selected' : '' }}>Price (Higest)</option>
+                                        <option value="date_asc" {{ $sortBy === "date_asc" ? 'selected' : '' }}>Date (Ascending)</option>
+                                        <option value="date_desc" {{ $sortBy === "date_desc" ? 'selected' : '' }}>Date (Descending)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 clearfix">
                                 <div class="selection-box">
                                     <select id="province" name="province" class="selectpicker" onchange="filterProvince(this)">
                                         <option value="-1">-- SELECT PROVINCE --</option>
@@ -26,7 +37,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="tours-search">
                                     <form method="post" class="form search">
                                         <div class="search-wrap">
@@ -56,7 +67,12 @@
                                         </div>
                                     </a>
                                     <div class="location">
-                                        <i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
+                                        <a href="{{route('travelmate.profile.showid', ['id'=>$package->travelmate_id])}}">
+                                            <i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
+                                        </a>
+                                        <br>
+                                        @php($star = "stars-".$package->travelmate->rating)
+                                        <div class="stars {{$star}}"></div>
                                         <br>
                                         <i class="flaticon-suntour-map"></i> {{$package->province->name}}
                                     </div>
@@ -64,7 +80,6 @@
                                 <!-- Recomended Content-->
                                 <div class="recom-item-body"><a href="#">
                                         <h6 class="blog-title">{{$package->name}}</h6></a>
-                                    <div class="stars stars-4"></div>
                                     <div class="recom-price">Rp {{$package->price}}</div>
                                     <p class="mb-30">{{$package->description}}</p>
                                     <a href="{{route('package-detail', ['id'=>$package->id])}}" class="recom-button">Read more</a>
@@ -98,6 +113,14 @@
     @parent
     {{--<script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>--}}
     <script>
+        function sortBy(e){
+            // Get status filter value
+            var status = e.value;
+
+            var url = "/destination?sortBy=" + status;
+
+            window.location = url;
+        }
         function filterSearch(){
             // Get status filter value
             var search = $('#search-text').val();
