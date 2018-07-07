@@ -19,48 +19,48 @@
                         <hr>
                         <h4>TOUR INFORMATION</h4>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <p>DESTINATION </p>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-sm-9">
                         <p>: {{$package->name}}, {{$package->province->name}}</p>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <p>SCHEDULE</p>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-sm-9">
                         @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d/m/Y'))
                         @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d/m/Y'))
                         : <input type="text" name="daterange" value="{{$startDate}} - {{$endDate}}" />
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <p>TRAVEL MATE</p>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-sm-9">
                         <p style="font-size: 16px;">
                             : <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">
                                 {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
                             </a>
                         </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <p>MEETING POINT </p>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-sm-9">
                         <p>: {{$package->meeting_point}}&nbsp;</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <p>MAX CAPACITY </p>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-sm-9">
                         <p>: {{$package->max_capacity}}&nbsp;Person(s)</p>
                     </div>
                     <div class="col-md-12">
                         <hr>
                         <h4>PRICING</h4>
                     </div>
-                    <div id="price" class="col-md-3">
+                    <div id="price" class="col-md-3 col-sm-3">
                         <span>PRICE : </span>
                         <br>
                         <label class="radio-inline">
@@ -76,7 +76,7 @@
                             onchange="selectCurrency(this, '{{$package->id}}');" name="optradio">RMB
                         </label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-sm-9">
                         @if($packagePrices->count() > 0)
                             @php($qty = 0)
                             @foreach($packagePrices as $packagePrice)
@@ -90,7 +90,7 @@
                         @endif
 
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
                         <hr>
                         <h4>MAIN PROGRAM</h4>
                     </div>
@@ -112,15 +112,9 @@
                         </div>
                         <br>
                         @if(auth()->guard('web')->check())
-                            <a href="#" class="btn btn-default" style="background-color: #ffc801; color:white;">
+                            <a href="/package-pdf/{{$package->id}}?currency={{$currencyType}}" class="btn btn-default" style="background-color: #ffc801; color:white;">
                                 Download PDF
                             </a>
-                        @elseif(auth()->guard('travelmates')->check())
-                            @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $package->travelmate_id)
-                                <a href="#" class="btn btn-default" style="background-color: #EB5532; color:white;">
-                                    edit
-                                </a>
-                            @endif
                         @endif
                     </div>
                     <div class="col-md-12 text-right">
@@ -129,12 +123,6 @@
                             <a href="#" class="btn btn-danger" >
                                 Cancel
                             </a>
-                        @elseif(auth()->guard('travelmates')->check())
-                            @if(\Illuminate\Support\Facades\Auth::guard('travelmates')->user()->id == $package->travelmate_id)
-                                <a href="#" class="btn btn-danger" >
-                                    Deactive
-                                </a>
-                            @endif
                         @endif
                     </div>
                 </div>

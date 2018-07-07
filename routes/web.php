@@ -43,6 +43,7 @@ Route::get('destination/', 'Frontend\HomeController@Destination')->name('destina
 
 // Package
 Route::get('package-detail/{id}', 'Frontend\PackageController@show')->name('package-detail');
+Route::get('package-pdf/{id}', 'Frontend\PackageController@ConvertToPDF')->name('package-pdf');
 
 // Traveler
 Route::prefix('traveller')->group(function(){

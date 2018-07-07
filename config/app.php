@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \App\Providers\ComposerServiceProvider::class,
 
+        Barryvdh\DomPDF\ServiceProvider::class,
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
@@ -237,7 +238,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Uuid' => Webpatser\Uuid\Uuid::class
+        'Uuid' => Webpatser\Uuid\Uuid::class,
+
+        'PDF' => Barryvdh\DomPDF\Facade::class
     ],
 
 ];
