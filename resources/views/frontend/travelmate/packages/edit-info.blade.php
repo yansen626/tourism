@@ -14,12 +14,32 @@
                     <hr/>
                     <h4>EDIT TOUR INFORMATION</h4>
 
+                    @if(\Illuminate\Support\Facades\Session::has('message'))
+                        <div class="form-group">
+                            <div role="alert" class="alert alert-success alert-dismissible fade in mb-20">
+                                <button type="button" data-dismiss="alert" aria-label="Close" class="close"></button><i class="alert-icon flaticon-warning"></i>
+                                {{ \Illuminate\Support\Facades\Session::get('message') }}
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($errors->count() > 0)
+                        <div class="form-group">
+                            <div role="alert" class="alert alert-warning alert-dismissible fade in mb-20">
+                                <button type="button" data-dismiss="alert" aria-label="Close" class="close"></button><i class="alert-icon flaticon-warning"></i>
+                                @foreach($errors->all() as $error)
+                                    {{ $error }}<br/>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="form-group">
                         <label class="control-label col-md-2 col-sm-2 col-xs-12" for="destination">
                             DESTINATION
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="destination" name="destination" class="form-control col-md-12" value="{{ $package->province->name }}"/>
+                            <input type="text" id="destination" name="destination" class="form-control col-md-12" value="{{ $package->name }}"/>
                         </div>
                     </div>
 
@@ -74,7 +94,7 @@
                             MEETING POINT
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <textarea id="meeting_point" name="meeting_point" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">{{ $package->metting_point }}</textarea>
+                            <textarea id="meeting_point" name="meeting_point" rows="5" placeholder="" class="form-control" style="resize: none; overflow-y: scroll;">{{ $package->meeting_point }}</textarea>
                         </div>
                     </div>
 
@@ -83,15 +103,15 @@
                             MAX CAPACITY (PERSON)
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="max_capacity" name="max_capacity" class="form-control col-md-12" value="{{ $package->max_capacity }}"/>
+                            <input type="number" id="max_capacity" name="max_capacity" class="form-control col-md-12" value="{{ $package->max_capacity }}"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-2 col-sm-2 col-xs-12"></div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <a href="#" class="btn btn-warning">CANCEL</a>
-                            <a href="#" class="btn btn-success">SAVE</a>
+                            <a href="{{ route('travelmate.packages.show', ['id' => $package->id]) }}" class="btn btn-warning">CANCEL</a>
+                            <button type="submit" class="btn btn-success">SAVE</button>
                         </div>
                     </div>
 
@@ -103,10 +123,7 @@
     </div>
     <!-- ! content-->
 
-
-    @include('frontend.partials._modal-login')
 @endsection
-
 
 @section('styles')
     @parent
@@ -123,28 +140,28 @@
         $(document).ready(function () {
             // DATE PICKER
             $('#start_date').datetimepicker({
-                format: "DD MMM Y"
+                format: "DD MMMM Y"
             });
 
             $('#end_date').datetimepicker({
-                format: "DD MMM Y"
+                format: "DD MMMM Y"
             });
-
-            function getCity(){
-                var provId = $("#province option:selected").val();
-
-                if(provId !== '-1'){
-                    $.get('/travelmate/packages/city?province=' + provId, function (data) {
-                        if(data.success == true) {
-                            $('#city').html(data.html);
-                        }
-                    });
-                }
-                else{
-                    $('#city').html("<option value='-1'>- Select City -</option>");
-                }
-            }
         });
+
+        function getCity(){
+            var provId = $("#province option:selected").val();
+
+            if(provId !== '-1'){
+                $.get('/travelmate/packages/city?province=' + provId, function (data) {
+                    if(data.success == true) {
+                        $('#city').html(data.html);
+                    }
+                });
+            }
+            else{
+                $('#city').html("<option value='-1'>- Select City -</option>");
+            }
+        }
 
     </script>
 @endsection

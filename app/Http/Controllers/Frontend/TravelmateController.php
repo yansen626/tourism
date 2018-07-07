@@ -19,7 +19,9 @@ use App\Models\PackageTrip;
 use App\Models\Province;
 use App\Models\Travelmate;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -391,7 +393,186 @@ class TravelmateController extends Controller
     }
 
     public function updatePackageInformation(Package $package, Request $request){
+        $validator = Validator::make($request->all(),[
+            'destination'       => 'required|max:50',
+            'start_date'        => 'required',
+            'end_date'          => 'required',
+            'meeting_point'     => 'required|max:300',
+            'max_capacity'      => 'required'
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Validate province
+        if($request->input('province') === '-1'){
+            return redirect()->back()->withErrors('Province is required!', 'default')->withInput($request->all());
+        }
+
+        // Validate city
+        if($request->input('city') === '-1'){
+            return redirect()->back()->withErrors('City is required!', 'default')->withInput($request->all());
+        }
+
+        $startDate = Carbon::createFromFormat('d F Y', $request->input('start_date'), 'Asia/Jakarta');
+        $endDate = Carbon::createFromFormat('d F Y', $request->input('end_date'), 'Asia/Jakarta');
+
+        // Validate date
+        if($startDate->gt($endDate)){
+            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+        }
+
+        $user = Auth::user();
+        $now = Carbon::now('Asia/Jakarta');
+
+        $package->description = $request->input('destination');
+        $package->meeting_point = $request->input('meeting_point');
+        $package->max_capacity = $request->input('max_capacity');
+        $package->start_date = $startDate->toDateTimeString();
+        $package->end_date = $endDate->toDateTimeString();
+        $package->updated_by = $user->id;
+        $package->updated_at = $now->toDateTimeString();
+
+        $package->save();
+
+        Session::flash('message', 'Package information successfully updated!');
+
+        return redirect()->route('travelmate.packages.information.edit',['package' => $package->id]);
+    }
+
+    public function indexPackagePrice(Package $package){
+        $data = [
+            'package'       => $package
+        ];
+
+        return view('frontend.travelmate.packages.prices.index')->with($data);
+    }
+
+    public function createPackagePrice($package_id){
+        $packageId = $package_id;
+        $general = General::find(1);
+
+
+        $data = [
+            'packageId'     => $packageId,
+            'serviceFee'    => $general->service_fee
+        ];
+
+        return view('frontend.travelmate.packages.prices.create')->with($data);
+    }
+
+    public function storePackagePrice(Package $package, Request $request){
+        $validator = Validator::make($request->all(),[
+            'quantity'      => 'required',
+            'price'         => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $qty = (int) $request->input('quantity');
+
+        // Validate quantity
+        if(!empty($package->package_prices->where('quantity', $qty)->first())){
+            return redirect()->back()->withErrors('Duplicate value of Number of Travellers!', 'default')->withInput($request->all());
+        }
+
+        $priceStr = str_replace('.','', $request->input('price'));
+
+        $packagePrice = PackagePrice::create([
+            'package_id'    => $package->id,
+            'quantity'      => $qty,
+            'price'         => $priceStr
+        ]);
+
+        // Get service fee
+        $general = General::find(1);
+        $serviceFee = $general->service_fee;
+        $packagePrice->service_fee = $serviceFee;
+
+        $price = (double) $priceStr;
+        $totalPrice = $qty * $price;
+        $finalPrice = $totalPrice - ($totalPrice * ($serviceFee / 100));
+        $packagePrice->final_price = $finalPrice;
+        $packagePrice->save();
+
+        Session::flash('message', 'New Pricing successfully created!');
+
+        return redirect()->route('travelmate.packages.price.index', ['package' => $package->id]);
+    }
+
+    public function editPackagePrice(PackagePrice $package_price){
+        $pricing = $package_price;
+
+        $data = [
+            'pricing'       => $pricing
+        ];
+
+        return view('frontend.travelmate.packages.prices.edit')->with($data);
+    }
+
+    public function updatePackagePrice(PackagePrice $package_price, Request $request){
+        $validator = Validator::make($request->all(),[
+            'quantity'      => 'required',
+            'price'         => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $qty = (int) $request->input('quantity');
+
+        // Validate quantity
+        if(!empty(PackagePrice::where('package_id', $package_price->package_id)
+            ->where('id', '!=', $package_price->id)
+            ->where('quantity', $qty)
+            ->first())){
+            return redirect()->back()->withErrors('Duplicate value of Number of Travellers!', 'default')->withInput($request->all());
+        }
+
+        $priceStr = str_replace('.','', $request->input('price'));
+
+        $package_price->quantity = $qty;
+        $package_price->price = $priceStr;
+
+        // Get service fee
+        $serviceFee = $package_price->service_fee;
+
+        $price = (double) $priceStr;
+        $totalPrice = $qty * $price;
+        $finalPrice = $totalPrice - ($totalPrice * ($serviceFee / 100));
+        $package_price->final_price = $finalPrice;
+        $package_price->save();
+
+        Session::flash('message', 'New Pricing successfully updated!');
+
+        return redirect()->route('travelmate.packages.price.index', ['package' => $package_price->package_id]);
+    }
+
+    public function deletePackagePrice(Request $request){
+        try{
+            $packagePrice = PackagePrice::find($request->input('id'));
+            $packagePrice->delete();
+
+            Session::flash('message', 'Selected Pricing is successfully deleted!');
+
+            return new JsonResponse($packagePrice);
+        }
+        catch (\Exception $ex){
+            error_log($ex);
+        }
     }
 
     public function getCities(){

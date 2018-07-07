@@ -35,6 +35,12 @@ class PackagePrice extends Eloquent
 		'final_price' => 'float'
 	];
 
+	protected $appends = [
+	    'price_string',
+        'total_price',
+        'total_price_string'
+    ];
+
 	protected $fillable = [
 		'package_id',
 		'quantity',
@@ -43,9 +49,23 @@ class PackagePrice extends Eloquent
 		'final_price'
 	];
 
-//    public function getPriceAttribute(){
-//        return number_format($this->attributes['price'], 0, ",", ".");
-//    }
+    public function getPriceStringAttribute(){
+        return number_format($this->attributes['price'], 0, ",", ".");
+    }
+
+    public function getTotalPriceAttribute(){
+        $price = $this->attributes['price'];
+        $qty = $this->attributes['quantity'];
+        $totalPrice = $price * $qty;
+        return $totalPrice;
+    }
+
+    public function getTotalPriceStringAttribute(){
+        $price = $this->attributes['price'];
+        $qty = $this->attributes['quantity'];
+        $totalPrice = $price * $qty;
+        return number_format($totalPrice, 0, ",", ".");
+    }
 
     public function getFinalPriceAttribute(){
         return number_format($this->attributes['final_price'], 0, ",", ".");
