@@ -12,8 +12,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Package;
 use App\Models\Product;
+use App\Models\TransactionHeader;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -157,18 +159,56 @@ class TravelerController extends Controller
         // 1 = My Booking
         // 2 = Upcoming
         // 3 = History
-        $allCount = 9; $finishedCount = 5; $canceledCount = 2; $upcomingCount = 2;
+        $userId = Auth::user()->id;
 
-        $packages = Package::orderBy('created_at', 'desc')->paginate(20);
+        $detailCollections = new Collection();
+        $transactions = null;
+        switch ($flag){
+            case 1 :
+                $transactions = TransactionHeader::where('user_id', $userId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                break;
+            case 2 :
+                $transactions = TransactionHeader::where('user_id', $userId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                break;
+            case 3 :
+                $transactions = TransactionHeader::where('user_id', $userId)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+                break;
+        }
+        foreach ($transactions as $transaction){
+            $detailCollections->add($transaction->transaction_details);
+        }
+
+            //count by status
+        $allCount = $transactions->count();
+        $finishedCount = TransactionHeader::where('user_id', $userId)
+            ->where('status_id', 8)
+            ->count();
+        $canceledCount = TransactionHeader::where('user_id', $userId)
+            ->where('status_id', 9)
+            ->orWhere('status_id', 10)
+            ->count();
+        $upcomingCount = TransactionHeader::where('user_id', $userId)
+            ->where('status_id', 13)
+            ->count();
+
+
+//        $packages = Package::orderBy('created_at', 'desc')->paginate(20);
         $data = [
-            'packages'      => $packages,
+            'transactions'      => $transactions,
+//            'packages'      => $packages,
             'flag'      => $flag,
             'allCount'  => $allCount,
             'finishedCount'  => $finishedCount,
             'canceledCount'  => $canceledCount,
             'upcomingCount'  => $upcomingCount
         ];
-
+//        dd($data);
         return View('frontend.traveler.transactions')->with($data);
     }
 }

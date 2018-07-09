@@ -14,74 +14,116 @@
                         <h4>{{$package->name}}</h4>
 
                     </div>
-                    <div class="col-md-3">
-                        <p>PARTICIPANTS : </p>
+
+                    <div class="col-md-12">
+                        <hr>
+                        <h4>TOUR INFORMATION</h4>
                     </div>
-                    <div class="col-md-9">
-                        <p>
-                            Mr. Budi <br>
-                            Ms. Listyani Lee <br>
-                            Ms. Cynthia Lesmana
-                        </p>
+                    <div class="col-md-3 col-sm-3">
+                        <p>DESTINATION </p>
                     </div>
-                    <div class="col-md-3">
-                        <p>DESTINATION : </p>
+                    <div class="col-md-9 col-sm-9">
+                        <p>: {{$package->name}}, {{$package->province->name}}</p>
                     </div>
-                    <div class="col-md-9">
-                        <p>{{$package->name}}, {{$package->province->name}}</p>
+
+                    <div class="col-md-3 col-sm-3">
+                        <p>SCHEDULE</p>
                     </div>
-                    <div class="col-md-3">
-                        <p>SCHEDULE : </p>
+                    <div class="col-md-9 col-sm-9">
+                        @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))
+                        @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))
+                        <p>: {{$startDate}} - {{$endDate}}</p>
                     </div>
-                    <div class="col-md-9">
-                        <input type="text" name="daterange" value="03/08/2018 - 11/08/2018" />
+                    <div class="col-md-3 col-sm-3">
+                        <p>TRAVEL MATE</p>
                     </div>
-                    <div class="col-md-3">
-                        <p>TRAVEL MATE : </p>
-                    </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 col-sm-9">
                         <p style="font-size: 16px;">
-                            <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">
+                            : <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">
                                 {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
                             </a>
                         </p>
                     </div>
-                    <div class="col-md-3">
-                        <span>PRICE : </span>
+                    <div class="col-md-3 col-sm-3">
+                        <p>MEETING POINT </p>
                     </div>
-                    <div class="col-md-9">
-                        <span> {{$package->price}}</span>
+                    <div class="col-md-9 col-sm-9">
+                        <p>: {{$package->meeting_point}}&nbsp;</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <p>MAX CAPACITY </p>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <p>: {{$package->max_capacity}}&nbsp;Person(s)</p>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                        <h4>PRICING</h4>
+                    </div>
+                    <div id="price" class="col-md-3 col-sm-3">
+                        <span>PRICE : </span>
+                        <br>
+                        <label class="radio-inline">
+                            <input type="radio" value="IDR" {{$currencyType == "IDR" ? 'checked':''}}
+                            onchange="selectCurrency(this, '{{ $package->id }}');" name="optradio">IDR
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value="USD" {{$currencyType == "USD" ? 'checked':''}}
+                            onchange="selectCurrency(this, '{{$package->id}}');" name="optradio">USD
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" value="RMB" {{$currencyType == "RMB" ? 'checked':''}}
+                            onchange="selectCurrency(this, '{{$package->id}}');" name="optradio">RMB
+                        </label>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        @if($packagePrices->count() > 0)
+                            @php($qty = 0)
+                            @foreach($packagePrices as $packagePrice)
+                                @php($qty = $qty+1)
+                                @php($finalPrice = $packagePrice->price / $currencyValue)
+                                @php($priceConvert = number_format($finalPrice, 2, ",", "."))
+                                <span> ({{$qty}}-{{$packagePrice->quantity}} Person) {{$currencyType}} {{$priceConvert}}</span>
+                                <br>
+                                @php($qty = $packagePrice->quantity)
+                            @endforeach
+                        @endif
+
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <hr>
+                        <h4>MAIN PROGRAM</h4>
                     </div>
                     <div class="col-md-12">
                         <span>PROGRAM : </span>
                         <br>
-                        <textarea> asdfadsfds \n safdfadf </textarea>
-                        <br>
 
-                        <a href="#" class="btn btn-default" style="background-color: #ffc801; color:white;">
-                            Download PDF
-                        </a>
-                    </div>
-                    <div class="col-md-12">
-                        <span>ADD ONS </span>
-                    </div>
-                    <div class="col-md-3">
-                        <span>PAYMENT STATUS : </span>
-                    </div>
-                    <div class="col-md-9">
-                        <span> 50%</span>
-                    </div>
-                    <div class="col-md-3">
-                        <span>RATING : </span>
-                    </div>
-                    <div class="col-md-9">
-                        @php($star = "stars-".$package->travelmate->rating)
-                        <div class="stars {{$star}}"></div>
+                        <div class="row form-panel">
+                            @if($packageTrips->count() > 0)
+                                @foreach($packageTrips as $packageTrip)
+                                    @php($startDateTrip = \Carbon\Carbon::parse($packageTrip->start_date)->format('d/m/Y G:i'))
+                                    @php($endDateTrip = \Carbon\Carbon::parse($packageTrip->end_date)->format('d/m/Y G:i'))
+
+                                    <span> ({{$startDateTrip}} - {{$endDateTrip}}) Desc : {{$packageTrip->description}}</span>
+                                    <br>
+
+                                @endforeach
+                            @endif
+                        </div>
+                        <br>
+                        @if(auth()->guard('web')->check())
+                            <a href="/package-pdf/{{$package->id}}?currency={{$currencyType}}" class="btn btn-default" style="background-color: #ffc801; color:white;">
+                                Download PDF
+                            </a>
+                        @endif
                     </div>
                     <div class="col-md-12 text-right">
-                        <a href="#" class="btn btn-danger" >
-                            Cancel
-                        </a>
+
+                        @if(auth()->guard('web')->check() && $transactionDetail->status_id == 13)
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#cancelRequest">
+                                Cancel
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -90,12 +132,39 @@
     <!-- ! content-->
 
 
-	@include('frontend.partials._modal-login')
+    @include('frontend.partials._modal-cancel-request', $transactionDetail)
 @endsection
 
 
 @section('styles')
     @parent
+    <style>
+        #price input {
+            float: left;
+            -webkit-appearance: radio !important;
+        }
+
+        .cws_divider, hr {
+            border-bottom: 2px solid #EB5532;
+        }
+        .form-panel{
+            overflow-y :scroll;
+            height:150px;
+            border: 2px solid #EB5532;
+            border-radius: 15px;
+            padding: 10px;
+            margin: 0;
+        }
+
+        textarea {
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 30px;
+            border-color: rgb(201,225,230);
+            border-width: 3px;
+            resize: none;
+        }
+    </style>
 @endsection
 
 @section('scripts')
@@ -109,6 +178,14 @@
             $(".daterangepicker").show();
         });
 
+        function selectCurrency(e, id){
+            // Get status filter value
+            var status = e.value;
+
+            var url = "/package-detail/"+id+"?currency=" + status;
+
+            window.location = url;
+        }
         $(function() {
             $('input[name="daterange"]').daterangepicker({
                 autoApply: true,

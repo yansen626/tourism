@@ -49,7 +49,7 @@ class PackageController extends Controller
             'currencyValue' => $currencyValue
         ];
 //        dd($data);
-        return View('frontend.packages.show')->with($data);
+        return View('frontend.transactions.show')->with($data);
     }
 
     public function ConvertToPDF($id){

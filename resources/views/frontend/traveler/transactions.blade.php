@@ -70,43 +70,45 @@
 
                     </div>
                     <div class="row">
-
-                        @foreach($packages as $package)
-                            <div class="col-md-12">
-                                <div class="recom-item border">
-                                    <div class="recom-media">
-                                        <a href="{{route('package-detail', ['id'=>$package->id])}}">
-                                            <div class="pic">
-                                                <img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
-                                                     data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
-                                                     style="width: auto;height: 245px;" alt>
-                                            </div>
-                                        </a>
-                                        <div class="location">
-                                            <a href="{{route('travelmate.profile.showid', ['id'=>$package->travelmate_id])}}">
-                                                <i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
+                        @foreach($transactions as $transaction)
+                            @foreach($transaction->transaction_details as $detailCollection)
+                                <div class="col-md-12">
+                                    <div class="recom-item border">
+                                        <div class="recom-media">
+                                            <a href="{{route('transaction.detail', ['id'=>$detailCollection->id])}}">
+                                                <div class="pic">
+                                                    <img src="{{ URL::asset('storage/package_image/'.$detailCollection->package->featured_image) }}"
+                                                         data-at2x="{{ URL::asset('storage/package_image/'.$detailCollection->package->featured_image) }}"
+                                                         style="width: auto;height: 245px;" alt>
+                                                </div>
                                             </a>
-                                            <br>
-                                            @php($star = "stars-".$package->travelmate->rating)
-                                            <div class="stars {{$star}}"></div>
-                                            <br>
-                                            <i class="flaticon-suntour-map"></i> {{$package->province->name}}
+                                            <div class="location">
+                                                <a href="{{route('travelmate.profile.showid', ['id'=>$detailCollection->package->travelmate_id])}}">
+                                                    <i class="flaticon-suntour-adult"></i> {{$detailCollection->package->travelmate->first_name}} {{$detailCollection->package->travelmate->last_name}}
+                                                </a>
+                                                <br>
+                                                @php($star = "stars-".$detailCollection->package->travelmate->rating)
+                                                <div class="stars {{$star}}"></div>
+                                                <br>
+                                                <i class="flaticon-suntour-map"></i> {{$detailCollection->package->province->name}}
+                                            </div>
                                         </div>
+                                        <!-- Recomended Content-->
+                                        <div class="recom-item-body"><a href="#">
+                                                <h6 class="blog-title">{{$detailCollection->package->name}}</h6></a>
+                                            <div class="recom-price">Rp {{$detailCollection->package->price}}</div>
+                                            <p class="mb-30">{{$detailCollection->package->description}}</p>
+                                            <a href="{{route('transaction.detail', ['id'=>$detailCollection->id])}}" class="recom-button">Read more</a>
+                                            <button class="cws-button small alt">{{$detailCollection->status->description}}</button>
+                                            {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
+                                            {{--<div class="action font-2">20%</div>--}}
+                                        </div>
+                                        <!-- Recomended Image-->
                                     </div>
-                                    <!-- Recomended Content-->
-                                    <div class="recom-item-body"><a href="#">
-                                            <h6 class="blog-title">{{$package->name}}</h6></a>
-                                        <div class="recom-price">Rp {{$package->price}}</div>
-                                        <p class="mb-30">{{$package->description}}</p>
-                                        <a href="{{route('package-detail', ['id'=>$package->id])}}" class="recom-button">Read more</a>
-                                        <button class="cws-button small alt">{{$package->status->description}}</button>
-                                        {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
-                                        {{--<div class="action font-2">20%</div>--}}
-                                    </div>
-                                    <!-- Recomended Image-->
                                 </div>
-                            </div>
+                            @endforeach
                         @endforeach
+
                         {{--<div class="col-md-12">--}}
                             {{--<table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">--}}
                                 {{--<thead style="display: none;">--}}

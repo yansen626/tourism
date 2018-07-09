@@ -17,8 +17,11 @@ use App\Mail\NewOrderAdmin;
 use App\Mail\NewOrderCustomer;
 use App\Models\Address;
 use App\Models\Courier;
+use App\Models\General;
+use App\Models\Package;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\TransactionHeader;
 use App\Models\TransferConfirmation;
 use App\Models\User;
 use App\Models\Cart;
@@ -27,6 +30,7 @@ use App\Notifications\TransactionNotify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -43,7 +47,106 @@ class TransactionController extends Controller
     }
 
     public function CheckoutProcess(){
-        return View('frontend.transactions.payment-result');
+        if (Auth::check())
+        {
+
+            DB::transaction(function() {
+                $userId = Auth::user()->id;
+
+                $carts = Cart::where('user_id', $userId)->get();
+                $dateTimeNow = Carbon::now('Asia/Jakarta');
+                $transactionID = Uuid::generate();
+//            dd($transactionID);
+                $packageId = array();
+                foreach ($carts as $cart){
+                    array_push($packageId, $cart->package_id);
+                }
+                $totalPriceTem = Package::wherein('id', $packageId)->sum('price');
+                $transactionHeader = TransactionHeader::Create([
+                    'id'       => $transactionID,
+                    'user_id'       => $userId,
+                    'payment_method_id'       => 1,
+                    'total_payment'      => $totalPriceTem,
+                    'total_price'    => $totalPriceTem,
+                    'admin_fee'    => 0,
+                    'status_id'    => 3,
+                    'created_at'        => $dateTimeNow->toDateTimeString()
+                ]);
+//            dd("asdf");
+                foreach ($carts as $cart){
+                    $detailID = Uuid::generate();
+                    $transactionDetail = TransactionDetail::Create([
+                        'id'       => $detailID,
+                        'status_id'    => 13,
+                        'header_id'       => $transactionID,
+                        'package_id'       => $cart->package_id,
+                        'price'       => $cart->package->price,
+                        'discount_percent'       => 0,
+                        'discount_flat'      => 0,
+                        'subtotal'    => $cart->package->price,
+                        'updated_at'    => $dateTimeNow->toDateTimeString()
+                    ]);
+
+                    Cart::where('id', '=', $cart->id)->delete();
+                }
+            });
+            return View('frontend.transactions.payment-result');
+        }
+        else
+        {
+            return redirect()->route('login');
+        }
+    }
+
+    public function Show($id){
+        $transactionDetail = TransactionDetail::find($id);
+        $package = Package::find($transactionDetail->package_id);
+
+        $packagePrices = $package->package_prices;
+        $packageTrips = $package->package_trips;
+
+        $currencyType = "IDR";
+        $currencyValue = 1;
+
+        if(!empty(request()->currency)){
+            $currencyType = request()->currency;
+            $generalDB = General::find(1);
+
+            if($currencyType == "USD"){
+                $currencyValue = $generalDB->idrusd;
+            }
+            else if ($currencyType == "RMB"){
+                $currencyValue = $generalDB->idrrmb;
+            }
+        };
+
+
+        $data = [
+            'transactionDetail' => $transactionDetail,
+            'package' => $package,
+            'packagePrices' => $packagePrices,
+            'packageTrips' => $packageTrips,
+            'currencyType' => $currencyType,
+            'currencyValue' => $currencyValue
+        ];
+//        dd($data);
+        return View('frontend.transactions.show')->with($data);
+    }
+
+    public function CancelBooking(Request $request){
+        $validator = Validator::make($request->all(), [
+            'request'             => 'required',
+            'detail'             => 'required'
+        ]);
+
+        if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
+
+        $detailDB = TransactionDetail::find(Input::get('detail'));
+        $detailDB->cancel_note = Input::get('detail');
+        $detailDB->status_id = 10;
+        $detailDB->save();
+
+        return redirect()->route('traveller.transactions', ['flag' => 1]);
     }
 
     //set address for shipping

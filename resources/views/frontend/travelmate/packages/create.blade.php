@@ -99,8 +99,10 @@
                                                     <h5 class="text-center">TRAVEL CATEGORY</h5>
                                                     <div id="category_list" class="field radio_field">
                                                         @foreach($categories as $category)
-                                                            <input type="radio" id="category_{{ $category->id }}" name="category" value="{{ $category->id }}"/>
-                                                            <label for="category_{{ $category->id }}">{{ $category->name }}</label>
+                                                            <label for="category_{{ $category->id }}">
+                                                                <input type="radio" id="category_{{ $category->id }}" name="category" value="{{ $category->id }}"/>
+                                                                <img src="{{ URL::asset('frontend_images/categories/'.$category->name.".png") }}" style="width: 100px; height:100px">
+                                                            </label>
                                                         @endforeach
                                                     </div>
                                                 </div>

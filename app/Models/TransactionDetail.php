@@ -13,12 +13,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class TransactionDetail
  * 
  * @property string $id
+ * @property int $status_id
  * @property string $header_id
  * @property string $package_id
  * @property float $price
  * @property int $discount_percent
  * @property float $discount_flat
  * @property float $subtotal
+ * @property string $cancel_note
  * @property string $note
  * @property string $updated_by
  * @property \Carbon\Carbon $updated_at
@@ -35,18 +37,22 @@ class TransactionDetail extends Eloquent
 
 	protected $casts = [
 		'price' => 'float',
+        'status_id' => 'int',
 		'discount_percent' => 'int',
 		'discount_flat' => 'float',
 		'subtotal' => 'float'
 	];
 
 	protected $fillable = [
+		'id',
+        'status_id',
 		'header_id',
 		'package_id',
 		'price',
 		'discount_percent',
 		'discount_flat',
 		'subtotal',
+        'cancel_note',
 		'note',
 		'updated_by'
 	];
@@ -55,6 +61,11 @@ class TransactionDetail extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Package::class);
 	}
+
+    public function status()
+    {
+        return $this->belongsTo(\App\Models\Status::class);
+    }
 
 	public function transaction_header()
 	{

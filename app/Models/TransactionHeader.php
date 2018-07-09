@@ -22,6 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $invoice
  * @property string $order_id
  * @property int $payment_code
+ * @property int $voucher_id
  * @property float $total_payment
  * @property float $total_price
  * @property string $postal_code
@@ -36,6 +37,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\PaymentMethod $payment_method
  * @property \App\Models\Status $status
  * @property \App\Models\User $user
+ * @property \App\Models\Voucher $voucher
  * @property \Illuminate\Database\Eloquent\Collection $transaction_details
  * @property \Illuminate\Database\Eloquent\Collection $transfer_confirmations
  *
@@ -51,10 +53,12 @@ class TransactionHeader extends Eloquent
 		'total_payment' => 'float',
 		'total_price' => 'float',
 		'admin_fee' => 'float',
-		'status_id' => 'int'
+		'status_id' => 'int',
+		'voucher_id' => 'int'
 	];
 
 	protected $fillable = [
+		'id',
 		'user_id',
 		'payment_method_id',
 		'va_bank',
@@ -63,6 +67,7 @@ class TransactionHeader extends Eloquent
 		'biller_code',
 		'invoice',
 		'order_id',
+		'voucher_id',
 		'total_payment',
 		'total_price',
 		'postal_code',
@@ -86,6 +91,10 @@ class TransactionHeader extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\Models\User::class);
+	}
+	public function voucher()
+	{
+		return $this->belongsTo(\App\Models\Voucher::class);
 	}
 
 	public function transaction_details()

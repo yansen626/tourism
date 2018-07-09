@@ -84,7 +84,9 @@ Route::post('tailor-made', 'Frontend\HomeController@submitTailorMade')->name('ta
 
 // transaction
 //Route::post('cart', 'Frontend\TransactionController@cart')->name('cart-list');
-Route::get('transaction-result', 'Frontend\TransactionController@CheckoutProcess')->name('transaction-result');
+Route::get('transaction-result', 'Frontend\TransactionController@CheckoutProcess')->name('transaction.result');
+Route::get('transaction/detail/{id}', 'Frontend\TransactionController@Show')->name('transaction.detail');
+Route::post('transaction/cancel', 'Frontend\TransactionController@CancelBooking')->name('transaction.cancel');
 
 // Cart
 Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
