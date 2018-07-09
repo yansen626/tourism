@@ -15,6 +15,7 @@ use App\Mail\DeliveryConfirm;
 use App\Mail\OrderAccepted;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use App\Models\TransferConfirmation;
 use Carbon\Carbon;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
@@ -38,6 +40,36 @@ class TransactionController extends Controller
         return View('admin.transactions.show-transactions', compact('transactions'));
     }
 
+    public function cancel(){
+        $transactions = TransactionDetail::where('status_id', 10)->get();
+
+        return View('admin.transactions.show-cancel-transactions', compact('transactions'));
+    }
+
+    public function cancelDetail($id){
+        $transaction = TransactionDetail::find($id);
+
+        return View('admin.transactions.show-cancel-transaction-details', compact('transaction'));
+    }
+
+    public function cancelConfirm(Request $request){
+        $validator = Validator::make($request->all(),[
+            'amount'      => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+
+        $trx = TransactionDetail::find(Input::get('id'));
+        $trx->refund = Input::get('amount');
+        $trx->status_id = 9;
+        $trx->save();
+
+        Session::flash('message', 'Request Cancel Booking Telah di TERIMA!');
+
+        return redirect::route('transaction-cancel-list');
+    }
     public function detail($id){
         $transaction = TransactionHeader::find($id);
 

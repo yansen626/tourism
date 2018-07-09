@@ -260,6 +260,9 @@ Route::prefix('/admin/product')->group(function (){
 // Transaction
 Route::prefix('admin/transaction')->group(function(){
     Route::get('/', 'Admin\TransactionController@index')->name('transaction-list');
+    Route::get('/cancel', 'Admin\TransactionController@cancel')->name('transaction-cancel-list');
+    Route::get('/cancel/detail/{id}', 'Admin\TransactionController@cancelDetail')->name('transaction-cancel-detail');
+    Route::post('/cancel/detail', 'Admin\TransactionController@cancelConfirm');
     Route::get('/detail/{id}', 'Admin\TransactionController@detail')->name('transaction-detail');
 });
 Route::get('/admin/neworder', 'Admin\TransactionController@newOrder')->name('new-order-list');

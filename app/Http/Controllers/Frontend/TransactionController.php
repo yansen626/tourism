@@ -142,7 +142,7 @@ class TransactionController extends Controller
         if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
 
         $detailDB = TransactionDetail::find(Input::get('detail'));
-        $detailDB->cancel_note = Input::get('detail');
+        $detailDB->cancel_note = Input::get('request');
         $detailDB->status_id = 10;
         $detailDB->save();
 

@@ -70,8 +70,7 @@
 
                     </div>
                     <div class="row">
-                        @foreach($transactions as $transaction)
-                            @foreach($transaction->transaction_details as $detailCollection)
+                        @foreach($transactions as $detailCollection)
                                 <div class="col-md-12">
                                     <div class="recom-item border">
                                         <div class="recom-media">
@@ -106,7 +105,6 @@
                                         <!-- Recomended Image-->
                                     </div>
                                 </div>
-                            @endforeach
                         @endforeach
 
                         {{--<div class="col-md-12">--}}

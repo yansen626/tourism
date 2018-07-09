@@ -15,17 +15,20 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $id
  * @property int $status_id
  * @property string $header_id
+ * @property string $user_id
  * @property string $package_id
  * @property float $price
  * @property int $discount_percent
  * @property float $discount_flat
  * @property float $subtotal
  * @property string $cancel_note
+ * @property float $refund
  * @property string $note
  * @property string $updated_by
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Package $package
+ * @property \App\Models\User $user
  * @property \App\Models\TransactionHeader $transaction_header
  *
  * @package App\Models
@@ -40,11 +43,13 @@ class TransactionDetail extends Eloquent
         'status_id' => 'int',
 		'discount_percent' => 'int',
 		'discount_flat' => 'float',
-		'subtotal' => 'float'
+		'subtotal' => 'float',
+		'refund' => 'float'
 	];
 
 	protected $fillable = [
 		'id',
+        'user_id',
         'status_id',
 		'header_id',
 		'package_id',
@@ -53,6 +58,7 @@ class TransactionDetail extends Eloquent
 		'discount_flat',
 		'subtotal',
         'cancel_note',
+        'refund',
 		'note',
 		'updated_by'
 	];
@@ -65,6 +71,11 @@ class TransactionDetail extends Eloquent
     public function status()
     {
         return $this->belongsTo(\App\Models\Status::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
     }
 
 	public function transaction_header()

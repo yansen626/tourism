@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Package;
 use App\Models\Product;
+use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use App\Models\User;
 use Carbon\Carbon;
@@ -165,18 +166,18 @@ class TravelerController extends Controller
         $transactions = null;
         switch ($flag){
             case 1 :
-                $transactions = TransactionHeader::where('user_id', $userId)
-                    ->orderBy('created_at', 'desc')
+                $transactions = TransactionDetail::where('user_id', $userId)
                     ->get();
                 break;
             case 2 :
-                $transactions = TransactionHeader::where('user_id', $userId)
-                    ->orderBy('created_at', 'desc')
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where('status_id', 13)
                     ->get();
                 break;
             case 3 :
-                $transactions = TransactionHeader::where('user_id', $userId)
-                    ->orderBy('created_at', 'desc')
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where('status_id', 8)
+                    ->orWhere('status_id', 9)
                     ->get();
                 break;
         }
@@ -184,24 +185,23 @@ class TravelerController extends Controller
             $detailCollections->add($transaction->transaction_details);
         }
 
-            //count by status
-        $allCount = $transactions->count();
-        $finishedCount = TransactionHeader::where('user_id', $userId)
+        //count by status
+        $allCount = TransactionDetail::where('user_id', $userId)
+            ->count();
+        $finishedCount = TransactionDetail::where('user_id', $userId)
             ->where('status_id', 8)
             ->count();
-        $canceledCount = TransactionHeader::where('user_id', $userId)
-            ->where('status_id', 9)
-            ->orWhere('status_id', 10)
+        $canceledCount = TransactionDetail::where('user_id', $userId)
+            ->where('status_id', 8)
+            ->orWhere('status_id', 9)
             ->count();
-        $upcomingCount = TransactionHeader::where('user_id', $userId)
+        $upcomingCount = TransactionDetail::where('user_id', $userId)
             ->where('status_id', 13)
             ->count();
-
 
 //        $packages = Package::orderBy('created_at', 'desc')->paginate(20);
         $data = [
             'transactions'      => $transactions,
-//            'packages'      => $packages,
             'flag'      => $flag,
             'allCount'  => $allCount,
             'finishedCount'  => $finishedCount,

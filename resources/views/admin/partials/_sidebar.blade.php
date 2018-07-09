@@ -64,6 +64,7 @@
                     <li><a><i class="fa fa-list"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('transaction-list') }}">Daftar Transaksi</a></li>
+                            <li><a href="{{ route('transaction-cancel-list') }}">Daftar Cancel Transaksi</a></li>
                             <li><a href="{{ route('report-form') }}">Laporan</a></li>
                         </ul>
                     </li>
