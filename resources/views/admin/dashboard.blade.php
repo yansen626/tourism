@@ -96,13 +96,13 @@
                             </div>
                         @endif
 
-                        @if($onGoingPaymentTotal > 0)
-                            <div class="alert alert-info alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                </button>
-                                Ada {{ $onGoingPaymentTotal }} status pembayaran baru, silahkan cek di <a style="color: orange;" href="{{ route('payment-list') }}"><strong>halaman ini</strong></a>
-                            </div>
-                        @endif
+                        {{--@if($onGoingPaymentTotal > 0)--}}
+                            {{--<div class="alert alert-info alert-dismissible fade in" role="alert">--}}
+                                {{--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>--}}
+                                {{--</button>--}}
+                                {{--Ada {{ $onGoingPaymentTotal }} status pembayaran baru, silahkan cek di <a style="color: orange;" href="{{ route('payment-list') }}"><strong>halaman ini</strong></a>--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
 
                         @if($challengedCcTotal > 0)
                             <div class="alert alert-danger alert-dismissible fade in" role="alert">

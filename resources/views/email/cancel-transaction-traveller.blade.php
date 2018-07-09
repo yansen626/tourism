@@ -141,9 +141,9 @@
                         <tbody>
                         <tr>
                             <td align="left" class="long-text links-color" style="font-weight: normal; color: #3f3f3f; font-size: 13px; font-family: Arial, Helvetica, sans-serif; text-align: left; line-height: normal;" valign="top" width="100%">
-                                <p style="margin: 1em 0px; margin-top: 0px; text-align: center;">Hallo!</p>
-                                <p style="margin: 1em 0px; text-align: center;">Your Registration is Confirmed!</p>
-                                <p style="margin: 1em 0px; margin-bottom: 0px; text-align: center;">Please Click here to access our Website&nbsp;<a href="{{route('login-travelmate')}}" style="color: #3f3f3f; color: #3f3f3f; text-decoration: underline;" title="sini"></a></p>
+                                <p style="margin: 1em 0px; margin-top: 0px; text-align: center;">Hello!</p>
+                                <p style="margin: 1em 0px; text-align: center;">A Cancel Booking Request has been approved!</p>
+                                <p style="margin: 1em 0px; margin-bottom: 0px; text-align: center;">Please Click here to access our Website&nbsp;<a href="{{route('login')}}" style="color: #3f3f3f; color: #3f3f3f; text-decoration: underline;" title="sini"></a></p>
                             </td>
                         </tr>
                         </tbody>

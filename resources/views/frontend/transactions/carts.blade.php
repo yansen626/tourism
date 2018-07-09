@@ -72,7 +72,7 @@
                                         <input type="button" name="apply_coupon" value="Apply" class="cws-button alt">
                                     </div>
                                     {{--<input type="button" name="proceed" value="Proceed to Checkout" class="cws-button">--}}
-                                    <a href="{{route('transaction-result')}}" class="cws-button">Proceed to Checkout</a>
+                                    <a href="{{route('transaction.result')}}" class="cws-button">Proceed to Checkout</a>
                                 </td>
                             </tr>
                             </tbody>

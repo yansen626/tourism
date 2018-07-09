@@ -11,6 +11,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\libs\RajaOngkir;
+use App\Mail\CancelTransactionTraveller;
+use App\Mail\CancelTransactionTravelmate;
 use App\Mail\DeliveryConfirm;
 use App\Mail\OrderAccepted;
 use App\Models\Product;
@@ -65,6 +67,16 @@ class TransactionController extends Controller
         $trx->refund = Input::get('amount');
         $trx->status_id = 9;
         $trx->save();
+
+
+        //Send Email to traveller
+        $emailNotification = new CancelTransactionTraveller($request->input('url'));
+        Mail::to($trx->transaction_header->user->email)->send($emailNotification);
+
+        //Send Email to travelmate
+        $emailNotification = new CancelTransactionTravelmate($request->input('url'));
+        Mail::to($trx->transaction_header->user->email)->send($emailNotification);
+//        Mail::to($trx->package->travelmate->email)->send($emailNotification);
 
         Session::flash('message', 'Request Cancel Booking Telah di TERIMA!');
 
