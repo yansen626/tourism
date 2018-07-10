@@ -2,11 +2,12 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 05 Jul 2018 03:07:35 +0000.
+ * Date: Tue, 10 Jul 2018 12:47:13 +0000.
  */
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -18,6 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $end_date
  * @property string $description
  * @property string $featured_image
+ * @property string $created_by
+ * @property \Carbon\Carbon $created_at
+ * @property string $updated_by
+ * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Package $package
  *
@@ -25,25 +30,33 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class PackageTrip extends Eloquent
 {
-
-	public $timestamps = false;
-
-	protected $casts = [
-		'id' => 'int'
-	];
-
 	protected $dates = [
 		'start_date',
 		'end_date'
 	];
+
+	protected $appends = [
+	    'start_date_string',
+        'end_date_string'
+    ];
 
 	protected $fillable = [
 		'package_id',
 		'start_date',
 		'end_date',
 		'description',
-		'featured_image'
+		'featured_image',
+		'created_by',
+		'updated_by'
 	];
+
+	public function getStartDateStringAttribute(){
+	    return Carbon::parse($this->attributes['start_date'])->format('d/m/Y G:i');
+    }
+
+    public function getEndDateStringAttribute(){
+        return Carbon::parse($this->attributes['end_date'])->format('d/m/Y G:i');
+    }
 
 	public function package()
 	{

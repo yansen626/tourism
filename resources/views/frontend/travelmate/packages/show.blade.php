@@ -92,7 +92,7 @@
                         <hr>
                         <h4 style="float: left;">MAIN PROGRAM</h4>
                         <div style="float: right;">
-                            <a href="#" class="btn btn-default" style="background-color: #EB5532; color:white;">
+                            <a href="{{ route('travelmate.packages.trip.index', ['package' => $package->id]) }}" class="btn btn-default" style="background-color: #EB5532; color:white;">
                                 EDIT
                             </a>
                         </div>

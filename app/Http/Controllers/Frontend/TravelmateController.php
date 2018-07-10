@@ -348,7 +348,7 @@ class TravelmateController extends Controller
 
                     $filename = $packageID.'_trip_'.Carbon::now('Asia/Jakarta')->format('Ymdhms'). '.'. $ext[1];
 
-                    $img->save(public_path('storage/package_image/'. $filename), 75);
+                    $img->save(public_path('storage/package_trip_image/'. $filename), 75);
                     $newPackageTrip->featured_image = $filename;
                     $newPackageTrip->save();
                 }
@@ -573,6 +573,12 @@ class TravelmateController extends Controller
         catch (\Exception $ex){
             error_log($ex);
         }
+    }
+
+    public function indexTrip(Package $package){
+        $trips = $package->package_trips;
+
+        return view('frontend.travelmate.packages.trips.index', compact('trips'));
     }
 
     public function getCities(){
