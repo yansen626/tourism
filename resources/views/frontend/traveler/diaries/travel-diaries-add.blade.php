@@ -1,7 +1,7 @@
 @extends('layouts.frontend_2')
 
 @section('body-content')
-    <!-- content-->m
+    <!-- content-->
     <div class="content-body">
         <input type="hidden" id="csrf_token" name="_token" value="{{ csrf_token() }}">
         <div style="margin-top:3%;">
