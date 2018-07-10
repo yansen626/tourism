@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use App\Models\User;
+use App\Models\UserDiary;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class TravelerController extends Controller
     //
     public function show(){
         $user = Auth::user();
+        $diaries = UserDiary::where('user_id', $user->id)->get();
         if(!empty($user->id_card) && empty($user->passport_no)){
             $identity = 'ID CARD';
         }
@@ -46,10 +48,165 @@ class TravelerController extends Controller
 
         $data = [
             'user'      => $user,
+            'diaries'  => $diaries,
             'identity'  => $identity
         ];
 
         return View('frontend.traveler.index')->with($data);
+    }
+
+    public function travelDiary(){
+        $user = Auth::user();
+        $diaries = UserDiary::where('user_id', $user->id)->get();
+
+        if(!empty($diaries->youtube_link) && empty($diaries->image_link)){
+            $identity = 'YOUTUBE';
+        }
+        elseif(empty($diaries->youtube_link) && !empty($diaries->image_link)){
+            $identity = 'IMAGE';
+        }
+        else{
+            $identity = 'none';
+        }
+
+        $data = [
+            'user'      => $user,
+            'diaries'  => $diaries,
+            'identity'  => $identity
+        ];
+
+        return View('frontend.traveler.diaries.travel-diaries')->with($data);
+    }
+
+    public function travelDiaryEdit($id){
+        $user = Auth::user();
+        $diaries = UserDiary::find($id);
+
+        if(!empty($diaries->youtube_link) && empty($diaries->image_link)){
+            $identity = 'YOUTUBE';
+        }
+        elseif(empty($diaries->youtube_link) && !empty($diaries->image_link)){
+            $identity = 'IMAGE';
+        }
+        else{
+            $identity = 'none';
+        }
+        $data = [
+            'user'      => $user,
+            'diaries'  => $diaries,
+            'identity'  => $identity
+        ];
+//        dd($data);
+        return View('frontend.traveler.diaries.travel-diaries-edit')->with($data);
+    }
+
+    public function travelDiaryupdate(Request $request, UserDiary $diary){
+        try{
+            $validator = Validator::make($request->all(), [
+                'description'             => 'required'
+            ]);
+
+            if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
+
+            // Validate Identity No
+            if(Input::get('identity') === 'youtube' && empty(Input::get('youtube'))){
+                return redirect()->back()->withErrors('Youtube Link is required!', 'default')->withInput($request->all());
+            }
+//        dd($request);
+            if(Input::get('identity') === 'image' && empty($request->file('image'))){
+                return redirect()->back()->withErrors('Image is required!', 'default')->withInput($request->all());
+            }
+
+            $diary->description = Input::get('description');
+
+            if(Input::get('identity') === 'youtube'){
+                $diary->youtube_link = Input::get('youtube');
+                $diary->image_link = null;
+            }
+            else{
+                $diary->youtube_link = null;
+                $img = Image::make($request->file('image'));
+
+                // Get image extension
+                $extStr = $img->mime();
+                $ext = explode('/', $extStr, 2);
+
+                $filename = 'diary_'.$diary->id.'_'. $diary->user_id.'.'. $ext[1];
+
+                $img->save(public_path('storage/traveller_diary/'. $filename), 75);
+                $diary->image_link = $filename;
+            }
+
+            $diary->save();
+
+            Session::flash('message', 'Diary Updated!');
+
+            return redirect()->route('traveller.profile.diary');
+        }catch(\Exception $ex){
+            error_log($ex);
+            return redirect()->back()->withErrors('Something Went Wrong')->withInput($request->all());
+        }
+    }
+    public function travelDiaryAdd(){
+        $user = Auth::user();
+
+        $data = [
+            'user'      => $user
+        ];
+
+        return View('frontend.traveler.diaries.travel-diaries-add')->with($data);
+    }
+    public function travelDiarySubmit(Request $request, User $user){
+        try{
+            $validator = Validator::make($request->all(), [
+                'description'             => 'required'
+            ]);
+
+            if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
+
+            // Validate Identity No
+            if(Input::get('identity') === 'youtube' && empty(Input::get('youtube'))){
+                return redirect()->back()->withErrors('Youtube Link is required!', 'default')->withInput($request->all());
+            }
+//        dd($request);
+            if(Input::get('identity') === 'image' && empty($request->file('image'))){
+                return redirect()->back()->withErrors('Image is required!', 'default')->withInput($request->all());
+            }
+
+            $dateTimeNow = Carbon::now('Asia/Jakarta');
+            $diary = UserDiary::create([
+                'user_id' =>$user->id,
+                'description' =>Input::get('description'),
+                'created_at'        => $dateTimeNow->toDateTimeString()
+            ]);
+
+            if(Input::get('identity') === 'youtube'){
+                $diary->youtube_link = Input::get('youtube');
+                $diary->image_link = null;
+            }
+            else{
+                $diary->youtube_link = null;
+                $img = Image::make($request->file('image'));
+
+                // Get image extension
+                $extStr = $img->mime();
+                $ext = explode('/', $extStr, 2);
+
+                $filename = 'diary_'.$diary->id.'_'. $diary->user_id.'.'. $ext[1];
+
+                $img->save(public_path('storage/traveller_diary/'. $filename), 75);
+                $diary->image_link = $filename;
+            }
+
+            $diary->save();
+
+            Session::flash('message', 'New Diary Added!');
+
+            return redirect()->route('traveller.profile.diary');
+        }catch(\Exception $ex){
+            error_log($ex);
+            return redirect()->back()->withErrors('Something Went Wrong')->withInput($request->all());
+        }
     }
 
     public function edit(){

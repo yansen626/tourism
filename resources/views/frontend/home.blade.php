@@ -61,7 +61,8 @@
 	<!-- ! page section parallax-->
 
 	<!-- testimonials section-->
-	<section class="small-section cws_prlx_section bg-blue-40"><img src="{{ URL::asset('frontend_images/bg3.jpg') }}" alt class="cws_prlx_layer">
+	<section class="small-section cws_prlx_section bg-blue-40">
+        <img src="{{ URL::asset('frontend_images/bg3.jpg') }}" alt class="cws_prlx_layer">
 		<div class="container">
 			<div class="row">
 				<a href="{{route('travelmate.index')}}">

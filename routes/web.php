@@ -52,6 +52,12 @@ Route::prefix('traveller')->group(function(){
     Route::get('/profile/edit', 'Frontend\TravelerController@edit')->name('traveller.profile.edit');
     Route::put('/profile/update/{user}', 'Frontend\TravelerController@update')->name('traveller.profile.update');
     Route::post('/profile/upload', 'Frontend\TravelerController@updateImage')->name('traveller.profile.upload');
+
+    Route::get('/profile/travel-diary', 'Frontend\TravelerController@travelDiary')->name('traveller.profile.diary');
+    Route::get('/profile/travel-diary/add', 'Frontend\TravelerController@travelDiaryAdd')->name('traveller.profile.diary.add');
+    Route::post('/profile/travel-diary/submit/{user}', 'Frontend\TravelerController@travelDiarySubmit')->name('traveller.profile.diary.submit');
+    Route::get('/profile/travel-diary/edit/{id}', 'Frontend\TravelerController@travelDiaryEdit')->name('traveller.profile.diary.edit');
+    Route::put('/profile/travel-diary/update/{diary}', 'Frontend\TravelerController@travelDiaryupdate')->name('traveller.profile.diary.update');
 });
 
 // Travelmate

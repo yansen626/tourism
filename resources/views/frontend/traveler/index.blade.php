@@ -147,7 +147,7 @@
                             <div class="col-md-12">
                                 <hr>
                                 <div class="pull-right mt-10">
-                                    <a href="{{ route('traveller.profile.edit') }}" class="btn btn-default" style="background-color: #ffc801; color:white;">
+                                    <a href="{{ route('traveller.profile.diary') }}" class="btn btn-default" style="background-color: #ffc801; color:white;">
                                         EDIT
                                     </a>
                                 </div>
@@ -157,12 +157,55 @@
                                 </div>
                                 <br>
                                 <br>
+
                                 <div class="row">
-                                    <div class="col-md-12" >
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe src="{{$user->youtube_link}}" class="embed-responsive-item"></iframe>
+
+                                    <div class="container-fluid">
+                                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                            <!-- Indicators -->
+
+                                            <!-- Wrapper for slides -->
+                                            <div class="carousel-inner" role="listbox">
+                                                @php($ct = 0)
+                                                @foreach($diaries as $diary)
+                                                    @if($ct == 0)
+                                                        @php($class = 'item active')
+                                                    @else
+                                                        @php($class = 'item')
+                                                    @endif
+                                                    <div class="{{$class}}" >
+                                                        <div>
+                                                            @if(!empty($diary->youtube_link))
+                                                                <div class="embed-responsive embed-responsive-4by3" >
+                                                                    <!-- Copy & Pasted from YouTube -->
+                                                                    <iframe src="{{$diary->youtube_link}}" class="embed-responsive-item"></iframe>
+                                                                </div>
+                                                            @else
+                                                                <div class="text-center">
+                                                                    <img src="{{ URL::asset('storage/traveller_diary/'.$diary->image_link) }}" style="height:500px;width:auto;">
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <div style="padding: 3%;"> <!-- class="carousel-caption" into image -->
+                                                            {{$diary->description}}
+                                                        </div>
+                                                    </div>
+                                                    @php($ct++)
+                                                @endforeach
+                                            </div>
+
+                                            <!-- Controls -->
+                                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
                                         </div>
                                     </div>
+
                                 </div>
                                 <br>
                             </div>
@@ -179,4 +222,32 @@
 
 
 	@include('frontend.partials._modal-login')
+@endsection
+
+@section('styles')
+    @parent
+    <style>
+        .container-fluid {
+            background: #000000;
+            color:#ffffff;
+            margin: 40px auto 10px;
+            padding: 20px 0px;
+            max-width: 960px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+        .embed-responsive-4by3 {
+            padding-bottom: 58%;
+        }
+    </style>
+@endsection
+
+@section('scripts')
+    @parent
+    <script>// Carousel Auto-Cycle
+        $(document).ready(function() {
+            $('.carousel').carousel({
+                interval: 0
+            })
+        });
+    </script>
 @endsection

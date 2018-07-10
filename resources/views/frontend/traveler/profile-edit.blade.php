@@ -146,16 +146,16 @@
                                     </div>
                                 </div>
                                 <hr/>
-                                <h4>TRAVEL DIARY</h4>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="youtube">
-                                        Youtube Link
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="youtube" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('youtube')) parsley-error @endif"
-                                               name="youtube" value="{{$user->youtube_link}}">
-                                    </div>
-                                </div>
+                                {{--<h4>TRAVEL DIARY</h4>--}}
+                                {{--<div class="form-group">--}}
+                                    {{--<label class="control-label col-md-2 col-sm-2 col-xs-12" for="youtube">--}}
+                                        {{--Youtube Link--}}
+                                    {{--</label>--}}
+                                    {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
+                                        {{--<input id="youtube" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('youtube')) parsley-error @endif"--}}
+                                               {{--name="youtube" value="{{$user->youtube_link}}">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="form-group">
                                     <div class="col-md-2 col-sm-2 col-xs-12"></div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
