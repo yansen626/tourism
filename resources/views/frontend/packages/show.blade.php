@@ -117,14 +117,6 @@
                             </a>
                         @endif
                     </div>
-                    <div class="col-md-12 text-right">
-
-                        @if(auth()->guard('web')->check())
-                            <a href="#" class="btn btn-danger" >
-                                Cancel
-                            </a>
-                        @endif
-                    </div>
                 </div>
             </div>
         </div>

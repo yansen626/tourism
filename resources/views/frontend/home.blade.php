@@ -18,29 +18,29 @@
 			</ul>
 		</div>
 		<!-- slider info-->
-		<div class="slider-info-wrap clearfix">
-			<div class="slider-info-content">
-				@foreach($packages as $package)
-					<div class="slider-info-item">
-						<div class="info-item-media"><img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
-														  data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}" alt>
-							<div class="info-item-text">
-								<div class="info-price font-4"><span>start from</span> Rp {{$package->price}}</div>
+		{{--<div class="slider-info-wrap clearfix">--}}
+			{{--<div class="slider-info-content">--}}
+				{{--@foreach($packages as $package)--}}
+					{{--<div class="slider-info-item">--}}
+						{{--<div class="info-item-media"><img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"--}}
+														  {{--data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}" alt>--}}
+							{{--<div class="info-item-text">--}}
+								{{--<div class="info-price font-4"><span>start from</span> Rp {{$package->price}}</div>--}}
 								{{--<div class="info-temp font-4"><span>local temperature</span> 36° / 96.8°</div>--}}
-								<p class="info-text">{{$package->description}}</p>
-							</div>
-						</div>
-						<div class="info-item-content">
-							<div class="main-title">
-								<h3 class="title"><span class="font-4">{{$package->province->name}}</span> {{$package->city->name}}</h3>
-								<div class="price">start from <span>Rp {{$package->price}}</span></div>
-								<a href="{{route('destination', ['province'=>$package->province_id])}}" class="button">Details</a>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			</div>
-		</div>
+								{{--<p class="info-text">{{$package->description}}</p>--}}
+							{{--</div>--}}
+						{{--</div>--}}
+						{{--<div class="info-item-content">--}}
+							{{--<div class="main-title">--}}
+								{{--<h3 class="title"><span class="font-4">{{$package->province->name}}</span> {{$package->city->name}}</h3>--}}
+								{{--<div class="price">start from <span>Rp {{$package->price}}</span></div>--}}
+								{{--<a href="{{route('destination', ['province'=>$package->province_id])}}" class="button">Details</a>--}}
+							{{--</div>--}}
+						{{--</div>--}}
+					{{--</div>--}}
+				{{--@endforeach--}}
+			{{--</div>--}}
+		{{--</div>--}}
 		<!-- ! slider-info-->
 	</div>
 
@@ -48,11 +48,40 @@
 	<section class="small-section cws_prlx_section bg-gray-40"><img src="{{ URL::asset('frontend_images/bg2.jpg') }}" alt class="cws_prlx_layer">
 		<div class="container">
 			<div class="row">
+				<div class="col-md-12" style="padding-bottom: 3%;">
+					<div class="owl-three-item">
+
+						@foreach($packages as $package)
+							<div class="testimonial-item">
+								<div class="testimonial-top">
+									<a href="{{route('destination', ['province'=>$package->province_id])}}">
+										<div class="pic">
+											<img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
+												 data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
+												 style="max-width: 100%;" alt>
+										</div>
+									</a>
+								</div>
+								<!-- testimonial content-->
+								<div class="testimonial-body">
+
+									<h5 class="title">start from <span>Rp {{$package->price}}</span> </h5>
+									<h4 class="title"><span>{{$package->province->name}}</span>, {{$package->city->name}}</h4>
+									<p class="align-center" style="min-height: 70px;">
+										{{$package->description}}
+									</p>
+									<a href="{{route('destination', ['province'=>$package->province_id])}}" class="testimonial-button">Details</a>
+								</div>
+							</div>
+						@endforeach
+					</div>
+				</div>
+
 				<div class="col-md-12">
 					<div class="map-wrapper">
 						{{--<iframe src="https://www.google.com/maps/d/u/0/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" allowfullscreen=""></iframe>--}}
 						<iframe src="https://www.google.com/maps/d/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" width="640" height="480"></iframe>
-                        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" width="640" height="480"></iframe>
+                        {{--<iframe src="https://www.google.com/maps/d/u/0/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" width="640" height="480"></iframe>--}}
 					</div>
 				</div>
 			</div>
