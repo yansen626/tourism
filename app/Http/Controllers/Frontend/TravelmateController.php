@@ -14,8 +14,10 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\General;
 use App\Models\Package;
+use App\Models\PackageImage;
 use App\Models\PackagePrice;
 use App\Models\PackageTrip;
+use App\Models\PackageTripImage;
 use App\Models\Province;
 use App\Models\Travelmate;
 use Carbon\Carbon;
@@ -482,7 +484,7 @@ class TravelmateController extends Controller
 
         // Validate quantity
         if(!empty($package->package_prices->where('quantity', $qty)->first())){
-            return redirect()->back()->withErrors('Duplicate value of Number of Travellers!', 'default')->withInput($request->all());
+            return redirect()->back()->withErrors('Number of Travellers '. $qty. ' already existed!', 'default')->withInput($request->all());
         }
 
         $priceStr = str_replace('.','', $request->input('price'));
@@ -576,9 +578,238 @@ class TravelmateController extends Controller
     }
 
     public function indexTrip(Package $package){
-        $trips = $package->package_trips;
+        return view('frontend.travelmate.packages.trips.index', compact('package'));
+    }
 
-        return view('frontend.travelmate.packages.trips.index', compact('trips'));
+    public function createTrip($package_id){
+        $packageId = $package_id;
+
+        return view('frontend.travelmate.packages.trips.create', compact('packageId'));
+    }
+
+    public function storeTrip(Request $request, $package_id){
+        $validator = Validator::make($request->all(),[
+            'start_date'        => 'required',
+            'end_date'          => 'required',
+            'description'       => 'required|max:300',
+            'featured'          => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+//        dd($request);
+
+        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
+        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
+
+        // Validate date
+        if($start->gt($end)){
+            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+        }
+
+        $user = Auth::guard('travelmates')->user();
+        $now = Carbon::now('Asia/Jakarta');
+
+        $trip = PackageTrip::create([
+            'package_id'        => $package_id,
+            'start_date'        => $start->toDateTimeString(),
+            'end_date'          => $end->toDateTimeString(),
+            'description'       => $request->input('description'),
+            'created_by'        => $user->id,
+            'created_at'        => $now->toDateTimeString(),
+            'updated_by'        => $user->id,
+            'updated_at'        => $now->toDateTimeString()
+        ]);
+
+        if(!empty($request->file('featured'))){
+            $img = Image::make($request->file('featured'));
+
+            // Get image extension
+            $extStr = $img->mime();
+            $ext = explode('/', $extStr, 2);
+
+            $filename = $trip->id. '_'. $now->format('Ymdhms'). '_0.'. $ext[1];
+
+            $img->save(public_path('storage/package_trip_image/'. $filename));
+
+            $trip->featured_image = $filename;
+            $trip->save();
+        }
+
+        if(!empty($request->file('more_images'))){
+            $idx = 1;
+            foreach($request->file('more_images') as $img){
+                error_log('index: '. $idx);
+                $photo = Image::make($img);
+
+                // Get image extension
+                $extStr = $photo->mime();
+                $ext = explode('/', $extStr, 2);
+
+                $filename = $trip->id. '_'. $now->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
+
+                $photo->save(public_path('storage/package_trip_image/'. $filename));
+
+                $images = PackageTripImage::create([
+                    'trip_id'           => $trip->id,
+                    'filename'          => $filename
+                ]);
+
+                $idx++;
+            }
+        }
+
+        Session::flash('message', 'New Package Trip successfully created!');
+
+        return redirect()->route('travelmate.packages.trip.index', ['package' => $package_id]);
+    }
+
+    public function editTrip(PackageTrip $package_trip){
+        $trip = $package_trip;
+
+//        dd($trip->description);
+
+        return view('frontend.travelmate.packages.trips.edit', compact('trip'));
+    }
+
+    public function updateTrip(Request $request, PackageTrip $package_trip){
+        $validator = Validator::make($request->all(),[
+            'start_date'        => 'required',
+            'end_date'          => 'required',
+            'description'       => 'required|max:300'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
+        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
+
+        // Validate date
+        if($start->gt($end)){
+            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+        }
+
+        $user = Auth::guard('travelmates')->user();
+        $now = Carbon::now('Asia/Jakarta');
+
+        $package_trip->start_date = $start->toDateTimeString();
+        $package_trip->end_date = $end->toDateTimeString();
+        $package_trip->description = $request->input('description');
+        $package_trip->updated_by = $user->id;
+        $package_trip->updated_at = $now->toDateTimeString();
+
+        if(!empty($request->input('featured_changed')) && $request->input('featured_changed') === 'new'){
+            $img = Image::make($request->file('featured'));
+
+            // Get image extension
+            $extStr = $img->mime();
+            $ext = explode('/', $extStr, 2);
+
+            $filename = $package_trip->id. '_'. $now->format('Ymdhms'). '_0.'. $ext[1];
+
+            $img->save(public_path('storage/package_trip_image/'. $filename));
+
+            $oldFeaturedImage = $package_trip->featured_image;
+            $package_trip->featured_image = $filename;
+
+            // Delete featured image from server
+            $deletedPath = public_path('storage/package_trip_image/'. $oldFeaturedImage);
+            if(file_exists($deletedPath)) unlink($deletedPath);
+        }
+
+        $package_trip->save();
+
+        // Delete package trip images
+        if(!empty($request->input('deleted_images'))){
+            $deletedIdTmp = $request->input('deleted_images');
+
+            if(strpos($deletedIdTmp,',')){
+                $deletedIdList = explode(',', $deletedIdTmp);
+                foreach($deletedIdList as $deletedId){
+                    $packageImg = PackageTripImage::find($deletedId);
+
+                    $deletedPath = public_path('storage/package_trip_image/'. $packageImg->filename);
+                    if(file_exists($deletedPath)) unlink($deletedPath);
+
+                    $packageImg->delete();
+                }
+            }
+            else{
+
+                $packageImg = PackageTripImage::find($deletedIdTmp);
+
+                $deletedPath = public_path('storage/package_trip_image/'. $packageImg->filename);
+                if(file_exists($deletedPath)) unlink($deletedPath);
+
+                $packageImg->delete();
+            }
+        }
+
+        if(!empty($request->file('more_images'))){
+            $idx = 1;
+            foreach($request->file('more_images') as $img){
+                $photo = Image::make($img);
+
+                // Get image extension
+                $extStr = $photo->mime();
+                $ext = explode('/', $extStr, 2);
+
+                $filename = $package_trip->id. '_'. $now->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
+
+                $photo->save(public_path('storage/package_trip_image/'. $filename));
+
+                $images = PackageTripImage::create([
+                    'trip_id'           => $package_trip->id,
+                    'filename'          => $filename
+                ]);
+
+                $idx++;
+            }
+        }
+
+        Session::flash('message', 'Package Trip successfully updated!');
+
+        return redirect()->route('travelmate.packages.trip.edit', ['package_trip' => $package_trip->id]);
+    }
+
+    public function deleteTrip(Request $request){
+        try{
+            error_log('CHECK');
+
+            $trip = PackageTrip::find($request->input('id'));
+
+            // Delete images from server
+            if($trip->package_trip_images->count() > 0){
+                foreach ($trip->package_trip_images as $image){
+                    $deletedPath = public_path('storage/package_trip_image/'. $image->filename);
+                    if(file_exists($deletedPath)) unlink($deletedPath);
+
+                    $image->delete();
+                }
+            }
+
+            $deletedFeaturedPath = public_path('storage/package_trip_image/'. $trip->featured_image);
+            if(file_exists($deletedFeaturedPath)) unlink($deletedFeaturedPath);
+
+            $trip->delete();
+
+            Session::flash('message', 'Package Trip successfully deleted!');
+
+            return new JsonResponse($trip);
+        }
+        catch (\Exception $ex){
+            error_log($ex);
+        }
     }
 
     public function getCities(){

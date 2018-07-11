@@ -111,13 +111,13 @@
                     <br />
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="qty_delete">Barang:</label>
+                            <label class="control-label col-sm-2" for="qty_delete">Number of Travellers:</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="qty_delete" readonly>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="price_delete">QTY:</label>
+                            <label class="control-label col-sm-2" for="price_delete">Quantity:</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="price_delete" readonly>
                             </div>
