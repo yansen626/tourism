@@ -6,11 +6,6 @@
         <div style="margin:3%;">
             <h2 class="title-section mb-5">
                 <span>Search</span> Destination
-                @if($provinceName!= "")
-                    <span>of {{$provinceName}}</span>
-                @elseif($searchText != "")
-                    <span>by {{$searchText}}</span>
-                @endif
             </h2>
             <div class="search-hotels mb-40 pattern">
                 <div class="tours-container">
@@ -18,18 +13,20 @@
                         <div class="row">
                             <div class="col-md-4 clearfix">
                                 <div class="selection-box">
-                                    <select id="sort" name="sort" class="selectpicker" onchange="sortBy(this)">
+                                    {{--<select id="sort" name="sort" class="selectpicker" onchange="sortBy(this)">--}}
+                                    <select id="sort" name="sort" class="selectpicker">
                                         <option value="-1">-- SORT BY --</option>
-                                        <option  value="price_low" {{ $sortBy === "price_low" ? 'selected' : '' }}>Price (Lowest)</option>
-                                        <option value="price_high" {{ $sortBy === "price_high" ? 'selected' : '' }}>Price (Higest)</option>
-                                        <option value="date_asc" {{ $sortBy === "date_asc" ? 'selected' : '' }}>Date (Ascending)</option>
-                                        <option value="date_desc" {{ $sortBy === "date_desc" ? 'selected' : '' }}>Date (Descending)</option>
+                                        <option  value="price-asc" {{ $sortBy === "price-asc" ? 'selected' : '' }}>Price (Lowest)</option>
+                                        <option value="price-desc" {{ $sortBy === "price-desc" ? 'selected' : '' }}>Price (Higest)</option>
+                                        <option value="start_date-asc" {{ $sortBy === "start_date-asc" ? 'selected' : '' }}>Date (Ascending)</option>
+                                        <option value="start_date-desc" {{ $sortBy === "start_date-desc" ? 'selected' : '' }}>Date (Descending)</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4 clearfix">
                                 <div class="selection-box">
-                                    <select id="province" name="province" class="selectpicker" onchange="filterProvince(this)">
+                                    {{--<select id="province" name="province" class="selectpicker" onchange="filterProvince(this)">--}}
+                                    <select id="province" name="province" class="selectpicker">
                                         <option value="-1">-- SELECT PROVINCE --</option>
                                         @foreach($provinces as $province)
                                             <option value="{{ $province->id }}" {{ $province->id == $provinceId ? 'selected' : '' }} >{{ $province->name }}</option>
@@ -123,9 +120,11 @@
         }
         function filterSearch(){
             // Get status filter value
+            var sort = $('#sort').val();
+            var province = $('#province').val();
             var search = $('#search-text').val();
 
-            var url = "/destination?search=" + search;
+            var url = "/destination?search=" + search + "&province=" + province + "&sortBy=" + sort;
 
             window.location = url;
         }

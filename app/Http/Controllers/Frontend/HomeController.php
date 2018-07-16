@@ -200,8 +200,7 @@ class HomeController extends Controller
         $searchText = request()->search;
         $sortBy = request()->sortBy;
 
-        if(!empty($provinceId) && !empty($searchText)){
-            $provinceId = "";
+        if(!empty($searchText)){
             $travelmates = Travelmate::where('first_name', 'like', '%'.$searchText.'%')
                 ->orWhere('last_name', 'like', '%'.$searchText.'%')
                 ->get();
@@ -210,61 +209,67 @@ class HomeController extends Controller
             foreach ($travelmates as $travelmate){
                 array_push($travelmateId, $travelmate->id);
             }
+        }
+//        dd($provinceId." ".$sortBy." ".$searchText);
+//        dd($searchText);
+        if($sortBy != '-1' && !empty($sortBy)){
+            $sortSplit = explode('-',$sortBy);
+            $field = $sortSplit[0];
+            $sortType = $sortSplit[1];
+        }
+        //default
+        if(empty($provinceId) && empty($sortBy) && empty($searchText)){
 
-            $packages = Package::where('status_id', 1)
-                ->whereIn('travelmate_id', $travelmateId)
-                ->where('province_id', $provinceId)
-                ->get();
-            $provinceDB = Province::find($provinceId);
-            $provinceName = $provinceDB->name;
-            $searchText = "";
-        }
-        else if(!empty($sortBy)){
-            switch($sortBy){
-                case "price_low" :
-                    $packages = Package::where('status_id', 1)
-                        ->orderBy('price', 'asc')
-                        ->get();
-                    break;
-                case "price_high" :
-                    $packages = Package::where('status_id', 1)
-                        ->orderBy('price', 'desc')
-                        ->get();
-                    break;
-                case "date_asc" :
-                    $packages = Package::where('status_id', 1)
-                        ->orderBy('start_date', 'asc')
-                        ->get();
-                    break;
-                case "date_desc" :
-                    $packages = Package::where('status_id', 1)
-                        ->orderBy('start_date', 'desc')
-                        ->get();
-                    break;
-            }
-        }
-        else if(!empty($provinceId)){
-            $packages = Package::where('status_id', 1)
-                ->where('province_id', $provinceId)
-                ->get();
-            $provinceDB = Province::find($provinceId);
-            $provinceName = $provinceDB->name;
-            $searchText = "";
-        }
-        else if (!empty($searchText)){
+            $packages = Package::where('status_id', 1)->get();
             $provinceId = "";
-            $travelmates = Travelmate::where('first_name', 'like', '%'.$searchText.'%')
-                ->orWhere('last_name', 'like', '%'.$searchText.'%')
+            $searchText = "";
+        }
+        //province only
+        else if($provinceId != '-1' && empty($searchText) && $sortBy == '-1'){
+            $packages = Package::where('status_id', 1)
+                ->where('province_id', $provinceId)
                 ->get();
-
-            $travelmateId = array();
-            foreach ($travelmates as $travelmate){
-                array_push($travelmateId, $travelmate->id);
-            }
-//            $travelmateId = $travelmate->toArray();
-
+        }
+        //search only
+        else if($provinceId == '-1' && !empty($searchText) && $sortBy == '-1'){
             $packages = Package::where('status_id', 1)
                 ->whereIn('travelmate_id', $travelmateId)
+                ->get();
+        }
+        //sort only
+        else if($provinceId == '-1' && empty($searchText) && $sortBy != '-1'){
+            $packages = Package::where('status_id', 1)
+                ->orderBy($field, $sortType)
+                ->get();
+        }
+        //province search and sort
+        else if($provinceId != '-1' && !empty($searchText) && $sortBy != '-1'){
+            $packages = Package::where('status_id', 1)
+                ->whereIn('travelmate_id', $travelmateId)
+                ->where('province_id', $provinceId)
+                ->orderBy($field, $sortType)
+                ->get();
+
+        }
+        // province and search
+        else if($provinceId != '-1' && !empty($searchText) && $sortBy == '-1'){
+            $packages = Package::where('status_id', 1)
+                ->whereIn('travelmate_id', $travelmateId)
+                ->where('province_id', $provinceId)
+                ->get();
+        }
+        // province and sort
+        else if($provinceId != '-1' && empty($searchText) && $sortBy != '-1'){
+            $packages = Package::where('status_id', 1)
+                ->where('province_id', $provinceId)
+                ->orderBy($field, $sortType)
+                ->get();
+        }
+        // search and sort
+        else if($provinceId == '-1' && empty($searchText) && $sortBy != '-1'){
+            $packages = Package::where('status_id', 1)
+                ->whereIn('travelmate_id', $travelmateId)
+                ->orderBy($field, $sortType)
                 ->get();
         }
         else{
@@ -272,6 +277,79 @@ class HomeController extends Controller
             $provinceId = "";
             $searchText = "";
         }
+
+//        if(!empty($provinceId) && !empty($searchText)){
+//            $provinceId = "";
+//            $travelmates = Travelmate::where('first_name', 'like', '%'.$searchText.'%')
+//                ->orWhere('last_name', 'like', '%'.$searchText.'%')
+//                ->get();
+//
+//            $travelmateId = array();
+//            foreach ($travelmates as $travelmate){
+//                array_push($travelmateId, $travelmate->id);
+//            }
+//
+//            $packages = Package::where('status_id', 1)
+//                ->whereIn('travelmate_id', $travelmateId)
+//                ->where('province_id', $provinceId)
+//                ->get();
+//            $provinceDB = Province::find($provinceId);
+//            $provinceName = $provinceDB->name;
+//            $searchText = "";
+//        }
+//        else if(!empty($sortBy)){
+//            switch($sortBy){
+//                case "price_low" :
+//                    $packages = Package::where('status_id', 1)
+//                        ->orderBy('price', 'asc')
+//                        ->get();
+//                    break;
+//                case "price_high" :
+//                    $packages = Package::where('status_id', 1)
+//                        ->orderBy('price', 'desc')
+//                        ->get();
+//                    break;
+//                case "date_asc" :
+//                    $packages = Package::where('status_id', 1)
+//                        ->orderBy('start_date', 'asc')
+//                        ->get();
+//                    break;
+//                case "date_desc" :
+//                    $packages = Package::where('status_id', 1)
+//                        ->orderBy('start_date', 'desc')
+//                        ->get();
+//                    break;
+//            }
+//        }
+//        else if(!empty($provinceId)){
+//            $packages = Package::where('status_id', 1)
+//                ->where('province_id', $provinceId)
+//                ->get();
+//            $provinceDB = Province::find($provinceId);
+//            $provinceName = $provinceDB->name;
+//            $searchText = "";
+//        }
+//        else if (!empty($searchText)){
+//            $provinceId = "";
+//            $travelmates = Travelmate::where('first_name', 'like', '%'.$searchText.'%')
+//                ->orWhere('last_name', 'like', '%'.$searchText.'%')
+//                ->get();
+//
+//            $travelmateId = array();
+//            foreach ($travelmates as $travelmate){
+//                array_push($travelmateId, $travelmate->id);
+//            }
+////            $travelmateId = $travelmate->toArray();
+//
+//            $packages = Package::where('status_id', 1)
+//                ->whereIn('travelmate_id', $travelmateId)
+//                ->get();
+//        }
+//        else{
+//            $packages = Package::where('status_id', 1)->get();
+//            $provinceId = "";
+//            $searchText = "";
+//        }
 
         $data = [
             'packages'          => $packages,
