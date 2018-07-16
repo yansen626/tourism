@@ -11,15 +11,15 @@
                         <span>My Cart</span>
                     </h2>
                     <span>Select Currency : </span>
-                    <label class="radio-inline">
+                    <label class="radio-inline custom-radio">
                         <input type="radio" value="IDR" {{$currencyType == "IDR" ? 'checked':''}}
                                onchange="selectCurrency(this);" name="optradio">IDR
                     </label>
-                    <label class="radio-inline">
+                    <label class="radio-inline custom-radio">
                         <input type="radio" value="USD" {{$currencyType == "USD" ? 'checked':''}}
                                onchange="selectCurrency(this);" name="optradio">USD
                     </label>
-                    <label class="radio-inline">
+                    <label class="radio-inline custom-radio">
                         <input type="radio" value="RMB" {{$currencyType == "RMB" ? 'checked':''}}
                                onchange="selectCurrency(this);" name="optradio">RMB
                     </label>
@@ -111,6 +111,12 @@
 
 @section('styles')
     @parent
+    <style>
+        input[type="radio"] {
+            font-style: normal;
+            -webkit-appearance: radio !important;
+        }
+    </style>
 @endsection
 
 @section('scripts')
