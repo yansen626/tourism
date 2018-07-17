@@ -4,12 +4,26 @@
     <!-- content-->
     <div class="content-body">
         {{--<div class="container page">--}}
+
+        <section class="cws_prlx_section" style="padding-bottom: 10% !important;padding: 250px 0;">
+            <img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}" alt class="cws_prlx_layer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mb-md-60">
+                        &nbsp;<br>
+                        &nbsp;<br>
+                        &nbsp;<br>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </section>
         <div style="margin:3%;">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="col-md-12">
-                        <img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}">
-                    </div>
+                    {{--<div class="col-md-12">--}}
+                        {{--<img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}">--}}
+                    {{--</div>--}}
                     <div class="col-md-12">
                         <h4>{{$package->name}}</h4>
 

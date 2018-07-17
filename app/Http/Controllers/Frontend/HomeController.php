@@ -155,7 +155,13 @@ class HomeController extends Controller
     }
 
     public function terms(){
-        return View('frontend.terms');
+        return View('frontend.information.terms');
+    }
+    public function about(){
+        return View('frontend.information.about-us');
+    }
+    public function privacy(){
+        return View('frontend.information.privacy');
     }
 
     public function SearchForm(){

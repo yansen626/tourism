@@ -121,12 +121,20 @@ Route::get('cart/check/{id}', 'Frontend\CartController@getNotes');
 Route::post('cart/add/check', 'Frontend\CartController@checkNoteForCartAdd')->name('cart-add-check-note');
 Route::post('cart/save/note', 'Frontend\CartController@storeNotes');
 
+
+// Terms and Condition, about us, privacy policy
+Route::get('/terms', 'Frontend\HomeController@terms')->name('terms');
+Route::get('/about', 'Frontend\HomeController@about')->name('abouts');
+Route::get('/privacy', 'Frontend\HomeController@privacy')->name('privacy');
+
+
+
 //HTII Section End
 
 
 
 // Terms and Condition
-Route::get('/terms', 'Frontend\HomeController@terms')->name('terms-show');
+//Route::get('/terms', 'Frontend\HomeController@terms')->name('terms-show');
 
 // Product
 Route::get('product/category/{categoryId}-{categoryName}', 'Frontend\ProductsController@products')->name('products');

@@ -103,7 +103,6 @@ class TransactionController extends Controller
                             $discount = (($voucherDB->amount_percentage * $price) / 100);
                             $transactionDetail->subtotal = $price - $discount;
                             $transactionDetail->save();
-
                         }
                         $transactionHeader->voucher_id = $voucherDB->id;
                         $transactionHeader->save();

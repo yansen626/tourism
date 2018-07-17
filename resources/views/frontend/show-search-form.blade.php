@@ -128,7 +128,12 @@
                     <span class="title-section mt-0 mb-0" style="font-size: 60px;">TAILOR <br> MADE</span>
                     <!-- ! section title-->
                     <div class="cws_divider with-plus short-3 mb-20 mt-10"></div>
-                    <p class="mb-50">Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                    <p class="mb-50">How It Works: <br>
+                        You couldn't find any destination suits you best? Or you want something more personal? We can create for you.
+                        After we received the details, we will create personalized itinerary special for you and our travel planner will discuss privately with you.
+                    </p>
+                    <p class="mb-50">Please ensure you have included all of the relevant information, including your email address, so that we can provide you with a comprehensive, and prompt reply.
+                    </p>
                 </div>
             </div>
         </div>
