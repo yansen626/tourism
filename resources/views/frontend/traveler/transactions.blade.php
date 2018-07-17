@@ -33,11 +33,11 @@
                                     <form class="form-inline" style="margin-top:30px;">
                                         <div class="form-group">
                                             <label>Status:</label>
-                                            <select id="filter-travel" class="form-control">
-                                                <option>ALL ({{$allCount}})</option>
-                                                <option>FINISHED ({{$finishedCount}})</option>
-                                                <option>CANCELED ({{$canceledCount}})</option>
-                                                <option>UPCOMING ({{$upcomingCount}})</option>
+                                            <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                <option value="{{ route('traveller.transactions', ['flag' => 1]) }}" {{$flag == 1 ? 'selected':''}}>ALL ({{$allCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 2]) }}" {{$flag == 2 ? 'selected':''}}>UPCOMING ({{$upcomingCount}})</option>
                                             </select>
                                         </div>
                                     </form>
@@ -49,7 +49,7 @@
                                 <h1>UPCOMING</h1>
                             </div>
 
-                        @elseif($flag == 3)
+                        @else
                             <div class="col-md-6">
                                 <h1>HISTORY</h1>
                             </div>
@@ -58,9 +58,9 @@
                                     <form class="form-inline" style="margin-top:30px;">
                                         <div class="form-group">
                                             <label>Status:</label>
-                                            <select id="filter-travel" class="form-control">
-                                                <option>FINISHED ({{$finishedCount}})</option>
-                                                <option>CANCELED ({{$canceledCount}})</option>
+                                            <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
                                             </select>
                                         </div>
                                     </form>
@@ -70,42 +70,51 @@
 
                     </div>
                     <div class="row">
-                        @foreach($transactions as $detailCollection)
-                                <div class="col-md-12">
-                                    <div class="recom-item border">
-                                        <div class="recom-media">
-                                            <a href="{{route('transaction.detail', ['id'=>$detailCollection->id])}}">
-                                                <div class="pic">
-                                                    <img src="{{ URL::asset('storage/package_image/'.$detailCollection->package->featured_image) }}"
-                                                         data-at2x="{{ URL::asset('storage/package_image/'.$detailCollection->package->featured_image) }}"
-                                                         style="width: auto;height: 245px;" alt>
-                                                </div>
-                                            </a>
-                                            <div class="location">
-                                                <a href="{{route('travelmate.profile.showid', ['id'=>$detailCollection->package->travelmate_id])}}">
-                                                    <i class="flaticon-suntour-adult"></i> {{$detailCollection->package->travelmate->first_name}} {{$detailCollection->package->travelmate->last_name}}
-                                                </a>
-                                                <br>
-                                                @php($star = "stars-".$detailCollection->package->travelmate->rating)
-                                                <div class="stars {{$star}}"></div>
-                                                <br>
-                                                <i class="flaticon-suntour-map"></i> {{$detailCollection->package->province->name}}
+                        @if($transactions->count() == 0)
+                            <div class="col-md-12">
+                                <h2>No Package</h2>
+                            </div>
+                        @else
+                            @foreach($transactions as $detailCollection)
+                            <div class="col-md-12">
+                                <div class="recom-item border">
+                                    <div class="recom-media">
+                                        <a href="{{route('transaction.detail', ['id'=>$detailCollection->id])}}">
+                                            <div class="pic">
+                                                <img src="{{ URL::asset('storage/package_image/'.$detailCollection->package->featured_image) }}"
+                                                     data-at2x="{{ URL::asset('storage/package_image/'.$detailCollection->package->featured_image) }}"
+                                                     style="width: auto;height: 245px;" alt>
                                             </div>
+                                        </a>
+                                        <div class="location">
+                                            <a href="{{route('travelmate.profile.showid', ['id'=>$detailCollection->package->travelmate_id])}}">
+                                                <i class="flaticon-suntour-adult"></i> {{$detailCollection->package->travelmate->first_name}} {{$detailCollection->package->travelmate->last_name}}
+                                            </a>
+                                            <br>
+                                            @php($star = "stars-".$detailCollection->package->travelmate->rating)
+                                            <div class="stars {{$star}}"></div>
+                                            <br>
+                                            <i class="flaticon-suntour-map"></i> {{$detailCollection->package->province->name}}
                                         </div>
-                                        <!-- Recomended Content-->
-                                        <div class="recom-item-body"><a href="#">
-                                                <h6 class="blog-title">{{$detailCollection->package->name}}</h6></a>
-                                            <div class="recom-price">Rp {{$detailCollection->package->price}}</div>
-                                            <p class="mb-30">{{$detailCollection->package->description}}</p>
-                                            <a href="{{route('transaction.detail', ['id'=>$detailCollection->id])}}" class="recom-button">Read more</a>
-                                            <button class="cws-button small alt">{{$detailCollection->status->description}}</button>
-                                            {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
-                                            {{--<div class="action font-2">20%</div>--}}
-                                        </div>
-                                        <!-- Recomended Image-->
                                     </div>
+                                    <!-- Recomended Content-->
+                                    <div class="recom-item-body"><a href="#">
+                                            <h6 class="blog-title">{{$detailCollection->package->name}}</h6></a>
+                                        <div class="recom-price">Rp {{$detailCollection->package->price}}</div>
+                                        <p class="mb-30">{{$detailCollection->package->description}}</p>
+                                        <a href="{{route('transaction.detail', ['id'=>$detailCollection->id])}}" class="recom-button">Read more</a>
+                                        <button class="cws-button small alt">{{$detailCollection->status->description}}</button>
+                                        {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
+                                        {{--<div class="action font-2">20%</div>--}}
+                                    </div>
+                                    <!-- Recomended Image-->
                                 </div>
-                        @endforeach
+                            </div>
+                            @endforeach
+                        @endif
+
+
+
 
                         {{--<div class="col-md-12">--}}
                             {{--<table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">--}}

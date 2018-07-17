@@ -144,7 +144,7 @@
 //            $('#description_vendor').val(replaceContentVendor);
 //            alert(replaceContentVendor);
 
-//            $('#owner-form').submit();
+           $('#owner-form').submit();
         }
 
     </script>

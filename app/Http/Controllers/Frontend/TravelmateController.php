@@ -185,7 +185,8 @@ class TravelmateController extends Controller
 
     public function packages(){
         try{
-            $packages = Package::orderBy('created_at', 'desc')->paginate(20);
+            $user = \Auth::guard('travelmates')->user();
+            $packages = Package::where('travelmate_id', $user->id)->orderBy('created_at', 'desc')->paginate(20);
 
             $data = [
                 'packages'      => $packages
@@ -431,7 +432,7 @@ class TravelmateController extends Controller
         $user = Auth::user();
         $now = Carbon::now('Asia/Jakarta');
 
-        $package->description = $request->input('destination');
+        $package->name = $request->input('destination');
         $package->meeting_point = $request->input('meeting_point');
         $package->max_capacity = $request->input('max_capacity');
         $package->start_date = $startDate->toDateTimeString();

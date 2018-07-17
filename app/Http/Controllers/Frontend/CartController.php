@@ -16,6 +16,7 @@ use App\Models\General;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\ProductProperty;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -51,16 +52,63 @@ class CartController
                     $currencyValue = $generalDB->idrrmb;
                 }
             };
+
             $totalPriceTem = Package::wherein('id', $packageId)->sum('price');
             $totalPrice = $totalPriceTem/$currencyValue;
             $totalPrice = number_format($totalPrice, 2, ",", ".");
+
+            $totalPriceVoucherTem = $totalPriceTem;
+
+            $voucherAmount = 0;
+            $voucherFinal = 0;
+            $voucherDescription = "";
+            $voucher = request()->voucher;
+            if(!empty($voucher)){
+                $voucherDB = Voucher::where('name', $voucher)->first();
+                if(empty($voucherDB)){
+                    $voucherDescription = "voucher not found / not valid";
+                }
+                else{
+                    if(!empty($voucherDB->amount)){
+                        $voucherAmount = $voucherDB->amount;
+                        $voucherFinal1 = $voucherAmount/$currencyValue;
+                        $voucherFinal = number_format($voucherFinal1, 2, ",", ".");
+
+                        $totalPriceVoucherTem = $totalPriceVoucherTem - $voucherDB->amount;
+
+                    }
+                    else{
+                        $voucherAmount = (($voucherDB->amount_percentage * $totalPriceTem) / 100);
+                        $voucherFinal1 = $voucherAmount/$currencyValue;
+                        $voucherFinal = number_format($voucherFinal1, 2, ",", ".");
+
+                        $totalPriceVoucherTem = $totalPriceVoucherTem - (($voucherDB->amount_percentage * $totalPriceTem) / 100);
+    //                    dd($totalPriceFinal);
+                    }
+
+                    //change cart DB
+                    foreach ($carts as $cart){
+                        $cart->voucher_code = $voucher;
+                        $cart->save();
+                    }
+                }
+
+            };
+
+            $totalPriceFinal = $totalPriceVoucherTem/$currencyValue;
+            $totalPriceFinal = number_format($totalPriceFinal, 2, ",", ".");
 
             $data = [
                 'carts'          => $carts,
                 'currencyType'          => $currencyType,
                 'currencyValue'          => $currencyValue,
-                'totalPrice'          => $totalPrice
+                'totalPrice'          => $totalPrice,
+                'totalPriceFinal'          => $totalPriceFinal,
+                'voucher'          => $voucher,
+                'voucherFinal'          => $voucherFinal,
+                'voucherDescription'          => $voucherDescription
             ];
+
             return view('frontend.transactions.carts')->with($data);
         }
         else

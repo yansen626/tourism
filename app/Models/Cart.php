@@ -15,6 +15,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $package_id
  * @property string $user_id
+ * @property string $voucher_code
+ * @property float $voucher_amount
  * @property float $admin_fee
  * @property string $payment_method
  * 
@@ -35,6 +37,8 @@ class Cart extends Eloquent
 		'package_id',
 		'user_id',
 		'admin_fee',
+		'voucher_code',
+		'voucher_amount',
 		'payment_method'
 	];
 

@@ -317,6 +317,8 @@ class TravelerController extends Controller
         // 1 = My Booking
         // 2 = Upcoming
         // 3 = History
+        // 4 = Finish
+        // 5 = Cancel
         $userId = Auth::user()->id;
 
         $detailCollections = new Collection();
@@ -335,6 +337,18 @@ class TravelerController extends Controller
                 $transactions = TransactionDetail::where('user_id', $userId)
                     ->where('status_id', 8)
                     ->orWhere('status_id', 9)
+                    ->orWhere('status_id', 10)
+                    ->get();
+                break;
+            case 4 :
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where('status_id', 8)
+                    ->get();
+                break;
+            case 5 :
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where('status_id', 9)
+                    ->orWhere('status_id', 10)
                     ->get();
                 break;
         }
@@ -349,8 +363,8 @@ class TravelerController extends Controller
             ->where('status_id', 8)
             ->count();
         $canceledCount = TransactionDetail::where('user_id', $userId)
-            ->where('status_id', 8)
-            ->orWhere('status_id', 9)
+            ->where('status_id', 9)
+            ->orWhere('status_id', 10)
             ->count();
         $upcomingCount = TransactionDetail::where('user_id', $userId)
             ->where('status_id', 13)

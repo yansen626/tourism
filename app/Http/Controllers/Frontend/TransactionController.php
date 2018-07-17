@@ -26,6 +26,7 @@ use App\Models\TransferConfirmation;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\DeliveryType;
+use App\Models\Voucher;
 use App\Notifications\TransactionNotify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,6 +78,7 @@ class TransactionController extends Controller
                     $detailID = Uuid::generate();
                     $transactionDetail = TransactionDetail::Create([
                         'id'       => $detailID,
+                        'user_id'       => $userId,
                         'status_id'    => 13,
                         'header_id'       => $transactionID,
                         'package_id'       => $cart->package_id,
@@ -86,6 +88,28 @@ class TransactionController extends Controller
                         'subtotal'    => $cart->package->price,
                         'updated_at'    => $dateTimeNow->toDateTimeString()
                     ]);
+
+                    //save voucher to DB
+                    if(!empty($cart->voucher_code)){
+                        $voucherDB = Voucher::where('name', $cart->voucher_code)->first();
+                        $price = $cart->package->price;
+                        if(!empty($voucherDB->amount)){
+                            $transactionDetail->discount_flat = $voucherDB->amount;
+                            $transactionDetail->subtotal = $price - $voucherDB->amount;
+                            $transactionDetail->save();
+                        }
+                        else{
+                            $transactionDetail->discount_percent = $voucherDB->amount_percentage;
+                            $discount = (($voucherDB->amount_percentage * $price) / 100);
+                            $transactionDetail->subtotal = $price - $discount;
+                            $transactionDetail->save();
+
+                        }
+                        $transactionHeader->voucher_id = $voucherDB->id;
+                        $transactionHeader->save();
+
+                        //change voucher stock
+                    }
 
                     Cart::where('id', '=', $cart->id)->delete();
                 }

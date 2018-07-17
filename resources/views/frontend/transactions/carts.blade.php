@@ -23,6 +23,7 @@
                         <input type="radio" value="RMB" {{$currencyType == "RMB" ? 'checked':''}}
                                onchange="selectCurrency(this);" name="optradio">RMB
                     </label>
+                    <input type="hidden" id="currency" value="{{$currencyType}}">
                     <br>
                     <form action="#" method="post">
                         <table class="shop_table cart">
@@ -68,11 +69,16 @@
                                 <td colspan="6" class="actions">
                                     <div class="coupon">
                                         <label for="coupon_code">Voucher:</label>
-                                        <input id="coupon_code" type="text" name="coupon_code" value="" placeholder="Voucher code" class="input-text corner-radius-top">
-                                        <input type="button" name="apply_coupon" value="Apply" class="cws-button alt">
+                                        <input id="coupon_code" type="text" name="coupon_code" value="{{$voucher}}" placeholder="Voucher code" class="input-text corner-radius-top">
+                                        <button onclick="selectVoucher()" type="button" name="apply_coupon" class="cws-button alt">Apply</button>
                                     </div>
                                     {{--<input type="button" name="proceed" value="Proceed to Checkout" class="cws-button">--}}
                                     <a href="{{route('transaction.result')}}" class="cws-button">Proceed to Checkout</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="padding-left: 15px;">
+                                    <p style="color: red;">{{$voucherDescription}}</p>
                                 </td>
                             </tr>
                             </tbody>
@@ -89,11 +95,11 @@
                                 </tr>
                                 <tr class="shipping">
                                     <th>Voucher</th>
-                                    <td>-</td>
+                                    <td><span class="amount">{{$currencyType}}  {{$voucherFinal}}</span></td>
                                 </tr>
                                 <tr class="order-total">
                                     <th>Order Total</th>
-                                    <td><span class="amount">{{$currencyType}} {{$totalPrice}}</span></td>
+                                    <td><span class="amount">{{$currencyType}} {{$totalPriceFinal}}</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -125,9 +131,20 @@
 
         function selectCurrency(e){
             // Get status filter value
+            var voucher = $('#coupon_code').val();
             var status = e.value;
 
-            var url = "/cart?currency=" + status;
+            var url = "/cart?voucher=" + voucher + "&currency=" + status;
+
+            window.location = url;
+        }
+
+        function selectVoucher(e){
+            // Get status filter value
+            var voucher = $('#coupon_code').val();
+            var currency = $('#currency').val();
+
+            var url = "/cart?voucher=" + voucher + "&currency=" + currency;
 
             window.location = url;
         }
