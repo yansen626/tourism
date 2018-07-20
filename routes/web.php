@@ -125,7 +125,9 @@ Route::post('cart/save/note', 'Frontend\CartController@storeNotes');
 // Terms and Condition, about us, privacy policy
 Route::get('/terms', 'Frontend\HomeController@terms')->name('terms');
 Route::get('/about', 'Frontend\HomeController@about')->name('abouts');
+Route::get('/about-htii', 'Frontend\HomeController@aboutHTII')->name('about-htii');
 Route::get('/privacy', 'Frontend\HomeController@privacy')->name('privacy');
+Route::get('/cancelation', 'Frontend\HomeController@cancelation')->name('cancelation');
 
 
 

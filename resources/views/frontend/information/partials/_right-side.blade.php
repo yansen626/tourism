@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <h5>NEED ASSITANCE ?</h5>
             <p>
-                <a href="#" class="white-color-font">
+                <a href="{{route('abouts')}}" class="white-color-font">
                     <span>About Us</span>
                 </a>
             </p>
@@ -103,7 +103,7 @@
         </div>
         <div class="col-md-12">
             <p>
-                <a href="#" class="white-color-font">
+                <a href="{{route('privacy')}}" class="white-color-font">
                     <span>Privacy Policy</span>
                 </a>
             </p>
@@ -117,7 +117,7 @@
         </div>
         <div class="col-md-12">
             <p>
-                <a href="#" class="white-color-font">
+                <a href="{{route('cancelation')}}" class="white-color-font">
                     <span>Cancelation & Refund</span>
                 </a>
             </p>

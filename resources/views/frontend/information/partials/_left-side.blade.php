@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <p>
-                <a href="#" class="white-color-font">
+                <a href="{{route('about-htii')}}" class="white-color-font">
                     <span>About HTII</span>
                 </a>
             </p>
@@ -22,11 +22,11 @@
             <h5>NEED ASSITANCE ?</h5>
             <p>
                 <a href="#" class="white-color-font">
-                                        <span>Please contact Our <br>
-                                            Customer Support <br>
-                                            If you need any <br>
-                                            assistance managing <br>
-                                            your bookings.</span>
+                    <span>Please contact Our <br>
+                        Customer Support <br>
+                        If you need any <br>
+                        assistance managing <br>
+                        your bookings.</span>
                 </a>
             </p>
         </div>

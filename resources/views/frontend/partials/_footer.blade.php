@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-5 text-center">
                     <a href="{{route('abouts')}}" class="footer-nav">ABOUT US+</a>
-                    <a href="{{route('terms')}}" class="footer-nav">TERM & COND+</a>
+                    <a href="#" class="footer-nav">TERM & COND+</a>
                     <a href="{{route('privacy')}}" class="footer-nav">PRIVACY & POLICY+</a>
                 </div>
                 <div class="col-sm-3 text-right" style="font-size:35px;padding-right:8%;">

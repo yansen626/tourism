@@ -160,6 +160,12 @@ class HomeController extends Controller
     public function about(){
         return View('frontend.information.about-us');
     }
+    public function aboutHTII(){
+        return View('frontend.information.about-htii');
+    }
+    public function cancelation(){
+        return View('frontend.information.cancelation-refund');
+    }
     public function privacy(){
         return View('frontend.information.privacy');
     }
