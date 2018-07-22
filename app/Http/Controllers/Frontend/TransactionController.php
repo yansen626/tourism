@@ -82,6 +82,7 @@ class TransactionController extends Controller
                         'status_id'    => 13,
                         'header_id'       => $transactionID,
                         'package_id'       => $cart->package_id,
+                        'travelmate_id'       => $cart->package->travelmate_id,
                         'price'       => $cart->package->price,
                         'discount_percent'       => 0,
                         'discount_flat'      => 0,

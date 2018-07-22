@@ -31,10 +31,11 @@
                                 <form class="form-inline" style="margin-top:30px;">
                                     <div class="form-group">
                                         <label>Sort By:&nbsp;</label>
-                                        <select id="filter-travel" class="form-control">
-                                            <option value="8" {{ $filter === "8" ? 'selected' : '' }}>FINISH</option>
-                                            <option value="9" {{ $filter === "9" ? 'selected' : '' }}>CANCEL</option>
-                                            <option value="12" {{ $filter === "12" ? 'selected' : '' }}>UPCOMING</option>
+                                        <select id="filter-trip" class="form-control" onchange="changeStatus();">
+                                            <option value="0" {{ $filter === "8" ? 'selected' : '' }}>All ({{$allCount}})</option>
+                                            <option value="8" {{ $filter === "8" ? 'selected' : '' }}>FINISH ({{$finishCount}})</option>
+                                            <option value="9" {{ $filter === "9" ? 'selected' : '' }}>CANCEL ({{$cancelCount}})</option>
+                                            <option value="13" {{ $filter === "13" ? 'selected' : '' }}>UPCOMING ({{$upcomingCount}})</option>
                                         </select>
                                     </div>
                                 </form>
@@ -42,36 +43,40 @@
                         </div>
                     </div>
                     <div class="row" style="margin-top: 5px !important;">
-
-                        @foreach($packages as $package)
+                        @if($transactions->count() == 0)
+                            <div class="col-md-12">
+                                <h2>No Trip</h2>
+                            </div>
+                        @else
+                        @foreach($transactions as $transaction)
                             <div class="col-md-12">
                                 <div class="recom-item border">
                                     <div class="recom-media">
-                                        <a href="{{route('travelmate.packages.show', ['package'=>$package->id])}}">
+                                        <a href="{{route('travelmate.packages.show', ['package'=>$transaction->package->id])}}">
                                             <div class="pic">
-                                                <img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
-                                                     data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
+                                                <img src="{{ URL::asset('storage/package_image/'.$transaction->package->featured_image) }}"
+                                                     data-at2x="{{ URL::asset('storage/package_image/'.$transaction->package->featured_image) }}"
                                                      style="width: auto;height: 245px;" alt>
                                             </div>
                                         </a>
                                         <div class="location">
-                                            <a href="{{route('travelmate.profile.showid', ['id'=>$package->travelmate_id])}}">
-                                                <i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
+                                            <a href="{{route('travelmate.profile.showid', ['id'=>$transaction->package->travelmate_id])}}">
+                                                <i class="flaticon-suntour-adult"></i> {{$transaction->package->travelmate->first_name}} {{$transaction->package->travelmate->last_name}}
                                             </a>
                                             <br>
-                                            @php($star = "stars-".$package->travelmate->rating)
+                                            @php($star = "stars-".$transaction->package->travelmate->rating)
                                             <div class="stars {{$star}}"></div>
                                             <br>
-                                            <i class="flaticon-suntour-map"></i> {{$package->province->name}}
+                                            <i class="flaticon-suntour-map"></i> {{$transaction->package->province->name}}
                                         </div>
                                     </div>
                                     <!-- Recomended Content-->
                                     <div class="recom-item-body"><a href="#">
-                                            <h6 class="blog-title">{{$package->name}}</h6></a>
-                                        <div class="recom-price">Rp {{$package->price}}</div>
-                                        <p class="mb-30">{{$package->description}}</p>
-                                        <a href="{{route('travelmate.packages.show', ['package'=>$package->id])}}" class="recom-button">Read more</a>
-                                        <button class="cws-button small alt">{{$package->status->description}}</button>
+                                            <h6 class="blog-title">{{$transaction->package->name}}</h6></a>
+                                        <div class="recom-price">Rp {{$transaction->package->price}}</div>
+                                        <p class="mb-30">{{$transaction->package->description}}</p>
+                                        <a href="{{route('travelmate.packages.show', ['package'=>$transaction->package->id])}}" class="recom-button">Read more</a>
+                                        <button class="cws-button small alt">{{$transaction->status->description}}</button>
                                         {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
                                         {{--<div class="action font-2">20%</div>--}}
                                     </div>
@@ -79,6 +84,7 @@
                                 </div>
                             </div>
                         @endforeach
+                        @endif
                         {{--<div class="col-md-12">--}}
                             {{--<table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">--}}
                                 {{--<thead style="display: none;">--}}
@@ -107,7 +113,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    @include('frontend.travelmate.partials._right-side')
+                    @include('frontend.travelmate.partials._right-side', ['allPackage'=>$allPackage, 'upcomingPackage'=>$upcomingPackage])
                 </div>
             </div>
         </div>
@@ -193,6 +199,14 @@
     @parent
     <script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
     <script>
+        function changeStatus(){
+            // Get status filter value
+            var status = $('#filter-trip').val();
+
+            var url = "/travelmate/my-trips?status=" + status;
+
+            window.location = url;
+        }
         {{--$(function() {--}}
         {{--$('#travel-table').DataTable({--}}
         {{--processing: true,--}}

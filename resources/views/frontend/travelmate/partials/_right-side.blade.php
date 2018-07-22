@@ -16,18 +16,21 @@
                         </div>
                     </div>
                     <div class="box-shadow">
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Mar 21</span> <span>Bangka Belitung</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jun 13</span> <span>Labuan Bajo</span>
-                        </div>
-                        <div class="col-md-12">
-                            <span style="margin-right: 25px;">Nov 04</span> <span>Pulau Derawan</span>
-                        </div>
+                        @php($ct=1)
+                        @foreach($allPackage as $package)
+                            @if($ct < 4)
+                            <div class="col-md-12 border-bottom">
+                                <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                <span>{{$package->package->name}}</span>
+                            </div>
+                            @else
+                                <div class="col-md-12">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @endif
+                            @php($ct++)
+                        @endforeach
                     </div>
                 </div>
                 <div class="row mg-0" style="margin-bottom: 20%;">
@@ -37,23 +40,26 @@
                         </div>
                         <div class="col-md-3" style="padding-top: 7%;">
                             <p style="font-size: 12px;">
-                                <a href="/travelmate/my-trips?status=12">VIEW ALL</a>
+                                <a href="/travelmate/my-trips?status=13">VIEW ALL</a>
                             </p>
                         </div>
                     </div>
                     <div class="box-shadow">
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Dec 12</span> <span>Lampung</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Oct 23</span> <span>Yogyakarta</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Sep 03</span> <span>Pulau Macan</span>
-                        </div>
-                        <div class="col-md-12">
-                            <span style="margin-right: 25px;">July 04</span> <span>Jakarta</span>
-                        </div>
+                        @php($ct=1)
+                        @foreach($upcomingPackage as $package)
+                            @if($ct < 4)
+                                <div class="col-md-12 border-bottom">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @else
+                                <div class="col-md-12">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @endif
+                            @php($ct++)
+                        @endforeach
                     </div>
                 </div>
                 <div class="row mg-0" style="margin-bottom: 20%;">

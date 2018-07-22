@@ -17,6 +17,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $header_id
  * @property string $user_id
  * @property string $package_id
+ * @property string $travelmate_id
  * @property float $price
  * @property int $discount_percent
  * @property float $discount_flat
@@ -29,6 +30,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Package $package
  * @property \App\Models\User $user
+ * @property \App\Models\Travelmate $travelmate
  * @property \App\Models\TransactionHeader $transaction_header
  *
  * @package App\Models
@@ -53,6 +55,7 @@ class TransactionDetail extends Eloquent
         'status_id',
 		'header_id',
 		'package_id',
+		'travelmate_id',
 		'price',
 		'discount_percent',
 		'discount_flat',
@@ -76,6 +79,10 @@ class TransactionDetail extends Eloquent
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+    public function travelmate()
+    {
+        return $this->belongsTo(\App\Models\Travelmate::class);
     }
 
 	public function transaction_header()

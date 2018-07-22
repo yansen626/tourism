@@ -28,21 +28,6 @@
                             <div class="col-md-6">
                                 <h1>MY BOOKING</h1>
                             </div>
-                            <div class="col-md-6">
-                                <div style="float: right;">
-                                    <form class="form-inline" style="margin-top:30px;">
-                                        <div class="form-group">
-                                            <label>Status:</label>
-                                            <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                                                <option value="{{ route('traveller.transactions', ['flag' => 1]) }}" {{$flag == 1 ? 'selected':''}}>ALL ({{$allCount}})</option>
-                                                <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
-                                                <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
-                                                <option value="{{ route('traveller.transactions', ['flag' => 2]) }}" {{$flag == 2 ? 'selected':''}}>UPCOMING ({{$upcomingCount}})</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
 
                         @elseif($flag == 2)
                             <div class="col-md-6">
@@ -53,20 +38,22 @@
                             <div class="col-md-6">
                                 <h1>HISTORY</h1>
                             </div>
-                            <div class="col-md-6">
-                                <div style="float: right;">
-                                    <form class="form-inline" style="margin-top:30px;">
-                                        <div class="form-group">
-                                            <label>Status:</label>
-                                            <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                                                <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
-                                                <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                         @endif
+                        <div class="col-md-6">
+                            <div style="float: right;">
+                                <form class="form-inline" style="margin-top:30px;">
+                                    <div class="form-group">
+                                        <label>Status:</label>
+                                        <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                            <option value="{{ route('traveller.transactions', ['flag' => 1]) }}" {{$flag == 1 ? 'selected':''}}>ALL ({{$allCount}})</option>
+                                            <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
+                                            <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
+                                            <option value="{{ route('traveller.transactions', ['flag' => 2]) }}" {{$flag == 2 ? 'selected':''}}>UPCOMING ({{$upcomingCount}})</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="row">
@@ -112,65 +99,10 @@
                             </div>
                             @endforeach
                         @endif
-
-
-
-
-                        {{--<div class="col-md-12">--}}
-                            {{--<table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">--}}
-                                {{--<thead style="display: none;">--}}
-                                {{--<tr>--}}
-                                    {{--<th class="text-center">TEST</th>--}}
-                                {{--</tr>--}}
-                                {{--</thead>--}}
-                                {{--<tbody>--}}
-                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-1.jpg') }}') no-repeat;">--}}
-                                    {{--<td class="traveller-td">--}}
-                                        {{--<div class="col-md-6 text-left">--}}
-                                            {{--LAMPUNG <br>December 12--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-6 text-right">--}}
-                                            {{--<a class="cws-button cws-button-custom mb-20">FINISHED</a>--}}
-                                        {{--</div>--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-2.jpg') }}') no-repeat;">--}}
-                                    {{--<td class="traveller-td">--}}
-                                        {{--<div class="col-md-6 text-left">--}}
-                                            {{--PULAU DERAWAN <br>November 04--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-6 text-right">--}}
-                                            {{--<a class="cws-button cws-button-custom mb-20">ON TRIP</a>--}}
-                                        {{--</div>--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-3.jpg') }}') no-repeat;">--}}
-                                    {{--<td class="traveller-td">--}}
-                                        {{--<div class="col-md-6 text-left">--}}
-                                            {{--PULAU MACAN <br>September 03--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-6 text-right">--}}
-                                            {{--<a class="cws-button cws-button-custom mb-20">FINISHED</a>--}}
-                                        {{--</div>--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--<tr class="traveller-transactions" style="background: url('{{ URL::asset('storage/package_image/top-slider-4.jpg') }}') no-repeat;">--}}
-                                    {{--<td class="traveller-td">--}}
-                                        {{--<div class="col-md-6 text-left">--}}
-                                            {{--PULAU PRAMUKA <br>September 03--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-6 text-right">--}}
-                                            {{--<a class="cws-button cws-button-custom mb-20">FINISHED</a>--}}
-                                        {{--</div>--}}
-                                    {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--</tbody>--}}
-                            {{--</table>--}}
-                        {{--</div>--}}
                     </div>
                 </div>
                 <div class="col-md-3">
-                    @include('frontend.traveler.partials._right-side')
+                    @include('frontend.traveler.partials._right-side', ['allPackage'=>$allPackages, 'HistoryPackages'=>$HistoryPackages, 'upcomingPackages'=>$upcomingPackages])
                 </div>
             </div>
         </div>

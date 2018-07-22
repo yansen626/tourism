@@ -19,6 +19,7 @@ use App\Models\PackagePrice;
 use App\Models\PackageTrip;
 use App\Models\PackageTripImage;
 use App\Models\Province;
+use App\Models\TransactionDetail;
 use App\Models\Travelmate;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -51,9 +52,14 @@ class TravelmateController extends Controller
         else{
             $identity = '-';
         }
+        $allPackage = TransactionDetail::where('travelmate_id', $user->id)->take(4)->get();
+        $upcomingPackage = TransactionDetail::where('travelmate_id', $user->id)
+            ->where('status_id', 13)->take(4)->get();
 
         $data = [
             'user'      => $user,
+            'allPackage'      => $allPackage,
+            'upcomingPackage'      => $upcomingPackage,
             'identity'  => $identity
         ];
 
@@ -91,9 +97,14 @@ class TravelmateController extends Controller
         else{
             $identity = 'none';
         }
+        $allPackage = TransactionDetail::where('travelmate_id', $user->id)->take(4)->get();
+        $upcomingPackage = TransactionDetail::where('travelmate_id', $user->id)
+            ->where('status_id', 13)->take(4)->get();
 
         $data = [
             'user'      => $user,
+            'allPackage'      => $allPackage,
+            'upcomingPackage'      => $upcomingPackage,
             'identity'  => $identity
         ];
 
@@ -185,11 +196,36 @@ class TravelmateController extends Controller
 
     public function packages(){
         try{
+            $filter = 1;
+            $status = request()->status;
             $user = \Auth::guard('travelmates')->user();
-            $packages = Package::where('travelmate_id', $user->id)->orderBy('created_at', 'desc')->paginate(20);
 
+            if(!empty($status)){
+                $filter = $status;
+                $packages = Package::where('travelmate_id', $user->id)
+                    ->where('status_id', $filter)
+                    ->orderBy('created_at', 'desc')->paginate(20);
+            }
+            else{
+                $packages = Package::where('travelmate_id', $user->id)->orderBy('created_at', 'desc')->paginate(20);
+            }
+            $packageActiveCount = Package::where('travelmate_id', $user->id)
+                ->where('status_id', 1)->count();
+            $packageDeactiveCount = Package::where('travelmate_id', $user->id)
+                ->where('status_id', 2)->count();
+
+//            $packages = Package::where('travelmate_id', $user->id)->orderBy('created_at', 'desc')->paginate(20);
+
+            $allPackage = TransactionDetail::where('travelmate_id', $user->id)->take(4)->get();
+            $upcomingPackage = TransactionDetail::where('travelmate_id', $user->id)
+                ->where('status_id', 13)->take(4)->get();
             $data = [
-                'packages'      => $packages
+                'packages'      => $packages,
+                'packageActiveCount'      => $packageActiveCount,
+                'packageDeactiveCount'      => $packageDeactiveCount,
+                'allPackage'      => $allPackage,
+                'upcomingPackage'      => $upcomingPackage,
+                'filter'      => $filter
             ];
 
             return view('frontend.travelmate.packages.index')->with($data);
@@ -203,14 +239,53 @@ class TravelmateController extends Controller
         try{
             $filter = 0;
             $status = request()->status;
-            if(!empty($status)){
+
+            $user = \Auth::guard('travelmates')->user();
+            if(!empty($status) || $status != 0){
                 $filter = $status;
+//                dd($user->id."|".$filter);
+                if($filter == 9){
+                    $transactions = TransactionDetail::where('travelmate_id', $user->id)
+                        ->where(function ($query) {
+                            $query->where('status_id', 9)
+                                ->orWhere('status_id', 10);
+                        })
+                        ->get();
+                }
+                else{
+                    $transactions = TransactionDetail::where('travelmate_id', $user->id)
+                        ->where('status_id', $filter)
+                        ->get();
+                }
+            }
+            else{
+                $transactions = TransactionDetail::where('travelmate_id', $user->id)->paginate(20);
             }
 
-            $packages = Package::orderBy('created_at', 'desc')->paginate(20);
+            $allCount = TransactionDetail::where('travelmate_id', $user->id)->count();
+            $finishCount = TransactionDetail::where('travelmate_id', $user->id)
+                ->where('status_id', 8)->count();
+            $cancelCount = TransactionDetail::where('travelmate_id', $user->id)
+                ->where(function ($query) {
+                    $query->where('status_id', 9)
+                        ->orWhere('status_id', 10);
+                })
+                ->count();
+            $upcomingCount = TransactionDetail::where('travelmate_id', $user->id)
+                ->where('status_id', 13)->count();
+
+            $allPackage = TransactionDetail::where('travelmate_id', $user->id)->take(4)->get();
+            $upcomingPackage = TransactionDetail::where('travelmate_id', $user->id)
+                ->where('status_id', 13)->take(4)->get();
 
             $data = [
-                'packages'      => $packages,
+                'transactions'      => $transactions,
+                'allCount'      => $allCount,
+                'finishCount'      => $finishCount,
+                'cancelCount'      => $cancelCount,
+                'upcomingCount'      => $upcomingCount,
+                'allPackage'      => $allPackage,
+                'upcomingPackage'      => $upcomingPackage,
                 'filter'      => $filter
             ];
 //            dd($data);
@@ -227,9 +302,15 @@ class TravelmateController extends Controller
         $view = View::make('frontend.travelmate.partials._trip_destination');
         $content = (string) $view;
 
+        $user = \Auth::guard('travelmates')->user();
+        $allPackage = TransactionDetail::where('travelmate_id', $user->id)->take(4)->get();
+        $upcomingPackage = TransactionDetail::where('travelmate_id', $user->id)
+            ->where('status_id', 13)->take(4)->get();
         $data = [
             'provinces'     => $provinces,
             'categories'    => $categories,
+            'allPackage'      => $allPackage,
+            'upcomingPackage'      => $upcomingPackage,
             'content'       => $content
         ];
 

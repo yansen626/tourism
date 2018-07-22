@@ -46,14 +46,247 @@ class TravelerController extends Controller
             $identity = '-';
         }
 
+        $allPackages = TransactionDetail::where('user_id', $user->id)
+            ->take(4)
+            ->get();
+        $HistoryPackages = TransactionDetail::where('user_id', $user->id)
+            ->where(function ($query) {
+                $query->where('status_id', 8)
+                    ->orWhere('status_id', 9)
+                    ->orWhere('status_id', 10);
+            })
+            ->take(4)
+            ->get();
+        $upcomingPackages = TransactionDetail::where('user_id', $user->id)
+            ->where('status_id', 13)
+            ->take(4)
+            ->get();
         $data = [
             'user'      => $user,
             'diaries'  => $diaries,
-            'identity'  => $identity
+            'identity'  => $identity,
+            'allPackages'  => $allPackages,
+            'HistoryPackages'  => $HistoryPackages,
+            'upcomingPackages'  => $upcomingPackages,
         ];
 
         return View('frontend.traveler.index')->with($data);
     }
+
+    public function edit(){
+        $user = Auth::user();
+        if(!empty($user->id_card) && empty($user->passport_no)){
+            $identity = 'ID CARD';
+        }
+        elseif(empty($user->id_card) && !empty($user->passport_no)){
+            $identity = 'PASSPORT';
+        }
+        else{
+            $identity = 'none';
+        }
+
+        $allPackages = TransactionDetail::where('user_id', $user->id)
+            ->take(4)
+            ->get();
+        $HistoryPackages = TransactionDetail::where('user_id', $user->id)
+            ->where(function ($query) {
+                $query->where('status_id', 8)
+                    ->orWhere('status_id', 9)
+                    ->orWhere('status_id', 10);
+            })
+            ->take(4)
+            ->get();
+        $upcomingPackages = TransactionDetail::where('user_id', $user->id)
+            ->where('status_id', 13)
+            ->take(4)
+            ->get();
+        $data = [
+            'user'      => $user,
+            'identity'  => $identity,
+            'allPackages'  => $allPackages,
+            'HistoryPackages'  => $HistoryPackages,
+            'upcomingPackages'  => $upcomingPackages,
+        ];
+
+        return View('frontend.traveler.profile-edit')->with($data);
+    }
+
+    public function updateImage(Request $request){
+        try{
+            $img = Image::make($request->file('image'));
+
+            // Get image extension
+            $extStr = $img->mime();
+            $ext = explode('/', $extStr, 2);
+
+            $user = \Auth::guard('web')->user();
+
+            $filename = 'traveller_'. $user->id.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
+
+            $img->save(public_path('storage/profile/'. $filename), 75);
+
+            $userObj = User::find($user->id);
+            $oldImage = $userObj->img_path;
+            $userObj->img_path = $filename;
+            $userObj->save();
+
+            // Delete old image
+            if($oldImage !== 'default.png'){
+                $deletedPath = public_path('storage/profile/'. $oldImage);
+                if(file_exists($deletedPath)) unlink($deletedPath);
+            }
+
+            return response()->json([
+                'append'    => true
+            ]);
+        }
+        catch (\Exception $ex){
+            error_log($ex);
+        }
+    }
+
+    public function update(Request $request, User $user){
+        $validator = Validator::make($request->all(), [
+            'fname'             => 'required|max:50',
+            'lname'             => 'required|max:50',
+            'about_me'          => 'max:400',
+            'phone'             => 'max:20',
+            'nationality'       => 'max:20',
+            'idcard-value'      => 'max:50',
+            'passport-value'    => 'max:50',
+            'language'          => 'max:20',
+            'interest'          => 'max:50',
+            'youtube'           => 'max:100'
+        ]);
+
+        if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
+
+        // Validate Identity No
+        if(Input::get('identity') === 'idcard' && empty(Input::get('idcard-value'))){
+            return redirect()->back()->withErrors('ID CARD is required!', 'default')->withInput($request->all());
+        }
+
+        if(Input::get('identity') === 'passport' && empty(Input::get('passport-value'))){
+            return redirect()->back()->withErrors('PASSPORT is required!', 'default')->withInput($request->all());
+        }
+
+        $user->first_name = Input::get('fname');
+        $user->last_name = Input::get('lname');
+        $user->about_me = Input::get('about_me');
+        $user->phone = Input::get('phone');
+        $user->nationality = Input::get('nationality');
+        $user->speaking_language = Input::get('language');
+        $user->travel_interest = Input::get('interest');
+
+        if(Input::get('identity') === 'idcard'){
+            $user->id_card = Input::get('idcard-value');
+            $user->passport_no = null;
+        }
+        else{
+            $user->id_card = null;
+            $user->passport_no = Input::get('passport-value');
+        }
+
+        $user->save();
+
+        Session::flash('message', 'Profile Updated!');
+
+        return redirect()->route('traveller.profile.show');
+    }
+
+    public function transactions($flag){
+        //FLAG MEANING
+        // 1 = My Booking
+        // 2 = Upcoming
+        // 3 = History
+        // 4 = Finish
+        // 5 = Cancel
+        $userId = Auth::user()->id;
+
+        $detailCollections = new Collection();
+        $transactions = null;
+        switch ($flag){
+            case 1 :
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->get();
+                break;
+            case 2 :
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where('status_id', 13)
+                    ->get();
+                break;
+            case 3 :
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where(function ($query) {
+                        $query->where('status_id', 8)
+                            ->orWhere('status_id', 9)
+                            ->orWhere('status_id', 10);
+                    })
+                    ->get();
+                break;
+            case 4 :
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where('status_id', 8)
+                    ->get();
+                break;
+            case 5 :
+                $transactions = TransactionDetail::where('user_id', $userId)
+                    ->where(function ($query) {
+                        $query->where('status_id', 9)
+                            ->orWhere('status_id', 10);
+                    })
+                    ->get();
+                break;
+        }
+
+        //count by status
+        $allCount = TransactionDetail::where('user_id', $userId)
+            ->count();
+        $finishedCount = TransactionDetail::where('user_id', $userId)
+            ->where('status_id', 8)
+            ->count();
+        $canceledCount = TransactionDetail::where('user_id', $userId)
+            ->where(function ($query) {
+                $query->where('status_id', 9)
+                    ->orWhere('status_id', 10);
+            })
+            ->count();
+        $upcomingCount = TransactionDetail::where('user_id', $userId)
+            ->where('status_id', 13)
+            ->count();
+
+        $allPackages = TransactionDetail::where('user_id', $userId)
+            ->take(4)
+            ->get();
+        $HistoryPackages = TransactionDetail::where('user_id', $userId)
+            ->where(function ($query) {
+                $query->where('status_id', 8)
+                    ->orWhere('status_id', 9)
+                    ->orWhere('status_id', 10);
+            })
+            ->take(4)
+            ->get();
+        $upcomingPackages = TransactionDetail::where('user_id', $userId)
+            ->where('status_id', 13)
+            ->take(4)
+            ->get();
+
+//        $packages = Package::orderBy('created_at', 'desc')->paginate(20);
+        $data = [
+            'transactions'      => $transactions,
+            'flag'      => $flag,
+            'allCount'  => $allCount,
+            'finishedCount'  => $finishedCount,
+            'canceledCount'  => $canceledCount,
+            'upcomingCount'  => $upcomingCount,
+            'allPackages'  => $allPackages,
+            'HistoryPackages'  => $HistoryPackages,
+            'upcomingPackages'  => $upcomingPackages,
+        ];
+//        dd($data);
+        return View('frontend.traveler.transactions')->with($data);
+    }
+
 
     public function travelDiary(){
         $user = Auth::user();
@@ -77,7 +310,6 @@ class TravelerController extends Controller
 
         return View('frontend.traveler.diaries.travel-diaries')->with($data);
     }
-
     public function travelDiaryEdit($id){
         $user = Auth::user();
         $diaries = UserDiary::find($id);
@@ -209,177 +441,4 @@ class TravelerController extends Controller
         }
     }
 
-    public function edit(){
-        $user = Auth::user();
-        if(!empty($user->id_card) && empty($user->passport_no)){
-            $identity = 'ID CARD';
-        }
-        elseif(empty($user->id_card) && !empty($user->passport_no)){
-            $identity = 'PASSPORT';
-        }
-        else{
-            $identity = 'none';
-        }
-
-        $data = [
-            'user'      => $user,
-            'identity'  => $identity
-        ];
-
-        return View('frontend.traveler.profile-edit')->with($data);
-    }
-
-    public function updateImage(Request $request){
-        try{
-            $img = Image::make($request->file('image'));
-
-            // Get image extension
-            $extStr = $img->mime();
-            $ext = explode('/', $extStr, 2);
-
-            $user = \Auth::guard('web')->user();
-
-            $filename = 'traveller_'. $user->id.'_'. Carbon::now('Asia/Jakarta')->format('Ymdhms'). '_0.'. $ext[1];
-
-            $img->save(public_path('storage/profile/'. $filename), 75);
-
-            $userObj = User::find($user->id);
-            $oldImage = $userObj->img_path;
-            $userObj->img_path = $filename;
-            $userObj->save();
-
-            // Delete old image
-            if($oldImage !== 'default.png'){
-                $deletedPath = public_path('storage/profile/'. $oldImage);
-                if(file_exists($deletedPath)) unlink($deletedPath);
-            }
-
-            return response()->json([
-                'append'    => true
-            ]);
-        }
-        catch (\Exception $ex){
-            error_log($ex);
-        }
-    }
-
-    public function update(Request $request, User $user){
-        $validator = Validator::make($request->all(), [
-            'fname'             => 'required|max:50',
-            'lname'             => 'required|max:50',
-            'about_me'          => 'max:400',
-            'phone'             => 'max:20',
-            'nationality'       => 'max:20',
-            'idcard-value'      => 'max:50',
-            'passport-value'    => 'max:50',
-            'language'          => 'max:20',
-            'interest'          => 'max:50',
-            'youtube'           => 'max:100'
-        ]);
-
-        if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
-
-        // Validate Identity No
-        if(Input::get('identity') === 'idcard' && empty(Input::get('idcard-value'))){
-            return redirect()->back()->withErrors('ID CARD is required!', 'default')->withInput($request->all());
-        }
-
-        if(Input::get('identity') === 'passport' && empty(Input::get('passport-value'))){
-            return redirect()->back()->withErrors('PASSPORT is required!', 'default')->withInput($request->all());
-        }
-
-        $user->first_name = Input::get('fname');
-        $user->last_name = Input::get('lname');
-        $user->about_me = Input::get('about_me');
-        $user->phone = Input::get('phone');
-        $user->nationality = Input::get('nationality');
-        $user->speaking_language = Input::get('language');
-        $user->travel_interest = Input::get('interest');
-
-        if(Input::get('identity') === 'idcard'){
-            $user->id_card = Input::get('idcard-value');
-            $user->passport_no = null;
-        }
-        else{
-            $user->id_card = null;
-            $user->passport_no = Input::get('passport-value');
-        }
-
-        $user->save();
-
-        Session::flash('message', 'Profile Updated!');
-
-        return redirect()->route('traveller.profile.show');
-    }
-
-    public function transactions($flag){
-        //FLAG MEANING
-        // 1 = My Booking
-        // 2 = Upcoming
-        // 3 = History
-        // 4 = Finish
-        // 5 = Cancel
-        $userId = Auth::user()->id;
-
-        $detailCollections = new Collection();
-        $transactions = null;
-        switch ($flag){
-            case 1 :
-                $transactions = TransactionDetail::where('user_id', $userId)
-                    ->get();
-                break;
-            case 2 :
-                $transactions = TransactionDetail::where('user_id', $userId)
-                    ->where('status_id', 13)
-                    ->get();
-                break;
-            case 3 :
-                $transactions = TransactionDetail::where('user_id', $userId)
-                    ->where('status_id', 8)
-                    ->orWhere('status_id', 9)
-                    ->orWhere('status_id', 10)
-                    ->get();
-                break;
-            case 4 :
-                $transactions = TransactionDetail::where('user_id', $userId)
-                    ->where('status_id', 8)
-                    ->get();
-                break;
-            case 5 :
-                $transactions = TransactionDetail::where('user_id', $userId)
-                    ->where('status_id', 9)
-                    ->orWhere('status_id', 10)
-                    ->get();
-                break;
-        }
-        foreach ($transactions as $transaction){
-            $detailCollections->add($transaction->transaction_details);
-        }
-
-        //count by status
-        $allCount = TransactionDetail::where('user_id', $userId)
-            ->count();
-        $finishedCount = TransactionDetail::where('user_id', $userId)
-            ->where('status_id', 8)
-            ->count();
-        $canceledCount = TransactionDetail::where('user_id', $userId)
-            ->where('status_id', 9)
-            ->orWhere('status_id', 10)
-            ->count();
-        $upcomingCount = TransactionDetail::where('user_id', $userId)
-            ->where('status_id', 13)
-            ->count();
-
-//        $packages = Package::orderBy('created_at', 'desc')->paginate(20);
-        $data = [
-            'transactions'      => $transactions,
-            'flag'      => $flag,
-            'allCount'  => $allCount,
-            'finishedCount'  => $finishedCount,
-            'canceledCount'  => $canceledCount,
-            'upcomingCount'  => $upcomingCount
-        ];
-//        dd($data);
-        return View('frontend.traveler.transactions')->with($data);
-    }
 }

@@ -14,18 +14,21 @@
                         </div>
                     </div>
                     <div class="box-shadow">
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
+                        @php($ct=1)
+                        @foreach($allPackages as $package)
+                            @if($ct < 4)
+                                <div class="col-md-12 border-bottom">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @else
+                                <div class="col-md-12">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @endif
+                            @php($ct++)
+                        @endforeach
                     </div>
                 </div>
                 <div class="row mg-0" style="margin-bottom: 20%;">
@@ -40,18 +43,21 @@
                         </div>
                     </div>
                     <div class="box-shadow">
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
+                        @php($ct=1)
+                        @foreach($upcomingPackages as $package)
+                            @if($ct < 4)
+                                <div class="col-md-12 border-bottom">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @else
+                                <div class="col-md-12">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @endif
+                            @php($ct++)
+                        @endforeach
                     </div>
                 </div>
                 <div class="row mg-0" style="margin-bottom: 20%;">
@@ -61,23 +67,26 @@
                         </div>
                         <div class="col-md-3" style="padding-top: 7%;">
                             <p style="font-size: 12px;">
-                                <a href="{{ route('traveller.transactions', ['flag' => 3]) }}">VIEW ALL</a>
+                                <a href="{{ route('traveller.transactions', ['flag' => 4]) }}">VIEW ALL</a>
                             </p>
                         </div>
                     </div>
                     <div class="box-shadow">
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12 border-bottom">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
-                        <div class="col-md-12">
-                            <span style="margin-right: 25px;">Jan 02</span> <span>Karimun Jawa</span>
-                        </div>
+                        @php($ct=1)
+                        @foreach($HistoryPackages as $package)
+                            @if($ct < 4)
+                                <div class="col-md-12 border-bottom">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @else
+                                <div class="col-md-12">
+                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    <span>{{$package->package->name}}</span>
+                                </div>
+                            @endif
+                            @php($ct++)
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -328,7 +328,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    @include('frontend.travelmate.partials._right-side')
+                    @include('frontend.travelmate.partials._right-side', ['allPackage'=>$allPackage, 'upcomingPackage'=>$upcomingPackage])
                 </div>
             </div>
         </div>

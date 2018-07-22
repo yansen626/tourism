@@ -31,9 +31,9 @@
                                 <form class="form-inline" style="margin-top:30px;">
                                     <div class="form-group">
                                         <label>Sort By:&nbsp;</label>
-                                        <select id="filter-travel" class="form-control">
-                                            <option>ACTIVE</option>
-                                            <option>DEACTIVE</option>
+                                        <select id="filter-packages" class="form-control" onchange="changeStatus();">
+                                            <option value="1" {{$filter == 1 ? 'selected':''}}>ACTIVE ({{$packageActiveCount}})</option>
+                                            <option value="2" {{$filter == 2 ? 'selected':''}}>DEACTIVE ({{$packageDeactiveCount}})</option>
                                         </select>
                                     </div>
                                 </form>
@@ -42,6 +42,11 @@
                     </div>
                     <div class="row" style="margin-top: 5px !important;">
 
+                        @if($packages->count() == 0)
+                            <div class="col-md-12">
+                                <h2>No Package</h2>
+                            </div>
+                        @else
                         @foreach($packages as $package)
                             <div class="col-md-12">
                                 <div class="recom-item border">
@@ -78,6 +83,7 @@
                                 </div>
                             </div>
                         @endforeach
+                        @endif
                         {{--<div class="col-md-12">--}}
                             {{--<table class="table dt-responsive nowrap" cellspacing="0" width="100%" id="travel-table">--}}
                                 {{--<thead style="display: none;">--}}
@@ -107,7 +113,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    @include('frontend.travelmate.partials._right-side')
+                    @include('frontend.travelmate.partials._right-side', ['allPackage'=>$allPackage, 'upcomingPackage'=>$upcomingPackage])
                 </div>
             </div>
         </div>
@@ -193,6 +199,15 @@
     @parent
     <script src="{{ URL::asset('js/frontend/datatable/jquery.dataTables.min.js') }}"></script>
     <script>
+
+        function changeStatus(){
+            // Get status filter value
+            var status = $('#filter-packages').val();
+
+            var url = "/travelmate/packages?status=" + status;
+
+            window.location = url;
+        }
         {{--$(function() {--}}
         {{--$('#travel-table').DataTable({--}}
         {{--processing: true,--}}
