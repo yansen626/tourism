@@ -187,7 +187,10 @@
                                             <div id="trip_1" class="col-lg-12 col-md-12" style="margin-bottom: 20px;">
                                                 <div class="row form-panel">
                                                     <div class="col-lg-12 col-md-12 col-xs-12">
-                                                        <h3 class="text-center">DESTINATION 1</h3>
+                                                        <h3 class="text-center" style="float: left;">DESTINATION 1</h3>
+                                                        <div style="float: right;">
+                                                            <a class="btn btn-danger" style="margin-top: 20px; margin-bottom: 10px;" onclick="deleteTrip(1)"><i class="fa fa-close"></i></a>
+                                                        </div>
                                                     </div>
                                                     <div class="col-lg-12 col-md-12 col-xs-12">
                                                         <div class="col-lg-6 col-md-6 col-xs-12">
@@ -232,9 +235,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div id="trip_2" class="col-lg-12 col-md-12" style="margin-bottom: 20px;">
-
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-xs-12 text-center" style="margin-top: 20px;">
@@ -713,12 +713,16 @@
             }
         }
 
-        var i = 2;
+        var tripIdx = 2;
         function addTrip(){
             var sbAdd = new stringbuilder();
+            sbAdd.append("<div id='trip_" + tripIdx + "' class='col-lg-12 col-md-12' style='margin-bottom: 20px;'>");
             sbAdd.append("<div class='row form-panel'>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
-            sbAdd.append("<h3 class='text-center'>DESTINATION " + i + "</h3>");
+            sbAdd.append("<h3 class='text-center' style='float: left;'>DESTINATION " + tripIdx + "</h3>");
+            sbAdd.append("<div style='float: right;'>");
+            sbAdd.append("<button class='btn btn-danger' style='margin-top: 20px; margin-bottom: 10px;' onclick='deleteTrip(" + tripIdx + ")'><i class='fa fa-close'></i></button>");
+            sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
             sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
@@ -727,7 +731,7 @@
             sbAdd.append("<label for='trip_start_date_1'>START DATE</label>");
             sbAdd.append("</div>");
             sbAdd.append("<div class='input-group date' >");
-            sbAdd.append("<input id='trip_start_date_" + i + "' name='trip_start_date[]' type='text' class='form-control' />");
+            sbAdd.append("<input id='trip_start_date_" + tripIdx + "' name='trip_start_date[]' type='text' class='form-control' />");
             sbAdd.append("<span class='input-group-addon'>");
             sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
             sbAdd.append("</span>");
@@ -737,10 +741,10 @@
             sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
             sbAdd.append("<div class='row form-panel'>");
             sbAdd.append("<div class='text-center' style='width: 100%;'>");
-            sbAdd.append("<label for='trip_end_date_" + i + "'>END DATE</label>");
+            sbAdd.append("<label for='trip_end_date_" + tripIdx + "'>END DATE</label>");
             sbAdd.append("</div>");
             sbAdd.append("<div class='input-group date'>");
-            sbAdd.append("<input id='trip_end_date_" + i + "' name='trip_end_date[]' type='text' class='form-control' />");
+            sbAdd.append("<input id='trip_end_date_" + tripIdx + "' name='trip_end_date[]' type='text' class='form-control' />");
             sbAdd.append("<span class='input-group-addon'>");
             sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
             sbAdd.append( "</span>");
@@ -751,26 +755,25 @@
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12' style='margin-top: 20px;'>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
             sbAdd.append("<div class='row form-panel'>");
-            sbAdd.append("<input id='trip_image_" + i + "' class='file-loading' name='trip_image[]' type='file'>");
+            sbAdd.append("<input id='trip_image_" + tripIdx + "' class='file-loading' name='trip_image[]' type='file'>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12' style='margin-top: 20px;'>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
             sbAdd.append("<div class='row form-panel'>");
-            sbAdd.append("<textarea id='trip_description_" + i + "' name='trip_description[]' rows='5' placeholder='TRIP DESCRIPTION' class='form-control' style='resize: none; overflow-y: scroll;'></textarea>");
+            sbAdd.append("<textarea id='trip_description_" + tripIdx + "' name='trip_description[]' rows='5' placeholder='TRIP DESCRIPTION' class='form-control' style='resize: none; overflow-y: scroll;'></textarea>");
+            sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
 
-            $('#trip_' + i ).html(sbAdd.toString());
-
-            $('#trip_list').append("<div id='trip_" + (i+1) + "' class='col-lg-12 col-md-12' style='margin-bottom: 20px;'></div>");
+            $('#trip_list').append(sbAdd.toString());
 
             // DYNAMIC FILEINPUT
-            $('#trip_image_' + i).fileinput({
+            $('#trip_image_' + tripIdx).fileinput({
                 allowedFileExtensions: ["jpg", "jpeg", "png"],
                 browseClass: "btn btn-primary btn-block",
                 showUpload: false,
@@ -782,15 +785,20 @@
             });
 
             // DYNAMIC DATETIMEPICKER
-            $('#trip_start_date_' + i).datetimepicker({
+            $('#trip_start_date_' + tripIdx).datetimepicker({
                 format: "DD MMM Y HH:mm"
             });
 
-            $('#trip_end_date_' + i).datetimepicker({
+            $('#trip_end_date_' + tripIdx).datetimepicker({
                 format: "DD MMM Y HH:mm"
             });
 
-            i++;
+            tripIdx++;
+        }
+
+        function deleteTrip(idx){
+            $('#trip_' + idx).remove();
+            tripIdx--;
         }
 
         // TAB PRICINGS
