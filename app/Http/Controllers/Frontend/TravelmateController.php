@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
@@ -340,6 +341,11 @@ class TravelmateController extends Controller
                 'end_date'          => 'required',
                 'meeting_point'             => 'required',
                 'max_capacity'             => 'required'
+            ],
+            [
+                'name.required'   => 'Destination field is required',
+                'description.required'   => 'About the trip field is required',
+
             ]);
             if ($validator->fails()) return redirect()->back()->withErrors($validator->errors())->withInput();
 
@@ -360,11 +366,13 @@ class TravelmateController extends Controller
 //            dd($tripImages);
             $isNullTripStartDates = in_array(null, $tripStartDates, true);
             $isNullTripEndDates = in_array(null, $tripEndDates, true);
-            $isNullTripImages = in_array(null, $tripImages, true);
+            $isNullTripImages = true;
+            if($tripImages != null)
+                $isNullTripImages = in_array(null, $tripImages, true);
             $isNullTripDescriptions = in_array(null, $tripDescriptions, true);
 
             if($isNullTripStartDates && $isNullTripEndDates && $isNullTripImages && $isNullTripDescriptions){
-                return back()->withErrors("All Trip field required")->withInput();
+                return back()->withErrors("All Destination field required")->withInput();
             }
 
             $pricingQuantities = Input::get('qty');
@@ -458,6 +466,7 @@ class TravelmateController extends Controller
         }catch(\Exception $ex){
             error_log($ex);
             return back()->withErrors("Something Went Wrong")->withInput();
+//            return back()->withErrors($ex)->withInput();
         }
     }
 

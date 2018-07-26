@@ -798,7 +798,7 @@
 
         function deleteTrip(idx){
             $('#trip_' + idx).remove();
-            tripIdx--;
+            // tripIdx--;
         }
 
         // TAB PRICINGS
