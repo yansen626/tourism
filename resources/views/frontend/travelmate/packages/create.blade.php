@@ -187,10 +187,10 @@
                                             <div id="trip_1" class="col-lg-12 col-md-12" style="margin-bottom: 20px;">
                                                 <div class="row form-panel">
                                                     <div class="col-lg-12 col-md-12 col-xs-12">
-                                                        <h3 class="text-center" style="float: left;">DESTINATION 1</h3>
-                                                        <div style="float: right;">
-                                                            <a class="btn btn-danger" style="margin-top: 20px; margin-bottom: 10px;" onclick="deleteTrip(1)"><i class="fa fa-close"></i></a>
-                                                        </div>
+                                                        <h3 class="text-center" style="float: left;">FIRST DESTINATION</h3>
+                                                        {{--<div style="float: right;">--}}
+                                                            {{--<a class="btn btn-danger" style="margin-top: 20px; margin-bottom: 10px;" onclick="deleteTrip(1)"><i class="fa fa-close"></i></a>--}}
+                                                        {{--</div>--}}
                                                     </div>
                                                     <div class="col-lg-12 col-md-12 col-xs-12">
                                                         <div class="col-lg-6 col-md-6 col-xs-12">
@@ -719,7 +719,7 @@
             sbAdd.append("<div id='trip_" + tripIdx + "' class='col-lg-12 col-md-12' style='margin-bottom: 20px;'>");
             sbAdd.append("<div class='row form-panel'>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
-            sbAdd.append("<h3 class='text-center' style='float: left;'>DESTINATION " + tripIdx + "</h3>");
+            sbAdd.append("<h3 class='text-center' style='float: left;'>NEXT DESTINATION </h3>");
             sbAdd.append("<div style='float: right;'>");
             sbAdd.append("<button class='btn btn-danger' style='margin-top: 20px; margin-bottom: 10px;' onclick='deleteTrip(" + tripIdx + ")'><i class='fa fa-close'></i></button>");
             sbAdd.append("</div>");
