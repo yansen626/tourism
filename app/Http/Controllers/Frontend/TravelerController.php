@@ -302,10 +302,28 @@ class TravelerController extends Controller
             $identity = 'none';
         }
 
+        $allPackages = TransactionDetail::where('user_id', $user->id)
+            ->take(4)
+            ->get();
+        $HistoryPackages = TransactionDetail::where('user_id', $user->id)
+            ->where(function ($query) {
+                $query->where('status_id', 8)
+                    ->orWhere('status_id', 9)
+                    ->orWhere('status_id', 10);
+            })
+            ->take(4)
+            ->get();
+        $upcomingPackages = TransactionDetail::where('user_id', $user->id)
+            ->where('status_id', 13)
+            ->take(4)
+            ->get();
         $data = [
             'user'      => $user,
             'diaries'  => $diaries,
-            'identity'  => $identity
+            'identity'  => $identity,
+            'allPackages'  => $allPackages,
+            'HistoryPackages'  => $HistoryPackages,
+            'upcomingPackages'  => $upcomingPackages,
         ];
 
         return View('frontend.traveler.diaries.travel-diaries')->with($data);
@@ -323,12 +341,33 @@ class TravelerController extends Controller
         else{
             $identity = 'none';
         }
+
+        $allPackages = TransactionDetail::where('user_id', $user->id)
+            ->take(4)
+            ->get();
+        $HistoryPackages = TransactionDetail::where('user_id', $user->id)
+            ->where(function ($query) {
+                $query->where('status_id', 8)
+                    ->orWhere('status_id', 9)
+                    ->orWhere('status_id', 10);
+            })
+            ->take(4)
+            ->get();
+        $upcomingPackages = TransactionDetail::where('user_id', $user->id)
+            ->where('status_id', 13)
+            ->take(4)
+            ->get();
+//        dd($data);
+
         $data = [
             'user'      => $user,
             'diaries'  => $diaries,
-            'identity'  => $identity
+            'identity'  => $identity,
+            'allPackages'  => $allPackages,
+            'HistoryPackages'  => $HistoryPackages,
+            'upcomingPackages'  => $upcomingPackages,
         ];
-//        dd($data);
+
         return View('frontend.traveler.diaries.travel-diaries-edit')->with($data);
     }
 
@@ -382,8 +421,26 @@ class TravelerController extends Controller
     public function travelDiaryAdd(){
         $user = Auth::user();
 
+        $allPackages = TransactionDetail::where('user_id', $user->id)
+            ->take(4)
+            ->get();
+        $HistoryPackages = TransactionDetail::where('user_id', $user->id)
+            ->where(function ($query) {
+                $query->where('status_id', 8)
+                    ->orWhere('status_id', 9)
+                    ->orWhere('status_id', 10);
+            })
+            ->take(4)
+            ->get();
+        $upcomingPackages = TransactionDetail::where('user_id', $user->id)
+            ->where('status_id', 13)
+            ->take(4)
+            ->get();
         $data = [
-            'user'      => $user
+            'user'      => $user,
+            'allPackages'  => $allPackages,
+            'HistoryPackages'  => $HistoryPackages,
+            'upcomingPackages'  => $upcomingPackages,
         ];
 
         return View('frontend.traveler.diaries.travel-diaries-add')->with($data);

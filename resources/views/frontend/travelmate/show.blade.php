@@ -221,7 +221,16 @@
                                     Travel Category
                                 </div>
                                 <div class="col-md-9">
-                                    : {{ $user->travel_interest ?? '-' }}
+                                    @if($user->travel_interest == null)
+                                        : -
+                                    @else
+{{--                                        @php($category = str_replace(';',' ', $user->travel_interest))--}}
+                                        {{--: {{ $category }}--}}
+                                        @php($categories = preg_split('@;@', $user->travel_interest, NULL, PREG_SPLIT_NO_EMPTY))
+                                        @foreach($categories as $category)
+                                            <img src="{{ URL::asset('frontend_images/categories/'.$category.".png") }}" style="width: 70px;padding-bottom: 10px;">
+                                        @endforeach
+                                    @endif
 
                                 </div>
                             </div>

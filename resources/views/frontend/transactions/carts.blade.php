@@ -41,14 +41,14 @@
                             @foreach($carts as $cart)
                                 <tr class="cart_item">
                                     <td class="product-thumbnail">
-                                        <a href="#">
+                                        <a href="{{route('package-detail', ['id'=>$cart->package->id])}}">
                                             <img src="{{ URL::asset('storage/package_image/'.$cart->package->featured_image) }}"
                                                  data-at2x="{{ URL::asset('storage/package_image/'.$cart->package->featured_image) }}"
                                                  alt="" class="attachment-shop_thumbnail wp-post-image">
                                         </a>
                                     </td>
                                     <td class="product-name">
-                                        <a href="#">{{$cart->package->name}}</a>
+                                        <a href="{{route('package-detail', ['id'=>$cart->package->id])}}">{{$cart->package->name}}</a>
                                     </td>
                                     @php($startDate = \Carbon\Carbon::parse($cart->package->start_date)->format('d F Y'))
                                     @php($endDate = \Carbon\Carbon::parse($cart->package->end_date)->format('d F Y'))

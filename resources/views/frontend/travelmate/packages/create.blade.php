@@ -100,7 +100,7 @@
                                                     <div id="category_list" class="field radio_field">
                                                         @foreach($categories as $category)
                                                             <label for="category_{{ $category->id }}">
-                                                                <input type="radio" id="category_{{ $category->id }}" name="category" value="{{ $category->id }}"/>
+                                                                <input type="checkbox" id="category_{{ $category->id }}" name="category[]" value="{{ $category->name }}"/>
                                                                 <img src="{{ URL::asset('frontend_images/categories/'.$category->name.".png") }}" style="width: 100px; height:100px">
                                                             </label>
                                                         @endforeach

@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
                                 <!-- Recomended Content-->
-                                <div class="recom-item-body"><a href="#">
+                                <div class="recom-item-body"><a href="{{route('package-detail', ['id'=>$package->id])}}">
                                         <h6 class="blog-title">{{$package->name}}</h6></a>
                                     <div class="recom-price">Rp {{$package->price}}</div>
                                     <p class="mb-30">{{$package->description}}</p>

@@ -15,7 +15,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $id
  * @property string $travelmate_id
  * @property string $name
- * @property int $category_id
+ * @property string $category_id
  * @property int $province_id
  * @property int $city_id
  * @property string $location_detail
@@ -50,7 +50,6 @@ class Package extends Eloquent
 	public $incrementing = false;
 
 	protected $casts = [
-		'category_id' => 'int',
 		'province_id' => 'int',
 		'city_id' => 'int',
 		'price' => 'float',

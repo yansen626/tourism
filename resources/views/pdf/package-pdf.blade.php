@@ -46,6 +46,20 @@
                                 <td style="width: 200px;">MAX CAPACITY</td>
                                 <td>: {{$package->max_capacity}}&nbsp;Person(s)</td>
                             </tr>
+                            {{--<tr>--}}
+                                {{--<td style="width: 200px;">CATEGORY</td>--}}
+
+                                {{--@if($package->category_id == null)--}}
+                                    {{--<td>: -</td>--}}
+                                {{--@else--}}
+                                    {{--<td>:--}}
+                                    {{--@php($categories = preg_split('@;@', $package->category_id, NULL, PREG_SPLIT_NO_EMPTY))--}}
+                                    {{--@foreach($categories as $category)--}}
+                                        {{--<img src="{{ URL::asset('frontend_images/categories/'.$category.".png") }}">--}}
+                                    {{--@endforeach--}}
+                                    {{--</td>--}}
+                                {{--@endif--}}
+                            {{--</tr>--}}
                         </table>
                     </div>
                     <div class="col-md-12">

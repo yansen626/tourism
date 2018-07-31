@@ -169,7 +169,6 @@
                 </div>
                 <div class="col-md-3">
                     @include('frontend.traveler.partials._right-side', ['allPackage'=>$allPackages, 'HistoryPackages'=>$HistoryPackages, 'upcomingPackages'=>$upcomingPackages])
-                    @include('frontend.traveler.partials._right-side')
                 </div>
             </div>
         </div>

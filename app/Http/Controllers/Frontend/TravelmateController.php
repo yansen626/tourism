@@ -337,6 +337,7 @@ class TravelmateController extends Controller
             $validator = Validator::make($request->all(), [
                 'name'             => 'required',
                 'description'             => 'required',
+                'category'             => 'required',
                 'start_date'             => 'required',
                 'end_date'          => 'required',
                 'meeting_point'             => 'required',
@@ -357,6 +358,7 @@ class TravelmateController extends Controller
                 return back()->withErrors("The city is required")->withInput();
             }
 
+            //checking destination validation
 //            dd($request);
             $tripStartDates = Input::get('trip_start_date');
             $tripEndDates = Input::get('trip_end_date');
@@ -366,15 +368,16 @@ class TravelmateController extends Controller
 //            dd($tripImages);
             $isNullTripStartDates = in_array(null, $tripStartDates, true);
             $isNullTripEndDates = in_array(null, $tripEndDates, true);
-            $isNullTripImages = true;
-            if($tripImages != null)
-                $isNullTripImages = in_array(null, $tripImages, true);
             $isNullTripDescriptions = in_array(null, $tripDescriptions, true);
-
-            if($isNullTripStartDates && $isNullTripEndDates && $isNullTripImages && $isNullTripDescriptions){
+            $isNullTripImages = true;
+            if($tripImages != null){
+                $isNullTripImages = in_array(null, $tripImages, true);
+            }
+            if($isNullTripStartDates || $isNullTripEndDates || $isNullTripImages || $isNullTripDescriptions){
                 return back()->withErrors("All Destination field required")->withInput();
             }
 
+            //checking price validation
             $pricingQuantities = Input::get('qty');
             $pricingPrice = Input::get('price');
             $isNullPricingQuantities = in_array(null, $pricingQuantities, true);
@@ -387,7 +390,6 @@ class TravelmateController extends Controller
 
             $packageID = Uuid::generate();
 
-//            $startDateTrip = Carbon::createFromFormat('d M Y H:i', $tripStartDates[0], 'Asia/Jakarta');
 //            dd($startDateTrip);
             DB::transaction(function() use ($request, $packageID, $user, $tripStartDates,
                 $tripEndDates, $tripImages, $tripDescriptions, $pricingQuantities, $pricingPrice) {
@@ -395,11 +397,20 @@ class TravelmateController extends Controller
                 $startDate = Carbon::createFromFormat('d M Y', Input::get('start_date'), 'Asia/Jakarta');
                 $endDate = Carbon::createFromFormat('d M Y', Input::get('end_date'), 'Asia/Jakarta');
                 $dateTimeNow = Carbon::now('Asia/Jakarta');
+
+                $categories = $request->get('category');
+                $selectedCategories = "";
+                if($categories != null){
+                    foreach ($categories as $category){
+                        $selectedCategories.=$category.";";
+                    }
+                }
+
                 $newPackage = Package::create([
                     'id' =>$packageID,
                     'travelmate_id' => $user->id,
                     'name' => Input::get('name'),
-                    'category_id' => Input::get('category'),
+                    'category_id' => $selectedCategories,
                     'province_id' => Input::get('province'),
                     'city_id' => Input::get('city'),
                     'description' => Input::get('description'),

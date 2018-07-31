@@ -84,7 +84,8 @@ class PackageController extends Controller
         ];
 //        dd($data);
         $pdf = PDF::loadView('pdf.package-pdf', $data);
-        return $pdf->download('Package Information.pdf');
+        $filename = "Package Information of ".$package->name.".pdf";
+        return $pdf->download($filename);
 //        return View('pdf.package-pdf')->with($data);
     }
 }

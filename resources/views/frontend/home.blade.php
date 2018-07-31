@@ -54,7 +54,7 @@
 						@foreach($packages as $package)
 							<div class="testimonial-item">
 								<div class="testimonial-top">
-									<a href="{{route('destination', ['province'=>$package->province_id])}}">
+									<a href="/destination?search=&province={{$package->province_id}}&sortBy=-1">
 										<div class="pic">
 											<img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
 												 data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"
@@ -64,13 +64,12 @@
 								</div>
 								<!-- testimonial content-->
 								<div class="testimonial-body">
-
 									<h5 class="title">start from <span>Rp {{$package->price}}</span> </h5>
 									<h4 class="title"><span>{{$package->province->name}}</span>, {{$package->city->name}}</h4>
 									<p class="align-center" style="min-height: 70px;">
 										{{$package->description}}
 									</p>
-									<a href="{{route('destination', ['province'=>$package->province_id])}}" class="testimonial-button">Details</a>
+									<a href="/destination?search=&province={{$package->province_id}}&sortBy=-1" class="testimonial-button">Details</a>
 								</div>
 							</div>
 						@endforeach

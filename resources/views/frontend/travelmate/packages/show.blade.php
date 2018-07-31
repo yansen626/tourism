@@ -77,6 +77,19 @@
                     <div class="col-md-9">
                         <p>: {{$package->max_capacity}}&nbsp;Person(s)</p>
                     </div>
+                    <div class="col-md-3 col-sm-3">
+                        <p>CATEGORY </p>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        @if($package->category_id == null)
+                            <p>: -</p>
+                        @else
+                            @php($categories = preg_split('@;@', $package->category_id, NULL, PREG_SPLIT_NO_EMPTY))
+                            @foreach($categories as $category)
+                                <img src="{{ URL::asset('frontend_images/categories/'.$category.".png") }}" style="width: 70px;padding-bottom: 10px;">
+                            @endforeach
+                        @endif
+                    </div>
                     <div class="col-md-12">
                         <hr>
                         <h4 style="float: left;">PRICING</h4>
