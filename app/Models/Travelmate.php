@@ -7,6 +7,7 @@
 
 namespace App\Models;
 
+use App\Notifications\TravelmateResetPasswordNotification;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -112,6 +113,7 @@ class Travelmate extends Authenticatable
 		'travel_interest',
 		'profile_picture',
 		'banner_picture',
+        'remember_token',
         'ktp_img',
 		'status_id',
 		'created_by',
@@ -141,4 +143,9 @@ class Travelmate extends Authenticatable
 	{
 		return $this->hasMany(\App\Models\Package::class);
 	}
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new TravelmateResetPasswordNotification($token));
+    }
 }

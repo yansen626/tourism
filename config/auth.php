@@ -117,6 +117,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'travelmates' => [
+            'provider' => 'travelmates',
+            'table' => 'password_resets_travelmates',
+            'expire' => 60,
+        ],
     ],
 
 ];

@@ -14,6 +14,17 @@
 //Build in Routes for Auth
 Auth::routes();
 
+//Add Custom Route for Travelmates ForgotPassword
+Route::get('travelmate/password/reset', 'Travelmate\ForgotPasswordController@showLinkRequestForm');
+Route::post('travelmate/password/email', 'Travelmate\ForgotPasswordController@sendResetLinkEmail');
+Route::get('travelmate/password/reset/{token}', 'Travelmate\ResetPasswordController@showResetForm');
+Route::post('travelmate/password/reset', 'Travelmate\ResetPasswordController@reset');
+
+Route::get('seller_password/reset', 'SellerAuth\ForgotPasswordController@showLinkRequestForm');
+Route::post('seller_password/email', 'SellerAuth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('seller_password/reset/{token}', 'SellerAuth\ResetPasswordController@showResetForm');
+Route::post('seller_password/reset', 'SellerAuth\ResetPasswordController@reset');
+
 // Login Frontend
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 

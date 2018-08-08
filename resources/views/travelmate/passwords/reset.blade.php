@@ -25,7 +25,7 @@
                     @endif
 
                     <div style="padding-top:30px" class="panel-body" >
-                        <form id="loginform" class="form-horizontal" method="POST" action="{{ route('password.request') }}">
+                        <form id="loginform" class="form-horizontal" method="POST" action="{{ url('travelmate/password/reset') }}">
                             {{ csrf_field() }}
 
                             <input type="hidden" name="token" value="{{ $token }}">
