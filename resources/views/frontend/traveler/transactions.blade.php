@@ -28,32 +28,60 @@
                             <div class="col-md-6">
                                 <h1>MY BOOKING</h1>
                             </div>
-
+                            <div class="col-md-6">
+                                <div style="float: right;">
+                                    <form class="form-inline" style="margin-top:30px;">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                <option value="{{ route('traveller.transactions', ['flag' => 1]) }}" {{$flag == 1 ? 'selected':''}}>ALL ({{$allCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 2]) }}" {{$flag == 2 ? 'selected':''}}>UPCOMING ({{$upcomingCount}})</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         @elseif($flag == 2)
                             <div class="col-md-6">
                                 <h1>UPCOMING</h1>
                             </div>
-
+                            <div class="col-md-6">
+                                <div style="float: right;">
+                                    <form class="form-inline" style="margin-top:30px;">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                <option value="{{ route('traveller.transactions', ['flag' => 1]) }}" {{$flag == 1 ? 'selected':''}}>ALL ({{$allCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 2]) }}" {{$flag == 2 ? 'selected':''}}>UPCOMING ({{$upcomingCount}})</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         @else
                             <div class="col-md-6">
                                 <h1>HISTORY</h1>
                             </div>
-                        @endif
-                        <div class="col-md-6">
-                            <div style="float: right;">
-                                <form class="form-inline" style="margin-top:30px;">
-                                    <div class="form-group">
-                                        <label>Status:</label>
-                                        <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                                            <option value="{{ route('traveller.transactions', ['flag' => 1]) }}" {{$flag == 1 ? 'selected':''}}>ALL ({{$allCount}})</option>
-                                            <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
-                                            <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
-                                            <option value="{{ route('traveller.transactions', ['flag' => 2]) }}" {{$flag == 2 ? 'selected':''}}>UPCOMING ({{$upcomingCount}})</option>
-                                        </select>
-                                    </div>
-                                </form>
+                            <div class="col-md-6">
+                                <div style="float: right;">
+                                    <form class="form-inline" style="margin-top:30px;">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <select id="filter-travel" class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                <option value="{{ route('traveller.transactions', ['flag' => 3]) }}" {{$flag == 1 ? 'selected':''}}>ALL ({{$allCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 4]) }}" {{$flag == 4 ? 'selected':''}}>FINISHED ({{$finishedCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 5]) }}" {{$flag == 5 ? 'selected':''}}>CANCELED ({{$canceledCount}})</option>
+                                                <option value="{{ route('traveller.transactions', ['flag' => 2]) }}" {{$flag == 2 ? 'selected':''}}>UPCOMING ({{$upcomingCount}})</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                     </div>
                     <div class="row">

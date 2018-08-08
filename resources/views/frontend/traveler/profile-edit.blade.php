@@ -140,9 +140,18 @@
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="interest">
                                         Travel Interest
                                     </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="interest" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('interest')) parsley-error @endif"
-                                               name="interest" value="{{ $user->travel_interest ?? '' }}">
+                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                        <div id="category_list" class="field radio_field">
+                                            @foreach($categories as $category)
+                                                <label for="category_{{ $category->id }}">
+                                                    <input type="checkbox" id="category_{{ $category->id }}" name="travel_interest[]" value="{{ $category->name }}"
+                                                            {{ strpos($user->travel_interest, $category->name)!==false ? "checked=checked" : '' }}/>
+                                                    <img src="{{ URL::asset('frontend_images/categories/'.$category->name.".png") }}" style="width: 100px; height:100px">
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                        {{--<input id="interest" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('interest')) parsley-error @endif"--}}
+                                               {{--name="interest" value="{{ $user->travel_interest ?? '' }}">--}}
                                     </div>
                                 </div>
                                 <hr/>
@@ -179,6 +188,33 @@
 @section('styles')
     @parent
     <link rel="stylesheet" href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}">
+    <style>
+        label > input{ /* HIDE RADIO */
+            visibility: hidden; /* Makes input not-clickable */
+            position: absolute; /* Remove input from document flow */
+        }
+        label > input + img{ /* IMAGE STYLES */
+            cursor:pointer;
+            border:2px solid transparent;
+        }
+        label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+            border:2px solid #f00;
+        }
+        #category_list input {
+            float: left;
+            -webkit-appearance: radio !important;
+        }
+
+        #category_list label {
+            float: left;
+            margin-left: 10px !important;
+            font-size: 13px !important;
+        }
+
+        #category_list label + input {
+            clear: both;
+        }
+    </style>
 @endsection
 
 @section('scripts')

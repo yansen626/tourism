@@ -169,6 +169,9 @@ class HomeController extends Controller
     public function privacy(){
         return View('frontend.information.privacy');
     }
+    public function contact(){
+        return View('frontend.information.contact');
+    }
 
     public function SearchForm(){
 

@@ -71,7 +71,7 @@
         </div>
         <div class="col-md-12">
             <p>
-                <a href="#" class="white-color-font">
+                <a href="{{route('contact')}}" class="white-color-font">
                     <span>Support & Contact</span>
                 </a>
             </p>

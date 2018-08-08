@@ -61,6 +61,7 @@ class TravelerController extends Controller
             ->where('status_id', 13)
             ->take(4)
             ->get();
+
         $data = [
             'user'      => $user,
             'diaries'  => $diaries,
@@ -100,12 +101,15 @@ class TravelerController extends Controller
             ->where('status_id', 13)
             ->take(4)
             ->get();
+
+        $categories = Category::orderBy('name')->get();
         $data = [
             'user'      => $user,
             'identity'  => $identity,
             'allPackages'  => $allPackages,
             'HistoryPackages'  => $HistoryPackages,
             'upcomingPackages'  => $upcomingPackages,
+            'categories'  => $categories,
         ];
 
         return View('frontend.traveler.profile-edit')->with($data);

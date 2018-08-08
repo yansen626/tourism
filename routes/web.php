@@ -33,6 +33,7 @@ Route::get('/login-traveller', 'Auth\LoginController@login')->name('login');
 Route::get('/login-travelmate', 'Auth\LoginController@loginTravelmate')->name('login-travelmate');
 Route::post('/signin', 'Auth\LoginController@authenticate')->name('signin');
 
+Route::get('/register', 'Auth\RegisterController@getRegister')->name('register');
 Route::post('/submit-register', 'Auth\RegisterController@register')->name('submit-register');
 Route::get('/register-travelmate', 'Auth\RegisterController@registerTravelmate')->name('register-travelmate');
 Route::post('/register-travelmate', 'Auth\RegisterController@submitRegisterTravelmate')->name('submit-travelmate');

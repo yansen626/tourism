@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Mail\TravelmateNotification;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\Travelmate;
@@ -51,7 +52,10 @@ class RegisterController extends Controller
 //    {
 //        $this->middleware('guest');
 //    }
-
+    protected function getRegister() {
+        $categories = Category::orderBy('name')->get();
+        return view('auth.register', compact('categories','user'));
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -79,6 +83,14 @@ class RegisterController extends Controller
         Session::flash('message', 'Your Id is Registered!! Please Login!!');
         $date = Carbon::createFromFormat('d M Y', $data['dob'], 'Asia/Jakarta');
 
+        $categories = $data['travel_interest'];
+        $selectedCategories = "";
+        if($categories != null){
+            foreach ($categories as $category){
+                $selectedCategories.=$category.";";
+            }
+        }
+
         return User::create([
             'id' =>Uuid::generate(),
             'first_name' => $data['first_name'],
@@ -95,7 +107,7 @@ class RegisterController extends Controller
             'passport_no'           => $data['passport_no'],
             'current_location'      => $data['current_location'],
             'speaking_language'     => $data['speaking_language'],
-            'travel_interest'       => $data['travel_interest'],
+            'travel_interest'       => $selectedCategories,
             'about_me'              => $data['about_me'],
             'status_id' => 1
         ]);
@@ -124,13 +136,16 @@ class RegisterController extends Controller
                 'passport_no'           => 'required',
                 'current_location'      => 'required',
                 'speaking_language'     => 'required',
-                'travel_interest'       => 'required',
                 'about_me'              => 'required'
             ]
         );
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
+        }
+
+        if(empty($request->input('travel_interest'))){
+            return back()->withErrors("Travel Interest is required")->withInput();
         }
 
         $user = $this->create($request->all());

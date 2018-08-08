@@ -173,8 +173,16 @@
                                     Travel Interest
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input id="travel_interest" type="text" class="form-control col-md-7 col-xs-12"
-                                           name="travel_interest" value="{{ old('travel_interest') }}"/>
+                                    <div id="category_list" class="field radio_field">
+                                        @foreach($categories as $category)
+                                            <label for="category_{{ $category->id }}">
+                                                <input type="checkbox" id="category_{{ $category->id }}" name="travel_interest[]" value="{{ $category->name }}"/>
+                                                <img src="{{ URL::asset('frontend_images/categories/'.$category->name.".png") }}" style="width: 100px; height:100px">
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    {{--<input id="travel_interest" type="text" class="form-control col-md-7 col-xs-12"--}}
+                                           {{--name="travel_interest" value="{{ old('travel_interest') }}"/>--}}
                                 </div>
                             </div>
 
@@ -183,9 +191,7 @@
                                     About Me
                                 </label>
                                 <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <textarea id="about_me" name="about_me" rows="5" class="form-control col-md-7 col-xs-12" style="resize: vertical">
-                                        {{ old('about_me') }}
-                                    </textarea>
+                                    <textarea id="about_me" name="about_me" rows="5" class="form-control col-md-7 col-xs-12" style="resize: vertical">{{ old('about_me') }}</textarea>
                                 </div>
                             </div>
 
@@ -208,6 +214,33 @@
 @section('styles')
     @parent
     <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datetimepicker.css') }}">
+    <style>
+        label > input{ /* HIDE RADIO */
+            visibility: hidden; /* Makes input not-clickable */
+            position: absolute; /* Remove input from document flow */
+        }
+        label > input + img{ /* IMAGE STYLES */
+            cursor:pointer;
+            border:2px solid transparent;
+        }
+        label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+            border:2px solid #f00;
+        }
+        #category_list input {
+            float: left;
+            -webkit-appearance: radio !important;
+        }
+
+        #category_list label {
+            float: left;
+            margin-left: 10px !important;
+            font-size: 13px !important;
+        }
+
+        #category_list label + input {
+            clear: both;
+        }
+    </style>
 @endsection
 
 @section('scripts')
@@ -218,7 +251,8 @@
     <script type="text/javascript">
         $(function () {
             $('#dob').datetimepicker({
-                format: "DD MMM Y"
+                format: "DD MMM Y",
+                viewMode: 'decades'
             });
         });
     </script>
