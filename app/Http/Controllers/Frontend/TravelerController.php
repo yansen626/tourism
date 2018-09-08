@@ -180,7 +180,15 @@ class TravelerController extends Controller
         $user->phone = Input::get('phone');
         $user->nationality = Input::get('nationality');
         $user->speaking_language = Input::get('language');
-        $user->travel_interest = Input::get('interest');
+
+        $categories = Input::get('travel_interest');
+        $selectedCategories = "";
+        if($categories != null){
+            foreach ($categories as $category){
+                $selectedCategories.=$category.";";
+            }
+        }
+        $user->travel_interest = $selectedCategories;
 
         if(Input::get('identity') === 'idcard'){
             $user->id_card = Input::get('idcard-value');
