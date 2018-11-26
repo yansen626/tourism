@@ -297,41 +297,51 @@ class TravelmateController extends Controller
         }
     }
 
-    public function createPackage(){
-        $provinces = Province::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
-        $view = View::make('frontend.travelmate.partials._trip_destination');
-        $content = (string) $view;
+    public function getCities(){
+        $provinceId = request()->province;
 
-        $user = \Auth::guard('travelmates')->user();
-        $allPackage = TransactionDetail::where('travelmate_id', $user->id)->take(4)->get();
-        $upcomingPackage = TransactionDetail::where('travelmate_id', $user->id)
-            ->where('status_id', 13)->take(4)->get();
-        $data = [
-            'provinces'     => $provinces,
-            'categories'    => $categories,
-            'allPackage'      => $allPackage,
-            'upcomingPackage'      => $upcomingPackage,
-            'content'       => $content
-        ];
+        $cities = City::where('province_id', $provinceId)->get();
 
-        return view('frontend.travelmate.packages.create')->with($data);
+        $returnHtml = View('frontend.travelmate.partials._city_options',['cities' => $cities])->render();
+
+        return response()->json( array('success' => true, 'html' => $returnHtml) );
     }
 
-    public function showPackage($id){
-        $package = Package::find($id);
-        $packagePrices = $package->package_prices;
-        $packageTrips = $package->package_trips;
-
-        $data = [
-            'package'       => $package,
-            'packagePrices' => $packagePrices,
-            'packageTrips'  => $packageTrips
-        ];
-
-        return view('frontend.travelmate.packages.show')->with($data);
-    }
-
+//    public function createPackage(){
+//        $provinces = Province::orderBy('name')->get();
+//        $categories = Category::orderBy('name')->get();
+//        $view = View::make('frontend.travelmate.partials._trip_destination');
+//        $content = (string) $view;
+//
+//        $user = \Auth::guard('travelmates')->user();
+//        $allPackage = TransactionDetail::where('travelmate_id', $user->id)->take(4)->get();
+//        $upcomingPackage = TransactionDetail::where('travelmate_id', $user->id)
+//            ->where('status_id', 13)->take(4)->get();
+//        $data = [
+//            'provinces'     => $provinces,
+//            'categories'    => $categories,
+//            'allPackage'      => $allPackage,
+//            'upcomingPackage'      => $upcomingPackage,
+//            'content'       => $content
+//        ];
+//
+//        return view('frontend.travelmate.packages.create')->with($data);
+//    }
+//
+//    public function showPackage($id){
+//        $package = Package::find($id);
+//        $packagePrices = $package->package_prices;
+//        $packageTrips = $package->package_trips;
+//
+//        $data = [
+//            'package'       => $package,
+//            'packagePrices' => $packagePrices,
+//            'packageTrips'  => $packageTrips
+//        ];
+//
+//        return view('frontend.travelmate.packages.show')->with($data);
+//    }
+//
     public function storePackage(Request $request){
         try{
             $validator = Validator::make($request->all(), [
@@ -480,447 +490,438 @@ class TravelmateController extends Controller
 //            return back()->withErrors($ex)->withInput();
         }
     }
+//
+//    public function editPackageInformation(Package $package){
+//        $provinces = Province::orderBy('name')->get();
+//        $cities = City::where('province_id', $package->province_id)->orderBy('name')->get();
+//        $categories = Category::orderBy('name')->get();
+//
+//        $data = [
+//            'package'       => $package,
+//            'provinces'     => $provinces,
+//            'cities'        => $cities,
+//            'categories'    => $categories
+//        ];
+//
+//        return view('frontend.travelmate.packages.edit-info')->with($data);
+//    }
+//
+//    public function updatePackageInformation(Package $package, Request $request){
+//        $validator = Validator::make($request->all(),[
+//            'destination'       => 'required|max:50',
+//            'start_date'        => 'required',
+//            'end_date'          => 'required',
+//            'meeting_point'     => 'required|max:300',
+//            'max_capacity'      => 'required'
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()
+//                ->back()
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//
+//        // Validate province
+//        if($request->input('province') === '-1'){
+//            return redirect()->back()->withErrors('Province is required!', 'default')->withInput($request->all());
+//        }
+//
+//        // Validate city
+//        if($request->input('city') === '-1'){
+//            return redirect()->back()->withErrors('City is required!', 'default')->withInput($request->all());
+//        }
+//
+//        $startDate = Carbon::createFromFormat('d F Y', $request->input('start_date'), 'Asia/Jakarta');
+//        $endDate = Carbon::createFromFormat('d F Y', $request->input('end_date'), 'Asia/Jakarta');
+//
+//        // Validate date
+//        if($startDate->gt($endDate)){
+//            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+//        }
+//
+//        $user = Auth::user();
+//        $now = Carbon::now('Asia/Jakarta');
+//
+//        $package->name = $request->input('destination');
+//        $package->meeting_point = $request->input('meeting_point');
+//        $package->max_capacity = $request->input('max_capacity');
+//        $package->start_date = $startDate->toDateTimeString();
+//        $package->end_date = $endDate->toDateTimeString();
+//        $package->updated_by = $user->id;
+//        $package->updated_at = $now->toDateTimeString();
+//
+//        $package->save();
+//
+//        Session::flash('message', 'Package information successfully updated!');
+//
+//        return redirect()->route('travelmate.packages.information.edit',['package' => $package->id]);
+//    }
+//
+//    public function indexPackagePrice(Package $package){
+//        $data = [
+//            'package'       => $package
+//        ];
+//
+//        return view('frontend.travelmate.packages.prices.index')->with($data);
+//    }
+//
+//    public function createPackagePrice($package_id){
+//        $packageId = $package_id;
+//        $general = General::find(1);
+//
+//
+//        $data = [
+//            'packageId'     => $packageId,
+//            'serviceFee'    => $general->service_fee
+//        ];
+//
+//        return view('frontend.travelmate.packages.prices.create')->with($data);
+//    }
+//
+//    public function storePackagePrice(Package $package, Request $request){
+//        $validator = Validator::make($request->all(),[
+//            'quantity'      => 'required',
+//            'price'         => 'required'
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()
+//                ->back()
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//
+//        $qty = (int) $request->input('quantity');
+//
+//        // Validate quantity
+//        if(!empty($package->package_prices->where('quantity', $qty)->first())){
+//            return redirect()->back()->withErrors('Number of Travellers '. $qty. ' already existed!', 'default')->withInput($request->all());
+//        }
+//
+//        $priceStr = str_replace('.','', $request->input('price'));
+//
+//        $packagePrice = PackagePrice::create([
+//            'package_id'    => $package->id,
+//            'quantity'      => $qty,
+//            'price'         => $priceStr
+//        ]);
+//
+//        // Get service fee
+//        $general = General::find(1);
+//        $serviceFee = $general->service_fee;
+//        $packagePrice->service_fee = $serviceFee;
+//
+//        $price = (double) $priceStr;
+//        $totalPrice = $qty * $price;
+//        $finalPrice = $totalPrice - ($totalPrice * ($serviceFee / 100));
+//        $packagePrice->final_price = $finalPrice;
+//        $packagePrice->save();
+//
+//        Session::flash('message', 'New Pricing successfully created!');
+//
+//        return redirect()->route('travelmate.packages.price.index', ['package' => $package->id]);
+//    }
+//
+//    public function editPackagePrice(PackagePrice $package_price){
+//        $pricing = $package_price;
+//
+//        $data = [
+//            'pricing'       => $pricing
+//        ];
+//
+//        return view('frontend.travelmate.packages.prices.edit')->with($data);
+//    }
+//
+//    public function updatePackagePrice(PackagePrice $package_price, Request $request){
+//        $validator = Validator::make($request->all(),[
+//            'quantity'      => 'required',
+//            'price'         => 'required'
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()
+//                ->back()
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//
+//        $qty = (int) $request->input('quantity');
+//
+//        // Validate quantity
+//        if(!empty(PackagePrice::where('package_id', $package_price->package_id)
+//            ->where('id', '!=', $package_price->id)
+//            ->where('quantity', $qty)
+//            ->first())){
+//            return redirect()->back()->withErrors('Duplicate value of Number of Travellers!', 'default')->withInput($request->all());
+//        }
+//
+//        $priceStr = str_replace('.','', $request->input('price'));
+//
+//        $package_price->quantity = $qty;
+//        $package_price->price = $priceStr;
+//
+//        // Get service fee
+//        $serviceFee = $package_price->service_fee;
+//
+//        $price = (double) $priceStr;
+//        $totalPrice = $qty * $price;
+//        $finalPrice = $totalPrice - ($totalPrice * ($serviceFee / 100));
+//        $package_price->final_price = $finalPrice;
+//        $package_price->save();
+//
+//        Session::flash('message', 'New Pricing successfully updated!');
+//
+//        return redirect()->route('travelmate.packages.price.index', ['package' => $package_price->package_id]);
+//    }
+//
+//    public function deletePackagePrice(Request $request){
+//        try{
+//            $packagePrice = PackagePrice::find($request->input('id'));
+//            $packagePrice->delete();
+//
+//            Session::flash('message', 'Selected Pricing is successfully deleted!');
+//
+//            return new JsonResponse($packagePrice);
+//        }
+//        catch (\Exception $ex){
+//            error_log($ex);
+//        }
+//    }
+//
+//    public function indexTrip(Package $package){
+//        return view('frontend.travelmate.packages.trips.index', compact('package'));
+//    }
+//
+//    public function createTrip($package_id){
+//        $packageId = $package_id;
+//
+//        return view('frontend.travelmate.packages.trips.create', compact('packageId'));
+//    }
+//
+//    public function storeTrip(Request $request, $package_id){
+//        $validator = Validator::make($request->all(),[
+//            'start_date'        => 'required',
+//            'end_date'          => 'required',
+//            'description'       => 'required|max:300',
+//            'featured'          => 'required'
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()
+//                ->back()
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//
+////        dd($request);
+//
+//        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
+//        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
+//
+//        // Validate date
+//        if($start->gt($end)){
+//            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+//        }
+//
+//        $user = Auth::guard('travelmates')->user();
+//        $now = Carbon::now('Asia/Jakarta');
+//
+//        $trip = PackageTrip::create([
+//            'package_id'        => $package_id,
+//            'start_date'        => $start->toDateTimeString(),
+//            'end_date'          => $end->toDateTimeString(),
+//            'description'       => $request->input('description'),
+//            'created_by'        => $user->id,
+//            'created_at'        => $now->toDateTimeString(),
+//            'updated_by'        => $user->id,
+//            'updated_at'        => $now->toDateTimeString()
+//        ]);
+//
+//        if(!empty($request->file('featured'))){
+//            $img = Image::make($request->file('featured'));
+//
+//            // Get image extension
+//            $extStr = $img->mime();
+//            $ext = explode('/', $extStr, 2);
+//
+//            $filename = $trip->id. '_'. $now->format('Ymdhms'). '_0.'. $ext[1];
+//
+//            $img->save(public_path('storage/package_trip_image/'. $filename));
+//
+//            $trip->featured_image = $filename;
+//            $trip->save();
+//        }
+//
+//        if(!empty($request->file('more_images'))){
+//            $idx = 1;
+//            foreach($request->file('more_images') as $img){
+//                error_log('index: '. $idx);
+//                $photo = Image::make($img);
+//
+//                // Get image extension
+//                $extStr = $photo->mime();
+//                $ext = explode('/', $extStr, 2);
+//
+//                $filename = $trip->id. '_'. $now->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
+//
+//                $photo->save(public_path('storage/package_trip_image/'. $filename));
+//
+//                $images = PackageTripImage::create([
+//                    'trip_id'           => $trip->id,
+//                    'filename'          => $filename
+//                ]);
+//
+//                $idx++;
+//            }
+//        }
+//
+//        Session::flash('message', 'New Package Trip successfully created!');
+//
+//        return redirect()->route('travelmate.packages.trip.index', ['package' => $package_id]);
+//    }
+//
+//    public function editTrip(PackageTrip $package_trip){
+//        $trip = $package_trip;
+//
+////        dd($trip->description);
+//
+//        return view('frontend.travelmate.packages.trips.edit', compact('trip'));
+//    }
+//
+//    public function updateTrip(Request $request, PackageTrip $package_trip){
+//        $validator = Validator::make($request->all(),[
+//            'start_date'        => 'required',
+//            'end_date'          => 'required',
+//            'description'       => 'required|max:300'
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()
+//                ->back()
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
+//
+//        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
+//        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
+//
+//        // Validate date
+//        if($start->gt($end)){
+//            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+//        }
+//
+//        $user = Auth::guard('travelmates')->user();
+//        $now = Carbon::now('Asia/Jakarta');
+//
+//        $package_trip->start_date = $start->toDateTimeString();
+//        $package_trip->end_date = $end->toDateTimeString();
+//        $package_trip->description = $request->input('description');
+//        $package_trip->updated_by = $user->id;
+//        $package_trip->updated_at = $now->toDateTimeString();
+//
+//        if(!empty($request->input('featured_changed')) && $request->input('featured_changed') === 'new'){
+//            $img = Image::make($request->file('featured'));
+//
+//            // Get image extension
+//            $extStr = $img->mime();
+//            $ext = explode('/', $extStr, 2);
+//
+//            $filename = $package_trip->id. '_'. $now->format('Ymdhms'). '_0.'. $ext[1];
+//
+//            $img->save(public_path('storage/package_trip_image/'. $filename));
+//
+//            $oldFeaturedImage = $package_trip->featured_image;
+//            $package_trip->featured_image = $filename;
+//
+//            // Delete featured image from server
+//            $deletedPath = public_path('storage/package_trip_image/'. $oldFeaturedImage);
+//            if(file_exists($deletedPath)) unlink($deletedPath);
+//        }
+//
+//        $package_trip->save();
+//
+//        // Delete package trip images
+//        if(!empty($request->input('deleted_images'))){
+//            $deletedIdTmp = $request->input('deleted_images');
+//
+//            if(strpos($deletedIdTmp,',')){
+//                $deletedIdList = explode(',', $deletedIdTmp);
+//                foreach($deletedIdList as $deletedId){
+//                    $packageImg = PackageTripImage::find($deletedId);
+//
+//                    $deletedPath = public_path('storage/package_trip_image/'. $packageImg->filename);
+//                    if(file_exists($deletedPath)) unlink($deletedPath);
+//
+//                    $packageImg->delete();
+//                }
+//            }
+//            else{
+//
+//                $packageImg = PackageTripImage::find($deletedIdTmp);
+//
+//                $deletedPath = public_path('storage/package_trip_image/'. $packageImg->filename);
+//                if(file_exists($deletedPath)) unlink($deletedPath);
+//
+//                $packageImg->delete();
+//            }
+//        }
+//
+//        if(!empty($request->file('more_images'))){
+//            $idx = 1;
+//            foreach($request->file('more_images') as $img){
+//                $photo = Image::make($img);
+//
+//                // Get image extension
+//                $extStr = $photo->mime();
+//                $ext = explode('/', $extStr, 2);
+//
+//                $filename = $package_trip->id. '_'. $now->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
+//
+//                $photo->save(public_path('storage/package_trip_image/'. $filename));
+//
+//                $images = PackageTripImage::create([
+//                    'trip_id'           => $package_trip->id,
+//                    'filename'          => $filename
+//                ]);
+//
+//                $idx++;
+//            }
+//        }
+//
+//        Session::flash('message', 'Package Trip successfully updated!');
+//
+//        return redirect()->route('travelmate.packages.trip.edit', ['package_trip' => $package_trip->id]);
+//    }
+//
+//    public function deleteTrip(Request $request){
+//        try{
+//            error_log('CHECK');
+//
+//            $trip = PackageTrip::find($request->input('id'));
+//
+//            // Delete images from server
+//            if($trip->package_trip_images->count() > 0){
+//                foreach ($trip->package_trip_images as $image){
+//                    $deletedPath = public_path('storage/package_trip_image/'. $image->filename);
+//                    if(file_exists($deletedPath)) unlink($deletedPath);
+//
+//                    $image->delete();
+//                }
+//            }
+//
+//            $deletedFeaturedPath = public_path('storage/package_trip_image/'. $trip->featured_image);
+//            if(file_exists($deletedFeaturedPath)) unlink($deletedFeaturedPath);
+//
+//            $trip->delete();
+//
+//            Session::flash('message', 'Package Trip successfully deleted!');
+//
+//            return new JsonResponse($trip);
+//        }
+//        catch (\Exception $ex){
+//            error_log($ex);
+//        }
+//    }
 
-    public function editPackageInformation(Package $package){
-        $provinces = Province::orderBy('name')->get();
-        $cities = City::where('province_id', $package->province_id)->orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
-
-        $data = [
-            'package'       => $package,
-            'provinces'     => $provinces,
-            'cities'        => $cities,
-            'categories'    => $categories
-        ];
-
-        return view('frontend.travelmate.packages.edit-info')->with($data);
-    }
-
-    public function updatePackageInformation(Package $package, Request $request){
-        $validator = Validator::make($request->all(),[
-            'destination'       => 'required|max:50',
-            'start_date'        => 'required',
-            'end_date'          => 'required',
-            'meeting_point'     => 'required|max:300',
-            'max_capacity'      => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Validate province
-        if($request->input('province') === '-1'){
-            return redirect()->back()->withErrors('Province is required!', 'default')->withInput($request->all());
-        }
-
-        // Validate city
-        if($request->input('city') === '-1'){
-            return redirect()->back()->withErrors('City is required!', 'default')->withInput($request->all());
-        }
-
-        $startDate = Carbon::createFromFormat('d F Y', $request->input('start_date'), 'Asia/Jakarta');
-        $endDate = Carbon::createFromFormat('d F Y', $request->input('end_date'), 'Asia/Jakarta');
-
-        // Validate date
-        if($startDate->gt($endDate)){
-            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
-        }
-
-        $user = Auth::user();
-        $now = Carbon::now('Asia/Jakarta');
-
-        $package->name = $request->input('destination');
-        $package->meeting_point = $request->input('meeting_point');
-        $package->max_capacity = $request->input('max_capacity');
-        $package->start_date = $startDate->toDateTimeString();
-        $package->end_date = $endDate->toDateTimeString();
-        $package->updated_by = $user->id;
-        $package->updated_at = $now->toDateTimeString();
-
-        $package->save();
-
-        Session::flash('message', 'Package information successfully updated!');
-
-        return redirect()->route('travelmate.packages.information.edit',['package' => $package->id]);
-    }
-
-    public function indexPackagePrice(Package $package){
-        $data = [
-            'package'       => $package
-        ];
-
-        return view('frontend.travelmate.packages.prices.index')->with($data);
-    }
-
-    public function createPackagePrice($package_id){
-        $packageId = $package_id;
-        $general = General::find(1);
-
-
-        $data = [
-            'packageId'     => $packageId,
-            'serviceFee'    => $general->service_fee
-        ];
-
-        return view('frontend.travelmate.packages.prices.create')->with($data);
-    }
-
-    public function storePackagePrice(Package $package, Request $request){
-        $validator = Validator::make($request->all(),[
-            'quantity'      => 'required',
-            'price'         => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $qty = (int) $request->input('quantity');
-
-        // Validate quantity
-        if(!empty($package->package_prices->where('quantity', $qty)->first())){
-            return redirect()->back()->withErrors('Number of Travellers '. $qty. ' already existed!', 'default')->withInput($request->all());
-        }
-
-        $priceStr = str_replace('.','', $request->input('price'));
-
-        $packagePrice = PackagePrice::create([
-            'package_id'    => $package->id,
-            'quantity'      => $qty,
-            'price'         => $priceStr
-        ]);
-
-        // Get service fee
-        $general = General::find(1);
-        $serviceFee = $general->service_fee;
-        $packagePrice->service_fee = $serviceFee;
-
-        $price = (double) $priceStr;
-        $totalPrice = $qty * $price;
-        $finalPrice = $totalPrice - ($totalPrice * ($serviceFee / 100));
-        $packagePrice->final_price = $finalPrice;
-        $packagePrice->save();
-
-        Session::flash('message', 'New Pricing successfully created!');
-
-        return redirect()->route('travelmate.packages.price.index', ['package' => $package->id]);
-    }
-
-    public function editPackagePrice(PackagePrice $package_price){
-        $pricing = $package_price;
-
-        $data = [
-            'pricing'       => $pricing
-        ];
-
-        return view('frontend.travelmate.packages.prices.edit')->with($data);
-    }
-
-    public function updatePackagePrice(PackagePrice $package_price, Request $request){
-        $validator = Validator::make($request->all(),[
-            'quantity'      => 'required',
-            'price'         => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $qty = (int) $request->input('quantity');
-
-        // Validate quantity
-        if(!empty(PackagePrice::where('package_id', $package_price->package_id)
-            ->where('id', '!=', $package_price->id)
-            ->where('quantity', $qty)
-            ->first())){
-            return redirect()->back()->withErrors('Duplicate value of Number of Travellers!', 'default')->withInput($request->all());
-        }
-
-        $priceStr = str_replace('.','', $request->input('price'));
-
-        $package_price->quantity = $qty;
-        $package_price->price = $priceStr;
-
-        // Get service fee
-        $serviceFee = $package_price->service_fee;
-
-        $price = (double) $priceStr;
-        $totalPrice = $qty * $price;
-        $finalPrice = $totalPrice - ($totalPrice * ($serviceFee / 100));
-        $package_price->final_price = $finalPrice;
-        $package_price->save();
-
-        Session::flash('message', 'New Pricing successfully updated!');
-
-        return redirect()->route('travelmate.packages.price.index', ['package' => $package_price->package_id]);
-    }
-
-    public function deletePackagePrice(Request $request){
-        try{
-            $packagePrice = PackagePrice::find($request->input('id'));
-            $packagePrice->delete();
-
-            Session::flash('message', 'Selected Pricing is successfully deleted!');
-
-            return new JsonResponse($packagePrice);
-        }
-        catch (\Exception $ex){
-            error_log($ex);
-        }
-    }
-
-    public function indexTrip(Package $package){
-        return view('frontend.travelmate.packages.trips.index', compact('package'));
-    }
-
-    public function createTrip($package_id){
-        $packageId = $package_id;
-
-        return view('frontend.travelmate.packages.trips.create', compact('packageId'));
-    }
-
-    public function storeTrip(Request $request, $package_id){
-        $validator = Validator::make($request->all(),[
-            'start_date'        => 'required',
-            'end_date'          => 'required',
-            'description'       => 'required|max:300',
-            'featured'          => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-//        dd($request);
-
-        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
-        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
-
-        // Validate date
-        if($start->gt($end)){
-            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
-        }
-
-        $user = Auth::guard('travelmates')->user();
-        $now = Carbon::now('Asia/Jakarta');
-
-        $trip = PackageTrip::create([
-            'package_id'        => $package_id,
-            'start_date'        => $start->toDateTimeString(),
-            'end_date'          => $end->toDateTimeString(),
-            'description'       => $request->input('description'),
-            'created_by'        => $user->id,
-            'created_at'        => $now->toDateTimeString(),
-            'updated_by'        => $user->id,
-            'updated_at'        => $now->toDateTimeString()
-        ]);
-
-        if(!empty($request->file('featured'))){
-            $img = Image::make($request->file('featured'));
-
-            // Get image extension
-            $extStr = $img->mime();
-            $ext = explode('/', $extStr, 2);
-
-            $filename = $trip->id. '_'. $now->format('Ymdhms'). '_0.'. $ext[1];
-
-            $img->save(public_path('storage/package_trip_image/'. $filename));
-
-            $trip->featured_image = $filename;
-            $trip->save();
-        }
-
-        if(!empty($request->file('more_images'))){
-            $idx = 1;
-            foreach($request->file('more_images') as $img){
-                error_log('index: '. $idx);
-                $photo = Image::make($img);
-
-                // Get image extension
-                $extStr = $photo->mime();
-                $ext = explode('/', $extStr, 2);
-
-                $filename = $trip->id. '_'. $now->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
-
-                $photo->save(public_path('storage/package_trip_image/'. $filename));
-
-                $images = PackageTripImage::create([
-                    'trip_id'           => $trip->id,
-                    'filename'          => $filename
-                ]);
-
-                $idx++;
-            }
-        }
-
-        Session::flash('message', 'New Package Trip successfully created!');
-
-        return redirect()->route('travelmate.packages.trip.index', ['package' => $package_id]);
-    }
-
-    public function editTrip(PackageTrip $package_trip){
-        $trip = $package_trip;
-
-//        dd($trip->description);
-
-        return view('frontend.travelmate.packages.trips.edit', compact('trip'));
-    }
-
-    public function updateTrip(Request $request, PackageTrip $package_trip){
-        $validator = Validator::make($request->all(),[
-            'start_date'        => 'required',
-            'end_date'          => 'required',
-            'description'       => 'required|max:300'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
-        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
-
-        // Validate date
-        if($start->gt($end)){
-            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
-        }
-
-        $user = Auth::guard('travelmates')->user();
-        $now = Carbon::now('Asia/Jakarta');
-
-        $package_trip->start_date = $start->toDateTimeString();
-        $package_trip->end_date = $end->toDateTimeString();
-        $package_trip->description = $request->input('description');
-        $package_trip->updated_by = $user->id;
-        $package_trip->updated_at = $now->toDateTimeString();
-
-        if(!empty($request->input('featured_changed')) && $request->input('featured_changed') === 'new'){
-            $img = Image::make($request->file('featured'));
-
-            // Get image extension
-            $extStr = $img->mime();
-            $ext = explode('/', $extStr, 2);
-
-            $filename = $package_trip->id. '_'. $now->format('Ymdhms'). '_0.'. $ext[1];
-
-            $img->save(public_path('storage/package_trip_image/'. $filename));
-
-            $oldFeaturedImage = $package_trip->featured_image;
-            $package_trip->featured_image = $filename;
-
-            // Delete featured image from server
-            $deletedPath = public_path('storage/package_trip_image/'. $oldFeaturedImage);
-            if(file_exists($deletedPath)) unlink($deletedPath);
-        }
-
-        $package_trip->save();
-
-        // Delete package trip images
-        if(!empty($request->input('deleted_images'))){
-            $deletedIdTmp = $request->input('deleted_images');
-
-            if(strpos($deletedIdTmp,',')){
-                $deletedIdList = explode(',', $deletedIdTmp);
-                foreach($deletedIdList as $deletedId){
-                    $packageImg = PackageTripImage::find($deletedId);
-
-                    $deletedPath = public_path('storage/package_trip_image/'. $packageImg->filename);
-                    if(file_exists($deletedPath)) unlink($deletedPath);
-
-                    $packageImg->delete();
-                }
-            }
-            else{
-
-                $packageImg = PackageTripImage::find($deletedIdTmp);
-
-                $deletedPath = public_path('storage/package_trip_image/'. $packageImg->filename);
-                if(file_exists($deletedPath)) unlink($deletedPath);
-
-                $packageImg->delete();
-            }
-        }
-
-        if(!empty($request->file('more_images'))){
-            $idx = 1;
-            foreach($request->file('more_images') as $img){
-                $photo = Image::make($img);
-
-                // Get image extension
-                $extStr = $photo->mime();
-                $ext = explode('/', $extStr, 2);
-
-                $filename = $package_trip->id. '_'. $now->format('Ymdhms'). '_'. $idx. '.'. $ext[1];
-
-                $photo->save(public_path('storage/package_trip_image/'. $filename));
-
-                $images = PackageTripImage::create([
-                    'trip_id'           => $package_trip->id,
-                    'filename'          => $filename
-                ]);
-
-                $idx++;
-            }
-        }
-
-        Session::flash('message', 'Package Trip successfully updated!');
-
-        return redirect()->route('travelmate.packages.trip.edit', ['package_trip' => $package_trip->id]);
-    }
-
-    public function deleteTrip(Request $request){
-        try{
-            error_log('CHECK');
-
-            $trip = PackageTrip::find($request->input('id'));
-
-            // Delete images from server
-            if($trip->package_trip_images->count() > 0){
-                foreach ($trip->package_trip_images as $image){
-                    $deletedPath = public_path('storage/package_trip_image/'. $image->filename);
-                    if(file_exists($deletedPath)) unlink($deletedPath);
-
-                    $image->delete();
-                }
-            }
-
-            $deletedFeaturedPath = public_path('storage/package_trip_image/'. $trip->featured_image);
-            if(file_exists($deletedFeaturedPath)) unlink($deletedFeaturedPath);
-
-            $trip->delete();
-
-            Session::flash('message', 'Package Trip successfully deleted!');
-
-            return new JsonResponse($trip);
-        }
-        catch (\Exception $ex){
-            error_log($ex);
-        }
-    }
-
-    public function getCities(){
-        $provinceId = request()->province;
-
-        $cities = City::where('province_id', $provinceId)->get();
-
-        $returnHtml = View('frontend.travelmate.partials._city_options',['cities' => $cities])->render();
-
-        return response()->json( array('success' => true, 'html' => $returnHtml) );
-    }
 }

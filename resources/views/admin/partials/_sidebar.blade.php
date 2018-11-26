@@ -51,13 +51,23 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-list"></i> Travelmate <span class="fa fa-chevron-down"></span></a>
+                    {{--<li><a><i class="fa fa-list"></i> Travelmate <span class="fa fa-chevron-down"></span></a>--}}
+                        {{--<ul class="nav child_menu">--}}
+                            {{--<li>--}}
+                                {{--<a href="{{ route('travelmate-list') }}">Daftar Travelmate</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="{{ route('travelmate-new') }}">Daftar Travelmate Baru</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    <li><a><i class="fa fa-list"></i> Paket <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="{{ route('travelmate-list') }}">Daftar Travelmate</a>
+                                <a href="{{ route('travelmate.packages.index') }}">Daftar Paket</a>
                             </li>
                             <li>
-                                <a href="{{ route('travelmate-new') }}">Daftar Travelmate Baru</a>
+                                <a href="{{ route('travelmate.packages.create') }}">Buat Paket Baru</a>
                             </li>
                         </ul>
                     </li>

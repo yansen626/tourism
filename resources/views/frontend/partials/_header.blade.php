@@ -66,11 +66,11 @@
                     <li><a href="{{route('landing')}}" class="active">Home +</a></li>
                     <!-- End Item -->
 
-                @if(!auth()->guard('travelmates')->check() && !auth()->guard('web')->check())
-                    <!-- Item -->
-                        <li><a href="{{route('login-travelmate')}}" style="color: #EB5532;">AS TRAVELMATE +</a></li>
-                        <!-- End Item -->
-                @endif
+                {{--@if(!auth()->guard('travelmates')->check() && !auth()->guard('web')->check())--}}
+                    {{--<!-- Item -->--}}
+                        {{--<li><a href="{{route('login-travelmate')}}" style="color: #EB5532;">AS TRAVELMATE +</a></li>--}}
+                        {{--<!-- End Item -->--}}
+                {{--@endif--}}
 
                     <!-- Item -->
                     <li><a href="{{route('destination')}}" class="mn-has-sub">DESTINATION +</a></li>

@@ -92,48 +92,48 @@
 	<section class="small-section cws_prlx_section bg-blue-40">
         <img src="{{ URL::asset('frontend_images/bg3.jpg') }}" alt class="cws_prlx_layer">
 		<div class="container">
-			<div class="row">
-				<a href="{{route('travelmate.index')}}">
-					<div class="col-md-8">
-						<h2 class="title-section alt-2"><span>HELLO</span></h2>
-						<h6 class="title-section-top font-4">THIS IS OUR </h6>
-						<h2 class="title-section alt-2"><span>TRAVEL</span></h2>
-						<h2 class="title-section alt-2"><span>MATE</span></h2>
-					</div>
-				</a>
-			</div>
-			<div class="row" style="padding-bottom:15%;">
-				<!-- testimonial carousel-->
-				<div class="owl-three-item">
+			{{--<div class="row">--}}
+				{{--<a href="{{route('travelmate.index')}}">--}}
+					{{--<div class="col-md-8">--}}
+						{{--<h2 class="title-section alt-2"><span>HELLO</span></h2>--}}
+						{{--<h6 class="title-section-top font-4">THIS IS OUR </h6>--}}
+						{{--<h2 class="title-section alt-2"><span>TRAVEL</span></h2>--}}
+						{{--<h2 class="title-section alt-2"><span>MATE</span></h2>--}}
+					{{--</div>--}}
+				{{--</a>--}}
+			{{--</div>--}}
+			{{--<div class="row" style="padding-bottom:15%;">--}}
+				{{--<!-- testimonial carousel-->--}}
+				{{--<div class="owl-three-item">--}}
 
-				@foreach($travelmates as $travelmate)
-					<!-- testimonial item-->
-						@php($star = "stars-".$travelmate->rating)
-						<div class="testimonial-item">
-							<div class="testimonial-top">
-								<a href="{{route('travelmate.profile.showid', ['id'=>$travelmate->id])}}">
-									<div class="pic">
-										<img src="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}"
-											 data-at2x="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}" alt>
-									</div>
-								</a>
-								<div class="author">
-									<img src="{{ URL::asset('storage/profile/'.$travelmate->profile_picture) }}"
-										 data-at2x="{{ URL::asset('storage/profile/'.$travelmate->profile_picture) }}" alt>
-								</div>
-							</div>
-							<!-- testimonial content-->
-							<div class="testimonial-body">
-								<h5 class="title"><span>{{$travelmate->first_name}}</span> {{$travelmate->last_name}}</h5>
-								<div class="stars {{$star}}"></div>
-								<p class="align-center">
-									{{$travelmate->description}}
-								</p><a href="{{route('travelmate.profile.showid', ['id'=>$travelmate->id])}}" class="testimonial-button">Visit Profile</a>
-							</div>
-						</div>
-				@endforeach
-				</div>
-			</div>
+				{{--@foreach($travelmates as $travelmate)--}}
+					{{--<!-- testimonial item-->--}}
+						{{--@php($star = "stars-".$travelmate->rating)--}}
+						{{--<div class="testimonial-item">--}}
+							{{--<div class="testimonial-top">--}}
+								{{--<a href="{{route('travelmate.profile.showid', ['id'=>$travelmate->id])}}">--}}
+									{{--<div class="pic">--}}
+										{{--<img src="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}"--}}
+											 {{--data-at2x="{{ URL::asset('storage/travelmate_banner/'.$travelmate->banner_picture) }}" alt>--}}
+									{{--</div>--}}
+								{{--</a>--}}
+								{{--<div class="author">--}}
+									{{--<img src="{{ URL::asset('storage/profile/'.$travelmate->profile_picture) }}"--}}
+										 {{--data-at2x="{{ URL::asset('storage/profile/'.$travelmate->profile_picture) }}" alt>--}}
+								{{--</div>--}}
+							{{--</div>--}}
+							{{--<!-- testimonial content-->--}}
+							{{--<div class="testimonial-body">--}}
+								{{--<h5 class="title"><span>{{$travelmate->first_name}}</span> {{$travelmate->last_name}}</h5>--}}
+								{{--<div class="stars {{$star}}"></div>--}}
+								{{--<p class="align-center">--}}
+									{{--{{$travelmate->description}}--}}
+								{{--</p><a href="{{route('travelmate.profile.showid', ['id'=>$travelmate->id])}}" class="testimonial-button">Visit Profile</a>--}}
+							{{--</div>--}}
+						{{--</div>--}}
+				{{--@endforeach--}}
+				{{--</div>--}}
+			{{--</div>--}}
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1" >
 					<div class="embed-responsive embed-responsive-16by9">

@@ -9,13 +9,13 @@
                 </a>
             </p>
         </div>
-        <div class="col-md-12">
-            <p>
-                <a href="#" class="white-color-font">
-                    <span>Why Be A Travelmate ?</span>
-                </a>
-            </p>
-        </div>
+        {{--<div class="col-md-12">--}}
+            {{--<p>--}}
+                {{--<a href="#" class="white-color-font">--}}
+                    {{--<span>Why Be A Travelmate ?</span>--}}
+                {{--</a>--}}
+            {{--</p>--}}
+        {{--</div>--}}
         <div class="col-md-12">
             <p>
                 <a href="#" class="white-color-font">
@@ -55,13 +55,13 @@
                 </a>
             </p>
         </div>
-        <div class="col-md-12">
-            <p>
-                <a href="#" class="white-color-font">
-                    <span>Advice for A Travelmate</span>
-                </a>
-            </p>
-        </div>
+        {{--<div class="col-md-12">--}}
+            {{--<p>--}}
+                {{--<a href="#" class="white-color-font">--}}
+                    {{--<span>Advice for A Travelmate</span>--}}
+                {{--</a>--}}
+            {{--</p>--}}
+        {{--</div>--}}
         <div class="col-md-12">
             <p>
                 <a href="#" class="white-color-font">

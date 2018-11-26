@@ -81,28 +81,28 @@ Route::prefix('travelmate')->group(function(){
     Route::get('/my-trips', 'Frontend\TravelmateController@myTrips')->name('travelmate.trips');
     Route::get('/packages', 'Frontend\TravelmateController@packages')->name('travelmate.packages.index');
     Route::get('/packages/show/{id}', 'Frontend\TravelmateController@showPackage')->name('travelmate.packages.show');
-    Route::get('/packages/create', 'Frontend\TravelmateController@createPackage')->name('travelmate.packages.create');
-    Route::post('/packages/create/save', 'Frontend\TravelmateController@storePackage')->name('travelmate.packages.store');
-    Route::get('/packages/information/edit/{package}', 'Frontend\TravelmateController@editPackageInformation')->name('travelmate.packages.information.edit');
-    Route::put('/packages/information/update/{package}', 'Frontend\TravelmateController@updatePackageInformation')->name('travelmate.packages.information.update');
+//    Route::get('/packages/create', 'Frontend\TravelmateController@createPackage')->name('travelmate.packages.create');
+//    Route::post('/packages/create/save', 'Frontend\TravelmateController@storePackage')->name('travelmate.packages.store');
+//    Route::get('/packages/information/edit/{package}', 'Frontend\TravelmateController@editPackageInformation')->name('travelmate.packages.information.edit');
+//    Route::put('/packages/information/update/{package}', 'Frontend\TravelmateController@updatePackageInformation')->name('travelmate.packages.information.update');
+//
+//    // Package Pricings
+//    Route::get('/packages/pricings/{package}', 'Frontend\TravelmateController@indexPackagePrice')->name('travelmate.packages.price.index');
+//    Route::get('/packages/pricings/create/{package_id}', 'Frontend\TravelmateController@createPackagePrice')->name('travelmate.packages.price.create');
+//    Route::post('/packages/pricings/store/{package}', 'Frontend\TravelmateController@storePackagePrice')->name('travelmate.packages.price.store');
+//    Route::get('/packages/pricings/edit/{package_price}', 'Frontend\TravelmateController@editPackagePrice')->name('travelmate.packages.price.edit');
+//    Route::put('/packages/pricings/update/{package_price}', 'Frontend\TravelmateController@updatePackagePrice')->name('travelmate.packages.price.update');
+//    Route::post('/packages/pricings/delete', 'Frontend\TravelmateController@deletePackagePrice')->name('travelmate.packages.price.delete');
+//
+//    // Package Trips
+//    Route::get('/packages/trips/{package}', 'Frontend\TravelmateController@indexTrip')->name('travelmate.packages.trip.index');
+//    Route::get('/packages/trips/create/{package_id}', 'Frontend\TravelmateController@createTrip')->name('travelmate.packages.trip.create');
+//    Route::post('/packages/trips/store/{package_id}', 'Frontend\TravelmateController@storeTrip')->name('travelmate.packages.trip.store');
+//    Route::get('/packages/trips/edit/{package_trip}', 'Frontend\TravelmateController@editTrip')->name('travelmate.packages.trip.edit');
+//    Route::put('/packages/trips/update/{package_trip}', 'Frontend\TravelmateController@updateTrip')->name('travelmate.packages.trip.update');
+//    Route::post('/packages/trips/delete', 'Frontend\TravelmateController@deleteTrip')->name('travelmate.packages.trip.delete');
 
-    // Package Pricings
-    Route::get('/packages/pricings/{package}', 'Frontend\TravelmateController@indexPackagePrice')->name('travelmate.packages.price.index');
-    Route::get('/packages/pricings/create/{package_id}', 'Frontend\TravelmateController@createPackagePrice')->name('travelmate.packages.price.create');
-    Route::post('/packages/pricings/store/{package}', 'Frontend\TravelmateController@storePackagePrice')->name('travelmate.packages.price.store');
-    Route::get('/packages/pricings/edit/{package_price}', 'Frontend\TravelmateController@editPackagePrice')->name('travelmate.packages.price.edit');
-    Route::put('/packages/pricings/update/{package_price}', 'Frontend\TravelmateController@updatePackagePrice')->name('travelmate.packages.price.update');
-    Route::post('/packages/pricings/delete', 'Frontend\TravelmateController@deletePackagePrice')->name('travelmate.packages.price.delete');
-
-    // Package Trips
-    Route::get('/packages/trips/{package}', 'Frontend\TravelmateController@indexTrip')->name('travelmate.packages.trip.index');
-    Route::get('/packages/trips/create/{package_id}', 'Frontend\TravelmateController@createTrip')->name('travelmate.packages.trip.create');
-    Route::post('/packages/trips/store/{package_id}', 'Frontend\TravelmateController@storeTrip')->name('travelmate.packages.trip.store');
-    Route::get('/packages/trips/edit/{package_trip}', 'Frontend\TravelmateController@editTrip')->name('travelmate.packages.trip.edit');
-    Route::put('/packages/trips/update/{package_trip}', 'Frontend\TravelmateController@updateTrip')->name('travelmate.packages.trip.update');
-    Route::post('/packages/trips/delete', 'Frontend\TravelmateController@deleteTrip')->name('travelmate.packages.trip.delete');
-
-    Route::get('/packages/city', 'Frontend\TravelmateController@getCities')->name('travelmate.packages.cities');
+//    Route::get('/packages/city', 'Frontend\TravelmateController@getCities')->name('travelmate.packages.cities');
     Route::get('/profile/edit', 'Frontend\TravelmateController@edit')->name('travelmate.profile.edit');
     Route::put('/profile/update/{user}', 'Frontend\TravelmateController@update')->name('travelmate.profile.update');
     Route::post('/profile/upload', 'Frontend\TravelmateController@updateImage')->name('travelmate.profile.upload');
@@ -137,6 +137,7 @@ Route::post('cart/save/note', 'Frontend\CartController@storeNotes');
 // Terms and Condition, about us, privacy policy
 Route::get('/terms', 'Frontend\HomeController@terms')->name('terms');
 Route::get('/about', 'Frontend\HomeController@about')->name('abouts');
+Route::get('/contact', 'Frontend\HomeController@contact')->name('contact');
 Route::get('/about-htii', 'Frontend\HomeController@aboutHTII')->name('about-htii');
 Route::get('/privacy', 'Frontend\HomeController@privacy')->name('privacy');
 Route::get('/cancelation', 'Frontend\HomeController@cancelation')->name('cancelation');
@@ -251,8 +252,34 @@ Route::prefix('admin/travelmate')->group(function(){
     Route::post('/confirm', 'Admin\TravelmateController@confirm')->name('travelmate-confirm');
     Route::post('/reject', 'Admin\TravelmateController@reject')->name('travelmate-reject');
     Route::get('/new-travelmate', 'Admin\TravelmateController@newTravelmate')->name('travelmate-new');
-    Route::get('/{travelmate}/{flag}', 'Admin\TravelmateController@show')->name('travelmate-show');
+//    Route::get('/{travelmate}/{flag}', 'Admin\TravelmateController@showDetail')->name('travelmate-detail');
     Route::post('/change', 'Admin\TravelmateController@change')->name('travelmate-change-status');
+
+    //Package
+    Route::get('/packages', 'Admin\TravelmateController@packages')->name('travelmate.packages.index');
+    Route::get('/packages/show/{id}', 'Admin\TravelmateController@showPackage')->name('travelmate.packages.show');
+    Route::get('/packages/create', 'Admin\TravelmateController@createPackage')->name('travelmate.packages.create');
+    Route::post('/packages/create/save', 'Admin\TravelmateController@storePackage')->name('travelmate.packages.store');
+    Route::get('/packages/information/edit/{package}', 'Admin\TravelmateController@editPackageInformation')->name('travelmate.packages.information.edit');
+    Route::put('/packages/information/update/{package}', 'Admin\TravelmateController@updatePackageInformation')->name('travelmate.packages.information.update');
+    Route::get('/packages/city', 'Admin\TravelmateController@getCities')->name('travelmate.packages.cities');
+
+    // Package Pricings
+    Route::get('/packages/pricings/{package}', 'Admin\TravelmateController@indexPackagePrice')->name('travelmate.packages.price.index');
+    Route::get('/packages/pricings/create/{package_id}', 'Admin\TravelmateController@createPackagePrice')->name('travelmate.packages.price.create');
+    Route::post('/packages/pricings/store/{package}', 'Admin\TravelmateController@storePackagePrice')->name('travelmate.packages.price.store');
+    Route::get('/packages/pricings/edit/{package_price}', 'Admin\TravelmateController@editPackagePrice')->name('travelmate.packages.price.edit');
+    Route::put('/packages/pricings/update/{package_price}', 'Admin\TravelmateController@updatePackagePrice')->name('travelmate.packages.price.update');
+    Route::post('/packages/pricings/delete', 'Admin\TravelmateController@deletePackagePrice')->name('travelmate.packages.price.delete');
+
+    // Package Trips
+    Route::get('/packages/trips/{package}', 'Admin\TravelmateController@indexTrip')->name('travelmate.packages.trip.index');
+    Route::get('/packages/trips/create/{package_id}', 'Admin\TravelmateController@createTrip')->name('travelmate.packages.trip.create');
+    Route::post('/packages/trips/store/{package_id}', 'Admin\TravelmateController@storeTrip')->name('travelmate.packages.trip.store');
+    Route::get('/packages/trips/edit/{package_trip}', 'Admin\TravelmateController@editTrip')->name('travelmate.packages.trip.edit');
+    Route::put('/packages/trips/update/{package_trip}', 'Admin\TravelmateController@updateTrip')->name('travelmate.packages.trip.update');
+    Route::post('/packages/trips/delete', 'Admin\TravelmateController@deleteTrip')->name('travelmate.packages.trip.delete');
+
 });
 
 // Voucher

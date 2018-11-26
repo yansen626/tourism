@@ -32,13 +32,6 @@
                                 <td>: {{$startDate}} - {{$endDate}}</td>
                             </tr>
                             <tr>
-                                <td style="width: 200px;">TRAVEL MATE</td>
-                                <td>: <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">
-                                        {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td style="width: 200px;">MEETING POINT</td>
                                 <td>: {{$package->meeting_point}}</td>
                             </tr>

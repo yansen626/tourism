@@ -38,7 +38,7 @@
                                 <div class="tours-search">
                                     <form method="post" class="form search">
                                         <div class="search-wrap">
-                                            <input type="text" id="search-text" placeholder="Travelmate" class="form-control search-field">
+                                            <input type="text" id="search-text" placeholder="Travelmate" class="form-control search-field" style="display:none;">
                                         </div>
                                     </form>
                                     <div class="button-search" onclick="filterSearch()">Search</div>
@@ -64,13 +64,13 @@
                                         </div>
                                     </a>
                                     <div class="location">
-                                        <a href="{{route('travelmate.profile.showid', ['id'=>$package->travelmate_id])}}">
-                                            <i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
-                                        </a>
-                                        <br>
-                                        @php($star = "stars-".$package->travelmate->rating)
-                                        <div class="stars {{$star}}"></div>
-                                        <br>
+                                        {{--<a href="{{route('travelmate.profile.showid', ['id'=>$package->travelmate_id])}}">--}}
+                                            {{--<i class="flaticon-suntour-adult"></i> {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}--}}
+                                        {{--</a>--}}
+                                        {{--<br>--}}
+                                        {{--@php($star = "stars-".$package->travelmate->rating)--}}
+                                        {{--<div class="stars {{$star}}"></div>--}}
+                                        {{--<br>--}}
                                         <i class="flaticon-suntour-map"></i> {{$package->province->name}}
                                     </div>
                                 </div>
