@@ -51,6 +51,7 @@
                             </li>
                         </ul>
                     </li>
+
                     {{--<li><a><i class="fa fa-list"></i> Travelmate <span class="fa fa-chevron-down"></span></a>--}}
                         {{--<ul class="nav child_menu">--}}
                             {{--<li>--}}
@@ -61,6 +62,7 @@
                             {{--</li>--}}
                         {{--</ul>--}}
                     {{--</li>--}}
+
                     <li><a><i class="fa fa-list"></i> Paket <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>

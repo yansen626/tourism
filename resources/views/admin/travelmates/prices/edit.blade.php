@@ -25,7 +25,6 @@
                         <div class="col-md-8 mb-md-70">
                             {{ Form::open(['route'=>['travelmate.packages.price.update', $pricing->id],'method' => 'put','class'=>'form-horizontal form-label-left']) }}
                             {{ csrf_field()}}
-
                             <hr/>
                             <h4>EDIT PRICING</h4>
 
@@ -85,7 +84,6 @@
                                     <button type="submit" class="btn btn-success">UPDATE</button>
                                 </div>
                             </div>
-
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-2"></div>

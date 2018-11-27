@@ -28,7 +28,6 @@
 
                             <hr/>
                             <h4>ADD NEW PRICING</h4>
-
                             @if($errors->count() > 0)
                                 <div class="form-group">
                                     <div role="alert" class="alert alert-warning alert-dismissible fade in mb-20">
@@ -85,7 +84,6 @@
                                     <button type="submit" class="btn btn-success">SAVE</button>
                                 </div>
                             </div>
-
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-2"></div>

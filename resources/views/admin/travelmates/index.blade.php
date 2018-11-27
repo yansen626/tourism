@@ -29,7 +29,6 @@
                     {{--</div>--}}
                 {{--</div>--}}
             </div>
-
             <div class="clearfix"></div>
             @include('admin.partials._success')
             <div class="row">

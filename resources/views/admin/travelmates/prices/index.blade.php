@@ -24,7 +24,6 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-8 mb-md-70">
                             <hr/>
-
                             @if(\Illuminate\Support\Facades\Session::has('message'))
                                 <div class="row">
                                     <div role="alert" class="alert alert-success alert-dismissible fade in mb-20">

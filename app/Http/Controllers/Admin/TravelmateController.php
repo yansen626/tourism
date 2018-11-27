@@ -555,9 +555,7 @@ class TravelmateController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
 //        dd($request);
-
         $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
         $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
 

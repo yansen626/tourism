@@ -43,10 +43,9 @@
                     </div>
                     <div class="row" style="margin-top: 5px !important; margin-bottom: 35px;">
                         <div class="col-md-12">
-
                             <div class="board">
                                 {!! Form::open(array('action' => 'Admin\TravelmateController@storePackage', 'method' => 'POST', 'role' => 'form', 'enctype' => 'multipart/form-data', 'novalidate')) !!}
-                                {{--{{ csrf_field() }}--}}
+
 
                                 <div class="board-inner">
                                     <ul class="nav nav-tabs" id="myTab">

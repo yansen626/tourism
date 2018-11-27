@@ -26,7 +26,6 @@
                             <div class="row">
                                 <div class="col-md-12 col-xs-12">
                                     <hr/>
-
                                     <div style="float: left;">
                                         <a class="btn btn-default" href="{{ route('travelmate.packages.trip.index', ['package' => $packageId]) }}">
                                             <i class="fa fa-arrow-circle-o-left fa-2x" aria-hidden="true"></i>
@@ -102,7 +101,6 @@
                                             <button type="submit" class="btn btn-success">SAVE</button>
                                         </div>
                                     </div>
-
                                     {{ Form::close() }}
                                 </div>
                             </div>

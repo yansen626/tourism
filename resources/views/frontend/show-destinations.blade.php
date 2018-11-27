@@ -51,7 +51,6 @@
             </div>
             <div class="row">
                 @if($packages->count() > 0)
-
                     @foreach($packages as $package)
                         <div class="col-md-6">
                             <div class="recom-item border">

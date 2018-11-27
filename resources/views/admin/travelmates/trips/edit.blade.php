@@ -135,7 +135,6 @@
                                             <button type="submit" class="btn btn-success">SAVE</button>
                                         </div>
                                     </div>
-
                                     {{ Form::close() }}
                                 </div>
                             </div>

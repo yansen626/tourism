@@ -88,7 +88,6 @@
 
                                 <span> ({{$startDateTrip}} - {{$endDateTrip}}) Desc : {{$packageTrip->description}}</span>
                                 <br>
-
                             @endforeach
                         @endif
                     </div>

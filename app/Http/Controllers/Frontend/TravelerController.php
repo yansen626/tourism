@@ -509,5 +509,4 @@ class TravelerController extends Controller
             return redirect()->back()->withErrors('Something Went Wrong')->withInput($request->all());
         }
     }
-
 }

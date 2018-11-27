@@ -75,7 +75,6 @@
 						@endforeach
 					</div>
 				</div>
-
 				<div class="col-md-12">
 					<div class="map-wrapper">
 						{{--<iframe src="https://www.google.com/maps/d/u/0/embed?mid=148n8q25KFq6V4HJpI1v_7uedKzHgDDAs" allowfullscreen=""></iframe>--}}

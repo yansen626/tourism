@@ -87,9 +87,7 @@
                                             </div>
                                             {{--<hr style="width: 80%; margin: 0 auto;"/>--}}
                                         </div>
-
                                     @endforeach
-
                                 </div>
                             </div>
                         </div>

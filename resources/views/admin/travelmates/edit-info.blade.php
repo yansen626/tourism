@@ -17,7 +17,6 @@
             </div>
 
             <div class="clearfix"></div>
-
             <div class="row">
                 <div style="margin:3%;">
                     <div class="row">
@@ -129,7 +128,6 @@
                                     <button type="submit" class="btn btn-success">SAVE</button>
                                 </div>
                             </div>
-
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-2"></div>

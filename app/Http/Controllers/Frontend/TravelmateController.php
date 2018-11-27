@@ -490,7 +490,7 @@ class TravelmateController extends Controller
 //            return back()->withErrors($ex)->withInput();
         }
     }
-//
+
 //    public function editPackageInformation(Package $package){
 //        $provinces = Province::orderBy('name')->get();
 //        $cities = City::where('province_id', $package->province_id)->orderBy('name')->get();

@@ -62,6 +62,7 @@
                 {{--</a>--}}
             {{--</p>--}}
         {{--</div>--}}
+
         <div class="col-md-12">
             <p>
                 <a href="#" class="white-color-font">
