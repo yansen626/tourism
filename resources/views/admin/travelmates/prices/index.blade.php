@@ -64,9 +64,9 @@
                                                     <th class="text-center">
                                                         Total<br/>(IDR)
                                                     </th>
-                                                    <th class="text-center">
-                                                        You Get <br/>IDR)
-                                                    </th>
+                                                    {{--<th class="text-center">--}}
+                                                        {{--You Get <br/>IDR)--}}
+                                                    {{--</th>--}}
                                                     <th class="text-center" style="width: 20%;">
                                                         Action
                                                     </th>
@@ -86,9 +86,9 @@
                                                         <td class='text-right'>
                                                             {{ $pricing->total_price_string }}
                                                         </td>
-                                                        <td class="text-right">
-                                                            {{ $pricing->final_price }}
-                                                        </td>
+                                                        {{--<td class="text-right">--}}
+                                                            {{--{{ $pricing->final_price }}--}}
+                                                        {{--</td>--}}
                                                         <td class='text-center'>
                                                             <a href="{{ route('travelmate.packages.price.edit', ['package_price' => $pricing->id])}}" class="btn btn-info">
                                                                 <span class="glyphicon glyphicon-edit"></span>

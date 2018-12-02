@@ -131,8 +131,12 @@
                                 @foreach($packageTrips as $packageTrip)
                                     @php($startDateTrip = \Carbon\Carbon::parse($packageTrip->start_date)->format('d/m/Y G:i'))
                                     @php($endDateTrip = \Carbon\Carbon::parse($packageTrip->end_date)->format('d/m/Y G:i'))
-
+                                    <div class="col-md-offset-4" style="max-width: 200px; max-height: 400px;">
+                                        <img src="{{ URL::asset('storage/package_trip_image/'.$packageTrip->featured_image) }}">
+                                    </div>
+                                    <br>
                                     <span> ({{$startDateTrip}} - {{$endDateTrip}}) Desc : {{$packageTrip->description}}</span>
+                                    <br>
                                     <br>
 
                                 @endforeach
@@ -169,7 +173,7 @@
         }
         .form-panel{
             overflow-y :scroll;
-            height:150px;
+            height:350px;
             border: 2px solid #EB5532;
             border-radius: 15px;
             padding: 10px;

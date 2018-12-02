@@ -68,14 +68,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="final_price">
-                                    You Get (IDR)
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="final_price" name="final_price" class="form-control col-md-12" readonly/>
-                                </div>
-                            </div>
+                            {{--<div class="form-group">--}}
+                                {{--<label class="control-label col-md-2 col-sm-2 col-xs-12" for="final_price">--}}
+                                    {{--You Get (IDR)--}}
+                                {{--</label>--}}
+                                {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
+                                    {{--<input type="text" id="final_price" name="final_price" class="form-control col-md-12" readonly/>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
                             <div class="form-group">
                                 <div class="col-md-2 col-sm-2 col-xs-12"></div>

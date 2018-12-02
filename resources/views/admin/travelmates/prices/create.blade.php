@@ -24,7 +24,6 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-8 mb-md-70">
                             {{ Form::open(['route'=>['travelmate.packages.price.store', $packageId],'method' => 'post','class'=>'form-horizontal form-label-left']) }}
-                            {{ csrf_field()}}
 
                             <hr/>
                             <h4>ADD NEW PRICING</h4>
@@ -68,7 +67,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="final_price">
                                     You Get (IDR)
                                 </label>

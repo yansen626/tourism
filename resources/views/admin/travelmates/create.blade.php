@@ -297,9 +297,9 @@
                                                     <th class="text-center" style="width: 20%">
                                                         Total<br/>(IDR)
                                                     </th>
-                                                    <th class="text-center" style="width: 20%">
-                                                        You Get <br/>IDR)
-                                                    </th>
+                                                    {{--<th class="text-center" style="width: 20%">--}}
+                                                        {{--You Get <br/>IDR)--}}
+                                                    {{--</th>--}}
                                                     <th class="text-center" style="width: 5%"></th>
                                                     </thead>
                                                     <tbody>
@@ -312,9 +312,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <input id="total_1" type="text" class="form-control text-center" readonly>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <input id="get_1" type="text" class="form-control text-center" readonly>
+                                                            <input id="get_1" type="text" class="form-control text-center" readonly style="display:none;">
                                                         </td>
                                                         <td class="text-center">
                                                             <a onclick="deletePricing(1)">
@@ -852,9 +850,9 @@
             sbAddPrice.append("<td class='text-center'>");
             sbAddPrice.append("<input id='total_" + pricingIdx + "' type='text' class='form-control text-center' readonly>");
             sbAddPrice.append("</td>");
-            sbAddPrice.append("<td class='text-center'>");
-            sbAddPrice.append("<input id='get_" + pricingIdx + "' type='text' class='form-control text-center' readonly>");
-            sbAddPrice.append("</td>");
+            // sbAddPrice.append("<td class='text-center'>");
+            // sbAddPrice.append("<input id='get_" + pricingIdx + "' type='text' class='form-control text-center' readonly style='display:none;'>");
+            // sbAddPrice.append("</td>");
             sbAddPrice.append("<td class='text-center'>");
             sbAddPrice.append("<a onclick='deletePricing(" + pricingIdx + ")'");
             sbAddPrice.append("<i class='fa fa-minus-square fa-2x'></i>");

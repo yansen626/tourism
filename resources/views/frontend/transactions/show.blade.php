@@ -48,16 +48,16 @@
                         @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))
                         <p>: {{$startDate}} - {{$endDate}}</p>
                     </div>
-                    <div class="col-md-3 col-sm-3">
-                        <p>TRAVEL MATE</p>
-                    </div>
-                    <div class="col-md-9 col-sm-9">
-                        <p style="font-size: 16px;">
-                            : <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">
-                                {{$package->travelmate->first_name}} {{$package->travelmate->last_name}}
-                            </a>
-                        </p>
-                    </div>
+                    {{--<div class="col-md-3 col-sm-3">--}}
+                        {{--<p>TRAVEL MATE</p>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-md-9 col-sm-9">--}}
+                        {{--<p style="font-size: 16px;">--}}
+                            {{--: <a href="{{ route('travelmate.profile.showid', ['id'=>$package->travelmate_id]) }}">--}}
+                                {{--{{$package->travelmate->first_name}} {{$package->travelmate->last_name}}--}}
+                            {{--</a>--}}
+                        {{--</p>--}}
+                    {{--</div>--}}
                     <div class="col-md-3 col-sm-3">
                         <p>MEETING POINT </p>
                     </div>

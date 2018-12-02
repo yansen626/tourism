@@ -25,7 +25,7 @@
 						{{--<div class="info-item-media"><img src="{{ URL::asset('storage/package_image/'.$package->featured_image) }}"--}}
 														  {{--data-at2x="{{ URL::asset('storage/package_image/'.$package->featured_image) }}" alt>--}}
 							{{--<div class="info-item-text">--}}
-								{{--<div class="info-price font-4"><span>start from</span> Rp {{$package->price}}</div>--}}
+								{{--<div class="info-price font-4"><span>start from</span> IDR {{$package->price}}</div>--}}
 								{{--<div class="info-temp font-4"><span>local temperature</span> 36° / 96.8°</div>--}}
 								{{--<p class="info-text">{{$package->description}}</p>--}}
 							{{--</div>--}}
@@ -33,7 +33,7 @@
 						{{--<div class="info-item-content">--}}
 							{{--<div class="main-title">--}}
 								{{--<h3 class="title"><span class="font-4">{{$package->province->name}}</span> {{$package->city->name}}</h3>--}}
-								{{--<div class="price">start from <span>Rp {{$package->price}}</span></div>--}}
+								{{--<div class="price">start from <span>IDR {{$package->price}}</span></div>--}}
 								{{--<a href="{{route('destination', ['province'=>$package->province_id])}}" class="button">Details</a>--}}
 							{{--</div>--}}
 						{{--</div>--}}
@@ -64,7 +64,7 @@
 								</div>
 								<!-- testimonial content-->
 								<div class="testimonial-body">
-									<h5 class="title">start from <span>Rp {{$package->price}}</span> </h5>
+									<h5 class="title">start from <span>IDR {{number_format($package->price, 0, ",", ".")}}</span> </h5>
 									<h4 class="title"><span>{{$package->province->name}}</span>, {{$package->city->name}}</h4>
 									<p class="align-center" style="min-height: 70px;">
 										{{$package->description}}

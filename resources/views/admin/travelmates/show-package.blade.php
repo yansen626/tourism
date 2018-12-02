@@ -81,7 +81,7 @@
                                     {{--</a>--}}
                                 {{--</p>--}}
                             {{--</div>--}}
-                            x
+
                             <div class="col-md-3">
                                 <p>MEETING POINT </p>
                             </div>

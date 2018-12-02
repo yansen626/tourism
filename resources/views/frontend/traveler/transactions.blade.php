@@ -102,12 +102,12 @@
                                             </div>
                                         </a>
                                         <div class="location">
-                                            <a href="{{route('travelmate.profile.showid', ['id'=>$detailCollection->package->travelmate_id])}}">
-                                                <i class="flaticon-suntour-adult"></i> {{$detailCollection->package->travelmate->first_name}} {{$detailCollection->package->travelmate->last_name}}
-                                            </a>
-                                            <br>
-                                            @php($star = "stars-".$detailCollection->package->travelmate->rating)
-                                            <div class="stars {{$star}}"></div>
+                                            {{--<a href="{{route('travelmate.profile.showid', ['id'=>$detailCollection->package->travelmate_id])}}">--}}
+                                                {{--<i class="flaticon-suntour-adult"></i> {{$detailCollection->package->travelmate->first_name}} {{$detailCollection->package->travelmate->last_name}}--}}
+                                            {{--</a>--}}
+                                            {{--<br>--}}
+                                            {{--@php($star = "stars-".$detailCollection->package->travelmate->rating)--}}
+                                            {{--<div class="stars {{$star}}"></div>--}}
                                             <br>
                                             <i class="flaticon-suntour-map"></i> {{$detailCollection->package->province->name}}
                                         </div>

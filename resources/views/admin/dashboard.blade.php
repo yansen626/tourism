@@ -17,10 +17,10 @@
                 <span class="count_top"><i class="fa fa-user"></i> Jumlah Traveller</span>
                 <div class="count">{{ $customerTotal }}</div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i> Jumlah Travelmate</span>
-                <div class="count">{{ $travelmateTotal }}</div>
-            </div>
+            {{--<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">--}}
+                {{--<span class="count_top"><i class="fa fa-user"></i> Jumlah Travelmate</span>--}}
+                {{--<div class="count">{{ $travelmateTotal }}</div>--}}
+            {{--</div>--}}
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                 <span class="count_top"><i class="fa fa-user"></i> Jumlah Tailor Made</span>
                 <div class="count">{{ $tmjTotal }}</div>
