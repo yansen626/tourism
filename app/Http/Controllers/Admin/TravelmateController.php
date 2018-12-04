@@ -268,7 +268,7 @@ class TravelmateController extends Controller
                     'description' => Input::get('description'),
                     'meeting_point' => Input::get('meeting_point'),
                     'max_capacity' => Input::get('max_capacity'),
-                    'price' => min($pricingPrice),
+                    'price' => max($pricingPrice),
                     'start_date' => $startDate,
                     'end_date' => $endDate,
                     'status_id' => 1,

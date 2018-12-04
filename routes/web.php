@@ -125,10 +125,8 @@ Route::post('add-cart', 'Frontend\CartController@AddToCart')->name('addCart');
 //    'as' => 'addCart'
 //]);
 Route::get('delete-cart/{cartId}', 'Frontend\CartController@DeleteCart')->name('delete-cart');
-Route::post('/edit-cart', [
-    'uses' => 'Frontend\CartController@EditQuantityCart',
-    'as' => 'editCart'
-]);
+Route::get('/edit-cart', 'Frontend\CartController@EditQuantityCart')->name('edit-cart');
+
 Route::get('cart/check/{id}', 'Frontend\CartController@getNotes');
 Route::post('cart/add/check', 'Frontend\CartController@checkNoteForCartAdd')->name('cart-add-check-note');
 Route::post('cart/save/note', 'Frontend\CartController@storeNotes');

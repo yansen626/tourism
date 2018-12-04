@@ -19,7 +19,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $voucher_amount
  * @property float $admin_fee
  * @property string $payment_method
- * 
+ * @property int $qty
+ * @property float $price
+ * @property float $total_price
+ *
  * @property \App\Models\Package $package
  * @property \App\Models\User $user
  *
@@ -39,7 +42,10 @@ class Cart extends Eloquent
 		'admin_fee',
 		'voucher_code',
 		'voucher_amount',
-		'payment_method'
+		'payment_method',
+		'price',
+		'total_price',
+		'qty'
 	];
 
 	public function package()

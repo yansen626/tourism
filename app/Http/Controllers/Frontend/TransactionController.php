@@ -62,7 +62,8 @@ class TransactionController extends Controller
                 foreach ($carts as $cart){
                     array_push($packageId, $cart->package_id);
                 }
-                $totalPriceTem = Package::wherein('id', $packageId)->sum('price');
+//                $totalPriceTem = Package::wherein('id', $packageId)->sum('price');
+                $totalPriceTem = $carts->sum('total_price');
                 $transactionHeader = TransactionHeader::Create([
                     'id'       => $transactionID,
                     'user_id'       => $userId,
@@ -83,10 +84,10 @@ class TransactionController extends Controller
                         'header_id'       => $transactionID,
                         'package_id'       => $cart->package_id,
                         'travelmate_id'       => $cart->package->travelmate_id,
-                        'price'       => $cart->package->price,
+                        'price'       => $cart->price,
                         'discount_percent'       => 0,
                         'discount_flat'      => 0,
-                        'subtotal'    => $cart->package->price,
+                        'subtotal'    => $cart->total_price,
                         'updated_at'    => $dateTimeNow->toDateTimeString()
                     ]);
 

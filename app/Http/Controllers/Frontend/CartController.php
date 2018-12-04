@@ -14,9 +14,11 @@ use App\libs\Utilities;
 use App\Models\Cart;
 use App\Models\General;
 use App\Models\Package;
+use App\Models\PackagePrice;
 use App\Models\Product;
 use App\Models\ProductProperty;
 use App\Models\Voucher;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -53,7 +55,8 @@ class CartController
                 }
             };
 
-            $totalPriceTem = Package::wherein('id', $packageId)->sum('price');
+//            $totalPriceTem = Package::wherein('id', $packageId)->sum('price');
+            $totalPriceTem = $carts->sum('total_price');
             $totalPrice = $totalPriceTem/$currencyValue;
             $totalPrice = number_format($totalPrice, 2, ",", ".");
 
@@ -124,12 +127,37 @@ class CartController
 
             $userId = Auth::user()->id;
             $packageId   = $request['id'];
-            $cartCreate = Cart::Create([
-                            'package_id'    => $packageId,
-                            'user_id'       => $userId,
-                            'admin_fee'      => 0,
-                            'payment_method'    => 0
-                        ]);
+            $packageDB = Package::find($packageId);
+            $cartDB = Cart::where('package_id',$packageId)->where('user_id', $userId)->first();
+            if($cartDB == null){
+                $cartCreate = Cart::Create([
+                    'package_id'    => $packageId,
+                    'user_id'       => $userId,
+                    'admin_fee'      => 0,
+                    'qty'      => 1,
+                    'price'      => $packageDB->price,
+                    'total_price'      => $packageDB->price,
+                    'payment_method'    => 0
+                ]);
+            }
+            else{
+                $qty = $cartDB->qty;
+                $qtyNew = $qty + 1;
+                $cartDB->qty = $qtyNew;
+
+                $selectedPrice = $packageDB->price;
+                $packagePriceList = PackagePrice::where('package_id', $packageId)->orderBy('quantity');
+                foreach ($packagePriceList as $packagePrice){
+                    if($qtyNew > $packagePrice->quantity){
+                        $selectedPrice = $packagePrice->price;
+                    }
+                }
+                $cartDB->price = $selectedPrice;
+                $cartDB->total_price = $selectedPrice * $qtyNew;
+
+                $cartDB->save();
+            }
+
 
             return response()->json(['success' => true]);
         }
@@ -137,6 +165,30 @@ class CartController
             error_log($ex);
             return response()->json(['errors' => 'INVALID']);
         }
+    }
+
+    public function EditQuantityCart(){
+        $qty = request()->qty;
+        $id = request()->id;
+
+        $cartDB = Cart::find($id);
+        $cartDB->qty = $qty;
+        $selectedPrice = $cartDB->price;
+
+        $packagePriceList = PackagePrice::where('package_id', $cartDB->package_id)->orderBy('quantity')->get();
+
+        foreach ($packagePriceList as $packagePrice){
+            if($qty > $packagePrice->quantity){
+                $selectedPrice = $packagePrice->price;
+            }
+        }
+//        dd($qty." | ".$selectedPrice);
+        $cartDB->price = $selectedPrice;
+        $cartDB->total_price = $selectedPrice * $qty;
+
+        $cartDB->save();
+
+        return redirect()->route('cart-list');
     }
 
     public function DeleteCart($cartId){

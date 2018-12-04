@@ -31,15 +31,19 @@
                             <tr>
                                 <th class="product-thumbnail">Package</th>
                                 <th class="product-name"> </th>
+                                <th class="product-name"> Participant</th>
                                 <th class="product-name"> Start Date</th>
                                 <th class="product-name"> End Date</th>
                                 <th class="product-price">Price</th>
+                                <th class="product-price-total">Price Total</th>
                                 <th class="product-remove"> </th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($carts as $cart)
                                 <tr class="cart_item">
+                                    @php($qtyId = "qty_".$cart->id)
+                                    @php($priceId = "price_".$cart->id)
                                     <td class="product-thumbnail">
                                         <a href="{{route('package-detail', ['id'=>$cart->package->id])}}">
                                             <img src="{{ URL::asset('storage/package_image/'.$cart->package->featured_image) }}"
@@ -50,6 +54,10 @@
                                     <td class="product-name">
                                         <a href="{{route('package-detail', ['id'=>$cart->package->id])}}">{{$cart->package->name}}</a>
                                     </td>
+                                    <td class="product-qty">
+                                        <input type="number" id="{{$qtyId}}" class="input-text corner-radius-top"
+                                               value="{{$cart->qty}}" onchange="updateCart({{$cart->id}})">
+                                    </td>
                                     @php($startDate = \Carbon\Carbon::parse($cart->package->start_date)->format('d F Y'))
                                     @php($endDate = \Carbon\Carbon::parse($cart->package->end_date)->format('d F Y'))
                                     <td class="product-quantity">
@@ -58,9 +66,15 @@
                                     <td class="product-quantity">
                                         {{$endDate}}
                                     </td>
-                                    @php($priceConvert = $cart->package->price / $currencyValue)
-                                    @php($priceConvert = number_format($priceConvert, 2, ",", "."))
-                                    <td class="product-price"><span class="amount">{{$currencyType}} {{$priceConvert}}</span></td>
+                                    @php($priceConvertOri = $cart->price / $currencyValue)
+                                    @php($priceConvert = number_format($priceConvertOri, 2, ",", "."))
+                                    @php($totalPriceConvertOri = $cart->total_price / $currencyValue)
+                                    @php($totalPriceConvert = number_format($totalPriceConvertOri, 2, ",", "."))
+                                    <td class="product-price">
+                                        <span class="amount">{{$currencyType}} {{$priceConvert}}</span>
+                                        <input type="hidden" value="{{$priceConvertOri}}" id="{{$priceId}}">
+                                    </td>
+                                    <td class="product-price"><span class="amount">{{$currencyType}} {{$totalPriceConvert}}</span></td>
 
                                     <td class="product-remove"><a href="{{route('delete-cart', ['cartId'=>$cart->id])}}" title="Remove this item" class="remove"></a></td>
                                 </tr>
@@ -137,6 +151,29 @@
             var url = "/cart?voucher=" + voucher + "&currency=" + status;
 
             window.location = url;
+        }
+
+        function updateCart(e){
+            // Get status filter value
+            var qtyId = "#qty_" + e;
+            var priceId = "#price_" + e;
+            var newQty = $(qtyId).val();
+            var price = $(priceId).val();
+            var url = "/edit-cart?qty=" + newQty + "&id=" + e;
+
+            window.location = url;
+            {{--$.ajax({--}}
+                {{--type: "GET",--}}
+                {{--url: '{{route('edit-cart')}}',--}}
+                {{--data: { qty: newQty, id: e, },--}}
+                {{--error:function(e) {--}}
+                    {{--alert("nope " + e.message);--}}
+                {{--},--}}
+                {{--success: function (partialViewData) {--}}
+                    {{--alert("success");--}}
+                {{--}--}}
+            {{--});--}}
+
         }
 
         function selectVoucher(e){
