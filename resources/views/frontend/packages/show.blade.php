@@ -148,6 +148,7 @@
                                 Download PDF
                             </a>
                         @endif
+                        <button onclick="addToCart('{{$package->id}}')" class="btn btn-success" style="color:white;">Add to cart</button>
                     </div>
                 </div>
             </div>
@@ -157,6 +158,7 @@
 
 
 	@include('frontend.partials._modal-login')
+    @include('frontend.partials._modal-add-cart')
 @endsection
 
 
@@ -215,5 +217,29 @@
 
             });
         });
+
+        function addToCart(e){
+            var packageId = e;
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('addCart') }}',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'id': packageId
+                },
+                success: function(data) {
+                    if ((data.errors)){
+                        var url = "/login-traveller";
+
+                        window.location = url;
+                    }
+                    else{
+                        // alert("success");
+                        $("#myModal").modal();
+                    }
+                }
+            });
+        }
     </script>
 @endsection
