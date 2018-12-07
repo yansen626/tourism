@@ -29,12 +29,19 @@ class TravelerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['show']]);
     }
 
     //
     public function show(){
-        $user = Auth::user();
+        $userId = request()->userId;
+        if(!empty($userId)){
+            $user = User::find($userId);
+        }
+        else{
+            $user = Auth::user();
+        }
         $diaries = UserDiary::where('user_id', $user->id)->get();
         if(!empty($user->id_card) && empty($user->passport_no)){
             $identity = 'ID CARD';
@@ -71,7 +78,7 @@ class TravelerController extends Controller
             'upcomingPackages'  => $upcomingPackages,
         ];
 
-        return View('frontend.traveler.index')->with($data);
+        return View('frontend.traveler.show')->with($data);
     }
 
     public function edit(){

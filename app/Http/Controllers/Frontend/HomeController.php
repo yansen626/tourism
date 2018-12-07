@@ -12,6 +12,7 @@ use App\Models\Cart;
 use App\Models\Province;
 use App\Models\TailorMade;
 use App\Models\Travelmate;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -192,6 +193,17 @@ class HomeController extends Controller
         ];
 
         return View('frontend.travelmate.index')->with($data);
+    }
+    //
+    public function Travellers(){
+//        dd('adsf');
+        $travellers = User::where('status_id',1)->get();
+
+        $data = [
+            'travellers'      => $travellers
+        ];
+
+        return View('frontend.traveler.index')->with($data);
     }
 
 //    public function Destinations(){

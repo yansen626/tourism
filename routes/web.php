@@ -58,8 +58,9 @@ Route::get('package-detail/{id}', 'Frontend\PackageController@show')->name('pack
 Route::get('package-pdf/{id}', 'Frontend\PackageController@ConvertToPDF')->name('package-pdf');
 
 // Traveler
+Route::get('traveller/', 'Frontend\HomeController@Travellers')->name('traveller.index');
+Route::get('traveller/show', 'Frontend\TravelerController@show')->name('traveller.profile.show');
 Route::prefix('traveller')->group(function(){
-    Route::get('/', 'Frontend\TravelerController@show')->name('traveller.profile.show');
     Route::get('/transactions/{flag}', 'Frontend\TravelerController@transactions')->name('traveller.transactions');
     Route::get('/profile/edit', 'Frontend\TravelerController@edit')->name('traveller.profile.edit');
     Route::put('/profile/update/{user}', 'Frontend\TravelerController@update')->name('traveller.profile.update');

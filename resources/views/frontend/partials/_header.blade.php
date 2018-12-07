@@ -76,6 +76,10 @@
                     <!-- End Item -->
 
                     <!-- Item -->
+                    <li><a href="{{route('traveller.index')}}" class="mn-has-sub">TRAVELLER +</a></li>
+                    <!-- End Item -->
+
+                    <!-- Item -->
                     <li><a href="{{route('search')}}" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
                     <!-- End Item -->
                     @if(auth()->guard('web')->check())
