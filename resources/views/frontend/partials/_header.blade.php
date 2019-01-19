@@ -80,7 +80,7 @@
                     <!-- End Item -->
 
                     <!-- Item -->
-                    <li><a href="{{route('search')}}" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
+                    <li><a href="{{route('tailor-made-form')}}" class="mn-has-sub">TAILOR MADE JOURNEY +</a></li>
                     <!-- End Item -->
                     @if(auth()->guard('web')->check())
                         <li><a href="#" class="mn-has-sub">
@@ -123,11 +123,13 @@
                             <li>
                                 <div class="container">
                                     <div class="mn-wrap">
-                                        <form method="post" class="form">
+                                        {!! Form::open(array('action' => 'Frontend\HomeController@SearchResult', 'id'=>'form-search', 'class'=>'form', 'method' => 'POST', 'role' => 'form', 'novalidate')) !!}
+                                        {{--<form method="post" class="form">--}}
                                             <div class="search-wrap">
-                                                <input type="text" placeholder="Where will you go next?" class="form-control search-field"><i class="flaticon-suntour-search search-icon"></i>
+                                                <input type="text" id="search-text" name="search" placeholder="Where will you go next?" class="form-control search-field"><i class="flaticon-suntour-search search-icon"></i>
                                             </div>
-                                        </form>
+                                        {{--</form>--}}
+                                        {{ Form::close() }}
                                     </div>
                                     <div class="close-button"><span><i class="fa fa-search" style="font-size: 35px;"></i></span></div>
                                 </div>
@@ -143,3 +145,17 @@
     <!-- End Navigation panel-->
 </header>
 <!-- ! header page-->
+
+@section('scripts')
+    <script>
+        function empty() {
+            var x;
+            x = document.getElementById("search-text").value;
+            if (x == "" || x == null) {
+            }
+            else{
+                $('#form-search').submit();
+            }
+        }
+    </script>
+@endsection

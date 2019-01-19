@@ -46,11 +46,10 @@ Route::get('/', 'Frontend\HomeController@home')->name('landing');
 //HTII Section Start
 
 // Search
-Route::get('search-form/', 'Frontend\HomeController@SearchForm')->name('search');
-Route::get('search/{key}', 'Frontend\HomeController@SearchResult')->name('search-result');
+Route::post('search/', 'Frontend\HomeController@SearchResult')->name('search-result');
 
 // Destination
-Route::get('destinations/', 'Frontend\HomeController@Destinations')->name('destinations');
+//Route::get('destinations/', 'Frontend\HomeController@Destinations')->name('destinations');
 Route::get('destination/', 'Frontend\HomeController@Destination')->name('destination');
 
 // Package
@@ -110,6 +109,7 @@ Route::prefix('travelmate')->group(function(){
 });
 
 // Tailor made Journey
+Route::get('tailor-made-form/', 'Frontend\HomeController@TailorMadeForm')->name('tailor-made-form');
 Route::post('tailor-made', 'Frontend\HomeController@submitTailorMade')->name('tailor-made');
 
 // transaction

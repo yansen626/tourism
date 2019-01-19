@@ -38,7 +38,7 @@
                                 <div class="tours-search">
                                     <form method="post" class="form search">
                                         <div class="search-wrap">
-                                            <input type="text" id="search-text" placeholder="Travelmate" class="form-control search-field" style="display:none;">
+                                            <input type="text" id="search-text" placeholder="Search Text" class="form-control search-field">
                                         </div>
                                     </form>
                                     <div class="button-search" onclick="filterSearch()">Search</div>
