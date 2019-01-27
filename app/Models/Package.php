@@ -20,6 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $city_id
  * @property string $location_detail
  * @property float $price
+ * @property int $duration
  * @property string $description
  * @property string $meeting_point
  * @property int $max_capacity
@@ -52,6 +53,7 @@ class Package extends Eloquent
 	protected $casts = [
 		'province_id' => 'int',
 		'city_id' => 'int',
+		'duration' => 'int',
 		'price' => 'float',
 		'status_id' => 'int',
 		'max_capacity' => 'int'
@@ -71,6 +73,7 @@ class Package extends Eloquent
 		'city_id',
 		'location_detail',
 		'price',
+		'duration',
 		'description',
 		'meeting_point',
 		'max_capacity',

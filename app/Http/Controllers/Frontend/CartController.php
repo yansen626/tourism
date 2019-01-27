@@ -170,6 +170,7 @@ class CartController
     public function EditQuantityCart(){
         $qty = request()->qty;
         $id = request()->id;
+        $specialRequest = request()->specialRequest;
 
         $cartDB = Cart::find($id);
         $cartDB->qty = $qty;
@@ -185,7 +186,8 @@ class CartController
 //        dd($qty." | ".$selectedPrice);
         $cartDB->price = $selectedPrice;
         $cartDB->total_price = $selectedPrice * $qty;
-
+        $cartDB->special_request = $specialRequest;
+//        dd($cartDB);
         $cartDB->save();
 
         return redirect()->route('cart-list');

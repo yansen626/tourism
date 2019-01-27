@@ -5,6 +5,9 @@
     <div class="content-body">
         <div style="margin:3%;">
             <div class="row">
+                {{--<div class="col-md-offset-6 col-lg-offset-6 col-md-6 col-lg-6 text-center">--}}
+                    {{--<div class="loader"></div>--}}
+                {{--</div>--}}
                 <!-- content-->
                 <div class="col-lg-10 col-lg-offset-1 woocommerce">
                     <h2 class="title-section mb-5">
@@ -44,6 +47,7 @@
                                 <tr class="cart_item">
                                     @php($qtyId = "qty_".$cart->id)
                                     @php($priceId = "price_".$cart->id)
+                                    @php($requestId = "request_".$cart->id)
                                     <td class="product-thumbnail">
                                         <a href="{{route('package-detail', ['id'=>$cart->package->id])}}">
                                             <img src="{{ URL::asset('storage/package_image/'.$cart->package->featured_image) }}"
@@ -78,9 +82,17 @@
 
                                     <td class="product-remove"><a href="{{route('delete-cart', ['cartId'=>$cart->id])}}" title="Remove this item" class="remove"></a></td>
                                 </tr>
+                                <tr class="cart_item">
+                                    <td colspan="7" style="padding: 30px;">
+                                        <textarea id="{{$requestId}}" rows="5" placeholder="Special Request"
+                                                  class="form-control" style="resize: none; overflow-y: scroll;margin-bottom: 1%"
+                                                  onfocusout="updateCart({{$cart->id}})">{{$cart->special_request}}</textarea>
+                                        <div class="loader" style="display: none;"></div>
+                                    </td>
+                                </tr>
                             @endforeach
                             <tr>
-                                <td colspan="6" class="actions">
+                                <td colspan="7" class="actions">
                                     <div class="coupon">
                                         <label for="coupon_code">Voucher:</label>
                                         <input id="coupon_code" type="text" name="coupon_code" value="{{$voucher}}" placeholder="Voucher code" class="input-text corner-radius-top">
@@ -91,7 +103,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6" style="padding-left: 15px;">
+                                <td colspan="7" style="padding-left: 15px;">
                                     <p style="color: red;">{{$voucherDescription}}</p>
                                 </td>
                             </tr>
@@ -136,6 +148,20 @@
             font-style: normal;
             -webkit-appearance: radio !important;
         }
+        .loader {
+            border: 5px solid #f3f3f3; /* Light grey */
+            border-top: 5px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            left: 50%;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 @endsection
 
@@ -155,11 +181,13 @@
 
         function updateCart(e){
             // Get status filter value
+            $('.loader').show();
             var qtyId = "#qty_" + e;
             var priceId = "#price_" + e;
+            var requestId = "#request_" + e;
             var newQty = $(qtyId).val();
-            var price = $(priceId).val();
-            var url = "/edit-cart?qty=" + newQty + "&id=" + e;
+            var request = $(requestId).val();
+            var url = "/edit-cart?qty=" + newQty + "&specialRequest=" + request + "&id=" + e;
 
             window.location = url;
             {{--$.ajax({--}}

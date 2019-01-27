@@ -191,7 +191,8 @@ class TravelmateController extends Controller
                 'description'             => 'required',
                 'category'             => 'required',
                 'start_date'             => 'required',
-                'end_date'          => 'required',
+//                'end_date'          => 'required',
+                'duration'          => 'required',
                 'meeting_point'             => 'required',
                 'max_capacity'             => 'required'
             ],
@@ -212,20 +213,21 @@ class TravelmateController extends Controller
 
             //checking destination validation
 //            dd($request);
-            $tripStartDates = Input::get('trip_start_date');
-            $tripEndDates = Input::get('trip_end_date');
+//            $tripStartDates = Input::get('trip_start_date');
+//            $tripEndDates = Input::get('trip_end_date');
             $tripImages = $request->file('trip_image');
             $tripDescriptions = Input::get('trip_description');
 
 //            dd($tripImages);
-            $isNullTripStartDates = in_array(null, $tripStartDates, true);
-            $isNullTripEndDates = in_array(null, $tripEndDates, true);
+//            $isNullTripStartDates = in_array(null, $tripStartDates, true);
+//            $isNullTripEndDates = in_array(null, $tripEndDates, true);
             $isNullTripDescriptions = in_array(null, $tripDescriptions, true);
             $isNullTripImages = true;
             if($tripImages != null){
                 $isNullTripImages = in_array(null, $tripImages, true);
             }
-            if($isNullTripStartDates || $isNullTripEndDates || $isNullTripImages || $isNullTripDescriptions){
+//            if($isNullTripStartDates || $isNullTripEndDates || $isNullTripImages || $isNullTripDescriptions){
+            if($isNullTripImages || $isNullTripDescriptions){
                 return back()->withErrors("All Destination field required")->withInput();
             }
 
@@ -243,11 +245,11 @@ class TravelmateController extends Controller
             $packageID = Uuid::generate();
 
 //            dd($startDateTrip);
-            DB::transaction(function() use ($request, $packageID, $user, $tripStartDates,
-                $tripEndDates, $tripImages, $tripDescriptions, $pricingQuantities, $pricingPrice) {
+            DB::transaction(function() use ($request, $packageID, $user,
+                $tripImages, $tripDescriptions, $pricingQuantities, $pricingPrice) {
 
                 $startDate = Carbon::createFromFormat('d M Y', Input::get('start_date'), 'Asia/Jakarta');
-                $endDate = Carbon::createFromFormat('d M Y', Input::get('end_date'), 'Asia/Jakarta');
+//                $endDate = Carbon::createFromFormat('d M Y', Input::get('end_date'), 'Asia/Jakarta');
                 $dateTimeNow = Carbon::now('Asia/Jakarta');
 
                 $categories = $request->get('category');
@@ -270,7 +272,8 @@ class TravelmateController extends Controller
                     'max_capacity' => Input::get('max_capacity'),
                     'price' => max($pricingPrice),
                     'start_date' => $startDate,
-                    'end_date' => $endDate,
+//                    'end_date' => $endDate,
+                    'duration' => Input::get('duration'),
                     'status_id' => 1,
                     'created_at'        => $dateTimeNow->toDateTimeString()
                 ]);
@@ -288,12 +291,12 @@ class TravelmateController extends Controller
                 //package trips
                 for($i=0;$i<sizeof($tripDescriptions);$i++){
 
-                    $startDateTrip = Carbon::createFromFormat('d M Y H:i', $tripStartDates[$i], 'Asia/Jakarta');
-                    $endDateTrip = Carbon::createFromFormat('d M Y H:i', $tripEndDates[$i], 'Asia/Jakarta');
+//                    $startDateTrip = Carbon::createFromFormat('d M Y H:i', $tripStartDates[$i], 'Asia/Jakarta');
+//                    $endDateTrip = Carbon::createFromFormat('d M Y H:i', $tripEndDates[$i], 'Asia/Jakarta');
                     $newPackageTrip = PackageTrip::create([
                         'package_id' => $packageID,
-                        'start_date' => $startDateTrip,
-                        'end_date' => $endDateTrip,
+//                        'start_date' => $startDateTrip,
+//                        'end_date' => $endDateTrip,
                         'description' => $tripDescriptions[$i]
                     ]);
 
@@ -351,8 +354,8 @@ class TravelmateController extends Controller
     public function updatePackageInformation(Package $package, Request $request){
         $validator = Validator::make($request->all(),[
             'destination'       => 'required|max:50',
-            'start_date'        => 'required',
-            'end_date'          => 'required',
+//            'start_date'        => 'required',
+//            'end_date'          => 'required',
             'meeting_point'     => 'required|max:300',
             'max_capacity'      => 'required'
         ]);
@@ -388,8 +391,8 @@ class TravelmateController extends Controller
         $package->name = $request->input('destination');
         $package->meeting_point = $request->input('meeting_point');
         $package->max_capacity = $request->input('max_capacity');
-        $package->start_date = $startDate->toDateTimeString();
-        $package->end_date = $endDate->toDateTimeString();
+//        $package->start_date = $startDate->toDateTimeString();
+//        $package->end_date = $endDate->toDateTimeString();
         $package->updated_by = $user->id;
         $package->updated_at = $now->toDateTimeString();
 
@@ -543,8 +546,8 @@ class TravelmateController extends Controller
 
     public function storeTrip(Request $request, $package_id){
         $validator = Validator::make($request->all(),[
-            'start_date'        => 'required',
-            'end_date'          => 'required',
+//            'start_date'        => 'required',
+//            'end_date'          => 'required',
             'description'       => 'required|max:300',
             'featured'          => 'required'
         ]);
@@ -556,21 +559,21 @@ class TravelmateController extends Controller
                 ->withInput();
         }
 //        dd($request);
-        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
-        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
+//        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
+//        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
 
         // Validate date
-        if($start->gt($end)){
-            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
-        }
+//        if($start->gt($end)){
+//            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+//        }
 
         $user = Auth::user();
         $now = Carbon::now('Asia/Jakarta');
 
         $trip = PackageTrip::create([
             'package_id'        => $package_id,
-            'start_date'        => $start->toDateTimeString(),
-            'end_date'          => $end->toDateTimeString(),
+//            'start_date'        => $start->toDateTimeString(),
+//            'end_date'          => $end->toDateTimeString(),
             'description'       => $request->input('description'),
             'created_by'        => $user->id,
             'created_at'        => $now->toDateTimeString(),
@@ -631,8 +634,8 @@ class TravelmateController extends Controller
 
     public function updateTrip(Request $request, PackageTrip $package_trip){
         $validator = Validator::make($request->all(),[
-            'start_date'        => 'required',
-            'end_date'          => 'required',
+//            'start_date'        => 'required',
+//            'end_date'          => 'required',
             'description'       => 'required|max:300'
         ]);
 
@@ -643,19 +646,19 @@ class TravelmateController extends Controller
                 ->withInput();
         }
 
-        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
-        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
+//        $start = Carbon::createFromFormat('d F Y G:i', $request->input('start_date'), 'Asia/Jakarta');
+//        $end = Carbon::createFromFormat('d F Y G:i', $request->input('end_date'), 'Asia/Jakarta');
 
         // Validate date
-        if($start->gt($end)){
-            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
-        }
+//        if($start->gt($end)){
+//            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+//        }
 
         $user = Auth::user();
         $now = Carbon::now('Asia/Jakarta');
 
-        $package_trip->start_date = $start->toDateTimeString();
-        $package_trip->end_date = $end->toDateTimeString();
+//        $package_trip->start_date = $start->toDateTimeString();
+//        $package_trip->end_date = $end->toDateTimeString();
         $package_trip->description = $request->input('description');
         $package_trip->updated_by = $user->id;
         $package_trip->updated_at = $now->toDateTimeString();

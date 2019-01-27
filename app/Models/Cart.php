@@ -22,6 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $qty
  * @property float $price
  * @property float $total_price
+ * @property string $special_request
  *
  * @property \App\Models\Package $package
  * @property \App\Models\User $user
@@ -45,7 +46,8 @@ class Cart extends Eloquent
 		'payment_method',
 		'price',
 		'total_price',
-		'qty'
+		'qty',
+		'special_request'
 	];
 
 	public function package()

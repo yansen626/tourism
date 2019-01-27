@@ -125,6 +125,7 @@
                                     <div class="mn-wrap">
                                         {!! Form::open(array('action' => 'Frontend\HomeController@SearchResult', 'id'=>'form-search', 'class'=>'form', 'method' => 'POST', 'role' => 'form', 'novalidate')) !!}
                                         {{--<form method="post" class="form">--}}
+                                        {{ csrf_field() }}
                                             <div class="search-wrap">
                                                 <input type="text" id="search-text" name="search" placeholder="Where will you go next?" class="form-control search-field"><i class="flaticon-suntour-search search-icon"></i>
                                             </div>

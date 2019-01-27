@@ -154,24 +154,27 @@
                                                     <div class="text-center" style="width: 100%;">
                                                         <label for="start_date">START DATE</label>
                                                     </div>
-                                                    <div class='input-group date' >
-                                                        <input id='start_date' name="start_date" value="{{old('start_date')}}" type='text' class="form-control" />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
+                                                    <div class="input-group date" data-provide="datepicker">
+                                                        <input id='start_date' name="start_date" value="{{old('start_date')}}"  type="text" class="form-control">
+                                                        <div class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-th"></span>
+                                                        </div>
                                                     </div>
+                                                    {{--<div class='input-group date' data-provide="datepicker">--}}
+                                                        {{--<input type='text' class="form-control" />--}}
+                                                        {{--<span class="input-group-addon">--}}
+                                                            {{--<span class="glyphicon glyphicon-calendar"></span>--}}
+                                                        {{--</span>--}}
+                                                    {{--</div>--}}
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-xs-12">
                                                 <div class="row form-panel">
                                                     <div class="text-center" style="width: 100%;">
-                                                        <label for="end_date">END DATE</label>
+                                                        <label for="end_date">TRIP DURATION</label>
                                                     </div>
-                                                    <div class='input-group date' >
-                                                        <input id='end_date' name="end_date" value="{{old('end_date')}}" type='text' class="form-control" />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
+                                                    <div class='input-group' >
+                                                        <input id='duration' name="duration" value="{{old('duration')}}" type='number' class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -218,34 +221,34 @@
                                                         <a class="btn btn-danger" style="margin-top: 20px; margin-bottom: 10px;" onclick="deleteTrip(1)"><i class="fa fa-close"></i></a>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-12 col-md-12 col-xs-12">
-                                                        <div class="col-lg-6 col-md-6 col-xs-12">
-                                                            <div class="row form-panel">
-                                                                <div class="text-center" style="width: 100%;">
-                                                                    <label for="trip_start_date_1">START DATE</label>
-                                                                </div>
-                                                                <div class='input-group date' >
-                                                                    <input id='trip_start_date_1' name="trip_start_date[]" type='text' class="form-control" />
-                                                                    <span class="input-group-addon">
-                                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-xs-12">
-                                                            <div class="row form-panel">
-                                                                <div class="text-center" style="width: 100%;">
-                                                                    <label for="trip_end_date_1">END DATE</label>
-                                                                </div>
-                                                                <div class='input-group date'>
-                                                                    <input id='trip_end_date_1' name="trip_end_date[]" type='text' class="form-control" />
-                                                                    <span class="input-group-addon">
-                                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {{--<div class="col-lg-12 col-md-12 col-xs-12">--}}
+                                                        {{--<div class="col-lg-6 col-md-6 col-xs-12">--}}
+                                                            {{--<div class="row form-panel">--}}
+                                                                {{--<div class="text-center" style="width: 100%;">--}}
+                                                                    {{--<label for="trip_start_date_1">START DATE</label>--}}
+                                                                {{--</div>--}}
+                                                                {{--<div class='input-group date' >--}}
+                                                                    {{--<input id='trip_start_date_1' name="trip_start_date[]" type='text' class="form-control" />--}}
+                                                                    {{--<span class="input-group-addon">--}}
+                                                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
+                                                                    {{--</span>--}}
+                                                                {{--</div>--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                        {{--<div class="col-lg-6 col-md-6 col-xs-12">--}}
+                                                            {{--<div class="row form-panel">--}}
+                                                                {{--<div class="text-center" style="width: 100%;">--}}
+                                                                    {{--<label for="trip_end_date_1">END DATE</label>--}}
+                                                                {{--</div>--}}
+                                                                {{--<div class='input-group date'>--}}
+                                                                    {{--<input id='trip_end_date_1' name="trip_end_date[]" type='text' class="form-control" />--}}
+                                                                    {{--<span class="input-group-addon">--}}
+                                                                        {{--<span class="glyphicon glyphicon-calendar"></span>--}}
+                                                                    {{--</span>--}}
+                                                                {{--</div>--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
                                                     <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top: 20px;">
                                                         <div class="col-lg-12 col-md-12 col-xs-12">
                                                             <div class="row form-panel">
@@ -361,7 +364,8 @@
 
 @section('styles')
     @parent
-    <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datetimepicker.css') }}">
+{{--    <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datepicker.css') }}">--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css">
     <link rel="stylesheet" href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}">
     <style>
         @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
@@ -658,7 +662,8 @@
 @section('scripts')
     @parent
     <script src="{{ URL::asset('js/moment.js') }}"></script>
-    <script src="{{ URL::asset('js/frontend/bootstrap-datetimepicker.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/frontend/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
     <script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
     <script src="{{ URL::asset('js/stringbuilder.js') }}"></script>
     <script>
@@ -705,22 +710,23 @@
         });
 
         // DATE PICKER
-        $('#start_date').datetimepicker({
-            format: "DD MMM Y"
+        $('#start_date').datepicker({
+            format: 'DD MMM Y',
+            multidate: true
         });
 
-        $('#end_date').datetimepicker({
-            format: "DD MMM Y"
-        });
+        // $('#end_date').datetimepicker({
+        //     format: "DD MMM Y"
+        // });
 
         // DATETIMEPICKER
-        $('#trip_start_date_1').datetimepicker({
-            format: "DD MMM Y HH:mm"
-        });
-
-        $('#trip_end_date_1').datetimepicker({
-            format: "DD MMM Y HH:mm"
-        });
+        // $('#trip_start_date_1').datetimepicker({
+        //     format: "DD MMM Y HH:mm"
+        // });
+        //
+        // $('#trip_end_date_1').datetimepicker({
+        //     format: "DD MMM Y HH:mm"
+        // });
 
         function switchTab(tabNumber){
             if(tabNumber === 1){
@@ -745,34 +751,34 @@
             sbAdd.append("<button class='btn btn-danger' style='margin-top: 20px; margin-bottom: 10px;' onclick='deleteTrip(" + tripIdx + ")'><i class='fa fa-close'></i></button>");
             sbAdd.append("</div>");
             sbAdd.append("</div>");
-            sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
-            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
-            sbAdd.append("<div class='row form-panel'>");
-            sbAdd.append("<div class='text-center' style='width: 100%;'>");
-            sbAdd.append("<label for='trip_start_date_1'>START DATE</label>");
-            sbAdd.append("</div>");
-            sbAdd.append("<div class='input-group date' >");
-            sbAdd.append("<input id='trip_start_date_" + tripIdx + "' name='trip_start_date[]' type='text' class='form-control' />");
-            sbAdd.append("<span class='input-group-addon'>");
-            sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
-            sbAdd.append("</span>");
-            sbAdd.append("</div>");
-            sbAdd.append("</div>");
-            sbAdd.append("</div>");
-            sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
-            sbAdd.append("<div class='row form-panel'>");
-            sbAdd.append("<div class='text-center' style='width: 100%;'>");
-            sbAdd.append("<label for='trip_end_date_" + tripIdx + "'>END DATE</label>");
-            sbAdd.append("</div>");
-            sbAdd.append("<div class='input-group date'>");
-            sbAdd.append("<input id='trip_end_date_" + tripIdx + "' name='trip_end_date[]' type='text' class='form-control' />");
-            sbAdd.append("<span class='input-group-addon'>");
-            sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
-            sbAdd.append( "</span>");
-            sbAdd.append("</div>");
-            sbAdd.append("</div>");
-            sbAdd.append("</div>");
-            sbAdd.append("</div>");
+            // sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
+            // sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            // sbAdd.append("<div class='row form-panel'>");
+            // sbAdd.append("<div class='text-center' style='width: 100%;'>");
+            // sbAdd.append("<label for='trip_start_date_1'>START DATE</label>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("<div class='input-group date' >");
+            // sbAdd.append("<input id='trip_start_date_" + tripIdx + "' name='trip_start_date[]' type='text' class='form-control' />");
+            // sbAdd.append("<span class='input-group-addon'>");
+            // sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
+            // sbAdd.append("</span>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("<div class='col-lg-6 col-md-6 col-xs-12'>");
+            // sbAdd.append("<div class='row form-panel'>");
+            // sbAdd.append("<div class='text-center' style='width: 100%;'>");
+            // sbAdd.append("<label for='trip_end_date_" + tripIdx + "'>END DATE</label>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("<div class='input-group date'>");
+            // sbAdd.append("<input id='trip_end_date_" + tripIdx + "' name='trip_end_date[]' type='text' class='form-control' />");
+            // sbAdd.append("<span class='input-group-addon'>");
+            // sbAdd.append("<span class='glyphicon glyphicon-calendar'></span>");
+            // sbAdd.append( "</span>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("</div>");
+            // sbAdd.append("</div>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12' style='margin-top: 20px;'>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
             sbAdd.append("<div class='row form-panel'>");
@@ -806,13 +812,13 @@
             });
 
             // DYNAMIC DATETIMEPICKER
-            $('#trip_start_date_' + tripIdx).datetimepicker({
-                format: "DD MMM Y HH:mm"
-            });
-
-            $('#trip_end_date_' + tripIdx).datetimepicker({
-                format: "DD MMM Y HH:mm"
-            });
+            // $('#trip_start_date_' + tripIdx).datetimepicker({
+            //     format: "DD MMM Y HH:mm"
+            // });
+            //
+            // $('#trip_end_date_' + tripIdx).datetimepicker({
+            //     format: "DD MMM Y HH:mm"
+            // });
 
             tripIdx++;
         }

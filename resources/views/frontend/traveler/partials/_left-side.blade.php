@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-12">
             <p>
-                <a href="{{route('search')}}" class="white-color-font">
+                <a href="{{route('tailor-made-form')}}" class="white-color-font">
                     <i class="fa fa-plane" aria-hidden="true"></i> <span>Tailor Made Journey</span>
                 </a>
             </p>
