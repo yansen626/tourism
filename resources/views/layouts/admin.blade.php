@@ -63,9 +63,9 @@
 </div>
 
 <!-- jQuery -->
-<script src="{{ URL::asset('js/admin/jquery.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <!-- Bootstrap -->
-<script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- bootstrap-file-input -->
 <script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
 <!-- DateTime -->
@@ -144,7 +144,6 @@
 <script src="{{ URL::asset('css/admin/jszip/dist/jszip.min.js') }}"></script>
 <script src="{{ URL::asset('css/admin/pdfmake/build/pdfmake.min.js') }}"></script>
 <script src="{{ URL::asset('css/admin/pdfmake/build/vfs_fonts.js') }}"></script>
-{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>--}}
 <script src="http://www.position-absolute.com/creation/print/jquery.printPage.js"></script>
 
 <!-- Custom Theme Scripts -->

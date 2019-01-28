@@ -154,7 +154,7 @@
                                                     <div class="text-center" style="width: 100%;">
                                                         <label for="start_date">START DATE</label>
                                                     </div>
-                                                    <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group date">
                                                         <input id='start_date' name="start_date" value="{{old('start_date')}}"  type="text" class="form-control">
                                                         <div class="input-group-addon">
                                                             <span class="glyphicon glyphicon-th"></span>
@@ -365,7 +365,8 @@
 @section('styles')
     @parent
 {{--    <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datepicker.css') }}">--}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css">
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css">--}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::asset('css/kartik-bootstrap-file-input/fileinput.min.css') }}">
     <style>
         @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
@@ -663,7 +664,7 @@
     @parent
     <script src="{{ URL::asset('js/moment.js') }}"></script>
     {{--<script src="{{ URL::asset('js/frontend/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>
     <script src="{{ URL::asset('js/stringbuilder.js') }}"></script>
     <script>
@@ -711,8 +712,9 @@
 
         // DATE PICKER
         $('#start_date').datepicker({
-            format: 'DD MMM Y',
-            multidate: true
+            format: 'dd M yyyy',
+            multidate: true,
+            multidateSeparator: ", "
         });
 
         // $('#end_date').datetimepicker({
