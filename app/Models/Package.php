@@ -25,7 +25,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $meeting_point
  * @property int $max_capacity
  * @property string $featured_image
- * @property \Carbon\Carbon $start_date
+ * @property string $start_date
  * @property \Carbon\Carbon $end_date
  * @property int $status_id
  * @property string $created_by
@@ -60,7 +60,6 @@ class Package extends Eloquent
 	];
 
 	protected $dates = [
-		'start_date',
 		'end_date'
 	];
 

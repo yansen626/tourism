@@ -85,6 +85,7 @@ class TransactionController extends Controller
                         'package_id'       => $cart->package_id,
                         'travelmate_id'       => $cart->package->travelmate_id,
                         'price'       => $cart->price,
+                        'note'       => $cart->special_request,
                         'discount_percent'       => 0,
                         'discount_flat'      => 0,
                         'subtotal'    => $cart->total_price,

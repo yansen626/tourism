@@ -249,11 +249,30 @@ class HomeController extends Controller
         }
         //search only
         else if($provinceId == '-1' && !empty($searchText) && $sortBy == '-1'){
-            $packages = Package::where('status_id', 1)
-                ->where('name', 'like', '%'.$searchText.'%')
-                ->orWhere('category_id', 'like', '%'.$searchText.'%')
-                ->orWhere('description', 'like', '%'.$searchText.'%')
-                ->get();
+
+            $provinceIds = Province::select('id')->where('name', 'like', '%'.$searchText.'%')->get();
+
+            if($provinceIds->count() != 0){
+                $provinceIdArray = array();
+                foreach ($provinceIds as $province){
+                    array_push($provinceIdArray, $province);
+                }
+
+                $packages = Package::where('status_id', 1)
+                    ->where('name', 'like', '%'.$searchText.'%')
+                    ->orWhere('category_id', 'like', '%'.$searchText.'%')
+                    ->orWhere('description', 'like', '%'.$searchText.'%')
+                    ->orWhereIn('province_id', $provinceIdArray)
+                    ->get();
+            }
+            else{
+
+                $packages = Package::where('status_id', 1)
+                    ->where('name', 'like', '%'.$searchText.'%')
+                    ->orWhere('category_id', 'like', '%'.$searchText.'%')
+                    ->orWhere('description', 'like', '%'.$searchText.'%')
+                    ->get();
+            }
         }
         //sort only
         else if($provinceId == '-1' && empty($searchText) && $sortBy != '-1'){

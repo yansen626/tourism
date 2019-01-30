@@ -36,7 +36,7 @@
                                 <th class="product-name"> </th>
                                 <th class="product-name"> Participant</th>
                                 <th class="product-name"> Start Date</th>
-                                <th class="product-name"> End Date</th>
+                                <th class="product-name"> Trip Duration</th>
                                 <th class="product-price">Price</th>
                                 <th class="product-price-total">Price Total</th>
                                 <th class="product-remove"> </th>
@@ -63,12 +63,12 @@
                                                value="{{$cart->qty}}" onchange="updateCart({{$cart->id}})">
                                     </td>
                                     @php($startDate = \Carbon\Carbon::parse($cart->package->start_date)->format('d F Y'))
-                                    @php($endDate = \Carbon\Carbon::parse($cart->package->end_date)->format('d F Y'))
+                                    {{--@php($endDate = \Carbon\Carbon::parse($cart->package->end_date)->format('d F Y'))--}}
                                     <td class="product-quantity">
                                         {{$startDate}}
                                     </td>
                                     <td class="product-quantity">
-                                        {{$endDate}}
+                                        {{$cart->package->duration}}
                                     </td>
                                     @php($priceConvertOri = $cart->price / $currencyValue)
                                     @php($priceConvert = number_format($priceConvertOri, 2, ",", "."))

@@ -88,18 +88,19 @@
                                     START DATE
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))
-                                    <input type="text" id="start_date" name="start_date" class="form-control col-md-12" value="{{ $startDate }}"/>
+                                    {{--@php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))--}}
+                                    <input id='start_date' name="start_date" value="{{$package->start_date}}"  type="text" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="start_date">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="end_date">
                                     END DATE
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))
-                                    <input type="text" id="end_date" name="end_date" class="form-control col-md-12" value="{{ $endDate }}"/>
+                                    {{--@php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))--}}
+                                    <input id='duration' name="duration" value="{{$package->duration}}" type='number' class="form-control" />
+                                    {{--<input type="text" id="end_date" name="end_date" class="form-control col-md-12" value="{{ $endDate }}"/>--}}
                                 </div>
                             </div>
 
@@ -147,7 +148,8 @@
 
 @section('styles')
     @parent
-    <link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datetimepicker.css') }}">
+    {{--<link rel="stylesheet" href="{{ URL::asset('css/frontend/bootstrap-datetimepicker.css') }}">--}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <style>
     </style>
 @endsection
@@ -155,17 +157,24 @@
 @section('scripts')
     @parent
     <script src="{{ URL::asset('js/moment.js') }}"></script>
-    <script src="{{ URL::asset('js/frontend/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    {{--<script src="{{ URL::asset('js/frontend/bootstrap-datetimepicker.min.js') }}"></script>--}}
     <script>
         $(document).ready(function () {
             // DATE PICKER
-            $('#start_date').datetimepicker({
-                format: "DD MMMM Y"
-            });
-
-            $('#end_date').datetimepicker({
-                format: "DD MMMM Y"
-            });
+            // $('#start_date').datetimepicker({
+            //     format: "DD MMMM Y"
+            // });
+            //
+            // $('#end_date').datetimepicker({
+            //     format: "DD MMMM Y"
+            // });
+        });
+        // DATE PICKER
+        $('#start_date').datepicker({
+            format: 'dd M yyyy',
+            multidate: true,
+            multidateSeparator: ", "
         });
 
         function getCity(){

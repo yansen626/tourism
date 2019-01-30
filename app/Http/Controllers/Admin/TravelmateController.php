@@ -248,7 +248,8 @@ class TravelmateController extends Controller
             DB::transaction(function() use ($request, $packageID, $user,
                 $tripImages, $tripDescriptions, $pricingQuantities, $pricingPrice) {
 
-                $startDate = Carbon::createFromFormat('d M Y', Input::get('start_date'), 'Asia/Jakarta');
+//                $startDate = Carbon::createFromFormat('d M Y', Input::get('start_date'), 'Asia/Jakarta');
+                $startDate = Input::get('start_date');
 //                $endDate = Carbon::createFromFormat('d M Y', Input::get('end_date'), 'Asia/Jakarta');
                 $dateTimeNow = Carbon::now('Asia/Jakarta');
 
@@ -354,7 +355,7 @@ class TravelmateController extends Controller
     public function updatePackageInformation(Package $package, Request $request){
         $validator = Validator::make($request->all(),[
             'destination'       => 'required|max:50',
-//            'start_date'        => 'required',
+            'start_date'        => 'required',
 //            'end_date'          => 'required',
             'meeting_point'     => 'required|max:300',
             'max_capacity'      => 'required'
@@ -377,13 +378,14 @@ class TravelmateController extends Controller
             return redirect()->back()->withErrors('City is required!', 'default')->withInput($request->all());
         }
 
-        $startDate = Carbon::createFromFormat('d F Y', $request->input('start_date'), 'Asia/Jakarta');
-        $endDate = Carbon::createFromFormat('d F Y', $request->input('end_date'), 'Asia/Jakarta');
+        $startDate = $request->input('start_date');
+//        $startDate = Carbon::createFromFormat('d F Y', $request->input('start_date'), 'Asia/Jakarta');
+//        $endDate = Carbon::createFromFormat('d F Y', $request->input('end_date'), 'Asia/Jakarta');
 
-        // Validate date
-        if($startDate->gt($endDate)){
-            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
-        }
+//        // Validate date
+//        if($startDate->gt($endDate)){
+//            return redirect()->back()->withErrors('End Date must be greater than Start Date!', 'default')->withInput($request->all());
+//        }
 
         $user = Auth::user();
         $now = Carbon::now('Asia/Jakarta');
@@ -391,7 +393,7 @@ class TravelmateController extends Controller
         $package->name = $request->input('destination');
         $package->meeting_point = $request->input('meeting_point');
         $package->max_capacity = $request->input('max_capacity');
-//        $package->start_date = $startDate->toDateTimeString();
+        $package->start_date = $startDate;
 //        $package->end_date = $endDate->toDateTimeString();
         $package->updated_by = $user->id;
         $package->updated_at = $now->toDateTimeString();
