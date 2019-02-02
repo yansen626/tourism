@@ -95,7 +95,7 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="end_date">
-                                    END DATE
+                                    TRIP DURATION
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     {{--@php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))--}}

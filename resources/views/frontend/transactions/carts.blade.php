@@ -62,10 +62,10 @@
                                         <input type="number" id="{{$qtyId}}" class="input-text corner-radius-top"
                                                value="{{$cart->qty}}" onchange="updateCart({{$cart->id}})">
                                     </td>
-                                    @php($startDate = \Carbon\Carbon::parse($cart->package->start_date)->format('d F Y'))
+                                    {{--@php($startDate = \Carbon\Carbon::parse($cart->package->start_date)->format('d F Y'))--}}
                                     {{--@php($endDate = \Carbon\Carbon::parse($cart->package->end_date)->format('d F Y'))--}}
                                     <td class="product-quantity">
-                                        {{$startDate}}
+                                        {{$cart->package->start_date}}
                                     </td>
                                     <td class="product-quantity">
                                         {{$cart->package->duration}}

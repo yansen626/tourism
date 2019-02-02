@@ -127,6 +127,8 @@ class CartController
 
             $userId = Auth::user()->id;
             $packageId   = $request['id'];
+            $participant   = $request['participant'];
+            $notes  = $request['notes'];
             $packageDB = Package::find($packageId);
             $cartDB = Cart::where('package_id',$packageId)->where('user_id', $userId)->first();
             if($cartDB == null){
@@ -134,9 +136,10 @@ class CartController
                     'package_id'    => $packageId,
                     'user_id'       => $userId,
                     'admin_fee'      => 0,
-                    'qty'      => 1,
+                    'qty'      => $participant,
                     'price'      => $packageDB->price,
                     'total_price'      => $packageDB->price,
+                    'special_request'      => $notes,
                     'payment_method'    => 0
                 ]);
             }

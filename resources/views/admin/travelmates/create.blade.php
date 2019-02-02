@@ -173,8 +173,8 @@
                                                     <div class="text-center" style="width: 100%;">
                                                         <label for="end_date">TRIP DURATION</label>
                                                     </div>
-                                                    <div class='input-group' >
-                                                        <input id='duration' name="duration" value="{{old('duration')}}" type='number' class="form-control" />
+                                                    <div class='input-group' style="width: 100%;">
+                                                        <input id='duration' name="duration" value="{{old('duration')}}" type='number' class="form-control" placeholder="DAYS"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,7 +216,7 @@
                                             <div id="trip_1" class="col-lg-12 col-md-12" style="margin-bottom: 20px;">
                                                 <div class="row form-panel">
                                                     <div class="col-lg-12 col-md-12 col-xs-12">
-                                                        <h3 class="text-center" style="float: left;">FIRST DESTINATION</h3>
+                                                        <h3 class="text-center" style="float: left;">DESTINATION <span class='trip-count'>1</span></h3>
                                                         <div style="float: right;">
                                                         <a class="btn btn-danger" style="margin-top: 20px; margin-bottom: 10px;" onclick="deleteTrip(1)"><i class="fa fa-close"></i></a>
                                                         </div>
@@ -748,7 +748,7 @@
             sbAdd.append("<div id='trip_" + tripIdx + "' class='col-lg-12 col-md-12' style='margin-bottom: 20px;'>");
             sbAdd.append("<div class='row form-panel'>");
             sbAdd.append("<div class='col-lg-12 col-md-12 col-xs-12'>");
-            sbAdd.append("<h3 class='text-center' style='float: left;'>NEXT DESTINATION </h3>");
+            sbAdd.append("<h3 class='text-center' style='float: left;'>DESTINATION <span class='trip-count'></span></h3>");
             sbAdd.append("<div style='float: right;'>");
             sbAdd.append("<button class='btn btn-danger' style='margin-top: 20px; margin-bottom: 10px;' onclick='deleteTrip(" + tripIdx + ")'><i class='fa fa-close'></i></button>");
             sbAdd.append("</div>");
@@ -821,13 +821,20 @@
             // $('#trip_end_date_' + tripIdx).datetimepicker({
             //     format: "DD MMM Y HH:mm"
             // });
-
+            updateCountTrip();
             tripIdx++;
         }
 
         function deleteTrip(idx){
             $('#trip_' + idx).remove();
+            updateCountTrip();
             // tripIdx--;
+        }
+        function updateCountTrip(){
+            $('.trip-count').each(function(i, obj) {
+                alert(i+1);
+                alert(obj);
+            });
         }
 
         // TAB PRICINGS

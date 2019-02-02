@@ -79,7 +79,7 @@
                                     <div class="recom-price">Rp {{$package->price}}</div>
                                     <p class="mb-30">{{$package->description}}</p>
                                     <a href="{{route('package-detail', ['id'=>$package->id])}}" class="recom-button">Read more</a>
-                                    <button onclick="addToCart('{{$package->id}}')" class="cws-button small alt">Add to cart</button>
+                                    <button onclick="showAddtoCartForm('{{$package->id}}')" class="cws-button small alt">Add to cart</button>
                                     {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
                                     {{--<div class="action font-2">20%</div>--}}
                                 </div>
@@ -98,6 +98,7 @@
         </div>
     </div>
 
+	@include('frontend.partials._modal-add-cart-form')
 	@include('frontend.partials._modal-add-cart')
 @endsection
 
@@ -135,16 +136,23 @@
 
             window.location = url;
         }
+        function showAddtoCartForm(e){
+            $("#package-id").val(e);
+            $("#myModalForm").modal();
+        }
 
         function addToCart(e){
-            var packageId = e;
-
+            var packageId = $("#package-id").val();
+            var participant = $("#participant").val();
+            var notes = $("#notes").val();
             $.ajax({
                 type: 'POST',
                 url: '{{ route('addCart') }}',
                 data: {
                     '_token': '{{ csrf_token() }}',
-                    'id': packageId
+                    'id': packageId,
+                    'participant': participant,
+                    'notes': notes,
                 },
                 success: function(data) {
                     if ((data.errors)){
@@ -154,6 +162,7 @@
                     }
                     else{
                         // alert("success");
+                        $("#myModalForm").hide();
                         $("#myModal").modal();
                     }
                 }
