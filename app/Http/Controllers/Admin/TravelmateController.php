@@ -395,6 +395,7 @@ class TravelmateController extends Controller
         $package->max_capacity = $request->input('max_capacity');
         $package->start_date = $startDate;
 //        $package->end_date = $endDate->toDateTimeString();
+        $package->duration = $request->input('duration');
         $package->updated_by = $user->id;
         $package->updated_at = $now->toDateTimeString();
 
@@ -703,7 +704,7 @@ class TravelmateController extends Controller
             }
             else{
 
-                $packageImg = PackageTripImage::find($deletedIdTmp);
+                $packageImg = hImage::find($deletedIdTmp);
 
                 $deletedPath = public_path('storage/package_trip_image/'. $packageImg->filename);
                 if(file_exists($deletedPath)) unlink($deletedPath);

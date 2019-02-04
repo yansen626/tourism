@@ -69,14 +69,14 @@
                                                     <img src="{{ URL::asset('storage/package_trip_image/'. $trip->featured_image) }}" style="max-width: 300px;">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
-                                                    Date
-                                                </label>
-                                                <div class="col-md-8 col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control col-md-12" value="{{ $trip->start_date_string. ' - '. $trip->end_date_string }}" readonly/>
-                                                </div>
-                                            </div>
+                                            {{--<div class="form-group">--}}
+                                                {{--<label class="control-label col-md-2 col-sm-2 col-xs-12">--}}
+                                                    {{--Date--}}
+                                                {{--</label>--}}
+                                                {{--<div class="col-md-8 col-sm-8 col-xs-12">--}}
+                                                    {{--<input type="text" class="form-control col-md-12" value="{{ $trip->start_date_string. ' - '. $trip->end_date_string }}" readonly/>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
                                             <div class="form-group">
                                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
                                                     Description

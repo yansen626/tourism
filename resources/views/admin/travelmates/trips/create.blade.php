@@ -49,23 +49,23 @@
                                         </div>
                                     @endif
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="start_date">
-                                            Start Date
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="start_date" name="start_date" class="form-control col-md-12" value="{{ old('start_date') }}"/>
-                                        </div>
-                                    </div>
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="control-label col-md-2 col-sm-2 col-xs-12" for="start_date">--}}
+                                            {{--Start Date--}}
+                                        {{--</label>--}}
+                                        {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
+                                            {{--<input type="text" id="start_date" name="start_date" class="form-control col-md-12" value="{{ old('start_date') }}"/>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="end_date">
-                                            End Date
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="end_date" name="end_date" class="form-control col-md-12" value="{{ old('end_date') }}"/>
-                                        </div>
-                                    </div>
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="control-label col-md-2 col-sm-2 col-xs-12" for="end_date">--}}
+                                            {{--End Date--}}
+                                        {{--</label>--}}
+                                        {{--<div class="col-md-6 col-sm-6 col-xs-12">--}}
+                                            {{--<input type="text" id="end_date" name="end_date" class="form-control col-md-12" value="{{ old('end_date') }}"/>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
 
                                     <div class="form-group">
                                         <label class="control-label col-md-2 col-sm-2 col-xs-12" for="featured">

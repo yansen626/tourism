@@ -832,8 +832,8 @@
         }
         function updateCountTrip(){
             $('.trip-count').each(function(i, obj) {
-                alert(i+1);
-                alert(obj);
+                // alert(i+1);
+                $(this).text(i+1);
             });
         }
 

@@ -51,9 +51,10 @@
                         <p>SCHEDULE</p>
                     </div>
                     <div class="col-md-9">
-                        @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))
-                        @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))
-                        <p>: {{ $startDate. ' - '. $endDate }}</p>
+                        {{--@php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))--}}
+                        {{--@php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))--}}
+                        {{--<p>: {{$startDate}} - {{$endDate}}</p>--}}
+                        <p>: {{$package->start_date}} - {{$package->duration}} day(s)</p>
                     </div>
                     <div class="col-md-3">
                         <p>TRAVEL MATE</p>
@@ -131,10 +132,10 @@
                         <div class="row form-panel">
                             @if($packageTrips->count() > 0)
                                 @foreach($packageTrips as $packageTrip)
-                                    @php($startDateTrip = \Carbon\Carbon::parse($packageTrip->start_date)->format('d/m/Y G:i'))
-                                    @php($endDateTrip = \Carbon\Carbon::parse($packageTrip->end_date)->format('d/m/Y G:i'))
-
-                                    <span> ({{$startDateTrip}} - {{$endDateTrip}}) Desc : {{$packageTrip->description}}</span>
+                                    {{--@php($startDateTrip = \Carbon\Carbon::parse($packageTrip->start_date)->format('d/m/Y G:i'))--}}
+                                    {{--@php($endDateTrip = \Carbon\Carbon::parse($packageTrip->end_date)->format('d/m/Y G:i'))--}}
+                                    {{--<span> ({{$startDateTrip}} - {{$endDateTrip}}) Desc : {{$packageTrip->description}}</span>--}}
+                                    <span> Desc : {{$packageTrip->description}}</span>
                                     <br>
 
                                 @endforeach

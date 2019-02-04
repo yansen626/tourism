@@ -44,9 +44,10 @@
                         <p>SCHEDULE</p>
                     </div>
                     <div class="col-md-9 col-sm-9">
-                        @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))
-                        @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))
-                        <p>: {{$startDate}} - {{$endDate}}</p>
+                        {{--@php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))--}}
+                        {{--@php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))--}}
+                        {{--<p>: {{$startDate}} - {{$endDate}}</p>--}}
+                        <p>: {{$package->start_date}} - {{$package->duration}} day(s)</p>
                     </div>
                     {{--<div class="col-md-3 col-sm-3">--}}
                         {{--<p>TRAVEL MATE</p>--}}
@@ -129,13 +130,13 @@
                         <div class="row form-panel">
                             @if($packageTrips->count() > 0)
                                 @foreach($packageTrips as $packageTrip)
-                                    @php($startDateTrip = \Carbon\Carbon::parse($packageTrip->start_date)->format('d/m/Y G:i'))
-                                    @php($endDateTrip = \Carbon\Carbon::parse($packageTrip->end_date)->format('d/m/Y G:i'))
+                                    {{--@php($startDateTrip = \Carbon\Carbon::parse($packageTrip->start_date)->format('d/m/Y G:i'))--}}
+                                    {{--@php($endDateTrip = \Carbon\Carbon::parse($packageTrip->end_date)->format('d/m/Y G:i'))--}}
                                     <div class="col-md-offset-4" style="max-width: 200px; max-height: 400px;">
                                         <img src="{{ URL::asset('storage/package_trip_image/'.$packageTrip->featured_image) }}">
                                     </div>
                                     <br>
-                                    <span> ({{$startDateTrip}} - {{$endDateTrip}}) Desc : {{$packageTrip->description}}</span>
+                                    <span> Desc : {{$packageTrip->description}}</span>
                                     <br>
                                     <br>
 

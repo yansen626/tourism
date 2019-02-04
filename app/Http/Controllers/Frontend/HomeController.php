@@ -255,7 +255,7 @@ class HomeController extends Controller
             if($provinceIds->count() != 0){
                 $provinceIdArray = array();
                 foreach ($provinceIds as $province){
-                    array_push($provinceIdArray, $province);
+                    array_push($provinceIdArray, $province->id);
                 }
 
                 $packages = Package::where('status_id', 1)
