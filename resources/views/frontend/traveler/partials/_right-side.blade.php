@@ -18,12 +18,14 @@
                         @foreach($allPackages as $package)
                             @if($ct < 4)
                                 <div class="col-md-12 border-bottom">
-                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+                                    {{--<span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>--}}
+                                    <span style="margin-right: 25px;"></span>
                                     <span>{{$package->package->name}}</span>
                                 </div>
                             @else
                                 <div class="col-md-12">
-                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+{{--                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>--}}
+                                    <span style="margin-right: 25px;"></span>
                                     <span>{{$package->package->name}}</span>
                                 </div>
                             @endif
@@ -47,12 +49,14 @@
                         @foreach($upcomingPackages as $package)
                             @if($ct < 4)
                                 <div class="col-md-12 border-bottom">
-                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+{{--                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>--}}
+                                    <span style="margin-right: 25px;"></span>
                                     <span>{{$package->package->name}}</span>
                                 </div>
                             @else
                                 <div class="col-md-12">
-                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+{{--                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>--}}
+                                    <span style="margin-right: 25px;"></span>
                                     <span>{{$package->package->name}}</span>
                                 </div>
                             @endif
@@ -76,12 +80,14 @@
                         @foreach($HistoryPackages as $package)
                             @if($ct < 4)
                                 <div class="col-md-12 border-bottom">
-                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+{{--                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>--}}
+                                    <span style="margin-right: 25px;"></span>
                                     <span>{{$package->package->name}}</span>
                                 </div>
                             @else
                                 <div class="col-md-12">
-                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>
+{{--                                    <span style="margin-right: 25px;">{{ \Carbon\Carbon::parse($package->package->start_date)->format('M j') }}</span>--}}
+                                    <span style="margin-right: 25px;"></span>
                                     <span>{{$package->package->name}}</span>
                                 </div>
                             @endif

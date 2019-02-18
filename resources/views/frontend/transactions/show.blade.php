@@ -44,9 +44,10 @@
                         <p>SCHEDULE</p>
                     </div>
                     <div class="col-md-9 col-sm-9">
-                        @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))
-                        @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))
-                        <p>: {{$startDate}} - {{$endDate}}</p>
+                        {{--@php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))--}}
+                        {{--@php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))--}}
+                        {{--<p>: {{$startDate}} - {{$endDate}}</p>--}}
+                        <p>: {{$package->start_date}} - {{$package->duration}} day(s)</p>
                     </div>
                     {{--<div class="col-md-3 col-sm-3">--}}
                         {{--<p>TRAVEL MATE</p>--}}

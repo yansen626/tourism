@@ -149,7 +149,8 @@
                                 Download PDF
                             </a>
                         @endif
-                        <button onclick="addToCart('{{$package->id}}')" class="btn btn-success" style="color:white;">Add to cart</button>
+                        <button onclick="showAddtoCartForm('{{$package->id}}', '{{$package->start_date}}','{{$package->price}}', '{{$package->package_prices}}')"
+                                class="btn btn-success" style="color:white;">Add to cart</button>
                     </div>
                 </div>
             </div>
@@ -159,12 +160,14 @@
 
 
 	@include('frontend.partials._modal-login')
+    @include('frontend.partials._modal-add-cart-form')
     @include('frontend.partials._modal-add-cart')
 @endsection
 
 
 @section('styles')
     @parent
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <style>
         #price input {
             float: left;
@@ -187,9 +190,6 @@
 
 @section('scripts')
     @parent
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script>
         $(document).ready(function () {
             // $('.daterangepicker.dropdown-menu.ltr.show-calendar.opensleft').show();
@@ -218,29 +218,11 @@
 
             });
         });
-
-        function addToCart(e){
-            var packageId = e;
-
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('addCart') }}',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'id': packageId
-                },
-                success: function(data) {
-                    if ((data.errors)){
-                        var url = "/login-traveller";
-
-                        window.location = url;
-                    }
-                    else{
-                        // alert("success");
-                        $("#myModal").modal();
-                    }
-                }
-            });
-        }
     </script>
+    {{--<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>--}}
+    {{--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>--}}
+    {{--<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />--}}
+    <script src="{{ URL::asset('js/moment.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ URL::asset('js/frontend/custom-cart.js') }}"></script>
 @endsection

@@ -65,10 +65,10 @@
                                     {{--@php($startDate = \Carbon\Carbon::parse($cart->package->start_date)->format('d F Y'))--}}
                                     {{--@php($endDate = \Carbon\Carbon::parse($cart->package->end_date)->format('d F Y'))--}}
                                     <td class="product-quantity">
-                                        {{$cart->package->start_date}}
+                                        {{$cart->selected_date}}
                                     </td>
                                     <td class="product-quantity">
-                                        {{$cart->package->duration}}
+                                        {{$cart->package->duration}} Day(s)
                                     </td>
                                     @php($priceConvertOri = $cart->price / $currencyValue)
                                     @php($priceConvert = number_format($priceConvertOri, 2, ",", "."))

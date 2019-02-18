@@ -129,23 +129,35 @@ class CartController
             $packageId   = $request['id'];
             $participant   = $request['participant'];
             $notes  = $request['notes'];
+            $startDate  = $request['start_date'];
+//            error_log($userId." ".$packageId." ".$participant." ".$notes." ".$startDate);
+
             $packageDB = Package::find($packageId);
             $cartDB = Cart::where('package_id',$packageId)->where('user_id', $userId)->first();
             if($cartDB == null){
+
+                $selectedPrice = $packageDB->price;
+                $packagePriceList = PackagePrice::where('package_id', $packageId)->orderBy('quantity');
+                foreach ($packagePriceList as $packagePrice){
+                    if($participant > $packagePrice->quantity){
+                        $selectedPrice = $packagePrice->price;
+                    }
+                }
                 $cartCreate = Cart::Create([
                     'package_id'    => $packageId,
                     'user_id'       => $userId,
                     'admin_fee'      => 0,
                     'qty'      => $participant,
-                    'price'      => $packageDB->price,
-                    'total_price'      => $packageDB->price,
+                    'price'      => $selectedPrice,
+                    'total_price'      => $selectedPrice * $participant,
                     'special_request'      => $notes,
+                    'selected_date'      => $startDate,
                     'payment_method'    => 0
                 ]);
             }
             else{
                 $qty = $cartDB->qty;
-                $qtyNew = $qty + 1;
+                $qtyNew = $qty + $participant;
                 $cartDB->qty = $qtyNew;
 
                 $selectedPrice = $packageDB->price;
@@ -190,6 +202,30 @@ class CartController
         $cartDB->price = $selectedPrice;
         $cartDB->total_price = $selectedPrice * $qty;
         $cartDB->special_request = $specialRequest;
+//        dd($cartDB);
+        $cartDB->save();
+
+        return redirect()->route('cart-list');
+    }
+
+    public function EditQuantityCartJSON(){
+        $qty = request()->qty;
+        $id = request()->id;
+
+        $cartDB = Cart::find($id);
+        $cartDB->qty = $qty;
+        $selectedPrice = $cartDB->price;
+
+        $packagePriceList = PackagePrice::where('package_id', $cartDB->package_id)->orderBy('quantity')->get();
+
+        foreach ($packagePriceList as $packagePrice){
+            if($qty > $packagePrice->quantity){
+                $selectedPrice = $packagePrice->price;
+            }
+        }
+//        dd($qty." | ".$selectedPrice);
+        $cartDB->price = $selectedPrice;
+        $cartDB->total_price = $selectedPrice * $qty;
 //        dd($cartDB);
         $cartDB->save();
 

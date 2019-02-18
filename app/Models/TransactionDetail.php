@@ -18,6 +18,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $user_id
  * @property string $package_id
  * @property string $travelmate_id
+ * @property string $selected_date
  * @property float $price
  * @property int $discount_percent
  * @property float $discount_flat
@@ -56,6 +57,7 @@ class TransactionDetail extends Eloquent
 		'header_id',
 		'package_id',
 		'travelmate_id',
+		'selected_date',
 		'price',
 		'discount_percent',
 		'discount_flat',

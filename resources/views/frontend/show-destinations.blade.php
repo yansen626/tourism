@@ -71,6 +71,7 @@
                                         {{--<div class="stars {{$star}}"></div>--}}
                                         {{--<br>--}}
                                         <i class="flaticon-suntour-map"></i> {{$package->province->name}}
+                                        {{--{{$package->package_prices}}--}}
                                     </div>
                                 </div>
                                 <!-- Recomended Content-->
@@ -79,7 +80,11 @@
                                     <div class="recom-price">Rp {{$package->price}}</div>
                                     <p class="mb-30">{{$package->description}}</p>
                                     <a href="{{route('package-detail', ['id'=>$package->id])}}" class="recom-button">Read more</a>
-                                    <button onclick="showAddtoCartForm('{{$package->id}}')" class="cws-button small alt">Add to cart</button>
+                                    <button class="cws-button small alt"
+                                            onclick="showAddtoCartForm('{{$package->id}}', '{{$package->start_date}}','{{$package->price}}', '{{$package->package_prices}}')">
+                                        Add to cart
+                                    </button>
+
                                     {{--<a href="{{route('cart-list')}}" class="cws-button small alt">Add to cart</a>--}}
                                     {{--<div class="action font-2">20%</div>--}}
                                 </div>
@@ -104,12 +109,13 @@
 
 @section('styles')
     @parent
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
     @parent
-    {{--<script src="{{ URL::asset('js/kartik-bootstrap-file-input/fileinput.min.js') }}"></script>--}}
     <script>
+        {{--var addUrl = "{{ route('addCart') }}";--}}
         function sortBy(e){
             // Get status filter value
             var status = e.value;
@@ -136,37 +142,8 @@
 
             window.location = url;
         }
-        function showAddtoCartForm(e){
-            $("#package-id").val(e);
-            $("#myModalForm").modal();
-        }
-
-        function addToCart(e){
-            var packageId = $("#package-id").val();
-            var participant = $("#participant").val();
-            var notes = $("#notes").val();
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('addCart') }}',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'id': packageId,
-                    'participant': participant,
-                    'notes': notes,
-                },
-                success: function(data) {
-                    if ((data.errors)){
-                        var url = "/login-traveller";
-
-                        window.location = url;
-                    }
-                    else{
-                        // alert("success");
-                        $("#myModalForm").hide();
-                        $("#myModal").modal();
-                    }
-                }
-            });
-        }
     </script>
+    <script src="{{ URL::asset('js/moment.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ URL::asset('js/frontend/custom-cart.js') }}"></script>
 @endsection

@@ -120,7 +120,7 @@ Route::post('transaction/cancel', 'Frontend\TransactionController@CancelBooking'
 
 // Cart
 Route::get('cart', 'Frontend\CartController@CartShowAll')->name('cart-list');
-Route::post('add-cart', 'Frontend\CartController@AddToCart')->name('addCart');
+Route::post('/add-cart', 'Frontend\CartController@AddToCart')->name('addCart');
 //Route::post('/add-cart', [
 //    'uses' => 'Frontend\CartController@AddToCart',
 //    'as' => 'addCart'
