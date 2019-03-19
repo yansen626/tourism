@@ -57,6 +57,12 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
+                                <p>STATUS </p>
+                            </div>
+                            <div class="col-md-9">
+                                <p>: <b>{{$package->status->description}}</b></p>
+                            </div>
+                            <div class="col-md-3">
                                 <p>DESTINATION </p>
                             </div>
                             <div class="col-md-9">
@@ -160,7 +166,7 @@
                             </div>
                             <div class="col-md-12">
                                 <hr>
-                                <a href="#" class="btn btn-danger">DEACTIVATE THIS PACKAGE</a>
+                                <a href="{{route('travelmate.packages.status.update', ['package' => $package->id]) }}" class="btn btn-danger">DEACTIVATE THIS PACKAGE</a>
                             </div>
                         </div>
                     </div>

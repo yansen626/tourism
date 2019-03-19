@@ -142,7 +142,7 @@ class TravelmateController extends Controller
                     ->orderBy('created_at', 'desc')->get();
             }
             else{
-                $packages = Package::where('status_id', 1)->orderBy('created_at', 'desc')->get();
+                $packages = Package::where('status_id','>', 0)->orderBy('created_at', 'desc')->get();
             }
             $data = [
                 'packages'      => $packages,
@@ -402,6 +402,30 @@ class TravelmateController extends Controller
         $package->save();
 
         Session::flash('message', 'Package information successfully updated!');
+
+        return redirect()->route('travelmate.packages.information.edit',['package' => $package->id]);
+    }
+
+    public function updatePackageStatus(Package $package, Request $request){
+
+
+        $user = Auth::user();
+        $now = Carbon::now('Asia/Jakarta');
+
+        if($package->status_id == 1){
+            $package->status_id = 2;
+            $package->updated_by = $user->id;
+            $package->updated_at = $now->toDateTimeString();
+        }
+        else{
+            $package->status_id = 1;
+            $package->updated_by = $user->id;
+            $package->updated_at = $now->toDateTimeString();
+        }
+
+        $package->save();
+
+        Session::flash('message', 'Package Status successfully updated!');
 
         return redirect()->route('travelmate.packages.information.edit',['package' => $package->id]);
     }

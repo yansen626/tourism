@@ -262,6 +262,7 @@ Route::prefix('admin/travelmate')->group(function(){
     Route::get('/packages/information/edit/{package}', 'Admin\TravelmateController@editPackageInformation')->name('travelmate.packages.information.edit');
     Route::put('/packages/information/update/{package}', 'Admin\TravelmateController@updatePackageInformation')->name('travelmate.packages.information.update');
     Route::get('/packages/city', 'Admin\TravelmateController@getCities')->name('travelmate.packages.cities');
+    Route::get('/packages/status/update/{package}', 'Admin\TravelmateController@updatePackageStatus')->name('travelmate.packages.status.update');
 
     // Package Pricings
     Route::get('/packages/pricings/{package}', 'Admin\TravelmateController@indexPackagePrice')->name('travelmate.packages.price.index');

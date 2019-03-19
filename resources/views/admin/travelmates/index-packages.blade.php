@@ -62,7 +62,7 @@
                                         <td>Rp {{$package->price}}</td>
                                         <td>{{$package->province->name}}</td>
                                         <td>{{$package->status->description}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($package->created_on)->format('j M Y G:i:s') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($package->created_at)->format('j M Y G:i:s') }}</td>
                                         <td>
                                             <a href="{{route('travelmate.packages.show', ['package'=>$package->id])}}" class="btn btn-info" target="_blank">Detail</a>
                                         </td>

@@ -22,7 +22,11 @@ class PackageController extends Controller
         $package = Package::find($id);
 //        $packagePrices = PackagePrice::where('package_id', $id)->get();
 //        $packageTrips = PackageTrip::where('package_id', $id)->get();
-        $packagePrices = $package->package_prices;
+//        $packagePrices = $package->package_prices;
+//        $packagePricesDB = $package->package_prices;
+        $packagePrices = PackagePrice::where('package_id', $id)->orderBy('quantity', 'asc')->get();
+//        dd($packagePricesDB);
+//        $packagePrices = $packagePricesDB->orderBy('quantity', 'desc')->get();
         $packageTrips = $package->package_trips;
 
         $currencyType = "IDR";
@@ -56,7 +60,8 @@ class PackageController extends Controller
         $package = Package::find($id);
 //        $packagePrices = PackagePrice::where('package_id', $id)->get();
 //        $packageTrips = PackageTrip::where('package_id', $id)->get();
-        $packagePrices = $package->package_prices;
+//        $packagePrices = $package->package_prices;
+        $packagePrices = PackagePrice::where('package_id', $id)->orderBy('quantity', 'asc')->get();
         $packageTrips = $package->package_trips;
 
         $currencyType = "IDR";
