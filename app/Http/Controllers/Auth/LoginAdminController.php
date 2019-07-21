@@ -75,6 +75,6 @@ class LoginAdminController extends Controller
 
     public function logout(){
         Auth::guard('user_admins')->logout();
-        return redirect()->route('login-admin');
+        return redirect()->guest(route('admin.dashboard'));
     }
 }

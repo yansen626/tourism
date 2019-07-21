@@ -26,10 +26,10 @@
                                 <td>: {{$package->name}}, {{$package->province->name}}</td>
                             </tr>
                             <tr>
-                                @php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))
-                                @php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))
+                                {{--@php($startDate = \Carbon\Carbon::parse($package->start_date)->format('d F Y'))--}}
+                                {{--@php($endDate = \Carbon\Carbon::parse($package->end_date)->format('d F Y'))--}}
                                 <td style="width: 200px;">SCHEDULE</td>
-                                <td>: {{$startDate}} - {{$endDate}}</td>
+                                <p>: {{$package->start_date}} - {{$package->duration}} day(s)</p>
                             </tr>
                             <tr>
                                 <td style="width: 200px;">MEETING POINT</td>
